@@ -1,0 +1,192 @@
+{%  extends "base.html" %}
+
+{% block title %}
+Ti_Point-Ti_Croix
+{%  endblock %}
+{%  load static %}
+{% block style %}
+    
+{%  endblock %}
+
+{%  block content %}
+    <div class="content row" style="height: 70%;">
+        <div class="col-2 border border-dark ml-3" style="font-family: 'Pacifico', cursive;
+            font-weight: 400;font-style: normal">
+            <p class="text-center" style="font-size: 2vw">PARTIE</p>
+            <form id="grille" method="post" action="http://localhost:8000/tipointticroix/machines/">
+                {% csrf_token %}
+                <div id="x-jouer">
+                    <table>
+                        <tr>
+                            <fieldset>
+                                <legend style="font-size: 1vw">Choisissez le niveau de la machine1</legend>
+                                    <div>
+                                        <label for="niveau1-1" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="niveau1-1" 
+                                            name="niveau1"  checked
+                                            style="width: 1vw;height: 1vw" value="1" />Novice</label>
+                                    </div>
+                                    <div>
+                                        <label for="niveau1-2" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="niveau1-2" 
+                                            name="niveau1" style="width: 1vw;height: 1vw" 
+                                            value="2" />amateur</label>
+                                    </div>
+                                    <div>
+                                        <label for="niveau1-3" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="niveau1-3" 
+                                            name="niveau1" style="width: 1vw;height: 1vw" 
+                                            value="3" />pro</label>
+                                    </div>
+                                    <div>
+                                        <label for="niveau1-4" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="niveau1-4" 
+                                            name="niveau1" style="width: 1vw;height: 1vw" 
+                                            value="4" />expert</label>
+                                    </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend style="font-size: 1vw">Choisissez le niveau de la machine2</legend>
+                                    <div>
+                                        <label for="niveau2-1" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="niveau2-1" 
+                                            name="niveau2" 
+                                            style="width: 1vw;height: 1vw" value="1" />Novice</label>
+                                    </div>
+                                    <div>
+                                        <label for="niveau2-2" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="niveau2-2" 
+                                            name="niveau2" style="width: 1vw;height: 1vw" 
+                                            value="2" />amateur</label>
+                                    </div>
+                                    <div>
+                                        <label for="niveau2-3" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="niveau2-3" 
+                                            name="niveau2" style="width: 1vw;height: 1vw" 
+                                            value="3" />pro</label>
+                                    </div>
+                                    <div>
+                                        <label for="niveau2-4" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="niveau2-4" 
+                                            name="niveau2" checked style="width: 1vw;height: 1vw" 
+                                            value="4" />expert</label>
+                                    </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend style="font-size: 1vw">Choisissez le mode de jeu</legend>
+                                    <div>
+                                        <label for="auto" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="auto" 
+                                            name="modejeu"  checked 
+                                            style="width: 1vw;height: 1vw" value="auto" />Automatique</label>
+                                    </div>
+                                    <div>
+                                        <label for="pas" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="pas" 
+                                            name="modejeu" style="width: 1vw;height: 1vw" 
+                                            value="pas à pas" />Pas à pas</label>
+                                    </div>
+                            </fieldset>
+                        </tr>
+                    </table>
+                    <button  id="btn-jouer" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                        margin-left: 2vw;background-color: rgb(0, 157, 255)">Jouer</button>
+                </div>
+                <div id="x-board">
+                    <div>
+                        <label  style="font-size: 1.5vw;">Machine1 : </label>
+                        <label  style="font-size: 1.5vw;color: blue;font-weight: bolder">O</label>
+                    </div>
+                    <div>
+                        <label style="font-size: 1.5vw">Machine2 :</label>
+                        <label style="font-size: 1.5vw;color: red;font-weight: bolder">X</label>
+                    </div>
+                    <div>
+                        <label style="font-size: 1.5vw" for="nb-tour">Tour :</label>
+                        <label style="font-size: 1.5vw;width: 3vw" id="nb-tour" 
+                        type="number">{{ tour }}</label>
+                    </div>
+                    <div style="margin-top: 1.5vh">
+                        <label id="AMACHINE1" style=" font-size: 1vw;color: blue">
+                            A MACHINE <span style="font-size: 1.5vw">1</span> DE JOUER</label>
+                    </div>
+                    <div>
+                        <label id="AMACHINE2" style="font-size: 1vw;color: red">
+                            A MACHINE <span style="font-size: 1.5vw">2</span> DE JOUER</label>
+                    </div>
+                    <div>
+                        <label id="victoire1" style="font-size: 1.4vw;color: blue">
+                            MACHINE <span style="font-size: 1.5vw">1</span> GAGNE</label>
+                    </div>
+                    <div>
+                        <label id="victoire2" style="font-size: 1.4vw;color: red">
+                            MACHINE <span style="font-size: 1.5vw">2</span> GAGNE</label>
+                    </div>
+                    <label style="font-size: 1.3vw">mode de jeu : </label>
+                    <label id="modejeu" type="text" style="font-size: 1.3vw">{{ modejeu }}</label>
+                    <br>
+                    <div style="margin-left: 1vw;">
+                        <p id="coupsuivant" style="font-size: 0.9vw">Espace pour le coup suivant</p>
+                    </div>
+                    <div>
+                        <button  id="btn-annuler" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                                margin-left: 2vw;background-color: rgb(0, 157, 255);
+                                margin-top: 1vh">Annuler tour</button>
+                    </div>
+                    <div>
+                        <button  id="btn-rejouer" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                                margin-left: 2vw;background-color: rgb(0, 157, 255);
+                                margin-top: 1vh">Rejouer</button>
+                    </div>
+                    <div>
+                        <button  id="btn-quitter" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                                margin-left: 2vw;background-color: rgb(0, 157, 255);
+                                margin-top: 1vh">Quitter</button>
+                    </div>
+                    
+                </div>
+                <div>
+                    <div>
+                        <br>
+                        <label>Niveau machine1 : </label>
+                        <label id="niveau1-id" type="text">{{ niveau1 }}</label>
+                        <br>
+                        <label>Niveau machine2 : </label>
+                        <label id="niveau2-id" type="text">{{ niveau2 }}</label>
+                        <br>
+                        
+                        <input name="coup1" id="id-coup1" type="text" hidden>
+                        <input name="coup2" id="id-coup2" type="text" hidden>
+                        <input name="annuler" id="id-annuler" type="text" hidden>
+                        <label for="id-sequence">Coups joués</label>
+                        <input id="id-sequence" type="text" value="{{ sequence }}">
+                        <label for="id-victoire1">victoire machine1</label>
+                        <input id="id-victoire1" type="text" value="{{ victoire1 }}">
+                        <label for="id-victoire2">victoire machine2</label>
+                        <input id="id-victoire2" type="text" value="{{ victoire2 }}">
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+        <div class="col-8 row justify-content-center" id="id_table">
+            <div class="col-1">
+            </div>
+            <div class="cadre align-self-midle m-auto col-10">
+               <table class="m-auto" id="table" style="font-size: 1.8vh">
+               </table>
+           </div>
+           <div class="col-1">
+            </div>
+        </div>
+        <div class="col-2 border border-dark text-center" style="font-family: 'Pacifico', cursive;
+            font-weight: 400;font-style: normal;font-size: 2vw">
+            GOODIES
+        </div>
+    </div>
+    
+{%  endblock %}
+
+{%  block script %}
+        <script src="{% static 'JS/machines.js'%}"></script>
+{%  endblock %}
