@@ -5,7 +5,7 @@ import random
 #coup ordinateur
 def coupordi(marque):
     if settings.NIVEAU==1:
-        return(coupordi0(marque))
+        return(coupordi1(marque))
     if settings.NIVEAU==2:
         return(coupordi2(marque))
     if settings.NIVEAU==3:
@@ -65,8 +65,8 @@ def coupordi1(marque):
         
     #recherche du coup entrainant la victoire soit ùùùùù
     seq=[]
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5)
@@ -77,8 +77,8 @@ def coupordi1(marque):
     
     #recherche du coup de l'adversaire à contrer entrainant sa victoire soit ùùùùù
     seq=[]
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 result=cherche_size(coup,marque1,"ùùùùù".replace("ù",marque1),5)
@@ -90,8 +90,8 @@ def coupordi1(marque):
     #recherche du coup entrainant -ùùùù-
     seq=[]
     nbmax=0
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             nb=0
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
@@ -143,8 +143,8 @@ def coupordi1(marque):
     #entre la plus ptite abcisse jouée +1 et la plus grande abcisse jouée +1  et verticalement entre
     #la plus petite ordonnée jouée +1 et la plus grande ordonnée jouée +1. Cette zone est contenue 
     #en abcisse et ordonée entre 0 et 24.
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 print("coup ordi1-6:",coup, marque)
@@ -161,7 +161,6 @@ def coupordi2(marque):
     ibmax=bornes[1]
     jbmin=bornes[2]
     jbmax=bornes[3]
-
 #1er coup ordinateur quand il joue en 1er
     if len(settings.SEQUENCE)==0:
         coup="12/12"
@@ -189,8 +188,8 @@ def coupordi2(marque):
 
     #recherche du coup entrainant la victoire soit ùùùùù
     seq=[]
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5)
@@ -202,8 +201,8 @@ def coupordi2(marque):
     #recherche du coup de l'adversaire à contrer entrainant sa victoire soit ùùùùù
     seq=[]
     nbmax=0
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 result=cherche_size(coup,marque1,"ùùùùù".replace("ù",marque1),5)
@@ -218,8 +217,8 @@ def coupordi2(marque):
     
     ##recherche du coup entrainant -ùùùù-
     seq=[]
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 result=cherche_size(coup,marque,"-ùùùù-".replace("ù",marque),5)
@@ -234,8 +233,8 @@ def coupordi2(marque):
     
     #recherche des coup de  l'adversaire entrainant -ùùùù-
     seq=[]
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 result=cherche_size(coup,marque1,"-ùùùù-".replace("ù",marque1),5)
@@ -250,8 +249,8 @@ def coupordi2(marque):
     
     ##recherche des coup  entrainant -ùùùù$ ou $uuuu- ou -ùùù-
     seq=[]
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 result=cherche_size(coup,marque,"-ùùùù".replace("ù",marque),4)
@@ -274,8 +273,8 @@ def coupordi2(marque):
     
     ##recherche du coup du joueur entrainant -ùùù-
     seq=[]
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 result=cherche_size(coup,marque,"-ùùù-".replace("ù",marque),3)
@@ -290,8 +289,8 @@ def coupordi2(marque):
         
     ##recherche du coup du joueur entrainant -ùù-
     seq=[]
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 result=cherche_size(coup,marque,"-ùù-".replace("ù",marque),2)
@@ -306,8 +305,8 @@ def coupordi2(marque):
     
     ##recherche du coup du joueur entrainant -ùù ou -ùù
     seq=[]
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 result=cherche_size(coup,marque,"-ùù".replace("ù",marque),2)
@@ -362,7 +361,6 @@ def coupordi3(marque):
     ibmax=bornes[1]
     jbmin=bornes[2]
     jbmax=bornes[3]
-
 #1er coup ordinateur quand il joue en 1er
     if len(settings.SEQUENCE)==0:
         coup="12/12"
@@ -390,8 +388,8 @@ def coupordi3(marque):
 
     #recherche du coup entrainant la victoire soit ùùùùù
     seq=[]
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5)
@@ -403,8 +401,8 @@ def coupordi3(marque):
     #recherche du coup de l'adversaire à contrer entrainant sa victoire soit ùùùùù
     seqmax=[]
     nbmax=0
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             nb=0
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
@@ -426,8 +424,8 @@ def coupordi3(marque):
     ##recherche du coup entrainant -ùùùù- et ù-ùùù-u et ùùù-ù-ùùù
     seqmax=[]
     nbmax=0
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             nb=0
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
@@ -458,8 +456,8 @@ def coupordi3(marque):
     #recherche des coup de  l'adversaire entrainant -ùùùù- et ù-ùùù-u et ùùù-ù-ùùù
     seqmax=[]
     nbmax=0
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             nb=0
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
@@ -490,8 +488,8 @@ def coupordi3(marque):
     ##recherche des coup  entrainant -ùùù- ou -ùùùù ou ùùùù-
     seqmax=[]
     nbmax=0
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             nb=0
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
@@ -522,8 +520,8 @@ def coupordi3(marque):
     ##recherche des coup  entrainant -ù-ùù- ou -ùù-ù-
     seqmax=[]
     nbmax=0
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             nb=0
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
@@ -550,8 +548,8 @@ def coupordi3(marque):
     ##recherche des coup  entrainant -ùùùù ou ùùùù-
     seqmax=[]
     nbmax=0
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             nb=0
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
@@ -578,8 +576,8 @@ def coupordi3(marque):
     ##recherche des coup  entrainant ùùù-u ou ù-ùùù ou -ùùù-
     seqmax=[]
     nbmax=0
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             nb=0
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
@@ -606,8 +604,8 @@ def coupordi3(marque):
     ##recherche du coup de l'adversaire entrainant -ùùùù ou uuuu- ou ù-ùùù ou ùùù-ù -ùùù-
     seqmax=[]
     nbmax=0
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             nb=0
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
@@ -646,8 +644,8 @@ def coupordi3(marque):
     ##recherche du coup du joueur entrainant -ùù- -ùùù& &ùùù-
     seqmax=[]
     nbmax=0
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             nb=0
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
@@ -678,8 +676,8 @@ def coupordi3(marque):
     ##recherche du coup de l'adversaire entrainant -ùù- -ùùù& &ùùù-
     seqmax=[]
     nbmax=0
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             nb=0
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
@@ -737,6 +735,7 @@ def coupordi4(marque):
     ibmax=bornes[1]
     jbmin=bornes[2]
     jbmax=bornes[3]
+
 #1er coup ordinateur quand il joue en 1er
     if len(settings.SEQUENCE)==0:
         coup="12/12"
@@ -764,8 +763,8 @@ def coupordi4(marque):
 
     #recherche du coup entrainant la victoire soit ùùùùù
     seq=[]
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5)
@@ -777,8 +776,8 @@ def coupordi4(marque):
     #recherche du coup de l'adversaire à contrer entrainant sa victoire soit ùùùùù
     seqmax=[]
     nbmax=0
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             nb=0
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
@@ -801,8 +800,8 @@ def coupordi4(marque):
     scormax=0
     seqmax=[]
     grid=[]
-    for i in range(ibmin,ibmax+1):
-        for j in range(jbmin,jbmax+1):
+    for i in range(ibmin,ibmax):
+        for j in range(jbmin,jbmax):
             if settings.GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 scor=score(coup,marque)
@@ -1217,22 +1216,30 @@ def rechercheA(i0,j0,grid,nbcar,rech):
 #calcul les abcisses et les ordonnées minimum et maximum jouées soit la zone jouable.
 def calculbornesjouées():
     seq=settings.SEQUENCE
-    ibornemin=24
-    ibornemax=0
-    jbornemin=24
-    jbornemax=0
+    ibornemin=0
+    ibornemax=24
+    jbornemin=0
+    jbornemax=24
     for i in range(0,len(seq)):
-        if int(seq[i].split("/")[1])<ibornemin:
+        if int(seq[i].split("/")[1])>ibornemin:
             ibornemin=int(seq[i].split("/")[1])
-        if int(seq[i].split("/")[1])>ibornemax:
+        if int(seq[i].split("/")[1])<ibornemax:
             ibornemax=int(seq[i].split("/")[1])
-        if int(seq[i].split("/")[0])<jbornemin:
+        if int(seq[i].split("/")[0])>jbornemin:
             jbornemin=int(seq[i].split("/")[0])
-        if int(seq[i].split("/")[0])>jbornemax:
+        if int(seq[i].split("/")[0])<jbornemax:
             jbornemax=int(seq[i].split("/")[0])
-    ibornemin=max(0,ibornemin-2)
-    ibornemax=min(24,ibornemax+2)
-    jbornemin=max(0,jbornemin-2)
-    jbornemax=min(24,jbornemax+2)
+    ibornemin=max(0,ibornemin)
+    ibornemax=min(24,ibornemax)
+    jbornemin=max(0,jbornemin)
+    jbornemax=min(24,jbornemax)
+    if ibornemin>0:
+        ibornemin=ibornemin-1
+    if ibornemax<24:
+        ibornemax=ibornemax+1
+    if jbornemin>0:
+        jbornemin=jbornemin-1
+    if jbornemax<24:
+        jbornemax=jbornemax+1
     print("bornes : ",ibornemin,ibornemax,jbornemin,jbornemax)
     return([ibornemin,ibornemax,jbornemin,jbornemax])
