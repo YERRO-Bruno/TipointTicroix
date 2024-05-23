@@ -13,12 +13,24 @@ document.addEventListener("DOMContentLoaded", function () {
 // Click du joueur sur une des cases
 document.getElementById("table").addEventListener('click', function(e) {
     e.preventDefault()
+    if (document.getElementById("begin-id").textContent=="Oui") {
+        marque="O"
+    } else {
+        marque="X"
+    }
     //test si la case est déjà occupée
     if (document.getElementById("id-victoire").value=="Non" && 
         document.getElementById("id-defaite").value=="Non") {
         if (document.getElementById(e.target.id).textContent=="") {
             case_clicked = e.target.id.split('/')
-            document.getElementById(e.target.id).textContent = "O"
+            document.getElementById(e.target.id).textContent = marque
+
+            if (marque=="X") {
+                document.getElementById(e.target.id).style.color="red"
+            } else {
+                document.getElementById(e.target.id).style.color="blue"
+            }
+
             e.target.blur()
             document.getElementById("coup-joueur").value=e.target.id
         
@@ -39,7 +51,9 @@ document.getElementById("table").addEventListener('click', function(e) {
 // Click du joueur sur le bouton quitter
 document.getElementById("btn-quitter").addEventListener('click', function(e) {
     e.preventDefault()
-    document.location.href='http://localhost:8000/'
+    if (confirm("Voulez vous revenir à l'accueil?")==true) {
+        document.location.href='http://localhost:8000/'
+    }
     })
 
 // Click du joueur sur le bouton annuler le tour
@@ -64,6 +78,13 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
         document.getElementById("id-beginer").textContent="Je joue en premier"
         if (document.getElementById("begin-id").textContent == "Oui") {
             document.getElementById("id-beginer").textContent="Vous jouez en premier"
+        }
+        if (document.getElementById("id-vous").textContent=="O") {
+            document.getElementById("id-vous").style.color = "blue"
+            document.getElementById("id-ordi").style.color = "red"
+        } else {
+            document.getElementById("id-vous").style.color = "red"
+            document.getElementById("id-ordi").style.color = "blue"
         }
         document.getElementById("amoi").style.display="none"
         document.getElementById("avous").style.display="none"
@@ -116,31 +137,29 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
             
             let sequence=document.getElementById("id-sequence").value
             let nb_seq=tour
-            let marque="X"
+            let marque="O"
             sequence = sequence.split(',')
             if (sequence=="") {
                 sequence_size=0
             } else {
                 sequence_size=sequence.length
             }
-            if (document.getElementById("begin-id").textContent == "Oui") {
-                //nb_seq=tour - 1
-                marque="O"
-                
-            }
+            marque="O"
             for (let i = 0;i<sequence_size;i++) {
                 document.getElementById(sequence[i]).textContent=marque
                 if (marque=="X") {
                     document.getElementById(sequence[i]).style.color="red"
-                    marque="O"
                 } else {
                     document.getElementById(sequence[i]).style.color="blue"
-                    marque="X"
                 }
                 if (i>sequence_size -3) {
                     document.getElementById(sequence[i]).style.fontWeight="1000"
                 }
-                
+                if (marque=="O") {
+                    marque="X"
+                } else {
+                    marque="O"
+                }  
             }
             win="Non"
             if (document.getElementById("id-victoire").value!="Non") {

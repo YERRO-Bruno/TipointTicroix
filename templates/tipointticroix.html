@@ -19,6 +19,33 @@ Ti_Point-Ti_Croix
                     <table>
                         <tr>
                             <fieldset>
+                                <legend style="font-size: 1.4vw">Choisissez le niveau de la machine</legend>
+                                    <div>
+                                        <label for="niveau1" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="niveau1" 
+                                            name="niveau" 
+                                            style="width: 1vw;height: 1vw" value="1" />Novice</label>
+                                    </div>
+                                    <div>
+                                        <label for="niveau2" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="niveau2" 
+                                            name="niveau" style="width: 1vw;height: 1vw" 
+                                            value="2" />amateur</label>
+                                    </div>
+                                    <div>
+                                        <label for="niveau3" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="niveau3" 
+                                            name="niveau" checked style="width: 1vw;height: 1vw" 
+                                            value="3" />pro</label>
+                                    </div>
+                                    <div>
+                                        <label for="niveau4" style="font-size: 1vw;
+                                            margin-left: 1vw"><input type="radio" id="niveau4" 
+                                            name="niveau" checked style="width: 1vw;height: 1vw" 
+                                            value="4" />expert</label>
+                                    </div>
+                            </fieldset>
+                            <fieldset>
                                 <legend style="font-size: 1.4vw">Voulez-vous commencer?</legend>
                                     <div>
                                         <label for="begin-yes" style="font-size: 1vw;
@@ -44,11 +71,13 @@ Ti_Point-Ti_Croix
                     </div>
                     <div>
                         <label  style="font-size: 1vw;font-weight: bolder">Vous : </label>
-                        <label  style="font-size: 1vw;color: blue;font-weight: bolder">O</label>
+                        <label  id="id-vous" style="font-size: 1vw;
+                            font-weight: bolder">{{ marquevous }}</label>
                     </div>
                     <div>
                         <label style="font-size: 1vw;font-weight: bolder">Ordinateur :</label>
-                        <label style="font-size: 1vw;color: red;font-weight: bolder">X</label>
+                        <label id="id-ordi" style="font-size: 1vw;
+                            font-weight: bolder">{{ marqueordi }}</label>
                     </div>
                     <div>
                         <label style="font-size: 1.5vw" for="nb-tour">Tour :</label>
@@ -87,6 +116,9 @@ Ti_Point-Ti_Croix
                 <div>
                     <div>
                         <br>
+                        <label>Niveau : </label>
+                        <label id="niveau-id" type="text">{{ niveau }}</label>
+                        <br>
                         <label>Joueur commence : </label>
                         <label id="begin-id" type="text">{{ begin }}</label>
                         <br>
@@ -107,7 +139,7 @@ Ti_Point-Ti_Croix
             <div class="col-1">
             </div>
             <div class="cadre align-self-midle m-auto col-10">
-               <table class="m-auto" id="table" style="font-size: 2vh">
+               <table class="m-auto" id="table" style="font-size: 1.8vh">
                </table>
            </div>
            <div class="col-1">
