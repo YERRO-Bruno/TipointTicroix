@@ -49,10 +49,10 @@
         </script>
     {% endif %}
     {%  load static %}
-    <div  style="height: 99.4vh;width: 99.2vw;background-repeat: no-repeat;
+    <div  class="mp-0" style="height: 96.5vh;width: 99vw;background-repeat: no-repeat;
         background-image: url('/static/images/quadrillage.png');
         background-repeat: no-repeat;background-size: cover">
-        <div class="row" style="height: 19%;">
+        <div class="row" style="height: 19%;width:100%">
             <div class="col-2">
                 <img style="height: 18vh;width: 18vw" src="/static/images/logo.jpg">
             </div>
@@ -60,26 +60,44 @@
                 <p align="center" style="font-family: 'Pacifico', cursive;
                 font-weight: 400;margin: 1%;font-style: normal">Ti_Point-Ti_Croix</p>
             </div>
-            <div class="col-2" align="center" style="margin: 6.5% 0px 0px 0px;font-size:1.5vw">
+            <div class="col-2" align="center" style="margin-top: 6vh;font-size:1.5vw"
+                id="id-deconnexion">
+                <p id="id-connec" style="font-family: 'Pacifico', cursive;font-weight: 400;
+                font-style: normal;">{{ connec }}</p>
                 <a style="font-family: 'Pacifico', cursive;font-weight: 400;
-                font-style: normal;" href="http://localhost:8000/tipointticroix">CONNEXION</a>
+                font-style: normal;" href="http://localhost:8000/tipointticroix/logout">DECONNEXION</a>
             </div>
+            <div class="col-2" align="center" style="margin: 6.5% 0px 0px 0px;font-size:1.5vw"
+                id="id-connexion">
+                <a style="font-family: 'Pacifico', cursive;font-weight: 400;
+                font-style: normal;" href="http://localhost:8000/tipointticroix/connect">CONNEXION</a>
+            </div>
+            
+            {% block content %}{% endblock %}
+            <div class="col-2 border border-dark text-center" style="font-family: 'Pacifico', cursive;
+            font-weight: 400;font-style: normal;font-size: 1.5vw">
+                <div>
+                    VISITEZ LA MARTINIQUE
+                </div>
+                <img class="imgagekit" id="id_imagekit" 
+                src="" style="height: 65vh;max-width:15vw">
+            </div>    
+            
         </div>
-        {% block content %}{% endblock %}
-        <div class="row" style="height: 3vh;margin-top: 7vh">
-            <center class="col-4" style="font-family: 'Pacifico', cursive;font-weight: 400;
-            font-style: normal;font-size:2.5vh">
-                <a href="http://localhost:8000/">Nous contacter</a>
-            </center>
-            <center class="col-4" style="font-family: 'Pacifico', cursive;font-weight: 400;
-            font-style: normal;font-size:2.5vh">
-                <a href="http://localhost:8000/">Politique de confidentialité</a>
-            </center>
-            <center class="col-4" style="font-family: 'Pacifico', cursive;font-weight: 400;
-            font-style: normal;font-size:2.5vh">
-                <a href="http://localhost:8000/">A propos</a>
-            </center>
-        </div>
+    </div>
+    <div class="row" style="height: 3.5vh;width: 100vw;background-color:black">
+        <center class="col-4" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        font-style: normal;font-size:1.8vh">
+            <a href="http://localhost:8000/">Nous contacter</a>
+        </center>
+        <center class="col-4" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        font-style: normal;font-size:1.8vh">
+            <a href="http://localhost:8000/">Politique de confidentialité</a>
+        </center>
+        <center class="col-4" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        font-style: normal;font-size:1.8vh">
+            <a href="http://localhost:8000/">A propos</a>
+        </center>
     </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -89,11 +107,20 @@
     {% block script %}{% endblock %}
     <script>
         //suppression lien Déconnexion si utilisateur pas connecté
-        var vlogin="{{ login }}";
-        if (vlogin !="logged") {
-            const divlogged = document.getElementById("logged");
-            divlogged.remove()
+        var login="{{ connexion }}";
+        if (login =="Oui") {
+            document.getElementById("id-connexion").style.display="none"
+            
+        } else {
+            document.getElementById("id-deconnexion").style.display="none"
+            
         }
+    </script>
+    <script>
+        let alea=Math.floor(Math.random()*3)+1
+        let photo="https://ik.imagekit.io/kpvotazbj/photo".concat(alea,".avif")
+        //alert(photo)
+        document.getElementById("id_imagekit").src=photo
     </script>
 </body>
 </html>

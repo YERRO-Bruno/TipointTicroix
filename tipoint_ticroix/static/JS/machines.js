@@ -13,15 +13,23 @@ document.getElementById("btn-jouer").addEventListener('click', function(e){
 document.getElementById("table").addEventListener('click', function(e) {
     e.preventDefault()
     alert("Action impossible. partie entre machines")
-    })
+})
 
-// Click du joueur sur le bouton quitter
+// Click du joueur sur le bouton quitter en debut de jeu
 document.getElementById("btn-quitter").addEventListener('click', function(e) {
     e.preventDefault()
-    if (confirm("Voulez vous revenir à l'accueil?")==true) {
-        document.location.href='http://localhost:8000/'
+    document.location.href='http://localhost:8000/'
+})
+
+// Click du joueur sur le bouton quitter en cours de jeu
+document.getElementById("btn-quitter2").addEventListener('click', function(e) {
+    e.preventDefault()
+    if (document.getElementById("nb-tour").textContent > "0") {
+        if (confirm("Voulez vous revenir à l'accueil?")==true) {
+            document.location.href='http://localhost:8000/'
+        }
     }
-    })
+})
 
 // Click du joueur sur le bouton annuler le tour
 document.getElementById("btn-annuler").addEventListener('click', function(e) {
@@ -44,6 +52,35 @@ function displayGameBoard(){
     document.getElementById("x-board").style.display="none"
     document.getElementById("btn-annuler").style.display="none"
     document.getElementById("btn-rejouer").style.display="none"
+    // creation lignes du tableau
+    var cell, ligne;
+    var tableau = document.getElementById("table");
+    const nbt = document.getElementById("nb-tour").textContent
+    for (let j = 0; j < 25; j++) {
+        ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
+                                        // le paramètre est dans ce cas (-1)
+
+    // création et insertion des cellules dans la nouvelle ligne créée
+        for (let i = 0; i < 25; i++) {
+            var idx= j+"/"+i
+            var imghtml=`
+                <input class="textcenter" id=${idx} type="text"
+                    style="margin: 0; margin-left: 4; border-spacing: 0">
+                </input>
+            `
+            cell = ligne.insertCell(i);
+            cell.id = idx
+            cell.innerHTML = imghtml
+            cell.style.color = "black"
+            cell.textContent = ""
+            cell.style.height = "3vh"
+            cell.style.width = "3vh"
+            cell.style.background = "white"
+            cell.style.border = "1px solid"
+            cell.borderSpacing ="0"
+            cell.style.textAlign = "center"
+        }
+    }
     if (document.getElementById("nb-tour").textContent > "0") {
         if (document.getElementById("modejeu").textContent=="pas à pas") {
             document.getElementById("coupsuivant").style.display="block"
@@ -69,35 +106,6 @@ function displayGameBoard(){
         //Effacement JOUER - Apparition BOARD
         document.getElementById("x-jouer").style.display="none"
         document.getElementById("x-board").style.display="block"
-        // creation lignes du tableau
-        var cell, ligne;
-        var tableau = document.getElementById("table");
-        const nbt = document.getElementById("nb-tour").textContent
-        for (let j = 0; j < 25; j++) {
-            ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
-                                            // le paramètre est dans ce cas (-1)
-
-        // création et insertion des cellules dans la nouvelle ligne créée
-            for (let i = 0; i < 25; i++) {
-                var idx= j+"/"+i
-                var imghtml=`
-                    <input class="textcenter" id=${idx} type="text"
-                        style="margin: 0; margin-left: 4; border-spacing: 0">
-                    </input>
-                `
-                cell = ligne.insertCell(i);
-                cell.id = idx
-                cell.innerHTML = imghtml
-                cell.style.color = "black"
-                cell.textContent = ""
-                cell.style.height = "3vh"
-                cell.style.width = "3vh"
-                cell.style.background = "white"
-                cell.style.border = "1px solid"
-                cell.borderSpacing ="0"
-                cell.style.textAlign = "center"
-            }
-        }
         //Affichage des coups joués
         let tour=parseInt(document.getElementById("nb-tour").textContent)
         let sequence=document.getElementById("id-sequence").value
