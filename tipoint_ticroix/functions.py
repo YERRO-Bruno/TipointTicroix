@@ -1,5 +1,7 @@
 from django.conf import settings
+from .models import User
 import random
+from django.contrib.auth import authenticate
 #FONCTIONS
 
 #coup ordinateur
@@ -1236,3 +1238,15 @@ def calculbornesjouées():
     jbornemax=min(24,jbornemax+2)
     print("bornes : ",ibornemin,ibornemax,jbornemin,jbornemax)
     return([ibornemin,ibornemax,jbornemin,jbornemax])
+
+#Actions si le joueur est connecté ou pas
+def estconnecté(req):
+    emailx=req.session.get('email')
+    passwordx=req.session.get('password')
+    userConnected = authenticate(email=emailx, password=passwordx)
+    if userConnected is not None:
+        userx=User.objects.get(email=emailx)
+        pseudox=userx.pseudo
+        return(True,pseudox)
+    else:
+        return(False,"")

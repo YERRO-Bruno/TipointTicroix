@@ -1,6 +1,13 @@
+from .models import User, VerifUser
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.conf import settings
-from .functions import coupordi, coupmachine, majgrille, trouve_5
+from .functions import coupordi, coupmachine, majgrille, trouve_5, estconnecté
+from django.shortcuts import render,redirect
+from django.utils.crypto import get_random_string
+import bcrypt
+from django.core.mail import send_mail
+import smtplib
 
 #from functions import coupordi
 import json
@@ -13,11 +20,131 @@ import json
 
 #page accueil
 def accueil(request):
-    return render(request, "accueil.html")
+    context = {}
+    connec=estconnecté(request)
+    if connec[0]:
+        context["connexion"]="Oui"
+        context["connec"]=connec[1]
+    else:
+        context["connexion"]="Non"
+        context["connec"]=connec[1]
+    print(context)
+    return render(request, "accueil.html", context)
+
+#déconnexion
+def logout_view(request):
+    logout(request)
+    #messages.add_message(request, messages.INFO, "Vous êtes déconnecté")
+    return redirect("/")
+
+def preregister(request):
+    if request.method == 'POST':
+        emailx = request.POST['email']
+        userx=User.objects.filter(email=emailx)
+        if len(userx)==0:
+            #emailx n'est pas encore enregistré
+            verifuser=VerifUser.objects.filter(email=emailx)
+            if len(verifuser)>0:
+                verifuser[0].delete()
+            verifuser=VerifUser.objects.create(email=emailx)
+            original_code = get_random_string(length=8)
+            salt = bcrypt.gensalt()
+            crypted_code = bcrypt.hashpw(original_code.encode('utf-8'), salt)
+            hash_verif = crypted_code.decode('utf-8')
+            verifuser.codeverif = hash_verif
+            verifuser.save()
+            #envoi code verification
+            recipient_email = emailx
+            mail_subject = "Code de verification pour l'inscription à tipointticroix.com"
+            mail_message = "bonjour, \n"
+            mail_message = mail_message + "Veuiller trouvez ci-dessous le code de verification" \
+                                            " pour votre inscription au en tant qu'administrateur du site tipointticroix.com :\n"
+            mail_message = mail_message + "\n"
+            mail_message = mail_message + original_code
+            mail_message = mail_message + "\n"
+            mail_message = mail_message + "\n"
+            mail_message = mail_message + "Cordialement"
+
+            try:
+                send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', {emailx},
+                            fail_silently=False)
+            except Exception as error:
+                print('mail error')
+                print(error)
+                return render(request,'register.html',{'email':emailx,'errorVerif':"error Mailing"})
+            settings.EMAIL=emailx
+            return redirect('/tipointticroix/register')
+        return render(request, 'preregister.html',
+                      {'errorVerif': "Email déjà existant", 'email': emailx})
+
+    else:
+        return render(request, 'preregister.html')
+
+#Inscription
+def register(request):
+    if request.method == 'POST':
+        context = {}
+        emailx = request.POST['email']
+        passwordx = request.POST['password']
+        pseudox = request.POST['pseudo']
+        verifx = request.POST['verification']
+        #test d'unicité email et pseudo
+        userx=User.objects.filter(email=emailx)
+        if len(userx)>0:
+            return render(request, 'register.html',
+                        {'errorinscription': "Email déjà existant", 'email': emailx})
+        userx=User.objects.filter(pseudo=pseudox)
+        if len(userx)>0:
+            return render(request, 'register.html',
+                        {'errorinscription': "pseudo déjà existant", 'email': emailx})   
+        #récupération et test code verification
+        verifuser=VerifUser.objects.get(email=emailx)
+        if verifuser is not None:
+                if bcrypt.checkpw(verifx.encode('utf-8'),verifuser.codeverif.encode('utf-8')):
+                    print("code ok",emailx)
+                    try:
+                        userx = User.objects.create_user(email=emailx, password=passwordx)
+                        userx.pseudo=pseudox
+                        userx.save()
+                        verifuser.delete()
+                    except Exception as error:
+                        print(error)
+                    return redirect('/tipointticroix/connect')       
+        else:
+            return render(request, 'register.html',
+                        {'errorinscription': "Code inexact", 'email': emailx})
+    else:
+       return render(request, 'register.html',{'email':settings.EMAIL,'pseudo':"",'password':""})
+    
+#connexion
+def connect(request):
+    if request.method == 'POST':
+        emailx = request.POST['email']
+        passwordx = request.POST['password']
+        userConnected = authenticate(email=emailx, password=passwordx)
+        if userConnected is not None:
+            request.session['email'] = emailx
+            request.session['password'] = passwordx
+            login(request, userConnected )
+            #messages.add_message(request, messages.INFO, "Vous êtes connecté.")
+            return redirect('/')
+        else:
+            #messages.add_message(request, messages.INFO, "Vous n' avez pas été authentifié")
+            return render(request, 'connect.html', {'errorLogin': "Email et/ou mot de passe erroné"})
+    else:
+        return render(request, 'connect.html')
 
 #page tipointticroix
 def tipointticroix(request):
     context = {}
+    connec=estconnecté(request)
+    if connec[0]:
+        context["connexion"]="Oui"
+        context["connec"]=connec[1]
+    else:
+        context["connexion"]="Non"
+        context["connec"]="Vous"
+    print(context)
     if request.method == 'POST':
         print("tour : " + str(settings.TOUR))
         print("joueur : " + request.POST["coupjoueur"])
@@ -121,6 +248,14 @@ def tipointticroix(request):
 #page machines
 def machines(request):
     context = {}
+    connec=estconnecté(request)
+    if connec[0]:
+        context["connexion"]="Oui"
+        context["connec"]=connec[1]
+    else:
+        context["connexion"]="Non"
+        context["connec"]=connec[1]
+    print(context)
     if request.method == 'POST':
         if request.POST["annuler"]=="Oui":
             print("annuler : " + request.POST["annuler"])
@@ -204,3 +339,14 @@ def machines(request):
     settings.GRILLE = [["-"] * 25 for _ in range(25)]
     settings.SEQUENCE=[] 
     return render(request, "machines.html", context) 
+
+#page internet
+def internet(request):
+    context = {}
+    connec=estconnecté(request)
+    if connec[0]:
+        context["connexion"]="Oui"
+        context["connec"]=connec[1]
+        return render(request, "internet.html", context)
+    else:
+        return redirect('/tipointticroix/connect')
