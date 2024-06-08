@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-e7c4q*0=zm(1rqz60blbz^8xc-66d-f5zz)tqh52x$yjxr-abz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -162,3 +162,18 @@ COUPORDINATEUR=""
 EMAIL=""
 GRILLE = [["-"] * 25 for _ in range(25)]
 SEQUENCE = []
+MATCH=0
+MYIP=""
+IPSERVEUR=""
+BEGINCLIENT=""
+BEGINSERVEUR=""
+PREMIER=""
+SECOND=""
+NOMSERVEUR=""
+NOMCLIENT=""
+SOCKETSERVEUR=""
+SOCKETCLIENT=""
+MARQUESERVEUR=""
+MARQQUECLIENT=""
+SCORE1=0
+SCORE2=0

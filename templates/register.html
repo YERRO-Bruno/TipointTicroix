@@ -3,6 +3,9 @@
 {% block title %}
 Ti_Point-Ti_Croix
 {%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Enregistrez-vous sur le site de jeu Ti-point_Ti-croix.">
+{%  endblock %}
 {%  load static %}
 {% block style %}
     <link rel="stylesheet" href="{% static 'CSS/form.css'%}">
@@ -12,7 +15,7 @@ Ti_Point-Ti_Croix
     <div class="col-10 border border-dark" style="font-family: 'Pacifico', cursive;
     font-weight: 400;font-style: normal">
         <div style="height: 10vh;"></div>
-        <h1 class="text-center" style="margin-left: 9vw;">Inscription</h1>
+        <h1 class="text-center" style="margin-left: 8vw;">Inscription</h1>
         <div style="height: 5vh;"></div>
         <h4 class="texterror text-center" style="color: red">{{ errorinscription }}</h4>
         <form  class="justify-content-center" method="post" autocomplete="off">            
@@ -59,7 +62,7 @@ Ti_Point-Ti_Croix
                 <div class="col-4">
                     <div style="height: 4vh"></div>
                     <button class="btn btn-5 mx-4" style="width: 8vw;background: rgb(0, 208, 255)"
-                         href="/tipointticroix" type="button" id="cancel">Annuler</button>
+                         href="{% url 'tipointticroix' %}" type="button" id="cancel">Annuler</button>
                     <button class="btn btn-5 mx-4" style="width: 8vw;background: rgb(0, 208, 255)" type="submit">S'inscrire</button>
                 </div>    
             </div>

@@ -2,12 +2,15 @@ from .models import User, VerifUser
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.conf import settings
-from .functions import coupordi, coupmachine, majgrille, trouve_5, estconnecté
+from .functions import coupordi,coupmachine,majgrille,trouve_5, estconnecté
+from .functions import nomniveau,connecclient,connecserveur, nbtour
 from django.shortcuts import render,redirect
 from django.utils.crypto import get_random_string
 import bcrypt
 from django.core.mail import send_mail
 import smtplib
+import requests
+from socket import gethostbyname_ex, gethostname
 
 #from functions import coupordi
 import json
@@ -28,14 +31,13 @@ def accueil(request):
     else:
         context["connexion"]="Non"
         context["connec"]=connec[1]
-    print(context)
     return render(request, "accueil.html", context)
 
 #déconnexion
 def logout_view(request):
     logout(request)
     #messages.add_message(request, messages.INFO, "Vous êtes déconnecté")
-    return redirect("/")
+    return redirect("/tipointticroix")
 
 def preregister(request):
     if request.method == 'POST':
@@ -127,7 +129,7 @@ def connect(request):
             request.session['password'] = passwordx
             login(request, userConnected )
             #messages.add_message(request, messages.INFO, "Vous êtes connecté.")
-            return redirect('/')
+            return redirect('/tipointticroix')
         else:
             #messages.add_message(request, messages.INFO, "Vous n' avez pas été authentifié")
             return render(request, 'connect.html', {'errorLogin': "Email et/ou mot de passe erroné"})
@@ -193,8 +195,8 @@ def tipointticroix(request):
                 context['begin']="Oui"
                 settings.BEGIN="Oui"
             settings.MARQUEORDI=marqueordi
-            
             settings.MARQUEJOUEUR=marquejoueur
+            context['nom1']=nomniveau(settings.NIVEAU)
             context['niveau']=settings.NIVEAU
             context['tour']=str(settings.TOUR)
             context['victoire']="Non"
@@ -202,6 +204,7 @@ def tipointticroix(request):
         else :
             marqueordi=settings.MARQUEORDI
             marquejoueur=settings.MARQUEJOUEUR
+            context['nom1']=nomniveau(settings.NIVEAU)
             context['niveau']=settings.NIVEAU
             context['begin']=settings.BEGIN
             context['victoire']="Non"
@@ -279,6 +282,8 @@ def machines(request):
             grid[ix][iy]="-"
             context['victoire1']="Non"
             context['victoire2']="Non" 
+            context['nom1']=nomniveau(settings.NIVEAU1)
+            context['nom2']=nomniveau(settings.NIVEAU2)
             context['niveau1']=settings.NIVEAU1
             context['niveau2']=settings.NIVEAU2
             settings.MODEJEU="pas à pas"
@@ -302,6 +307,8 @@ def machines(request):
             majgrille(coup,"O")
             res = trouve_5(coup,"O")
             if res != "Non":
+                context['nom1']=nomniveau(settings.NIVEAU1)
+                context['nom2']=nomniveau(settings.NIVEAU2)
                 context['niveau1']=settings.NIVEAU1
                 context['niveau2']=settings.NIVEAU2
                 context['victoire1']=res
@@ -316,6 +323,8 @@ def machines(request):
             majgrille(coup,"X")
             res = trouve_5(coup,"X")
             if res != "Non":
+                context['nom1']=nomniveau(settings.NIVEAU1)
+                context['nom2']=nomniveau(settings.NIVEAU2)
                 context['niveau1']=settings.NIVEAU1
                 context['niveau2']=settings.NIVEAU2
                 context['victoire2']=res
@@ -325,7 +334,10 @@ def machines(request):
                 #print(context) 
                 return render(request, "machines.html", context)
         context['victoire1']="Non"
-        context['victoire2']="Non"    
+        context['victoire2']="Non"
+        context['nom1']=nomniveau(settings.NIVEAU1)
+        print(nomniveau(settings.NIVEAU1))
+        context['nom2']=nomniveau(settings.NIVEAU2)    
         context['niveau1']=settings.NIVEAU1
         context['niveau2']=settings.NIVEAU2
         context['modejeu']=settings.MODEJEU
@@ -347,6 +359,301 @@ def internet(request):
     if connec[0]:
         context["connexion"]="Oui"
         context["connec"]=connec[1]
-        return render(request, "internet.html", context)
+    context['victoire']="Non"
+    context['defaite']="Non"
+    context['finpartie']="Non"
+    if request.method == 'POST':
+        if request.POST['etape'] =="Connexion":
+            print("connexion")
+            #connexion
+            settings.SCORESERVEUR=0  
+            settings.SCORECLIENT=0  
+            context['score1']=settings.SCORE1
+            context['score2']=settings.SCORE2
+            if request.POST['rolesocket'] =="client":
+                if request.POST['server'] !="":
+                    msg,mySocket=connecclient(request.POST['server'],connec[1])
+                    context['begin']="Non"
+                    context['jeton']="Non"
+                    context['match']="1"
+                    context['premier']=msg
+                    context["second"]=connec[1]
+                    context["rolesocket"]="client"
+                    settings.BEGINCLIENT="Non"
+                    settings.MATCH="1"
+                    settings.NOMSERVEUR=context['premier']
+                    settings.NOMCLIENT=connec[1]
+                    settings.PREMIER=settings.NOMSERVEUR
+                    settings.SECOND=settings.NOMCLIENT
+                    settings.SOCKETSERVEUR = mySocket
+                    context['etape']="echange"
+                    context['finpartie']="Non" 
+                    context['nbtour']=nbtour()   
+                    return render(request, "internet.html", context)
+                else:
+                    print("noserver")
+                    context["noserver"]="Renseigner l'ip de votre adversaire"
+                    return render(request, "internet.html", context)
+            if request.POST['rolesocket'] =="serveur":
+                msg,mySocket=connecserveur(settings.MYIP,connec[1],)
+                context['begin']="Oui"
+                context['jeton']="Oui"
+                context['match']="1"
+                context['premier']=connec[1]
+                context["second"]=msg
+                context["rolesocket"]="serveur"
+                settings.BEGINSERVEUR="Oui"
+                settings.NOMSERVEUR=context['premier']
+                settings.PREMIER=settings.NOMSERVEUR
+                settings.SECOND=settings.NOMCLIENT
+                settings.NOMCLIENT=context['second']
+                settings.SOCKETCLIENT = mySocket
+                context['etape']="echange"
+                context['finpartie']="Non"
+                context['nbtour']=nbtour()    
+                return render(request, "internet.html", context)
+        
+        if request.POST['etape'] =="deconnexion":
+            if settings.SOCKETSERVEUR!="":
+                settings.SOCKETSERVEUR.close()
+            if settings.SOCKETCLIENT!="":
+                settings.SOCKETCLIENT.close()
+            print("cloture des socket")
+            return redirect('/tipointticroix')
+        
+        if request.POST['etape'] =="debut":
+            #1ere manche
+            print("debut")
+            context['match']="1"
+            context['victoire']="Non"
+            context['defaite']="Non"
+            settings.SCORE1=0
+            settings.SCORE2=0
+            settings.MATCH="1"
+            context['score1']=0
+            context['score2']=0
+            settings.PREMIER=settings.NOMSERVEUR
+            settings.SECOND=settings.NOMCLIENT
+            context['premier']=settings.PREMIER
+            context["second"]=settings.SECOND
+            settings.GRILLE=[["-"] * 25 for _ in range(25)]
+            settings.SEQUENCE=[]
+            context['finpartie']="Non"   
+            context['etape']="echange"
+            context['nbtour']=nbtour()   
+            if request.POST['rolesocket'] =="client":
+                context['begin']="Non"
+                context['jeton']="Non"               
+                context["rolesocket"]="client"
+                settings.BEGINCLIENT="Non"
+                return render(request, "internet.html", context)
+            if request.POST['rolesocket'] =="serveur":
+                context['begin']="Oui"
+                context['jeton']="Oui"
+                context["rolesocket"]="serveur"    
+                settings.BEGINSERVEUR="Oui"
+                return render(request, "internet.html", context)
+            
+        if request.POST['etape'] =="change":
+            #2eme manche
+            print("change")
+            context['victoire']="Non"
+            context['defaite']="Non"
+            settings.PREMIER=settings.NOMCLIENT
+            settings.SECOND=settings.NOMSERVEUR
+            context['premier']=settings.PREMIER
+            context["second"]=settings.SECOND
+            context['finpartie']="Non"
+            context['nbtour']=nbtour()
+            settings.GRILLE=[["-"] * 25 for _ in range(25)]
+            settings.SEQUENCE=[]   
+            context['sequence']=','.join([str(i) for i in settings.SEQUENCE])   
+            if request.POST['rolesocket'] =="client":
+                settings.GRILLE=[["-"] * 25 for _ in range(25)]
+                settings.SEQUENCE=[]
+                context['begin']="Oui"
+                context['jeton']="Oui"
+                context['match']="2"
+                if settings.MATCH=="1":
+                    res=settings.SCORE1
+                    settings.SCORE1=settings.SCORE2
+                    settings.SCORE2=res
+                settings.MATCH="2"
+                context['score1']=settings.SCORE1
+                context['score2']=settings.SCORE2
+                context["rolesocket"]="client"
+                settings.BEGINCLIENT="Oui"
+                context['etape']="echange"
+                return render(request, "internet.html", context)
+            if request.POST['rolesocket'] =="serveur":
+                settings.GRILLE=[["-"] * 25 for _ in range(25)]
+                settings.SEQUENCE=[]
+                context['begin']="Non"
+                context['jeton']="Non"
+                context['match']="2"
+                context["rolesocket"]="serveur"
+                if settings.MATCH=="1":
+                    res=settings.SCORE1
+                    settings.SCORE1=settings.SCORE2
+                    settings.SCORE2=res
+                settings.MATCH="2"
+                context['score1']=settings.SCORE1
+                context['score2']=settings.SCORE2    
+                settings.BEGINSERVEUR="Non"
+                context['etape']="echange"
+                return render(request, "internet.html", context)
+            
+        if request.POST['etape'] =="echange":
+            #echanges
+            print("echange",request.POST['rolesocket'],request.POST['jeton'])
+            context['score1']=settings.SCORE1
+            context['score2']=settings.SCORE2
+            context['finpartie']="Non"
+            context['victoire']="Non"
+            context['defaite']="Non"
+            context['etape']="echange"
+            context['premier']=settings.PREMIER
+            context["second"]=settings.SECOND
+            if request.POST['jeton']=="Oui":
+                context['jeton']="Non"
+                if request.POST['rolesocket'] =="client":
+                    #COUP JOUEUR
+                    context['begin']=settings.BEGINCLIENT
+                    context['match']=settings.MATCH
+                    settings.SEQUENCE=settings.SEQUENCE+[request.POST["coupjoueur"]]
+                    context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
+                    majgrille(request.POST["coupjoueur"],"X")
+                    res = trouve_5(request.POST["coupjoueur"],"X")
+                    if res != "Non":
+                        context['victoire']=res
+                        context['defaite']="Non"
+                        if settings.MATCH=="1":
+                            settings.SCORE2=settings.SCORE2+1
+                            context['score2']=settings.SCORE2
+                        else:
+                            settings.SCORE1=settings.SCORE1+1
+                            context['score1']=settings.SCORE1
+                        if settings.MATCH=="2":
+                            context['finpartie']="Oui"
+                        context['etape']="change"
+                        context['jeton']="Fin"
+                        print("victoire") 
+                    context["rolesocket"]="client"
+                    settings.SOCKETSERVEUR.send(request.POST["coupjoueur"].encode('utf-8'))
+
+                if request.POST['rolesocket'] =="serveur":
+                    #COUP JOUEUR
+                    context['begin']=settings.BEGINSERVEUR
+                    context['match']=settings.MATCH
+                    settings.SEQUENCE=settings.SEQUENCE+[request.POST["coupjoueur"]]
+                    context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
+                    majgrille(request.POST["coupjoueur"],"O")
+                    res = trouve_5(request.POST["coupjoueur"],"O")
+                    if res != "Non":
+                        context['victoire']=res
+                        context['defaite']="Non"
+                        if settings.MATCH=="1":
+                            settings.SCORE1=settings.SCORE1+1
+                            context['score1']=settings.SCORE1
+                        else:
+                            settings.SCORE2=settings.SCORE2+1
+                            context['score2']=settings.SCORE2
+                        if settings.MATCH=="2":
+                            context['finpartie']="Oui"
+                        context['etape']="change"
+                        context['jeton']="Fin"
+                        print("victoire")   
+                    context["rolesocket"]="serveur"
+                    settings.SOCKETCLIENT.send(request.POST["coupjoueur"].encode('utf-8'))
+                context['nbtour']=nbtour()
+                return render(request, "internet.html", context)
+            else:
+                context['jeton']="Oui"
+                context['match']=settings.MATCH
+                context['etape']="echange"
+                context['premier']=settings.PREMIER
+                context["second"]=settings.SECOND
+                context['finpartie']="Non"
+                if request.POST['rolesocket'] =="client":
+                    msgserveur=settings.SOCKETSERVEUR.recv(1024)
+                    print("fromserveur : ",msgserveur.decode('utf-8'))
+                    res = trouve_5(msgserveur.decode('utf-8'),"O")
+                    if res != "Non":
+                        context['victoire']="Non"
+                        context['defaite']=res
+                        context['score1']=settings.SCORE1
+                        context['score2']=settings.SCORE2
+                        context['etape']="change"
+                        context['jeton']="Fin"
+                        if settings.MATCH=="2":
+                            context['finpartie']="Oui"
+                        print("defaite")
+                    context['begin']=settings.BEGINCLIENT
+                    context["rolesocket"]="client"
+                    context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
+                if request.POST['rolesocket'] =="serveur":
+                    context['premier']=settings.PREMIER
+                    msgclient=settings.SOCKETCLIENT.recv(1024)
+                    print(msgclient.decode('utf-8'),"X")
+                    res = trouve_5(msgclient.decode('utf-8'),"X")
+                    if res != "Non":
+                        context['victoire']="Non"
+                        context['defaite']=res
+                        context['score1']=settings.SCORE1
+                        context['score2']=settings.SCORE2
+                        context['finpartie']="Oui"
+                        context['etape']="echange"
+                        context['jeton']="Fin"
+                        if settings.MATCH=="2":
+                            context['finpartie']="Oui"
+                        print("defaite")
+                    context['begin']=settings.BEGINSERVEUR
+                    context["rolesocket"]="serveur"
+                    context['premier']=settings.PREMIER
+                    context["second"]=settings.SECOND
+                    context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
+                context['nbtour']=nbtour()
+                return render(request, "internet.html", context)                   
     else:
-        return redirect('/tipointticroix/connect')
+        settings.SEQUENCE=[]
+        if connec[0]:
+            #recuperation de l'adresse ip
+            try:
+                if settings.DEBUG==False:
+                    response = requests.get('https://httpbin.org/ip')
+                    ip = response.json()['origin']
+                    
+                else:
+                    ip = gethostbyname_ex(gethostname())[2][0]
+                context["etape"]="connexion"
+                context["ip"]=ip
+                settings.MYIP=ip
+            except requests.RequestException as e:
+                print(f"Une erreur s'est produite : {e}")
+            return render(request, "internet.html", context)
+        else:
+            return redirect('/tipointticroix/connect')
+
+#page apropos
+def apropos(request):
+    context = {}
+    connec=estconnecté(request)
+    if connec[0]:
+        context["connexion"]="Oui"
+        context["connec"]=connec[1]
+    else:
+        context["connexion"]="Non"
+        context["connec"]=connec[1]
+    return render(request, "apropos.html", context)
+
+#page mentions
+def mentions(request):
+    context = {}
+    connec=estconnecté(request)
+    if connec[0]:
+        context["connexion"]="Oui"
+        context["connec"]=connec[1]
+    else:
+        context["connexion"]="Non"
+        context["connec"]=connec[1]
+    return render(request, "mentions.html", context)

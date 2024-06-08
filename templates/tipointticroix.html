@@ -1,6 +1,10 @@
 {%  extends "base.html" %}
 
 {% block title %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Jouez au jeu Ti-point_Ti-croix contre des algorithmes de
+ différents niveaux.">
+{%  endblock %}
 Ti_Point-Ti_Croix
 {%  endblock %}
 {%  load static %}
@@ -11,8 +15,8 @@ Ti_Point-Ti_Croix
 {%  block content %}
     <div class="col-2 border border-dark ml-3" style="font-family: 'Pacifico', cursive;
         font-weight: 400;font-style: normal">
-        <p class="text-center" style="font-size: 2vw">PARTIE</p>
-        <form id="grille" method="post" action="http://localhost:8000/tipointticroix/">
+        <p class="text-center" style="font-size: 1vw">JOUER CONTRE L'ORDINATEUR</p>
+        <form id="grille" method="post" action="{% url 'tipointticroix' %}">
             {% csrf_token %}
             <div id="x-jouer">
                 <table>
@@ -62,13 +66,13 @@ Ti_Point-Ti_Croix
                     </tr>
                 </table>
                 <div>
-                    <button  id="btn-quitter" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                    <button  id="btn-quitter" class="btn btn-0" type="button" style="width: 10vw;font-size: 1.2vw;
                             margin-left: 2vw;background-color: rgb(0, 208, 255);
                             margin-top: 1vh">Retour à l'accueil</button>
                 </div>
                 <br>
                 <div>
-                    <button  id="btn-jouer" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                    <button  id="btn-jouer" class="btn btn-0" type="button" style="width: 10vw;font-size: 1.2vw;
                         margin-left: 2vw;background-color: rgb(0, 208, 255)">Jouer</button>
                 </div>
             </div>
@@ -82,7 +86,7 @@ Ti_Point-Ti_Croix
                         font-weight: bolder">{{ marquevous }}</label>
                 </div>
                 <div>
-                    <label style="font-size: 1vw;font-weight: bolder">Ordinateur :</label>
+                    <label style="font-size: 1vw;font-weight: bolder">{{ nom1 }} :</label>
                     <label id="id-ordi" style="font-size: 1vw;
                         font-weight: bolder">{{ marqueordi }}</label>
                 </div>
@@ -157,5 +161,4 @@ Ti_Point-Ti_Croix
 
 {%  block script %}
         <script src="{% static 'JS/tipointticroix.js'%}"></script>
-        <script src="/static/JS/registerform.js"></script>
 {%  endblock %}

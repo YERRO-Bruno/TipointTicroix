@@ -9,7 +9,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <meta name="csrf_token" content="{{ csrf_token }}">
+    {% block meta %}{% endblock %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,10 +49,10 @@
         </script>
     {% endif %}
     {%  load static %}
-    <div  class="mp-0" style="height: 96.5vh;width: 99vw;background-repeat: no-repeat;
+    <div  class="mp-0" style="width: 99vw;background-repeat: no-repeat;
         background-image: url('/static/images/quadrillage.png');
         background-repeat: no-repeat;background-size: cover">
-        <div class="row" style="height: 19%;width:100%">
+        <div class="row" style="height: 19%;width:99%">
             <div class="col-2">
                 <img style="height: 18vh;width: 18vw" src="/static/images/logo.jpg">
             </div>
@@ -65,12 +65,12 @@
                 <p id="id-connec" style="font-family: 'Pacifico', cursive;font-weight: 400;
                 font-style: normal;">{{ connec }}</p>
                 <a style="font-family: 'Pacifico', cursive;font-weight: 400;
-                font-style: normal;" href="http://localhost:8000/tipointticroix/logout">DECONNEXION</a>
+                font-style: normal;" href="{% url 'logout_view' %}">DECONNEXION</a>
             </div>
             <div class="col-2" align="center" style="margin: 6.5% 0px 0px 0px;font-size:1.5vw"
                 id="id-connexion">
                 <a style="font-family: 'Pacifico', cursive;font-weight: 400;
-                font-style: normal;" href="http://localhost:8000/tipointticroix/connect">CONNEXION</a>
+                font-style: normal;" href="{% url 'connect' %}">CONNEXION</a>
             </div>
             
             {% block content %}{% endblock %}
@@ -86,17 +86,13 @@
         </div>
     </div>
     <div class="row" style="height: 3.5vh;width: 100vw;background-color:black">
-        <center class="col-4" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        <center class="col-6" style="font-family: 'Pacifico', cursive;font-weight: 400;
         font-style: normal;font-size:1.8vh">
-            <a href="http://localhost:8000/">Nous contacter</a>
+            <a href="{% url 'mentions' %}">Mentions légales</a>
         </center>
-        <center class="col-4" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        <center class="col-6" style="font-family: 'Pacifico', cursive;font-weight: 400;
         font-style: normal;font-size:1.8vh">
-            <a href="http://localhost:8000/">Politique de confidentialité</a>
-        </center>
-        <center class="col-4" style="font-family: 'Pacifico', cursive;font-weight: 400;
-        font-style: normal;font-size:1.8vh">
-            <a href="http://localhost:8000/">A propos</a>
+            <a href="{% url 'apropos' %}">A propos</a>
         </center>
     </div>
     
@@ -104,7 +100,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     {%  load static %}
-    {% block script %}{% endblock %}
+        
     <script>
         //suppression lien Déconnexion si utilisateur pas connecté
         var login="{{ connexion }}";
@@ -117,10 +113,11 @@
         }
     </script>
     <script>
-        let alea=Math.floor(Math.random()*3)+1
+        let alea=Math.floor(Math.random()*10)+1
         let photo="https://ik.imagekit.io/kpvotazbj/photo".concat(alea,".avif")
         //alert(photo)
         document.getElementById("id_imagekit").src=photo
     </script>
+    {% block script %}{% endblock %}
 </body>
 </html>

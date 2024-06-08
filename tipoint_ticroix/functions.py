@@ -2,12 +2,24 @@ from django.conf import settings
 from .models import User
 import random
 from django.contrib.auth import authenticate
+import socket, sys
+
 #FONCTIONS
+#nom en fonction du niveau
+def nomniveau(niv):
+    if niv==1:
+        return("Novice")
+    if niv==2:
+        return("Amateur")
+    if niv==3:
+        return("Pro")
+    if niv==4:
+        return("expert")
 
 #coup ordinateur
 def coupordi(marque):
     if settings.NIVEAU==1:
-        return(coupordi0(marque))
+        return(coupordi1(marque))
     if settings.NIVEAU==2:
         return(coupordi2(marque))
     if settings.NIVEAU==3:
@@ -1250,3 +1262,145 @@ def estconnecté(req):
         return(True,pseudox)
     else:
         return(False,"")
+
+def serveursocket (host):
+    # Définition d'un serveur réseau rudimentaire
+# Ce serveur attend la connexion d'un client, pour entamer un dialogue avec lui
+
+    PORT = 50000
+    # 1) création du socket :
+    mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # 2) liaison du socket à une adresse précise :
+    try:
+        mySocket.bind((host, PORT))
+    except socket.error:
+        print("La liaison du socket à l'adresse choisie a échoué.")
+        sys.exit()
+
+    while 1:
+        # 3) Attente de la requête de connexion d'un client :
+        print("Serveur prêt, en attente de requêtes ...")
+        mySocket.listen(5)
+
+        # 4) Etablissement de la connexion :
+        connexion, adresse = mySocket.accept()
+        print("Client connecté, adresse IP %s, port %s" % (adresse[0], adresse[1]))
+
+        # 5) Dialogue avec le client :
+        connexion.send("Vous êtes connecté au serveur Marcel. Envoyez vos messages.")
+        msgClient = connexion.recv(1024)
+        while 1:
+            print("C>", msgClient)
+            if msgClient.upper() == "FIN" or msgClient =="":
+                break
+            msgServeur = input("S> ")
+            connexion.send(msgServeur)
+            msgClient = connexion.recv(1024)
+
+        # 6) Fermeture de la connexion :
+        connexion.send("Au revoir !")
+        print("Connexion interrompue.")
+        connexion.close()
+
+        ch = input("<R>ecommencer <T>erminer ? ")
+        if ch.upper() =='T':
+            break
+
+def connecserveur (host,pseudo):
+    # Définition d'un serveur réseau rudimentaire
+# Ce serveur attend la connexion d'un client, pour entamer un dialogue avec lui
+
+    PORT = 50000
+    # 1) création du socket :
+    mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # 2) liaison du socket à une adresse précise :
+    try:
+        mySocket.bind((host, PORT))
+    except socket.error:
+        print("La liaison du socket à l'adresse choisie a échoué.")
+        sys.exit()
+
+    while 1:
+        # 3) Attente de la requête de connexion d'un client :
+        print("Serveur prêt, en attente de requêtes ...")
+        mySocket.listen(5)
+
+        # 4) Etablissement de la connexion :
+        connexion, adresse = mySocket.accept()
+        print("Client connecté, adresse IP %s, port %s" % (adresse[0], adresse[1]))
+
+        connexion.send(pseudo.encode('utf-8'))
+        msgClient = connexion.recv(1024)
+        return(msgClient.decode('utf-8'),connexion)
+
+def clientsocket(host):
+    # Définition d'un client réseau rudimentaire
+    # Ce client dialogue avec un serveur ad hoc
+    PORT = 50000
+
+    # 1) création du socket :
+    mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # 2) envoi d'une requête de connexion au serveur :
+    try:
+        mySocket.connect((host, PORT))
+    except socket.error:
+        print("La connexion a échoué.")
+        sys.exit()
+    print("Connexion établie avec le serveur.")
+
+    # 3) Dialogue avec le serveur :
+    msgServeur = mySocket.recv(1024)
+
+    while 1:
+        if msgServeur.upper() == "FIN" or msgServeur =="":
+            break
+        print("S>", msgServeur)
+        msgClient = input("C> ")
+        mySocket.send(msgClient)
+        msgServeur = mySocket.recv(1024)
+
+    # 4) Fermeture de la connexion :
+    print("Connexion interrompue.")
+    mySocket.close()
+
+def connecclient(host,pseudo):
+    # Définition d'un client réseau rudimentaire
+    # Ce client dialogue avec un serveur ad hoc
+    PORT = 50000
+
+    # 1) création du socket :
+    mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # 2) envoi d'une requête de connexion au serveur :
+    try:
+        mySocket.connect((host, PORT))
+    except socket.error:
+        print("La connexion a échoué.")
+        sys.exit()
+    print("Connexion établie avec le serveur.")
+    msgServeur = mySocket.recv(1024)
+    mySocket.send(pseudo.encode('utf-8'))
+    return(msgServeur.decode('utf-8'),mySocket)
+
+def nbtour():
+    res=len(settings.SEQUENCE)
+    return((res//2)+1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
