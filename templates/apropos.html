@@ -1,0 +1,55 @@
+{%  extends "base.html" %}
+
+{% block title %}
+Ti_Point-Ti_Croix
+{%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Motivations du développeur du jeu Ti-point_Ti-croix.">
+{%  endblock %}
+{%  load static %}
+{% block style %}
+    
+{%  endblock %}
+
+{%  block content %}
+    <div class="col-2 border border-dark ml-3" style="font-family: 'Pacifico', cursive;
+        font-weight: 400;font-style: normal">
+        <div id="x-board">
+            <div>
+                <a  id="btn-quitter2" class="btn btn-0" type="button" style="width: 20vh;
+                        font-size: 1.2vw;margin-left: 2vw;background-color: rgb(0, 208, 255);
+                        margin-top: 10vh" href="{% url 'accueil' %}">Retour à l'accueil</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-8 row" id="id-propos" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        font-style: normal;font-size:1.8vh m-0">
+        <div>
+            <h1 style="font-size: 1vw;text-align: center" align="center">A PROPOS</h1> 
+            <p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et magna magna. 
+            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; 
+            Donec risus ante, ultricies sit amet justo sed, interdum maximus libero. Maecenas tempor 
+            a diam a congue. Mauris feugiat sapien vitae ultrices vehicula. Phasellus placerat, ipsum 
+            quis consequat auctor, tellus massa imperdiet arcu, eget viverra sapien ligula non purus. 
+            Fusce ac aliquet quam, at lobortis justo. Suspendisse vitae elementum risus. Vestibulum 
+            elementum diam et mollis fermentum. Duis consectetur velit sapien, eget facilisis massa 
+            accumsan ac. Phasellus sed mollis sapien. Curabitur vel elit sit amet sem iaculis egestas 
+            in ac lectus.</p>
+            <p align="justify">Nunc sed elit nulla. Nam sit amet aliquam purus. Fusce eget luctus urna.
+             Interdum et malesuada fames ac ante ipsum primis in faucibus. In accumsan feugiat 
+             condimentum. Vivamus eget semper est, vel pretium tellus. Pellentesque tincidunt ex erat, 
+             nec viverra sem mattis eu. Curabitur faucibus magna vel mollis maximus. Aliquam semper 
+             libero magna, eget placerat libero tempor vel. Sed at quam a risus ornare rutrum.</p>
+             <p align="justify">Integer at nunc diam. Fusce dui est, mollis sed nunc id, euismod egestas
+                 ex. Nam ac molestie magna. Nulla facilisi. Nulla ac felis viverra, fermentum ex 
+                 accumsan, placerat dolor. Proin eu turpis ultricies, mattis leo ut, pulvinar magna. Sed
+                  ultricies nunc ac enim semper consequat. Nunc felis magna, luctus ac cursus vitae, 
+                  porta id turpis. Fusce ut neque tortor. Aenean diam tellus, gravida at fringilla eu, 
+                  tincidunt id velit. Aliquam erat volutpat.</p>
+        </div>
+    </div>
+    
+{%  endblock %}
+
+{%  block script %}
+{%  endblock %}

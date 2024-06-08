@@ -3,24 +3,127 @@
 {% block title %}
 Ti_Point-Ti_Croix
 {%  endblock %}
-
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Jouez au jeu Ti-point_Ti-croix contre un ali sur internet.">
+{%  endblock %}
 {% block style %}
 <!--<link rel="stylesheet" href="/static/CSS/connect.css">-->
     
 {%  endblock %}
-
+{%  load static %}
 {%  block content %}
-
-<h1 class="col-12" style="text-align: center;">INTERNET</h1>
-<div class="col-2 border border-dark">
+<div class="col-2 border border-dark" style="font-family: 'Pacifico', cursive;
+  font-weight: 400;font-style: normal;font-size:1vw">
+  <div class="text-center">JOUER CONTRE UN AMI</div>
   <div>
-    <a  id="btn-quitter" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
-            margin-left: 2vw;background-color: rgb(0, 208, 255);margin-top: 10vh"
-            href="/">Retour à l'accueil</a>
+    <form id="internet" method="post">
+      {% csrf_token %}
+      <div id="x-jouer" style="margin-top: 1vh;">
+        <div id="x-connect">
+          <div>
+            <label id="id-ip" style="margin-left: 2vw">Votre ip : {{ ip }}</label>
+          </div>
+          <div>
+            <label for="ip-server" style="margin-left: 2vw">IP de votre adversaire<input type="text"
+              id="ip-server" name="server" style="width: 10vw;height: 1.5vw"></label>
+          </div>
+          <label style="color:red;font-size:0.9vw">{{ noserver }}</label>
+          <div>
+            <button  id="btn-client" class="btn btn-0" type="button" style="width: 25vh;font-size: 1.2vw;
+            background-color:rgb(0, 208, 255);margin-top:2vh;margin-left:1.5vw">Connexion</button>
+          </div>
+          <div>
+            <button  id="btn-serveur"  type="button" style="width:25vh;font-size: 1.2vw;
+            background-color:rgb(0, 208, 255);margin-top:2vh;margin-left:1.5vw">Attente connexion</button>
+          </div>
+        </div>
+        <div id="x-board">
+          <div>
+            <label style="font-size: 2vw;">Match {{ match }}/2 : </label>
+          </div>
+          <div>
+            <label  style="font-size: 1.5vw;">{{ premier }} : </label>
+            <label  style="font-size: 1.5vw;color: blue;font-weight: bolder">O</label>
+            <label style="font-size: 2vw;font-weight: bolder"> : {{ score1 }}</label>
+          </div>
+          <div>
+            <label style="font-size: 1.5vw">{{ second }} :</label>
+            <label style="font-size: 1.5vw;color: red;font-weight: bolder">X</label>
+            <label style="font-size: 2vw;font-weight: bolder"> : {{ score2 }}</label>
+          </div>
+          <div>
+            <label style="font-size: 1.5vw">Tour :</label>
+            <label style="font-size:1.5vw;width:3vw" id="nb-tour" type="number">{{ nbtour }}</label>
+          </div>
+          <div style="margin-top: 1.5vh">
+            <label id="AVOUS" style=" font-size: 1vw;color: blue">A VOUS DE JOUER</label>
+          </div>
+          <div>
+            <label id="ALUI" style="font-size: 1vw;color: red">A LUI DE JOUER</label>
+          </div>
+          <div>
+            <label id="victoire" style="font-size: 1.4vw;color: blue">VOUS AVEZ GAGNE</label>
+          </div>
+          <div>
+            <label id="defaite" style="font-size: 1.4vw;color: red">VOUS AVEZ PERDU</label>
+          </div>
+          <div>
+            <button  id="btn-manche2"  type="button" style="width:14vw;font-size: 1.2vw;
+            background-color:rgb(0, 208, 255);margin-top:2vh;margin-left:0.5vw">
+            Lancer la 2eme manche</button>
+          </div>  
+          <div>
+            <button  id="btn-rejouer"  type="button" style="width:14vw;font-size: 1.2vw;
+            background-color:rgb(0, 208, 255);margin-top:2vh;margin-left:0.5vw">
+            Rejouer</button>
+          </div>  
+        </div>
+        <div hidden>
+          <input type="text" name="etape" id="id-etape" value="{{ etape }}">
+          <label id="id-match" type="text">{{ match }}</label>
+          <label>Joueur commence : </label>
+          <label id="id-begin" type="text">{{ begin }}</label>
+          <label>Jeton : </label>
+          <label id="id-jeton" type="text">{{ jeton }}</label>
+          <input id="jeton" name="jeton">
+          <label id="rolesocket" type="text">{{ rolesocket }}</label>
+          <input type="text" name="rolesocket" id="id-rolesocket">
+          
+          <input name="coupjoueur" id="coup-joueur" type="text">
+          <label for="id-sequence">Coups joués</label>
+          <input id="id-sequence" type="text" value="{{ sequence }}">
+          <label id="id-finpartie" type="text">{{ finpartie }}</label>
+          <label for="id-victoire">victoire joueur</label>
+          <input id="id-victoire" type="text" value="{{ victoire }}">
+          <label for="id-defaite">défaite joueur</label>
+          <input id="id-defaite" type="array" value="{{ defaite }}">
+        </div>
+        <button class="btn btn-0" id="btn-quitter" type="button" style="width:20vh;font-size:1.2vw;
+                margin-left: 2vw;background-color: rgb(0, 208, 255);margin-top: 2vh"
+                >Retour à l'accueil</button>
+        <div>
+          <p align="justify">Vous devez soit communiquer votre ip à votre adversaire et
+              cliquer sur attente de connexion soit saisir l'ip de votre adversaire et 
+              cliquer sur connexion après que votre adversaire ce soit mis en attente.</p>
+          <p align="justify">Un match compte deux parties, les deux adversaires jouant en premier à 
+              tour de rôle.</p>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
+<div class="col-8 row justify-content-center" id="id_table">
+  <div class="col-1">
+  </div>
+  <div class="cadre align-self-midle col-10">
+      <table class="m-auto" id="table" style="font-size: 1.8vh;margin-top:0vh">
+      </table>
+  </div>
+  <div class="col-1">
+  </div>
 </div>
-<div class="col-8" style="font-family: 'Pacifico', cursive;font-weight: 400;font-style: normal;
-  font-size: 3vw;margin-top: 4vh">
-  <p align="center">Fonctionnalité en développement</p>
-</div>
+{%  endblock %}
+{%  block script %}
+  <script src="{% static 'JS/internet.js'%}"></script>
+  
 {%  endblock %}

@@ -3,6 +3,10 @@
 {% block title %}
 Ti_Point-Ti_Croix
 {%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Faires jouer l'une contre l'autre des algorithmes du jeu
+ Ti-point_Ti-croix de différents niveaux.">
+{%  endblock %}
 {%  load static %}
 {% block style %}
     
@@ -12,8 +16,8 @@ Ti_Point-Ti_Croix
     
     <div class="col-2 border border-dark ml-3" style="font-family: 'Pacifico', cursive;
         font-weight: 400;font-style: normal">
-        <p class="text-center" style="font-size: 2vw">PARTIE</p>
-        <form id="grille" method="post" action="http://localhost:8000/tipointticroix/machines/">
+        <p class="text-center" style="font-size: 1vw">MACHINE VS MACHINE</p>
+        <form id="grille" method="post" action="{% url 'machines' %}">
             {% csrf_token %}
             <div id="x-jouer">
                 <table>
@@ -102,11 +106,11 @@ Ti_Point-Ti_Croix
             </div>
             <div id="x-board">
                 <div>
-                    <label  style="font-size: 1.5vw;">Machine1 : </label>
-                    <label  style="font-size: 1.5vw;color: blue;font-weight: bolder">O</label>
+                    <label  id="machine1" style="font-size: 1.5vw;">{{ nom1 }} : </label>
+                    <label  id="mchine2" style="font-size: 1.5vw;color: blue;font-weight: bolder">O</label>
                 </div>
                 <div>
-                    <label style="font-size: 1.5vw">Machine2 :</label>
+                    <label style="font-size: 1.5vw">{{ nom2 }} :</label>
                     <label style="font-size: 1.5vw;color: red;font-weight: bolder">X</label>
                 </div>
                 <div>
