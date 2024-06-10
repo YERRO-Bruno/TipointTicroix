@@ -31,8 +31,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.*"]
-CSRF_TRUSTED_ORIGINS = 'tipointticroix-tipointticroix.zd04p4.easypanel.host'
+ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.*",'195.35.28.193']
+CSRF_TRUSTED_ORIGINS = ['https://tipointticroix-tipointticroix.zd04p4.easypanel.host',"195.35.28.193"]
 
 
 # Application definition
@@ -87,8 +87,8 @@ DATABASES = {
         "NAME": os.getenv('NAME'),
         "USER": os.getenv('USER'),
         "PASSWORD": os.getenv('PASSWORD'),
-    #    "HOST": os.getenv('HOST'),
-        'PORT': 3306,  
+        "HOST": os.getenv('HOST'),
+        'PORT': 10001,  
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
         }  
