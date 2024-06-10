@@ -39,7 +39,6 @@ def logout_view(request):
     #messages.add_message(request, messages.INFO, "Vous êtes déconnecté")
     return redirect("/tipointticroix")
 
-CSRF_COOKIE_SECURE=True
 def preregister(request):
     if request.method == 'POST':
         emailx = request.POST['email']
@@ -101,7 +100,9 @@ def register(request):
             return render(request, 'register.html',
                         {'errorinscription': "pseudo déjà existant", 'email': emailx})   
         #récupération et test code verification
+        print("cherche verifuser")
         verifuser=VerifUser.objects.get(email=emailx)
+        print("cherche verifuser2")
         if verifuser is not None:
                 if bcrypt.checkpw(verifx.encode('utf-8'),verifuser.codeverif.encode('utf-8')):
                     print("code ok",emailx)
