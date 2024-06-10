@@ -82,10 +82,10 @@ import mysql.connector
 DATABASES = {  
     'default': {  
         'ENGINE': 'django.db.backends.mysql',  
-        "NAME": 'tipointticroix',
-        "USER": 'mysql',
-        "PASSWORD": 'S@ladin972',
-        #"HOST": os.getenv('HOST'),
+        "NAME": os.getenv('NAME'),
+        "USER": os.getenv('USER'),
+        "PASSWORD": os.getenv('PASSWORD'),
+        "HOST": os.getenv('HOST'),
         'PORT': 3306,  
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
