@@ -32,7 +32,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.zd04p4.easypanel.host"]
-CSRF_TRUSTED_ORIGINS = '*'
+CSRF_TRUSTED_ORIGINS = 'https://*'
 
 
 # Application definition
