@@ -83,10 +83,6 @@ WSGI_APPLICATION = 'TIPOINTICROIX.wsgi.application'
 import mysql.connector
 DATABASES = {  
     'default': {
-
-
-        
-        "HOST": env('HOST'),
         "NAME": os.getenv('NAME'),
         "USER": os.getenv('USER'),
         "PASSWORD": os.getenv('PASSWORD'),
