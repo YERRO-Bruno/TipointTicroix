@@ -34,7 +34,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*"]
+ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","https://tipointticroix-tipointticroix.zd04p4.easypanel.host"]
 
 
 # Application definition
@@ -92,6 +92,7 @@ DATABASES = {
         'NAME': env('NAME'),
         'USER': env('USER'),
         'PASSWORD': env('DATABASE_PASS'),
+    #    "HOST": env('HOST'),
     #    "NAME": os.getenv('NAME'),
     #    "USER": os.getenv('USER'),
     #    "PASSWORD": os.getenv('PASSWORD'),
