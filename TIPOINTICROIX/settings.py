@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-e7c4q*0=zm(1rqz60blbz^8xc-66d-f5zz)tqh52x$yjxr-abz'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -82,11 +82,11 @@ import mysql.connector
 DATABASES = {  
     'default': {  
         'ENGINE': 'django.db.backends.mysql',  
-        "NAME": os.getenv('NAME'),
-        "USER": os.getenv('USER'),
-        "PASSWORD": os.getenv('PASSWORD'),
-        "HOST": os.getenv('HOST'),
-        'PORT': '3306',  
+        "NAME": 'tipointticroix',
+        "USER": 'mysql',
+        "PASSWORD": 'S@ladin972',
+        #"HOST": os.getenv('HOST'),
+        'PORT': 3306,  
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
         }  
