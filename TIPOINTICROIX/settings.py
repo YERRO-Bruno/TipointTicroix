@@ -84,6 +84,7 @@ WSGI_APPLICATION = 'TIPOINTICROIX.wsgi.application'
 import mysql.connector
 DATABASES = {  
     'default': {
+        'ENGINE': 'django.db.backends.mysql',
         "NAME": os.getenv('NAME'),
         "USER": os.getenv('USER'),
         "PASSWORD": os.getenv('PASSWORD'),
