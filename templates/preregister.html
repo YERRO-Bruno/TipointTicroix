@@ -20,7 +20,7 @@ Ti_Point-Ti_Croix
     <h4 class="text-center" style="margin-left: 15vw">Il vous faut un code de verification que vous recevrez dans votre boite email</h4>
     <h4 class="texterror text-center" style="color: red">{{ errorVerif }}</h4>
     <form  class="justify-content-center" method="post">
-        
+        {% csrf_token %}
         <br>
         <div class="row justify-content-center">
             <br>
