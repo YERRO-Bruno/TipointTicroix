@@ -12,14 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-#load_dotenv()
+load_dotenv()
 
-import environ
-# Initialise environment variables
-env = environ.Env()
-environ.Env.read_env()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -88,16 +85,13 @@ DATABASES = {
     'default': {
 
 
-        'ENGINE': 'django.db.backends.mysql',  
-        'NAME': env('NAME'),
-        'USER': env('USER'),
-        'PASSWORD': env('DATABASE_PASS'),
-    #    "HOST": env('HOST'),
-    #    "NAME": os.getenv('NAME'),
-    #    "USER": os.getenv('USER'),
-    #    "PASSWORD": os.getenv('PASSWORD'),
+        
+        "HOST": env('HOST'),
+        "NAME": os.getenv('NAME'),
+        "USER": os.getenv('USER'),
+        "PASSWORD": os.getenv('PASSWORD'),
     #    "HOST": os.getenv('HOST'),
-    #    'PORT': 3306,  
+        'PORT': 3306,  
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
         }  
