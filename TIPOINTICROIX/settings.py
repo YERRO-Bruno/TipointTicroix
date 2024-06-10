@@ -77,7 +77,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'TIPOINTICROIX.wsgi.application'
 
-CSRF_TRUSTED_ORIGINS = ["*"]
+CSRF_TRUSTED_ORIGINS = 'https://tipointticroix-tipointticroix.zd04p4.easypanel.host'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
