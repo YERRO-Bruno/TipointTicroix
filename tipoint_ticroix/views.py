@@ -39,6 +39,7 @@ def logout_view(request):
     #messages.add_message(request, messages.INFO, "Vous êtes déconnecté")
     return redirect("/tipointticroix")
 
+CSRF_COOKIE_SECURE=True
 def preregister(request):
     if request.method == 'POST':
         emailx = request.POST['email']
