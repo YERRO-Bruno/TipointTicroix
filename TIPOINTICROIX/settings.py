@@ -32,6 +32,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.zd04p4.easypanel.host"]
+CSRF_TRUSTED_ORIGINS = 'https://tipointticroix-tipointticroix.*'
 
 
 # Application definition
@@ -77,7 +78,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'TIPOINTICROIX.wsgi.application'
 
-CSRF_TRUSTED_ORIGINS = 'https://tipointticroix-tipointticroix.zd04p4.easypanel.host'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
