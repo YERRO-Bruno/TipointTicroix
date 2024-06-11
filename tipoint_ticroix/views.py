@@ -356,6 +356,12 @@ def machines(request):
 
 #page internet
 def internet(request):
+    import socket
+    hostname = socket.gethostname()
+    IPAddr = socket.gethostbyname(hostname)
+
+    print("Your Computer Name is:" + hostname)
+    print("Your Computer IP Address is:" + IPAddr)
     context = {}
     connec=estconnecté(request)
     if connec[0]:
