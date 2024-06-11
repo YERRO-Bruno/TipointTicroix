@@ -33,7 +33,8 @@ DEBUG = os.getenv('DEBUG')
 print(DEBUG)
 
 ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.*",'195.35.28.193']
-CSRF_TRUSTED_ORIGINS = ['https://tipointticroix-tipointticroix.zd04p4.easypanel.host',"https://195.35.28.193"]
+CSRF_TRUSTED_ORIGINS = ['https://tipointticroix-tipointticroix.zd04p4.easypanel.host',
+                        "https://195.35.28.193","https://tipointticroix.fr"]
 
 
 # Application definition
