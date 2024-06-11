@@ -168,7 +168,6 @@ EMAIL=""
 GRILLE = [["-"] * 25 for _ in range(25)]
 SEQUENCE = []
 MATCH=0
-MYIP=""
 IPSERVEUR=""
 BEGINCLIENT=""
 BEGINSERVEUR=""

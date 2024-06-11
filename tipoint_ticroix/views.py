@@ -397,7 +397,7 @@ def internet(request):
                     context["noserver"]="Renseigner l'ip de votre adversaire"
                     return render(request, "internet.html", context)
             if request.POST['rolesocket'] =="serveur":
-                msg,mySocket=connecserveur(settings.MYIP,connec[1],)
+                msg,mySocket=connecserveur(request.POST['monip'],connec[1],)
                 context['begin']="Oui"
                 context['jeton']="Oui"
                 context['match']="1"
@@ -619,19 +619,7 @@ def internet(request):
     else:
         settings.SEQUENCE=[]
         if connec[0]:
-            #recuperation de l'adresse ip
-            try:
-                if settings.DEBUG==False:
-                    response = requests.get('https://httpbin.org/ip')
-                    ip = response.json()['origin']
-                    
-                else:
-                    ip = gethostbyname_ex(gethostname())[2][0]
-                context["etape"]="connexion"
-                context["ip"]=ip
-                settings.MYIP=ip
-            except requests.RequestException as e:
-                print(f"Une erreur s'est produite : {e}")
+            context["etape"]="connexion"
             return render(request, "internet.html", context)
         else:
             return redirect('/tipointticroix/connect')

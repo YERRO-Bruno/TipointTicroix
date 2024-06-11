@@ -21,16 +21,23 @@ Ti_Point-Ti_Croix
       <div id="x-jouer" style="margin-top: 1vh;">
         <div id="x-connect">
           <div>
-            <label id="id-ip" style="margin-left: 2vw">Votre ip : {{ ip }}</label>
+            <label for="monip" style="margin-left: 2vw">Votre IP*<input type="text"
+              id="monip" name="monip" style="width: 10vw;height: 1.5vw"></label>
           </div>
           <div>
-            <label for="ip-server" style="margin-left: 2vw">IP de votre adversaire<input type="text"
+            <p style="font-size:0.8vw">*Puis cliquer sur Attente connexion</p>
+          </div>
+          <div>
+            <label for="ip-server" style="margin-left: 2vw">IP de votre adversaire*<input type="text"
               id="ip-server" name="server" style="width: 10vw;height: 1.5vw"></label>
+          </div>
+          <div>
+            <p style="font-size:0.8vw">*Puis cliquer sur Connexion</p>
           </div>
           <label style="color:red;font-size:0.9vw">{{ noserver }}</label>
           <div>
             <button  id="btn-client" class="btn btn-0" type="button" style="width: 25vh;font-size: 1.2vw;
-            background-color:rgb(0, 208, 255);margin-top:2vh;margin-left:1.5vw">Connexion</button>
+            background-color:rgb(0, 208, 255);margin-top:1vh;margin-left:1.5vw">Connexion</button>
           </div>
           <div>
             <button  id="btn-serveur"  type="button" style="width:25vh;font-size: 1.2vw;
@@ -102,6 +109,13 @@ Ti_Point-Ti_Croix
                 margin-left: 2vw;background-color: rgb(0, 208, 255);margin-top: 2vh"
                 >Retour à l'accueil</button>
         <div>
+          <p align="justify">Pour jouer avec un ami sur le même wifi vous avez nesoin de l'adresse 
+            ip locale. Pour jouer sur internet vous avez nesoin de l'adresse ip internet.
+            Pour obtenir votre ip internet ou locale sous windows : Paramètres, 
+            Réseau et Internet, Paramètres réseau avancés, Propriétés du matèriel et de la connexion.
+            Vous chercherez les valeurs 'adresse IPv4'. L'adresse locale est souvent sous le nom : 
+            Wi-Fi et commence normalement par 192.168. L'adresse internet est souvent sous le nom Ethernet.
+          </p>
           <p align="justify">Vous devez soit communiquer votre ip à votre adversaire et
               cliquer sur attente de connexion soit saisir l'ip de votre adversaire et 
               cliquer sur connexion après que votre adversaire ce soit mis en attente.</p>
