@@ -12,6 +12,27 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   })
+
+  document.getElementById("lan").addEventListener('change', function(e) {
+    alert("lan")
+    if (document.getElementById("lan").checked == true) {
+      document.getElementById("affiche-wan").style.display="none"
+    }  
+  })
+  
+  document.getElementById("wan").addEventListener('selected', function(e) {
+    alert("wan")
+    if (document.getElementById("wan").checked == true) {
+      document.getElementById("affiche-wan").style.display="block"
+    }  
+  })
+
+  var box=document.internet.lan-wan
+    for (var i = 0; i < box.length; i++) {
+      box[i].addEventListener('change', function() {
+        alert("change")
+    })
+    }
 })
 document.getElementById("btn-manche2").style.display="none"
 document.getElementById("btn-rejouer").style.display="none"
@@ -26,7 +47,6 @@ if (document.getElementById("id-jeton").textContent=="Non") {
   //displayGameBoard()
   document.forms["internet"].submit();
 }
-
 
 // Click du joueur sur une des cases
 document.getElementById("table").addEventListener('click', function(e) {
@@ -228,3 +248,5 @@ document.getElementById("btn-serveur").addEventListener('click', function(e) {
     document.getElementById("id-etape").value="deconnexion"
     document.forms["internet"].submit()
   })
+
+  

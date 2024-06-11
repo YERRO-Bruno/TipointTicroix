@@ -373,8 +373,8 @@ def internet(request):
             context['score1']=settings.SCORE1
             context['score2']=settings.SCORE2
             if request.POST['rolesocket'] =="client":
-                if request.POST['server'] !="":
-                    msg,mySocket=connecclient(request.POST['server'],connec[1])
+                if request.POST['serveur'] !="":
+                    msg,mySocket=connecclient(request.POST['serveur'],connec[1])
                     context['begin']="Non"
                     context['jeton']="Non"
                     context['match']="1"
@@ -397,7 +397,7 @@ def internet(request):
                     context["noserver"]="Renseigner l'ip de votre adversaire"
                     return render(request, "internet.html", context)
             if request.POST['rolesocket'] =="serveur":
-                msg,mySocket=connecserveur(request.POST['monip'],connec[1],)
+                msg,mySocket=connecserveur(request.POST['serveur'],connec[1],)
                 context['begin']="Oui"
                 context['jeton']="Oui"
                 context['match']="1"
@@ -618,7 +618,15 @@ def internet(request):
                 return render(request, "internet.html", context)                   
     else:
         settings.SEQUENCE=[]
+        import socket
         if connec[0]:
+            if settings.DEBUG:
+                ip = gethostbyname_ex(gethostname())[2][0]
+            else:
+                info = socket.getaddrinfo(socket.gethostname(), None)
+                print(info[1][4][0])
+                ip=info[1][4][0]
+            context["ip"]=ip
             context["etape"]="connexion"
             return render(request, "internet.html", context)
         else:
