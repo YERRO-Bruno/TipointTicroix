@@ -1319,7 +1319,7 @@ def connecserveur (host,pseudo):
     try:
         mySocket.bind((host, PORT))
     except socket.error:
-        print("La liaison du socket à l'adresse choisie a échoué.")
+        print("La liaison du socket à l'adresse choisie a échoué.", socket.error)
         sys.exit()
 
     while 1:
