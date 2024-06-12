@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.conf import settings
 from .functions import coupordi,coupmachine,majgrille,trouve_5, estconnecté
-from .functions import nomniveau,connecclient,connecserveur, nbtour
+from .functions import nomniveau,connecclient,connecserveur, nbtour, get_public_ip
 from django.shortcuts import render,redirect
 from django.utils.crypto import get_random_string
 import bcrypt
@@ -356,12 +356,7 @@ def machines(request):
 
 #page internet
 def internet(request):
-    from urllib.request import urlopen
-    import re as r
-    d = str(urlopen('http://checkip.dyndns.com/')
-            .read())
-
-    print(r.compile(r'Address: (\d+\.\d+\.\d+\.\d+)').search(d).group(1))
+    print(get_public_ip())
 
     context = {}
     connec=estconnecté(request)
