@@ -1,0 +1,45 @@
+{%  extends "base.html" %}
+
+{% block title %}
+Ti_Point-Ti_Croix
+{%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Connectez-vous sur le site du jeu Ti-point_Ti-croix.">
+{%  endblock %}
+{% block style %}
+{%  endblock %}
+
+{%  block content %}
+<div class="col-10 border border-dark" style="font-family: 'Pacifico', cursive;
+    font-weight: 400;font-style: normal">
+    
+    <h1 style="text-align: center;margin-left: 5vw">test</h1>
+    <h6 class="texterror text-center" style="color: red">{{ errorLogin }}</h6>
+    <div style="height: 5vh;"></div>
+    <div>
+        <button  id="btn-client" class="btn btn-0" type="button" style="width:10vw;font-size:1.2vw;
+        background-color:rgb(0, 208, 255);margin-left:0.5vw">Client</button>
+      </div>
+</div>
+{%  endblock %}
+{%  block script %}
+<script>
+    document.getElementById("btn-client").addEventListener('click', function(e) {
+    alert("client")
+  
+    // Créer une nouvelle connexion WebSocket
+    const socket = new WebSocket('ws://tipointticroix.fr:9000');
+    // Événement lorsque la connexion est ouverte
+    socket.addEventListener('open', function (event) {
+        alert("3")
+        socket.send('Hello Server!');
+    });
+    // Événement lorsque le serveur envoie un message
+    socket.addEventListener('message', function (event) {
+        alert("4")
+        alert(event.data);
+    });
+
+    })
+</script>    
+{%  endblock %}

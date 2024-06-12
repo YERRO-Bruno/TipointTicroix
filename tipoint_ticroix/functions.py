@@ -1389,24 +1389,6 @@ def nbtour():
     res=len(settings.SEQUENCE)
     return((res//2)+1)
 
-import requests
-
-def get_public_ip():
-    try:
-        response = requests.get('https://api.ipify.org?format=json')
-        response.raise_for_status()
-        ip_info = response.json()
-        return ip_info['ip']
-    except requests.RequestException as e:
-        print(f"Erreur lors de la récupération de l'adresse IP: {e}")
-        return None
-
-if __name__ == "__main__":
-    ip = get_public_ip()
-    if ip:
-        print(f"Votre adresse IP publique est : {ip}")
-    else:
-        print("Impossible de récupérer l'adresse IP publique.")
 
 
 

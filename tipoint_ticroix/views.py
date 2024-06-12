@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.conf import settings
 from .functions import coupordi,coupmachine,majgrille,trouve_5, estconnecté
-from .functions import nomniveau,connecclient,connecserveur, nbtour, get_public_ip
+from .functions import nomniveau,connecclient,connecserveur, nbtour
 from django.shortcuts import render,redirect
 from django.utils.crypto import get_random_string
 import bcrypt
@@ -20,8 +20,19 @@ import json
 #si oui renvoie la sequences des 5 positions allignées
 #sinon renvoie ""
 
+#page test
+def test(request):
+    context = {}
+    connec=estconnecté(request)
+    if connec[0]:
+        context["connexion"]="Oui"
+        context["connec"]=connec[1]
+    else:
+        context["connexion"]="Non"
+        context["connec"]=connec[1]
+    return render(request, "test.html", context)
 
-#page accueil
+#page test
 def accueil(request):
     context = {}
     connec=estconnecté(request)
@@ -356,8 +367,7 @@ def machines(request):
 
 #page internet
 def internet(request):
-    print(get_public_ip())
-
+    
     context = {}
     connec=estconnecté(request)
     if connec[0]:
