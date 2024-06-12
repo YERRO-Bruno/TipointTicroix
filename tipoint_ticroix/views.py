@@ -356,12 +356,13 @@ def machines(request):
 
 #page internet
 def internet(request):
-    import socket
-    hostname = socket.gethostname()
-    IPAddr = socket.gethostbyname(hostname)
+    from urllib.request import urlopen
+    import re as r
+    d = str(urlopen('http://checkip.dyndns.com/')
+            .read())
 
-    print("Your Computer Name is:" + hostname)
-    print("Your Computer IP Address is:" + IPAddr)
+    print(r.compile(r'Address: (\d+\.\d+\.\d+\.\d+)').search(d).group(1))
+
     context = {}
     connec=estconnecté(request)
     if connec[0]:
