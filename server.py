@@ -6,7 +6,8 @@ async def echo(websocket, path):
         await websocket.send(message)
 
 async def main():
-    server = await websockets.serve(echo, "0.0.0.0", 8765)
+    server = await websockets.serve(echo, "127.0.0.1", 8765)
+    print(server, websockets)
     print('WebSocket server is running')
     await server.wait_closed()
 
