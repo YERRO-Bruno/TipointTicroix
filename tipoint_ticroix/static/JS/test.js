@@ -2,7 +2,7 @@ document.getElementById("btn-client").addEventListener('click', function(e) {
 alert("client")
   
 
-  const socket = new WebSocket('ws://localhost:8765');
+  const socket = new WebSocket('ws://0.0.0.0:8765');
   
   alert("1")
         socket.onopen = () => {

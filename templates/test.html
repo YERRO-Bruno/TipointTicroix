@@ -20,14 +20,27 @@ Ti_Point-Ti_Croix
 {%  endblock %}
 {%  block script %}
 <script>
-    const io = require('socket.io')(3000);
+    
+alert("client")
+  
 
-io.on('connection', (socket) => {
-    console.log('a user connected');
-    socket.on('message', (msg) => {
-        console.log('message: ' + msg);
-    });
-    socket.emit('message', 'Hello from server');
-});
+  const socket = new WebSocket('ws://195.35.28.193/:8765');
+  
+  alert("1")
+        socket.onopen = () => {
+            console.log('Connected to the WebSocket server');
+            alert("'Connected to the WebSocket server'")
+        };
+
+        socket.onmessage = (event) => {
+            alert(event.data)
+            messageItem.textContent = event.data;
+            
+        };
+
+        function sendMessage() {
+            socket.send("hello serveur bonjour");
+            
+        }
 </script>    
 {%  endblock %}
