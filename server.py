@@ -6,8 +6,8 @@ async def echo(websocket, path):
         await websocket.send(message)
 
 async def main():
-    server = await websockets.serve(echo, '0.0.0.0', 8765)
-    print('WebSocket server is running on ws://0.0.0.0:8765')
+    server = await websockets.serve(echo, '10.0.1.185', 8765)
+    print('WebSocket server is running on ws://10.0.1.185:8765')
     await server.wait_closed()
 
 if __name__ == "__main__":
