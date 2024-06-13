@@ -150,6 +150,9 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
+#Websocket server
+WEB_SOCKET_SERVER = os.getenv('WEB_SOCKET_SERVER')
+
 #GOODIES - Pjotos
 
 

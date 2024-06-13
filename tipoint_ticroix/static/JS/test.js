@@ -1,33 +1,24 @@
 document.getElementById("btn-client").addEventListener('click', function(e) {
-  //alert("client")
+alert("client")
   
-// Créer une nouvelle connexion WebSocket
-const socket = new WebSocket('192.168.1.188');
 
-// Événement lorsque la connexion est ouverte
-socket.addEventListener('open', function (event) {
-    socket.send('Hello Server!');
-});
-
-// Événement lorsque le serveur envoie un message
-socket.addEventListener('message', function (event) {
-    alert(event.data);
-});
-
-})
-
-document.getElementById("btn-serveur").addEventListener('click', function(e) {
-  //alert("serveur")
+  const socket = new WebSocket('ws://localhost:8765');
   
-  const WebSocket = require('ws');
+  alert("1")
+        socket.onopen = () => {
+            console.log('Connected to the WebSocket server');
+            alert("'Connected to the WebSocket server'")
+        };
 
-  const server = new WebSocket.Server({ port: 8080 });
+        socket.onmessage = (event) => {
+            alert(event.data)
+            messageItem.textContent = event.data;
+            
+        };
 
-  server.on('connection', (ws) => {
-      ws.on('message', (message) => {
-          alert(message);
-      });
-      ws.send('Hello! Message from server.');
-  });
+        function sendMessage() {
+            socket.send("hello serveur bonjour");
+            
+        }
 
 })

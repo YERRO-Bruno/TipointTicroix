@@ -15,7 +15,6 @@ from socket import gethostbyname_ex, gethostname
 #from functions import coupordi
 import json
 # Create your views here.
-
 #Teste si l'ordinateur à gagner
 #si oui renvoie la sequences des 5 positions allignées
 #sinon renvoie ""
