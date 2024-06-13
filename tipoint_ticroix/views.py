@@ -367,6 +367,17 @@ def machines(request):
 #page internet
 def internet(request):
     
+    import asyncio
+    from websockets.sync.client import connect
+    #with connect("ws://localhost:8765") as websocket:
+    with connect("ws://172.18.0.6:8765") as websocket:
+    
+        websocket.send("Hello world!")
+        message = websocket.recv()
+        print(f"Received from server : {message}")
+    
+
+
     context = {}
     connec=estconnecté(request)
     if connec[0]:
