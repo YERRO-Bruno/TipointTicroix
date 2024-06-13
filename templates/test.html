@@ -20,22 +20,14 @@ Ti_Point-Ti_Croix
 {%  endblock %}
 {%  block script %}
 <script>
-    document.getElementById("btn-client").addEventListener('click', function(e) {
-    alert("client")
-  
-    // Créer une nouvelle connexion WebSocket
-    const socket = new WebSocket('ws://localhost:8765');
-    // Événement lorsque la connexion est ouverte
-    socket.addEventListener('open', function (event) {
-        alert("3")
-        socket.send('Hello Server!');
-    });
-    // Événement lorsque le serveur envoie un message
-    socket.addEventListener('message', function (event) {
-        alert("4")
-        alert(event.data);
-    });
+    const io = require('socket.io')(3000);
 
-    })
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('message', (msg) => {
+        console.log('message: ' + msg);
+    });
+    socket.emit('message', 'Hello from server');
+});
 </script>    
 {%  endblock %}
