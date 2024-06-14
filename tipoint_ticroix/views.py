@@ -367,14 +367,14 @@ def machines(request):
 #page internet
 def internet(request):
     
-    import asyncio
-    from websockets.sync.client import connect
+    #import asyncio
+    #from websockets.sync.client import connect
     #with connect("ws://localhost:8765") as websocket:
-    with connect("ws://172.18.0.6:8765") as websocket:
+    #with connect("ws://172.18.0.6:8765") as websocket:
     
-        websocket.send("Hello world!")
-        message = websocket.recv()
-        print(f"Received from server : {message}")
+    #    websocket.send("Hello world!")
+    #    message = websocket.recv()
+    #    print(f"Received from server : {message}")
     
 
 
@@ -642,13 +642,12 @@ def internet(request):
         settings.SEQUENCE=[]
         import socket
         if connec[0]:
-            if settings.DEBUG:
-                ip = gethostbyname_ex(gethostname())[2][0]
-            else:
-                info = socket.getaddrinfo(socket.gethostname(), None)
-                print(info[1][4][0])
-                ip=info[1][4][0]
-            context["ip"]=ip
+            import socket
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.connect(("8.8.8.8", 80))
+            ipaddress = s.getsockname()[0]
+            s.close()
+            context["ip"]=ipaddress
             context["etape"]="connexion"
             return render(request, "internet.html", context)
         else:
