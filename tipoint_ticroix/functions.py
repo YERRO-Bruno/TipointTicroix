@@ -1311,7 +1311,7 @@ def connecserveur (host,pseudo):
     # Définition d'un serveur réseau rudimentaire
 # Ce serveur attend la connexion d'un client, pour entamer un dialogue avec lui
 
-    PORT = 50000
+    PORT = 8765
     # 1) création du socket :
     mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -1376,7 +1376,7 @@ def connecclient(host,pseudo):
 
     # 2) envoi d'une requête de connexion au serveur :
     try:
-        mySocket.connect((host, PORT))
+        mySocket.connect((host, 8765))
     except socket.error:
         print("La connexion a échoué.")
         sys.exit()
