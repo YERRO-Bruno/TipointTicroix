@@ -1325,10 +1325,10 @@ def connecserveur (host,pseudo):
     async def main():
         print("Server is activated on ws://{}:{}".format(host,port))
         #async with serve(echo, "localhost", 8765):
-        async with serve(echo, "0.0.0.0", port):
-            await asyncio.Future()  # run forever
+        async with serve(echo, host, port):
+                await asyncio.Future()  # run forever
     asyncio.run(main())
-    return(msg.decode('utf-8'),webs)
+    return(msg)
 
 def connecserveursav (host,pseudo):
     # Définition d'un serveur réseau rudimentaire

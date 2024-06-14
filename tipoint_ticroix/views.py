@@ -29,6 +29,18 @@ def test(request):
     else:
         context["connexion"]="Non"
         context["connec"]=connec[1]
+    import socket
+    if connec[0]:
+        import socket
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ipaddress = s.getsockname()[0]
+        s.close()
+        context["ip"]=ipaddress
+        context["etape"]="connexion"
+        msg,webs=connecclient(ipaddress,"test send au serveur")
+
+
     return render(request, "test.html", context)
 
 #page test
@@ -396,6 +408,7 @@ def internet(request):
             context['score2']=settings.SCORE2
             if request.POST['rolesocket'] =="client":
                 if request.POST['serveur'] !="":
+                    settings.SERVEURHOST=request.POST['serveur']
                     msg,mySocket=connecclient(request.POST['serveur'],connec[1])
                     context['begin']="Non"
                     context['jeton']="Non"
@@ -419,7 +432,7 @@ def internet(request):
                     context["noserver"]="Renseigner l'ip de votre adversaire"
                     return render(request, "internet.html", context)
             if request.POST['rolesocket'] =="serveur":
-                msg,mySocket=connecserveur(request.POST['serveur'],connec[1],)
+                msg=connecserveur(request.POST['serveur'],connec[1],)
                 context['begin']="Oui"
                 context['jeton']="Oui"
                 context['match']="1"
@@ -431,7 +444,7 @@ def internet(request):
                 settings.PREMIER=settings.NOMSERVEUR
                 settings.SECOND=settings.NOMCLIENT
                 settings.NOMCLIENT=context['second']
-                settings.SOCKETCLIENT = mySocket
+                #settings.SOCKETCLIENT = mySocket
                 context['etape']="echange"
                 context['finpartie']="Non"
                 context['nbtour']=nbtour()    
@@ -601,14 +614,14 @@ def internet(request):
                 msgserveur=""
                 if request.POST['rolesocket'] =="client":
                     #msgserveur=settings.SOCKETSERVEUR.recv()
-                    async def handler(websocket):
-                        while True:
-                            try:
-                                message = await websocket.recv()
-                            except websocket.ConnectionClosedOK:
-                                break
-                            print(message)
-                            msgserveur=message
+                    import asyncio
+                    from websockets.sync.client import connect
+                    with connect("ws://"+settings.SERVEURHOST+":8765") as websocket:
+                        
+                        message = websocket.recv()
+                        print(f"Received from server : {message}")
+                        print(message)
+                        msgserveur=message
                     print("fromserveur : ",msgserveur)
                     res = trouve_5(msgserveur,"O")
                     if res != "Non":
