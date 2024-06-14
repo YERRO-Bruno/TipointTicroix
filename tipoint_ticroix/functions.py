@@ -1311,6 +1311,29 @@ def connecserveur (host,pseudo):
     # Définition d'un serveur réseau rudimentaire
 # Ce serveur attend la connexion d'un client, pour entamer un dialogue avec lui
 
+    import asyncio
+    from websockets.server import serve
+    port = 8765
+    msg=""
+    webs=""
+    async def echo(websocket):
+        async for message in websocket:
+            print("received from {}:{} : ".format(websocket.remote_address[0],websocket.remote_address[1]) + message)
+            await websocket.send(message)
+            msg=message
+            webs=websocket
+    async def main():
+        print("Server is activated on ws://{}:{}".format(host,port))
+        #async with serve(echo, "localhost", 8765):
+        async with serve(echo, "0.0.0.0", port):
+            await asyncio.Future()  # run forever
+    asyncio.run(main())
+    return(msg.decode('utf-8'),webs)
+
+def connecserveursav (host,pseudo):
+    # Définition d'un serveur réseau rudimentaire
+# Ce serveur attend la connexion d'un client, pour entamer un dialogue avec lui
+
     PORT = 8765
     # 1) création du socket :
     mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -1367,6 +1390,19 @@ def clientsocket(host):
     mySocket.close()
 
 def connecclient(host,pseudo):
+    # Définition d'un client réseau rudimentaire
+    # Ce client dialogue avec un serveur ad hoc
+    
+    import asyncio
+    from websockets.sync.client import connect
+    with connect("ws://localhost:8765") as websocket:
+       websocket.send("Hello world!")
+       message = websocket.recv()
+       print(f"Received from server : {message}")
+
+    return(message.decode('utf-8'),websocket)
+
+def connecclientsav(host,pseudo):
     # Définition d'un client réseau rudimentaire
     # Ce client dialogue avec un serveur ad hoc
     PORT = 50000
