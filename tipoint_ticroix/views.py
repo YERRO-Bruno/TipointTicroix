@@ -598,10 +598,19 @@ def internet(request):
                 context['premier']=settings.PREMIER
                 context["second"]=settings.SECOND
                 context['finpartie']="Non"
+                msgserveur=""
                 if request.POST['rolesocket'] =="client":
-                    msgserveur=settings.SOCKETSERVEUR.recv(1024)
-                    print("fromserveur : ",msgserveur.decode('utf-8'))
-                    res = trouve_5(msgserveur.decode('utf-8'),"O")
+                    #msgserveur=settings.SOCKETSERVEUR.recv()
+                    async def handler(websocket):
+                        while True:
+                            try:
+                                message = await websocket.recv()
+                            except websocket.ConnectionClosedOK:
+                                break
+                            print(message)
+                            msgserveur=message
+                    print("fromserveur : ",msgserveur)
+                    res = trouve_5(msgserveur,"O")
                     if res != "Non":
                         context['victoire']="Non"
                         context['defaite']=res

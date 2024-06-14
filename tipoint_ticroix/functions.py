@@ -1319,7 +1319,7 @@ def connecserveur (host,pseudo):
     async def echo(websocket):
         async for message in websocket:
             print("received from {}:{} : ".format(websocket.remote_address[0],websocket.remote_address[1]) + message)
-            await websocket.send(message)
+            await websocket.send(pseudo)
             msg=message
             webs=websocket
     async def main():
@@ -1395,12 +1395,12 @@ def connecclient(host,pseudo):
     
     import asyncio
     from websockets.sync.client import connect
-    with connect("ws://localhost:8765") as websocket:
-       websocket.send("Hello world!")
+    with connect("ws://"+host+":8765") as websocket:
+       websocket.send(pseudo)
        message = websocket.recv()
        print(f"Received from server : {message}")
 
-    return(message.decode('utf-8'),websocket)
+    return(message,websocket)
 
 def connecclientsav(host,pseudo):
     # Définition d'un client réseau rudimentaire
