@@ -1346,7 +1346,7 @@ def connecserveur (host,pseudo):
 
     # 2) liaison du socket à une adresse précise :
     try:
-        mySocket.bind((ipaddress, PORT))
+        mySocket.bind(("195.35.28.193", PORT))
     except socket.error:
         print("La liaison du socket à l'adresse choisie a échoué.", socket.error)
         sys.exit()
