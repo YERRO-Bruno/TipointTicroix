@@ -1339,7 +1339,7 @@ def connecserveur (host,pseudo):
     s.connect(("8.8.8.8", 80))
     ipaddress = s.getsockname()[0]
     s.close()
-    print(ipaddress)
+    print("ip",ipaddress)
     PORT = 8765
     # 1) création du socket :
     mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
