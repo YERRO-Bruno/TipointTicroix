@@ -666,7 +666,7 @@ def internet(request):
         if connec[0]:
             import socket
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            s.connect(("0.0.0.0", 80))
+            s.connect(("8.8.8.8", 80))
             ipaddress = s.getsockname()[0]
             s.close()
             context["ip"]=ipaddress
