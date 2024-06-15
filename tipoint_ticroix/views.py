@@ -407,6 +407,7 @@ def internet(request):
             context['score1']=settings.SCORE1
             context['score2']=settings.SCORE2
             if request.POST['rolesocket'] =="client":
+                print("client")
                 if request.POST['serveur'] !="":
                     settings.SERVEURHOST=request.POST['serveur']
                     msg,mySocket=connecclient(request.POST['serveur'],connec[1])
@@ -432,6 +433,7 @@ def internet(request):
                     context["noserver"]="Renseigner l'ip de votre adversaire"
                     return render(request, "internet.html", context)
             if request.POST['rolesocket'] =="serveur":
+                print("connect serveur")
                 msg=connecserveur(request.POST['serveur'],connec[1],)
                 context['begin']="Oui"
                 context['jeton']="Oui"
