@@ -1307,7 +1307,7 @@ def serveursocket (host):
         if ch.upper() =='T':
             break
 
-def connecserveur (host,pseudo):
+def connecserveur1 (host,pseudo):
     # Définition d'un serveur réseau rudimentaire
 # Ce serveur attend la connexion d'un client, pour entamer un dialogue avec lui
 
@@ -1330,7 +1330,7 @@ def connecserveur (host,pseudo):
     asyncio.run(main())
     return(msg)
 
-def connecserveursav (host,pseudo):
+def connecserveur (host,pseudo):
     # Définition d'un serveur réseau rudimentaire
 # Ce serveur attend la connexion d'un client, pour entamer un dialogue avec lui
 
@@ -1340,7 +1340,7 @@ def connecserveursav (host,pseudo):
 
     # 2) liaison du socket à une adresse précise :
     try:
-        mySocket.bind((host, PORT))
+        mySocket.bind(("0.0.0.0", PORT))
     except socket.error:
         print("La liaison du socket à l'adresse choisie a échoué.", socket.error)
         sys.exit()
@@ -1389,7 +1389,7 @@ def clientsocket(host):
     print("Connexion interrompue.")
     mySocket.close()
 
-def connecclient(host,pseudo):
+def connecclient1(host,pseudo):
     # Définition d'un client réseau rudimentaire
     # Ce client dialogue avec un serveur ad hoc
     
@@ -1402,7 +1402,7 @@ def connecclient(host,pseudo):
 
     return(message,websocket)
 
-def connecclientsav(host,pseudo):
+def connecclient(host,pseudo):
     # Définition d'un client réseau rudimentaire
     # Ce client dialogue avec un serveur ad hoc
     PORT = 50000
