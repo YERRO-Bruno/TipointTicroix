@@ -664,12 +664,7 @@ def internet(request):
         settings.SEQUENCE=[]
         import socket
         if connec[0]:
-            import socket
-            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            s.connect(("8.8.8.8", 80))
-            ipaddress = s.getsockname()[0]
-            s.close()
-            context["ip"]=ipaddress
+            
             context["etape"]="connexion"
             return render(request, "internet.html", context)
         else:
