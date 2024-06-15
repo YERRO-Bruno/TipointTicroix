@@ -17,6 +17,6 @@ async def echo(websocket):
 async def main():
     print("Server is activated on ws://{}:{}".format(ipaddress,port))
     #async with serve(echo, "localhost", 8765):
-    async with serve(echo, "0.0.0.0", port):
+    async with serve(echo, ipaddress, port):
         await asyncio.Future()  # run forever
 asyncio.run(main())
