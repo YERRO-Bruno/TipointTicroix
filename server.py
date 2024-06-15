@@ -7,7 +7,8 @@ def getIpAddress():
     ipaddress = s.getsockname()[0]
     s.close()
     return ipaddress
-ipaddress = getIpAddress()
+#ipaddress = getIpAddress()
+ipaddress = "195.35.28.193"
 print(ipaddress)
 port = 8765
 async def echo(websocket):
