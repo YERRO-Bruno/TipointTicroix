@@ -1,2 +1,2 @@
 web: gunicorn TIPOINTICROIX.wsgi
-worker: python server.py >> logserver.txt
+worker: python3 server.py >> logserver.txt

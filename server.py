@@ -8,7 +8,7 @@ def getIpAddress():
     s.close()
     return ipaddress
 ipaddress = getIpAddress()
-print(ipaddress)
+print("ip:",ipaddress)
 port = 8765
 async def echo(websocket):
     async for message in websocket:
