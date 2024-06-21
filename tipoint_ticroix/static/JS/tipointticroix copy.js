@@ -11,50 +11,19 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
 // Click du joueur sur une des cases
-document.getElementById("table").addEventListener('click', function(e) {
-    e.preventDefault()
-    //test si la case est déjà occupée
-    if (document.getElementById("id-victoire").value=="Non" && 
-        document.getElementById("id-defaite").value=="Non") {
-        if (document.getElementById(e.target.id).textContent=="") {
-            case_clicked = e.target.id.split('/')
-            document.getElementById(e.target.id).textContent = "O"
-            e.target.blur()
-            document.getElementById("coup-joueur").value=e.target.id
+    document.getElementById("table").addEventListener('click', function(e) {
+        e.preventDefault()
+        //alert(e.target.id)
+        case_clicked = e.target.id.split('/')
+        document.getElementById(e.target.id).textContent = "O"
+        e.target.blur()
+        document.getElementById("coup-joueur").value=e.target.id
+        // Affichage "JE REFLECHIT"
+        document.getElementById("amoi").style.display="block"
+        document.getElementById("avous").style.display="none"
         
-            // Affichage "JE REFLECHIT"
-            document.getElementById("amoi").style.display="block"
-            document.getElementById("avous").style.display="none"
-            
-            document.forms["grille"].submit();
-        } else {
-            alert("Case déjà utilisée")
-        }
-    } else {
-        alert("La partie est terminée")
-    }
-    
+        document.forms["grille"].submit();
     })
-
-// Click du joueur sur le bouton quitter
-document.getElementById("btn-quitter").addEventListener('click', function(e) {
-    e.preventDefault()
-    document.location.href='http://localhost:8000/'
-    })
-
-// Click du joueur sur le bouton annuler le tour
-document.getElementById("btn-annuler").addEventListener('click', function(e) {
-    e.preventDefault()
-    document.getElementById("id-annuler").value="Oui"
-    document.forms["grille"].submit();
-    })
-
-// Click du joueur sur le bouton rejouer
-document.getElementById("btn-rejouer").addEventListener('click', function(e) {
-    e.preventDefault()
-    document.location.href='http://localhost:8000/tipointticroix/'
-    })
-
     //var tablx = document.getElementById("table")
     //cellx=document.getElementById("1/1").textContent="X"
     
@@ -68,14 +37,7 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
         document.getElementById("amoi").style.display="none"
         document.getElementById("avous").style.display="none"
         document.getElementById("x-board").style.display="none"
-        document.getElementById("btn-annuler").style.display="none"
-        document.getElementById("btn-rejouer").style.display="none"
         if (document.getElementById("nb-tour").textContent > "0") {
-            if (document.getElementById("nb-tour").textContent > "1") {
-                document.getElementById("btn-annuler").style.display="block"
-            }
-            document.getElementById("victoire").style.display="none"
-            document.getElementById("defaite").style.display="none"
             //Affichage "A VOUS DE JOUER"
             document.getElementById("amoi").style.display="none"
             document.getElementById("avous").style.display="block"
@@ -88,7 +50,7 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
             const nbt = document.getElementById("nb-tour").textContent
             for (let j = 0; j < 25; j++) {
                 ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
-                                               // le paramètre est dans ce cas (-1)
+                                        // le paramètre est dans ce cas (-1)
 
             // création et insertion des cellules dans la nouvelle ligne créée
                 for (let i = 0; i < 25; i++) {
@@ -112,8 +74,9 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
                 }
             }
             //Affichage des coups joués
+        
             let tour=parseInt(document.getElementById("nb-tour").textContent)
-            
+                    
             let sequence=document.getElementById("id-sequence").value
             let nb_seq=tour
             let marque="X"
@@ -126,39 +89,18 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
             if (document.getElementById("begin-id").textContent == "Oui") {
                 //nb_seq=tour - 1
                 marque="O"
-                
             }
+            alert("999")
+            alert(sequence)
+            alert(sequence_size)
             for (let i = 0;i<sequence_size;i++) {
                 document.getElementById(sequence[i]).textContent=marque
                 if (marque=="X") {
-                    document.getElementById(sequence[i]).style.color="red"
                     marque="O"
                 } else {
-                    document.getElementById(sequence[i]).style.color="blue"
                     marque="X"
                 }
-                if (i>sequence_size -3) {
-                    document.getElementById(sequence[i]).style.fontWeight="1000"
-                }
-                
-            }
-            win="Non"
-            if (document.getElementById("id-victoire").value!="Non") {
-                win=document.getElementById("id-victoire").value
-                document.getElementById("victoire").style.display="block"
-            }
-            if (document.getElementById("id-defaite").value!="Non") {
-                win=document.getElementById("id-defaite").value
-                document.getElementById("defaite").style.display="block"
-            }
-            if (win != "Non") {
-                document.getElementById("avous").style.display="none"
-                document.getElementById("btn-rejouer").style.display="blocK"
-                document.getElementById("btn-annuler").style.display="none"
-                win = win.split(',')  
-                for (let i = 0;i<5;i++) {
-                    document.getElementById(win[i]).style.backgroundColor="yellow"
-                }
+
             }
         }
     }
