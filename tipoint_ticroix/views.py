@@ -46,7 +46,13 @@ def test(request):
 #page test
 def accueil(request):
     context = {}
-    
+    connec=estconnecté(request)
+    if connec[0]:
+        context["connexion"]="Oui"
+        context["connec"]=connec[1]
+    else:
+        context["connexion"]="Non"
+        context["connec"]=connec[1]
     return render(request, "accueil.html", context)
 
 #déconnexion

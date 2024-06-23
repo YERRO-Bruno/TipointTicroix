@@ -32,9 +32,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG')
 print(DEBUG)
 
-ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.*",'195.35.28.193']
-CSRF_TRUSTED_ORIGINS = ['https://tipointticroix-tipointticroix.zd04p4.easypanel.host',
-                        "https://195.35.28.193","https://tipointticroix.fr"]
+ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.*",
+                 '77.37.125.25',"tipointticroix.fr",
+                 "tipointticroix-tipointticroix.vgz2my.easypanel.host"]
+CSRF_TRUSTED_ORIGINS = ['https://tipointticroix-tipointticroix.vgz2my.easypanel.host',
+                        "https://77.37.125.25","https://tipointticroix.fr"]
 
 
 # Application definition
