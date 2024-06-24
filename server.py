@@ -1,15 +1,8 @@
-#import asyncio
-#from websockets.server import serve
-#from django.conf import settings
-import socket, sys
-def getIpAddress():
-    import socket
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    ipaddress = s.getsockname()[0]
-    s.close()
-    return ipaddress
-ipaddress = getIpAddress()
+import socket
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("8.8.8.8", 80))
+ipaddress = s.getsockname()[0]
+s.close()
 print("ip:",ipaddress)
 port = 8765
 # 1) création du socket :
