@@ -24,7 +24,7 @@ Ti_Point-Ti_Croix
 {%  block script %}
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const chatSocket = new WebSocket('ws://localhost:8000/ws/chat/');
+        const chatSocket = new WebSocket('ws://77.37.125.25:9000/ws/chat/');
         
         chatSocket.onmessage = function(e) {
         alert("1")
