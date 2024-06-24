@@ -37,6 +37,14 @@ def accueil(request):
     else:
         context["connexion"]="Non"
         context["connec"]=connec[1]
+    import asyncio
+    import socket
+    from websockets.server import serve
+            
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    ipaddress = s.getsockname()[0]
+    context['ip']=ipaddress
     return render(request, "accueil.html", context)
 
 #déconnexion
