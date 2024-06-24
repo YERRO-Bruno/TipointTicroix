@@ -11,7 +11,7 @@ mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # 2) liaison du socket à une adresse précise :
 try:
-    mySocket.bind((ipaddress, 8765))
+    mySocket.bind(('', 8765))
 except socket.error:
     print("La liaison du socket à l'adresse choisie a échoué.", socket.error)
     sys.exit()
