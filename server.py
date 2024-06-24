@@ -31,6 +31,6 @@ while 1:
     connexion, adresse = mySocket.accept()
     print("Client connecté, adresse IP %s, port %s" % (adresse[0], adresse[1]))
 
-    connexion.send(settings.NOMSERVEUR.encode('utf-8'))
+    connexion.send("hello client"('utf-8'))
     msgClient = connexion.recv(1024)
     print(msgClient.decode('utf-8'))
