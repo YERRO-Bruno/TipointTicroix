@@ -22,23 +22,7 @@ import json
 #page test
 def test(request):
     context = {}
-    connec=estconnecté(request)
-    if connec[0]:
-        context["connexion"]="Oui"
-        context["connec"]=connec[1]
-    else:
-        context["connexion"]="Non"
-        context["connec"]=connec[1]
-    import socket
-    if connec[0]:
-        import socket
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        ipaddress = s.getsockname()[0]
-        s.close()
-        context["ip"]=ipaddress
-        context["etape"]="connexion"
-        msg,webs=connecclient(ipaddress,"test send au serveur")
+    
 
 
     return render(request, "test.html", context)
