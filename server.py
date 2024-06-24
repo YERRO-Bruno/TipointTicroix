@@ -1,5 +1,7 @@
 import asyncio
 from websockets.server import serve
+from django.conf import settings
+import socket, sys
 def getIpAddress():
     import socket
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -10,13 +12,25 @@ def getIpAddress():
 ipaddress = getIpAddress()
 print("ip:",ipaddress)
 port = 8765
-async def echo(websocket):
-    async for message in websocket:
-        print("received from {}:{} : ".format(websocket.remote_address[0],websocket.remote_address[1]) + message)
-        await websocket.send(message)
-async def main():
-    print("Server is activated on ws://{}:{}".format(ipaddress,port))
-    #async with serve(echo, "localhost", 8765):
-    async with serve(echo, ipaddress, port):
-        await asyncio.Future()  # run forever
-asyncio.run(main())
+# 1) création du socket :
+mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# 2) liaison du socket à une adresse précise :
+try:
+    mySocket.bind((ipaddress, 8765))
+except socket.error:
+    print("La liaison du socket à l'adresse choisie a échoué.", socket.error)
+    sys.exit()
+
+while 1:
+    # 3) Attente de la requête de connexion d'un client :
+    print("Serveur prêt, en attente de requêtes ...")
+    mySocket.listen(5)
+
+    # 4) Etablissement de la connexion :
+    connexion, adresse = mySocket.accept()
+    print("Client connecté, adresse IP %s, port %s" % (adresse[0], adresse[1]))
+
+    connexion.send(settings.NOMSERVEUR.encode('utf-8'))
+    msgClient = connexion.recv(1024)
+    print(msgClient.decode('utf-8'))
