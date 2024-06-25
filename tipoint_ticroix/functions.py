@@ -1346,7 +1346,7 @@ def connecserveur (host,pseudo):
 
     # 2) liaison du socket à une adresse précise :
     try:
-        mySocket.bind((ipaddress, PORT))
+        mySocket.bind((host, PORT))
     except socket.error:
         print("La liaison du socket à l'adresse choisie a échoué.", socket.error)
         sys.exit()
@@ -1420,7 +1420,7 @@ def connecclient(host,pseudo):
     try:
         mySocket.connect((host, 8765))
     except socket.error:
-        print("La connexion a échoué.")
+        print("La connexion a échoué.", socket.error)
         sys.exit()
     print("Connexion établie avec le serveur.")
     msgServeur = mySocket.recv(1024)
