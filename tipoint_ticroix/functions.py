@@ -1354,7 +1354,7 @@ def connecserveur (host,pseudo):
     while 1:
         # 3) Attente de la requête de connexion d'un client :
         print("Serveur prêt, en attente de requêtes ...")
-        mySocket.listen(5)
+        mySocket.listen()
 
         # 4) Etablissement de la connexion :
         connexion, adresse = mySocket.accept()
