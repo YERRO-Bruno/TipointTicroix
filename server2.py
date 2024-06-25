@@ -1,6 +1,9 @@
-import socket
+import socket, sys
 import threading
-
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("8.8.8.8", 80))
+ipaddress = s.getsockname()[0]
+s.close()
 class ClientThread(threading.Thread):
 
     def __init__(self, ip, port, clientsocket):
@@ -24,11 +27,11 @@ class ClientThread(threading.Thread):
 
 tcpsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 tcpsock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-tcpsock.bind(("",1111))
+tcpsock.bind((ipaddress,8765))
 
 while True:
     tcpsock.listen(10)
     print( "En écoute...")
     (clientsocket, (ip, port)) = tcpsock.accept()
-    newthread = ClientThread(ip, 8765, clientsocket)
+    newthread = ClientThread(ipaddress, 8765, clientsocket)
     newthread.start()
