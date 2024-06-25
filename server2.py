@@ -32,6 +32,6 @@ tcpsock.bind((ipaddress,8765))
 while True:
     tcpsock.listen(10)
     print( "En écoute...")
-    (clientsocket, (ip, port)) = tcpsock.accept()
-    newthread = ClientThread(ipaddress, 8765, clientsocket)
+    (clientsocket, (ipadress, port)) = tcpsock.accept()
+    newthread = ClientThread(ipaddress, port, clientsocket)
     newthread.start()
