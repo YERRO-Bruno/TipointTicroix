@@ -33,7 +33,7 @@ DEBUG = os.getenv('DEBUG')
 print(DEBUG)
 
 ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.*",
-                 '77.37.125.25',"ti-points-ti-croix.fr"]
+                 '77.37.125.25',"ti-points-ti-croix.fr","172.18.0.4","172.18.0.7"]
 CSRF_TRUSTED_ORIGINS = ["https://77.37.125.25","https://ti-points-ti-croix.fr"]
 
 
