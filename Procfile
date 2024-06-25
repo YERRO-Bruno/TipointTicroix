@@ -1,1 +1,1 @@
-web: gunicorn TIPOINTICROIX.wsgi
+web: gunicorn TIPOINTICROIX.wsgi --timeout 600
