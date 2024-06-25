@@ -1402,9 +1402,10 @@ def connecclient(host,pseudo):
     import asyncio
     from websockets.sync.client import connect
     with connect("ws://"+host+":8765") as websocket:
-       websocket.send(pseudo)
-       message = websocket.recv()
-       print(f"Received from server : {message}")
+       while True:
+        websocket.send(pseudo)
+        message = websocket.recv()
+        print(f"Received from server : {message}")
 
     return(message,websocket)
 
