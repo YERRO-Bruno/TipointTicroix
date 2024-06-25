@@ -607,15 +607,7 @@ def internet(request):
                 context['finpartie']="Non"
                 msgserveur=""
                 if request.POST['rolesocket'] =="client":
-                    #msgserveur=settings.SOCKETSERVEUR.recv()
-                    import asyncio
-                    from websockets.sync.client import connect
-                    with connect("ws://"+settings.SERVEURHOST+":8765") as websocket:
-                        
-                        message = websocket.recv()
-                        print(f"Received from server : {message}")
-                        print(message)
-                        msgserveur=message
+                    msgserveur=settings.SOCKETSERVEUR.recv()
                     print("fromserveur : ",msgserveur)
                     res = trouve_5(msgserveur,"O")
                     if res != "Non":
@@ -633,7 +625,7 @@ def internet(request):
                     context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
                 if request.POST['rolesocket'] =="serveur":
                     context['premier']=settings.PREMIER
-                    msgclient=settings.SOCKETCLIENT.recv(1024)
+                    msgclient=settings.SOCKETCLIENT.recv()
                     print(msgclient.decode('utf-8'),"X")
                     res = trouve_5(msgclient.decode('utf-8'),"X")
                     if res != "Non":
