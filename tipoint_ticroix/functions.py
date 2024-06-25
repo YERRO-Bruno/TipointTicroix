@@ -1395,7 +1395,7 @@ def clientsocket(host):
     print("Connexion interrompue.")
     mySocket.close()
 
-def connecclient2(host,pseudo):
+def connecclient(host,pseudo):
     # Définition d'un client réseau rudimentaire
     # Ce client dialogue avec un serveur ad hoc
     
