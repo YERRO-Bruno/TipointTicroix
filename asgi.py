@@ -8,7 +8,9 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/asgi/
 """
 import asyncio
 import websockets
-
+import logging
+import logging.config
+logging.config.fileConfig('log_config.yaml', disable_existing_loggers=False)
 async def handler(websocket, path):
     while True:
         message = await websocket.recv()
