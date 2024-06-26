@@ -8,8 +8,6 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/asgi/
 """
 import asyncio
 import websockets
-from hypercorn.config import Config
-from hypercorn.asyncio import serve
 
 async def handler(websocket, path):
     while True:
