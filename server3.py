@@ -1,9 +1,11 @@
 import asyncio
 import websockets
 import socket
+print("debut")
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect(("8.8.8.8", 80))
+s.connect(("", 80))
 ipaddress = s.getsockname()[0]
+print(ipaddress)
 async def handler(websocket):
     while True:
         message = await websocket.recv()
