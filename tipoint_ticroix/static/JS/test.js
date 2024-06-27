@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 var i = 0;
                 data.forEach(userconnected => {
                     alert("success")
-                    const option=document.createElement("option")
-                    option.textContent=data[i].pseudo
-                    userconnecteds.appendChild(option)
+                    const li=document.createElement("li")
+                    li.textContent=data[i].pseudo
+                    userconnecteds.appendChild(li)
                     i++
                 })
             },
