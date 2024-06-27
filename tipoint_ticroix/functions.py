@@ -1408,7 +1408,7 @@ def connecclient(host,pseudo):
             websocket.send(pseudo)
             #message = websocket.recv()
             #print(f"Received from server : {message}")
-    except websockets.exceptions.ConnectionClosedOK:
+    except :
         print("connexion close")
     finally:
         print ("database")
