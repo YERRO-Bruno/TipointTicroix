@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (data[i].pseudo==pseudox) {
                         alert(pseudox)
                         li.style.color='blue'
+                        li.style.fontWeight='1000'
                     }
                     userconnecteds.appendChild(li)
                     i++
@@ -27,4 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
     filluserconnecteds()
+    document.getElementById("id-userconnecteds").addEventListener("click", function(event) {
+        alert(event.target.textContent)
+    })
 })
