@@ -8,14 +8,10 @@ from django.shortcuts import render,redirect
 from django.utils.crypto import get_random_string
 import bcrypt
 from django.core.mail import send_mail
-import smtplib
-import requests
 from socket import gethostbyname_ex, gethostname
-import asyncio
 import socket
-import asyncio
 from websockets.sync.client import connect
-import json
+from django.http import JsonResponse
 # Create your views here.
 
 #page test
@@ -697,3 +693,9 @@ def mentions(request):
         context["connexion"]="Non"
         context["connec"]=connec[1]
     return render(request, "mentions.html", context)
+
+#liste des usersconnected
+def api_userconnecteds(request):
+    userconnecteds=UserConnected.objects.all()
+    userconnecteds_json=[{'pseudo':UserConnected.pseudo} for userconnected in userconnecteds]
+    return JsonResponse(userconnecteds_json,safe=False)
