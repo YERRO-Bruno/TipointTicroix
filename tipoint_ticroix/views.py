@@ -1,4 +1,4 @@
-from .models import User, VerifUser
+from .models import User, VerifUser, UserConnected
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.conf import settings
@@ -11,23 +11,31 @@ from django.core.mail import send_mail
 import smtplib
 import requests
 from socket import gethostbyname_ex, gethostname
-
-#from functions import coupordi
+import asyncio
+import socket
+import asyncio
+from websockets.sync.client import connect
 import json
 # Create your views here.
-#Teste si l'ordinateur à gagner
-#si oui renvoie la sequences des 5 positions allignées
-#sinon renvoie ""
 
 #page test
 def test(request):
     context = {}
-    
+    connec=estconnecté(request)
+    if connec[0]:
+        context["connec"]=connec[1]
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ipaddress = s.getsockname()[0]
+        settings.SERVEURHOST=ipaddress
+        s.close()
+        with connect("ws://"+ipaddress+":8765") as websocket:
+            websocket.send("connexion"+"/"+connec[1])
+            return render(request, "internet.html", context)
+    else:
+        return redirect('/tipointticroix/connect')
 
-
-    return render(request, "test.html", context)
-
-#page test
+#page accueil
 def accueil(request):
     context = {}
     connec=estconnecté(request)
@@ -37,14 +45,7 @@ def accueil(request):
     else:
         context["connexion"]="Non"
         context["connec"]=connec[1]
-    import asyncio
-    import socket
-    from websockets.server import serve
             
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    ipaddress = s.getsockname()[0]
-    context['ip']=ipaddress
     return render(request, "accueil.html", context)
 
 #déconnexion

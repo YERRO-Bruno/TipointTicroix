@@ -37,3 +37,11 @@ class VerifUser(AbstractBaseUser):
 
     def __str__(self):
         return self.email
+    
+class UserConnected(models.Model):
+    pseudo = models.CharField(max_length=20,unique=True)
+
+    REQUIRED_FIELDS = []
+    
+    def __str__(self):
+        return self.pseudo

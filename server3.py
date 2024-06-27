@@ -9,7 +9,9 @@ print("debut")
 async def handler(websocket):
     while True:
         message = await websocket.recv()
-        print(message)
+        res=message.split("/")
+        print(res)
+
 
 async def main():
     async with websockets.serve(handler, "0.0.0.0", 8765):
