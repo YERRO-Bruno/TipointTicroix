@@ -1404,8 +1404,8 @@ def connecclient(host,pseudo):
     with connect("ws://"+host+":8765") as websocket:
        while True:
         websocket.send(pseudo)
-        message = websocket.recv()
-        print(f"Received from server : {message}")
+        #message = websocket.recv()
+        #print(f"Received from server : {message}")
 
     return(message,websocket)
 
