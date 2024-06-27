@@ -31,7 +31,7 @@ def test(request):
         s.close()
         with connect("ws://"+ipaddress+":8765") as websocket:
             websocket.send("connexion"+"/"+connec[1])
-            return render(request, "internet.html", context)
+        return render(request, "test.html", context)
     else:
         return redirect('/tipointticroix/connect')
 
