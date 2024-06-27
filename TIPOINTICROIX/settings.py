@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tipoint_ticroix.apps.TipointTicroixConfig',
+    'tipoint_ticroix',
 ]
 
 MIDDLEWARE = [
@@ -175,6 +176,7 @@ IPSERVEUR=""
 SERVEURHOST=""
 BEGINCLIENT=""
 BEGINSERVEUR=""
+WEBSOCKET=""
 PREMIER=""
 SECOND=""
 NOMSERVEUR=""
