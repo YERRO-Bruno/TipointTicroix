@@ -1,7 +1,6 @@
 import asyncio
 import websockets
 import socket
-from tipoint_ticroix.models import UserConnected
 print("debut")
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
@@ -14,7 +13,7 @@ async def handler(websocket):
         print(res)
     except websockets.exceptions.ConnectionClosedOK:
         print("connexion close")
-        
+
 async def main():
         async with websockets.serve(handler, ipaddress, 8765):
             await asyncio.Future()  # run forever
