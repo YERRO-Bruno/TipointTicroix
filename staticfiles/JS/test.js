@@ -4,7 +4,7 @@ alert("client")
     function filluserconnecteds() {
         const userconnecteds=document.getElementById("id_userconnecteds")
         $.ajax({
-            url:'api/userconnecteds',
+            url:'/api/userconnecteds',
             method: "GET",
             dataType: "json",
             success: function (data) {
