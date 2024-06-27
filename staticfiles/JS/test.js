@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    alert("client")
-  
     function filluserconnecteds() {
         const userconnecteds=document.getElementById("id_userconnecteds")
         const pseudox=document.getElementById("id-connec").textContent
@@ -15,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const li=document.createElement("li")
                     li.textContent=data[i].pseudo
                     if (data[i].pseudo==pseudox) {
+                        alert(pseudox)
                         li.style.color=blue
                     }
                     userconnecteds.appendChild(li)
