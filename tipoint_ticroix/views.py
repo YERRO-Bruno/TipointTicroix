@@ -30,7 +30,13 @@ def test(request):
         settings.SERVEURHOST=ipaddress
         s.close()
         #with connect("ws:"+ipaddress+":8765") as websocket:
-        connecclient(ipaddress,"connexion/"+connec[1])
+        websocket=connecclient(ipaddress,"connexion/"+connec[1])
+        settings.WEBSOCKET=websocket
+
+        
+        userconnected = UserConnected.objects.filter(pseudo=connec[1])
+        if len(userconnected)==0:
+            userconnected=UserConnected.objects.create(pseudo=connec[1])
         print("connexion"+"/"+connec[1])
         #   websocket.send("connexion"+"/"+connec[1])
         return render(request, "test.html", context)

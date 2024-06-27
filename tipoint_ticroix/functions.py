@@ -1402,13 +1402,14 @@ def connecclient(host,pseudo):
     import asyncio
     import websockets
     from websockets.sync.client import connect
+    #with connect("ws://"+host+":8765") as websocket:
     with connect("ws://"+host+":8765") as websocket:
     #while True:
         websocket.send(pseudo)
         #message = websocket.recv()
         #print(f"Received from server : {message}")
-    print("connexion close")
-
+        return(websocket)
+    
 def connecclient1(host,pseudo):
     # Définition d'un client réseau rudimentaire
     # Ce client dialogue avec un serveur ad hoc

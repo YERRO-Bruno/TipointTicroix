@@ -14,12 +14,7 @@ async def handler(websocket):
         print(res)
     except websockets.exceptions.ConnectionClosedOK:
         print("connexion close")
-
-    if res[0]== "connexion":
-        #test si connexion existe déjà
-        userconnected = UserConnected.objects.filter(pseudo=res[1])
-        if len(userconnected)==0:
-            userconnected=UserConnected.objects.create(pseudo=res[1])
+        
 async def main():
         async with websockets.serve(handler, ipaddress, 8765):
             await asyncio.Future()  # run forever
