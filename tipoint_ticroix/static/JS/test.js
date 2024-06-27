@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 var i = 0;
                 data.forEach(userconnected => {
                     alert("success")
-                    const li=document.createElement("li")
+                    const li=document.createElement("a")
                     li.textContent=data[i].pseudo
                     if (data[i].pseudo==pseudox) {
                         alert(pseudox)
