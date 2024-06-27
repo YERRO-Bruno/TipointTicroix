@@ -19,6 +19,7 @@ def test(request):
     context = {}
     connec=estconnecté(request)
     if connec[0]:
+        context["connexion"]="Oui"
         context["connec"]=connec[1]
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("8.8.8.8", 80))
@@ -38,7 +39,8 @@ def test(request):
         #   websocket.send("connexion"+"/"+connec[1])
         return render(request, "test.html", context)
     else:
-        return redirect('/tipointticroix/connect')
+        context["connexion"]="Non"
+        return redirect('/tipointticroix/connect',context)
 
 #page accueil
 def accueil(request):
