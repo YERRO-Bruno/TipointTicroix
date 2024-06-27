@@ -7,7 +7,7 @@ s.connect(("8.8.8.8", 80))
 ipaddress = s.getsockname()[0]
 print(ipaddress)
 async def handler(websocket):
-    while True:
+    #while True:
         try:
             message = await websocket.recv()
             res=message.split("/")
