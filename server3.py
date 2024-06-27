@@ -14,8 +14,11 @@ async def handler(websocket):
 
 
 async def main():
-    async with websockets.serve(handler, ipaddress, 8765):
-        await asyncio.Future()  # run forever
-
+    try:
+        async with websockets.serve(handler, ipaddress, 8765):
+            await asyncio.Future()  # run forever
+    except websockets.exceptions.ConnectionClosedOK:
+        print("connexion close")
+        
 if __name__ == "__main__":
     asyncio.run(main())
