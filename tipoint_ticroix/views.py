@@ -34,9 +34,10 @@ def test(request):
         settings.WEBSOCKET=websocket
 
         
-        userconnected = UserConnected.objects.filter(pseudo=connec[1])
-        if len(userconnected)==0:
-            userconnected=UserConnected.objects.create(pseudo=connec[1])
+        userconnecteds = UserConnected.objects.filter(pseudo=connec[1])
+        if len(userconnecteds)>0:
+            return render(request, "test.html", context)
+        userconnected=UserConnected.objects.create(pseudo=connec[1])
         print("connexion"+"/"+connec[1])
         #   websocket.send("connexion"+"/"+connec[1])
         return render(request, "test.html", context)
