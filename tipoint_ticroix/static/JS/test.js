@@ -1,5 +1,5 @@
-document.getElementById("btn-client").addEventListener('click', function(e) {
-alert("client")
+document.addEventListener("DOMContentLoaded", function () {
+    alert("client")
   
     function filluserconnecteds() {
         const userconnecteds=document.getElementById("id_userconnecteds")
