@@ -697,5 +697,5 @@ def mentions(request):
 #liste des usersconnected
 def api_userconnecteds(request):
     userconnecteds=UserConnected.objects.all()
-    userconnecteds_json=[{'pseudo':UserConnected.pseudo} for userconnected in userconnecteds]
+    userconnecteds_json=[{'pseudo':userconnected.pseudo} for userconnected in userconnecteds]
     return JsonResponse(userconnecteds_json,safe=False)
