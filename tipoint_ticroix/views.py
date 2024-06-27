@@ -29,7 +29,7 @@ def test(request):
         ipaddress = s.getsockname()[0]
         settings.SERVEURHOST=ipaddress
         s.close()
-        with connect("ws://"+ipaddress+":8765") as websocket:
+        with connect("ws://0.0.0.0:8765") as websocket:
             websocket.send("connexion"+"/"+connec[1])
         return render(request, "test.html", context)
     else:
