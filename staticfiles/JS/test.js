@@ -10,8 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 var i = 0;
                 data.forEach(userconnected => {
                     alert("success")
-                    const li=document.createElement("a")
+                    const li=document.createElement("li")
                     li.textContent=data[i].pseudo
+                    li.class="joueur"
                     if (data[i].pseudo==pseudox) {
                         alert(pseudox)
                         li.style.color='blue'
@@ -28,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
     filluserconnecteds()
-    document.getElementById("id-userconnecteds").addEventListener("click", function(event) {
+    document.getElementsByClassName("joueur").addEventListener("click", function(event) {
         alert(event.target.textContent)
     })
 })
