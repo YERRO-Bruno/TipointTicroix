@@ -20,31 +20,4 @@ Ti_Point-Ti_Croix
 </div>
 {%  endblock %}
 {%  block script %}
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        ip=document.getElementById("ip").textContent
-        const chatSocket = new WebSocket('ws://'.concat(ip,':9000/ws/chat/'))
-        
-        chatSocket.onmessage = function(e) {
-        alert("1")
-    const data = JSON.parse(e.data);
-    const message = data['message'];
-    alert(message)
-    // Handle incoming message
-};
-
-chatSocket.onclose = function(e) {
-    console.error('Chat socket closed unexpectedly');
-};
-sendMessage("test ok")
-alert("ok")
-// Send message to server
-function sendMessage(message) {
-    chatSocket.send(JSON.stringify({
-        'message': message
-    }));
-}
-    
-})
-</script>
 {%  endblock %}
