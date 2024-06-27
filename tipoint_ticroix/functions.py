@@ -1400,6 +1400,7 @@ def connecclient(host,pseudo):
     # Ce client dialogue avec un serveur ad hoc
     
     import asyncio
+    import websockets
     from websockets.sync.client import connect
     try:
         with connect("ws://"+host+":8765") as websocket:
@@ -1407,7 +1408,7 @@ def connecclient(host,pseudo):
             websocket.send(pseudo)
             #message = websocket.recv()
             #print(f"Received from server : {message}")
-    except websocket.exceptions.ConnectionClosedOK:
+    except websockets.exceptions.ConnectionClosedOK:
         print("connexion close")
     finally:
         print ("database")
