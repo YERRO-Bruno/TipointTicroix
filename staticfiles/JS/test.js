@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     li.textContent=data[i].pseudo
                     if (data[i].pseudo==pseudox) {
                         alert(pseudox)
-                        li.style.color=blue
+                        li.style.color='blue'
                     }
                     userconnecteds.appendChild(li)
                     i++
