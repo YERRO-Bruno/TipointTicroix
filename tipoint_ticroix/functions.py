@@ -1395,7 +1395,22 @@ def clientsocket(host):
     print("Connexion interrompue.")
     mySocket.close()
 
-def connecclient(host,pseudo):
+async def connecclient(host,pseudo):
+    # Définition d'un client réseau rudimentaire
+    # Ce client dialogue avec un serveur ad hoc
+    
+    import asyncio
+    import websockets
+    from websockets.sync.client import connect
+    #with connect("ws://"+host+":8765") as websocket:
+    async with connect("ws://77.37.125.25:8765") as websocket:
+        await websocket.send(pseudo)
+        message = await websocket.recv
+        
+        print(f"Received from server : {message}")
+        return(websocket)
+    
+def connecclientx(host,pseudo):
     # Définition d'un client réseau rudimentaire
     # Ce client dialogue avec un serveur ad hoc
     

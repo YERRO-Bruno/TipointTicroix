@@ -29,9 +29,8 @@ def test(request):
         s.close()
         #with connect("ws:"+ipaddress+":8765") as websocket:
         try:
-            websocket=connecclient(ipaddress,"connexion/"+connec[1])
+            websocket, message=connecclient(ipaddress,"connexion/"+connec[1])
             settings.WEBSOCKET=websocket
-            message=websocket.recv()
         except websockets.exceptions.ConnectionClosedOK:
             print("connexion close")
         print(message)
