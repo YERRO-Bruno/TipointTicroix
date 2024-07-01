@@ -2,6 +2,8 @@
 import asyncio
 import websockets
 import socket
+import logging
+logging.basicConfig(level=logging.DEBUG, filename='server.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
 print("debut")
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
