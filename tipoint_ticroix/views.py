@@ -29,7 +29,7 @@ async def test(request):
     s.close()
     #with connect("ws:"+ipaddress+":8765") as websocket:
     try:
-        websocket, message = connecclient(ipaddress,"connexion/"+"test client")
+        websocket, message = await connecclient(ipaddress,"connexion/"+"test client")
         print(message)
         settings.WEBSOCKET=websocket
     except websockets.exceptions.ConnectionClosedOK:
