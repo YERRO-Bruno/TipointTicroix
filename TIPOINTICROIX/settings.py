@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
     'tipoint_ticroix.apps.TipointTicroixConfig',
 ]
 
@@ -79,6 +80,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'TIPOINTICROIX.wsgi.application'
+ASGI_APPLICATION = 'TIPOINTICROIX.asgi.application'
 
 
 # Database
