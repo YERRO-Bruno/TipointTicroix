@@ -1408,7 +1408,7 @@ async def connecclient(host,pseudo):
         message = await websocket.recv
         
         print(f"Received from server : {message}")
-        return(websocket)
+        return(websocket,message)
     
 def connecclientx(host,pseudo):
     # Définition d'un client réseau rudimentaire
