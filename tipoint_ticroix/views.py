@@ -18,23 +18,10 @@ from django.http import JsonResponse
 #page test
 async def test(request):
     context = {}
-    #connec=estconnecté(request)
-    #if connec[0]:
-    context["connexion"]="Oui"
-    context["connec"]="test client"
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    ipaddress = s.getsockname()[0]
-    settings.SERVEURHOST=ipaddress
-    s.close()
-    #with connect("ws:"+ipaddress+":8765") as websocket:
-    try:
-        websocket, message = await connecclient(ipaddress,"connexion/"+"test client")
-        print(message)
-        settings.WEBSOCKET=websocket
-    except websockets.exceptions.ConnectionClosedOK:
-        print("connexion close")
+    websocket, message = await connecclient("ipaddress","connexion/"+"test client")
     print(message)
+    settings.WEBSOCKET=websocket
+
     
     userconnecteds = UserConnected.objects.filter(pseudo="test client")
     if len(userconnecteds)>0:
