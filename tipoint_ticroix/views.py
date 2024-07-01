@@ -29,7 +29,8 @@ def test(request):
         #with connect("ws:"+ipaddress+":8765") as websocket:
         websocket=connecclient(ipaddress,"connexion/"+connec[1])
         settings.WEBSOCKET=websocket
-
+        message=websocket.recv()
+        print(message)
         
         userconnecteds = UserConnected.objects.filter(pseudo=connec[1])
         if len(userconnecteds)>0:

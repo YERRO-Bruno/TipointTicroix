@@ -14,6 +14,7 @@ async def handler(websocket):
         message = await websocket.recv()
         res=message.split("/")
         print(res)
+        await websocket.send("retour " + res[1])
     except websockets.exceptions.ConnectionClosedOK:
         print("connexion close")
 
