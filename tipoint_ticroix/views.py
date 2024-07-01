@@ -29,7 +29,7 @@ def test(request):
         s.close()
         #with connect("ws:"+ipaddress+":8765") as websocket:
         try:
-            res=connecclient(ipaddress,"connexion/"+connec[1])
+            res= connecclient(ipaddress,"connexion/"+connec[1])
             print(res)
             settings.WEBSOCKET=res[0]
             message=res[1]
