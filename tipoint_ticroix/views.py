@@ -10,6 +10,7 @@ import bcrypt
 from django.core.mail import send_mail
 from socket import gethostbyname_ex, gethostname
 import socket
+import websockets
 from websockets.sync.client import connect
 from django.http import JsonResponse
 # Create your views here.
@@ -27,10 +28,12 @@ def test(request):
         settings.SERVEURHOST=ipaddress
         s.close()
         #with connect("ws:"+ipaddress+":8765") as websocket:
-        websocket=connecclient(ipaddress,"connexion/"+connec[1])
-        settings.WEBSOCKET=websocket
-        message=websocket.recv()
-        print(message)
+        try:
+            websocket=connecclient(ipaddress,"connexion/"+connec[1])
+            settings.WEBSOCKET=websocket
+            message=websocket.recv()
+        except websockets.exceptions.ConnectionClosedOK:
+            print(message)
         
         userconnecteds = UserConnected.objects.filter(pseudo=connec[1])
         if len(userconnecteds)>0:
