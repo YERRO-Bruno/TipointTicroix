@@ -30,6 +30,7 @@ def test(request):
         #with connect("ws:"+ipaddress+":8765") as websocket:
         try:
             res=connecclient(ipaddress,"connexion/"+connec[1])
+            print(res)
             settings.WEBSOCKET=res[0]
             message=res[1]
         except websockets.exceptions.ConnectionClosedOK:
