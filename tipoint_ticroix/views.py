@@ -33,7 +33,8 @@ def test(request):
             settings.WEBSOCKET=websocket
             message=websocket.recv()
         except websockets.exceptions.ConnectionClosedOK:
-            print(message)
+            print("connexion close")
+        print(message)
         
         userconnecteds = UserConnected.objects.filter(pseudo=connec[1])
         if len(userconnecteds)>0:
