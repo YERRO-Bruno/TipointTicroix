@@ -18,34 +18,34 @@ from django.http import JsonResponse
 #page test
 async def test(request):
     context = {}
-    connec=estconnecté(request)
-    if connec[0]:
-        context["connexion"]="Oui"
-        context["connec"]=connec[1]
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        ipaddress = s.getsockname()[0]
-        settings.SERVEURHOST=ipaddress
-        s.close()
-        #with connect("ws:"+ipaddress+":8765") as websocket:
-        try:
-            websocket, message = connecclient(ipaddress,"connexion/"+connec[1])
-            print(message)
-            settings.WEBSOCKET=websocket
-        except websockets.exceptions.ConnectionClosedOK:
-            print("connexion close")
+    #connec=estconnecté(request)
+    #if connec[0]:
+    context["connexion"]="Oui"
+    context["connec"]="test client"
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    ipaddress = s.getsockname()[0]
+    settings.SERVEURHOST=ipaddress
+    s.close()
+    #with connect("ws:"+ipaddress+":8765") as websocket:
+    try:
+        websocket, message = connecclient(ipaddress,"connexion/"+"test client")
         print(message)
-        
-        userconnecteds = UserConnected.objects.filter(pseudo=connec[1])
-        if len(userconnecteds)>0:
-            return render(request, "test.html", context)
-        userconnected=UserConnected.objects.create(pseudo=connec[1])
-        print("connexion"+"/"+connec[1])
-        #   websocket.send("connexion"+"/"+connec[1])
+        settings.WEBSOCKET=websocket
+    except websockets.exceptions.ConnectionClosedOK:
+        print("connexion close")
+    print(message)
+    
+    userconnecteds = UserConnected.objects.filter(pseudo="test client")
+    if len(userconnecteds)>0:
         return render(request, "test.html", context)
-    else:
-        context["connexion"]="Non"
-        return redirect('/tipointticroix/connect',context)
+    userconnected=UserConnected.objects.create(pseudo="test client")
+    print("connexion"+"/"+"test client")
+    #   websocket.send("connexion"+"/"+connec[1])
+    return render(request, "test.html", context)
+    #else:
+    #    context["connexion"]="Non"
+    #    return redirect('/tipointticroix/connect',context)
 
 #page accueil
 def accueil(request):
