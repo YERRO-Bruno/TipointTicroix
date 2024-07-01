@@ -1409,8 +1409,16 @@ async def connecclienty(host,pseudo):
         
         print(f"Received from server : {message}")
         return(websocket,message)
+
+async def connecclient(host, pseudo):
+    import websockets
+
+    async with websockets.connect(f"ws://77.37.125.25:8765") as websocket:
+        await websocket.send(pseudo)
+        message = await websocket.recv()
+        return websocket, message
     
-def connecclient(host,pseudo):
+def connecclientX(host,pseudo):
     # Définition d'un client réseau rudimentaire
     # Ce client dialogue avec un serveur ad hoc
     
@@ -1424,6 +1432,7 @@ def connecclient(host,pseudo):
         message = websocket.recv()
         #print(f"Received from server : {message}")
         return(websocket,message)
+    
     
 def connecclient1(host,pseudo):
     # Définition d'un client réseau rudimentaire

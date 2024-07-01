@@ -16,7 +16,7 @@ from django.http import JsonResponse
 # Create your views here.
 
 #page test
-def test(request):
+async def test(request):
     context = {}
     connec=estconnecté(request)
     if connec[0]:
@@ -29,10 +29,9 @@ def test(request):
         s.close()
         #with connect("ws:"+ipaddress+":8765") as websocket:
         try:
-            res= connecclient(ipaddress,"connexion/"+connec[1])
-            print(res)
-            settings.WEBSOCKET=res[0]
-            message=res[1]
+            websocket, message = connecclient(ipaddress,"connexion/"+connec[1])
+            print(message)
+            settings.WEBSOCKET=websocket
         except websockets.exceptions.ConnectionClosedOK:
             print("connexion close")
         print(message)
