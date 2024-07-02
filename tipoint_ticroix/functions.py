@@ -1413,7 +1413,7 @@ async def connecclienty(host,pseudo):
 async def connecclient(host, pseudo):
     import websockets
 
-    async with websockets.connect(f"ws://77.37.125.25:8765") as websocket:
+    async with websockets.connect(f"ws://77.37.125.25:8765/ws/chat/") as websocket:
         await websocket.send(pseudo)
         message = await websocket.recv()
         return websocket, message
