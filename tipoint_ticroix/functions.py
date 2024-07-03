@@ -1436,8 +1436,9 @@ def connecclientX(host,pseudo):
         while True:
             websocket.send(pseudo)
             message = websocket.recv()
+            print(message)
             #print(f"Received from server : {message}")
-            return(websocket,message)
+        return(websocket,message)
     
     
 def connecclient1(host,pseudo):
