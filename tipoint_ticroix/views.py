@@ -16,13 +16,16 @@ from django.http import JsonResponse
 # Create your views here.
 
 #page test
+import json
 async def test(request):
     context = {}
     websocket, message = await connecclient("ipaddress","connexion/"+"test client")
     print(message)
     settings.WEBSOCKET=websocket
-    message = await websocket.rcv()
-    print(message)
+    async for message in websocket:
+            data = json.loads(message)
+            print(f"Received message from server: {data['message']}")
+    
     
     userconnecteds = UserConnected.objects.filter(pseudo="test client")
     if len(userconnecteds)>0:
