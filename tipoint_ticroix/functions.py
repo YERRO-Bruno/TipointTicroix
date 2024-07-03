@@ -1416,7 +1416,7 @@ async def connecclient(host, pseudo):
 
     async with websockets.connect(f"ws://77.37.125.25:8765/ws/chat/") as websocket:
         
-        await websocket.send("ok : "+message)
+        await websocket.send("ok : "+"TEST")
         message = await websocket.recv()
     #    async for message in websocket:
     #        data = json.loads(message)
