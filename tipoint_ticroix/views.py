@@ -41,7 +41,7 @@ async def test(request):
     websocket, message = await connecclient("ipaddress","connexion/"+"test client")
     print(message)
     settings.WEBSOCKET=websocket
-    message=websocket.recv()
+    message= await websocket.recv()
     #data = json.loads(message)
     print("Received message from server: " + message)
     
