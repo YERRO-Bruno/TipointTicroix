@@ -1416,10 +1416,10 @@ async def connecclient(host, pseudo):
 
     async with websockets.connect(f"ws://77.37.125.25:8765/ws/chat/") as websocket:
         await websocket.send(pseudo)
-        async for message in websocket:
-            data = json.loads(message)
-            print(f"Received message from server: {data['message']}")
-        return websocket, message
+    #    async for message in websocket:
+    #        data = json.loads(message)
+    #        print(f"Received message from server: {data['message']}")
+        return websocket, "test ok"
     
 def connecclientX(host,pseudo):
     # Définition d'un client réseau rudimentaire
