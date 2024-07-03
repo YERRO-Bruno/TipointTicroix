@@ -31,20 +31,21 @@ Ti_Point-Ti_Croix
 <script src="{% static 'JS/test.js'%}"></script>
 <script>
     var roomName = 'room1';  // Remplacez par l'identifiant de chambre dynamique
-var socket = new WebSocket(`ws://127.0.0.1:8000/ws/chat/`);
+    alert("websocket")
+    var socket = new WebSocket(`ws://127.0.0.1:8000/ws/chat/`);
 
-socket.onopen = function() {
-    alert('WebSocket connection established.');
-    // Envoyer un message au serveur
-    var message = {
-        'message': 'Hello, server!'
+    socket.onopen = function() {
+        alert('WebSocket connection established.');
+        // Envoyer un message au serveur
+        var message = {
+            'message': 'Hello, server!'
+        };
+        socket.send(JSON.stringify(message));
     };
-    socket.send(JSON.stringify(message));
-};
 
-socket.onmessage = function(event) {
-    var message = JSON.parse(event.data);
-    alert('Received message from server:', message);
-};
+    socket.onmessage = function(event) {
+        var message = JSON.parse(event.data);
+        alert('Received message from server:', message);
+    };
 </script>
 {%  endblock %}
