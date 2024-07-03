@@ -22,9 +22,9 @@ async def test(request):
     websocket, message = await connecclient("ipaddress","connexion/"+"test client")
     print(message)
     settings.WEBSOCKET=websocket
-    async for message in websocket:
-            data = json.loads(message)
-            print(f"Received message from server: {data['message']}")
+    message=websocket.recv()
+    data = json.loads(message)
+    print(f"Received message from server: {data['message']}")
     
     
     userconnecteds = UserConnected.objects.filter(pseudo="test client")
