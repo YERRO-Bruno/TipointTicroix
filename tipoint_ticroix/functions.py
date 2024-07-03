@@ -1433,13 +1433,13 @@ def connecclientX(host,pseudo):
     from websockets.sync.client import connect
     #with connect("ws://"+host+":8765") as websocket:
     with connect("ws://77.37.125.25:8765") as websocket:
-        while True:
-            websocket.send(pseudo)
-            message = websocket.recv()
-            print(message)
-            websocket.close
-            #print(f"Received from server : {message}")
-            return(websocket,message)
+        #while True:
+        message = websocket.recv()
+        print(message)
+        websocket.send(pseudo)
+        #websocket.close
+        #print(f"Received from server : {message}")
+        return(websocket,message)
     
     
 def connecclient1(host,pseudo):
