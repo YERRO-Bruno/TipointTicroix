@@ -32,7 +32,7 @@ Ti_Point-Ti_Croix
 <script>
     var roomName = 'room1';  // Remplacez par l'identifiant de chambre dynamique
     alert("websocket")
-    var socket = new WebSocket(`ws://77.37.125.25:8765/ws/chat/`);
+    var socket = new WebSocket(`ws://77.37.125.25:8765/ws/chat/$`);
 
     socket.onopen = function() {
         alert('WebSocket connection established.');
