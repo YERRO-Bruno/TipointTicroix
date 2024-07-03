@@ -1434,12 +1434,12 @@ def connecclientX(host,pseudo):
     #with connect("ws://"+host+":8765") as websocket:
     with connect("ws://77.37.125.25:8765") as websocket:
         #while True:
-        message = websocket.recv()
-        print(message)
+        #message = websocket.recv()
+        #print(message)
         websocket.send(pseudo)
         #websocket.close
         #print(f"Received from server : {message}")
-        return(websocket,message)
+        return(websocket,"testok")
     
     
 def connecclient1(host,pseudo):
