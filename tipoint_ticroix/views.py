@@ -21,7 +21,8 @@ async def test(request):
     websocket, message = await connecclient("ipaddress","connexion/"+"test client")
     print(message)
     settings.WEBSOCKET=websocket
-
+    message = await websocket.rcv()
+    print(message)
     
     userconnecteds = UserConnected.objects.filter(pseudo="test client")
     if len(userconnecteds)>0:
