@@ -17,7 +17,26 @@ from django.http import JsonResponse
 
 #page test
 import json
-async def test(request):
+def test(request):
+    context = {}
+    connec=estconnecté(request)
+    if connec[0]:
+        context["connexion"]="Oui"
+        context["connec"]=connec[1] 
+    
+        userconnecteds = UserConnected.objects.filter(pseudo=connec[1])
+        if len(userconnecteds)>0:
+            return render(request, "test.html", context)
+        userconnected=UserConnected.objects.create(pseudo=connec[1])
+        print("connexion"+"/"+connec[1])
+        return render(request, "test.html", context)
+    else:
+        context["connexion"]="Non"
+        return redirect('/tipointticroix/connect',context)
+
+#page test
+import json
+async def test2(request):
     context = {}
     websocket, message = await connecclient("ipaddress","connexion/"+"test client")
     print(message)
