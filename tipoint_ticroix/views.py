@@ -42,8 +42,8 @@ async def test(request):
     print(message)
     settings.WEBSOCKET=websocket
     message=websocket.recv()
-    data = json.loads(message)
-    print(f"Received message from server: {data['message']}")
+    #data = json.loads(message)
+    print("Received message from server: " + message)
     
     
     userconnecteds = UserConnected.objects.filter(pseudo="test client")
