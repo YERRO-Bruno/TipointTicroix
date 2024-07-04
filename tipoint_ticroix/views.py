@@ -38,24 +38,21 @@ def test2(request):
 import json
 async def test(request):
     context = {}
-    websocket, message = await connecclient("ipaddress","connexion/"+"test client")
-    print(message)
-    settings.WEBSOCKET=websocket
-    message= await websocket.recv()
-    #data = json.loads(message)
-    print("Received message from server: " + message)
-    
-    
-    userconnecteds = UserConnected.objects.filter(pseudo="test client")
-    if len(userconnecteds)>0:
+    connec=estconnecté(request)
+    if connec[0]:
+        context["connexion"]="Oui"
+        context["connec"]=connec[1]
+        websocket, message = await connecclient("ipaddress",connec[1])
+        print(message)
+        settings.WEBSOCKET=websocket
+        userconnecteds = UserConnected.objects.filter(pseudo="test client")
+        if len(userconnecteds)>0:
+            userconnected=UserConnected.objects.create(pseudo="test client")
         return render(request, "test.html", context)
-    userconnected=UserConnected.objects.create(pseudo="test client")
-    print("connexion"+"/"+"test client")
-    #   websocket.send("connexion"+"/"+connec[1])
-    return render(request, "test.html", context)
-    #else:
-    #    context["connexion"]="Non"
-    #    return redirect('/tipointticroix/connect',context)
+    else:
+        context["connexion"]="Non"
+        context["connec"]=connec[1]
+        return redirect('/tipointticroix/connect',context)
 
 #page accueil
 def accueil(request):
