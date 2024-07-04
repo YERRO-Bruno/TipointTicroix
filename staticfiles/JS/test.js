@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     filluserconnecteds()
     document.getElementsByClassName("joueur").addEventListener("click", function(event) {
+        alert('click')
         alert(event.target.textContent)
     })
 })
