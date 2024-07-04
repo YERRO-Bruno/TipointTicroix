@@ -1409,26 +1409,11 @@ def clientsocket(host):
     print("Connexion interrompue.")
     mySocket.close()
 
-async def connecclienty(host,pseudo):
-    # Définition d'un client réseau rudimentaire
-    # Ce client dialogue avec un serveur ad hoc
-    
-    import asyncio
-    import websockets
-    from websockets.sync.client import connect
-    #with connect("ws://"+host+":8765") as websocket:
-    async with connect("ws://77.37.125.25:8765",pseudo) as websocket:
-        await websocket.send(pseudo)
-        message = await websocket.recv
-        
-        print(f"Received from server : {message}")
-        return(websocket,message)
-
 async def connecclient(host, pseudo):
     import websockets
     import json
 
-    async with websockets.connect(f"wss://77.37.125.25:8765/ws/chat/") as websocket:
+    async with websockets.connect(f"wss://ti-point_ti-croix.fr:8765/ws/chat/") as websocket:
         print("connect")
         await websocket.send(json.dumps({"message": pseudo}))
         message= await websocket.recv()
