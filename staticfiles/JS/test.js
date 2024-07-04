@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     li.textContent=data[i].pseudo
                     li.class="joueur"
                     if (data[i].pseudo==pseudox) {
-                        alert(pseudox)
+                        //alert(pseudox)
                         li.style.color='blue'
                         li.style.fontWeight='1000'
                     }
