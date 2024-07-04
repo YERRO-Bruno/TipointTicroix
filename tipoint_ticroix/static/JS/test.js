@@ -29,15 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
     filluserconnecteds()
-    document.getElementsByClassName("joueur").addEventListener("click", function(event) {
-        alert('click')
-        alert(event.target.textContent)
-    })
-
 })
 alert("websocket")
 try {
-    var socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/',"javascript");
+    var socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
 } catch (error) {
     alert("Failed to create WebSocket: " + error);
 }
@@ -61,7 +56,3 @@ socket.addEventListener('error', function (error) {
     console.log('WebSocket error: ', error);
 });
 
-// Send a message to the server
-document.getElementById('sendButton').addEventListener('click', function () {
-    const messageInput = document.getElementById('messageInput');
-})
