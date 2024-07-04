@@ -34,34 +34,34 @@ document.addEventListener("DOMContentLoaded", function () {
         alert(event.target.textContent)
     })
 
-    alert("websocket")
-    try {
-        var socket = new WebSocket('ws://77.37.125.25:8765/ws/chat/');
-    } catch (error) {
-        alert("Failed to create WebSocket: " + error);
-    }
-    alert("websock2")
-    socket.addEventListener('open', (event) => {
-            alert('WebSocket is connected.');
-            socket.send(JSON.stringify({ message: 'Hello Server!' }));
-    });    
-    socket.addEventListener('message', (event) => {
-            alert('Message from server ', event.data);
-    });
-    // Connection closed
-    socket.addEventListener('close', function (event) {
-        alert("WebSocket is closed now.");
-        console.log('WebSocket is closed now.');
-    });
+})
+alert("websocket")
+try {
+    var socket = new WebSocket('ws://77.37.125.25:8765/ws/chat/');
+} catch (error) {
+    alert("Failed to create WebSocket: " + error);
+}
+alert("websock2")
+socket.addEventListener('open', (event) => {
+        alert('WebSocket is connected.');
+        socket.send(JSON.stringify({ message: 'Hello Server!' }));
+});    
+socket.addEventListener('message', (event) => {
+        alert('Message from server ', event.data);
+});
+// Connection closed
+socket.addEventListener('close', function (event) {
+    alert("WebSocket is closed now.");
+    console.log('WebSocket is closed now.');
+});
 
-    // Listen for errors
-    socket.addEventListener('error', function (error) {
-        alert("WebSocket error: " + error);
-        console.log('WebSocket error: ', error);
-    });
+// Listen for errors
+socket.addEventListener('error', function (error) {
+    alert("WebSocket error: " + error);
+    console.log('WebSocket error: ', error);
+});
 
-    // Send a message to the server
-    document.getElementById('sendButton').addEventListener('click', function () {
-        const messageInput = document.getElementById('messageInput');
-    })
+// Send a message to the server
+document.getElementById('sendButton').addEventListener('click', function () {
+    const messageInput = document.getElementById('messageInput');
 })
