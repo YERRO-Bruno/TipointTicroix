@@ -34,7 +34,7 @@ async def handler(websocket):
         logging.debug("Connection closed and removed from the list.")
 
 async def main():
-    async with websockets.serve(handler, "ti-points_ti-croix.fr", 8765):
+    async with websockets.serve(handler, "ti-points-ti-croix.fr", 8765):
         await asyncio.Future()  # run forever
 
 if __name__ == "__main__":
