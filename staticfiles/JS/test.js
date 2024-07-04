@@ -37,10 +37,14 @@ try {
     alert("Failed to create WebSocket: " + error);
 }
 alert("websock2")
-socket.addEventListener('open', (event) => {
-        alert('WebSocket is connected.');
-        socket.send(JSON.stringify({ message: 'Hello Server!' }));
-});    
+try {
+    socket.addEventListener('open', (event) => {
+            alert('WebSocket is connected.');
+            socket.send(JSON.stringify({ message: 'Hello Server!' }));
+    });    
+} catch (error) {
+    alert("Failed toopen WebSocket: " + error).message;
+}
 socket.addEventListener('message', (event) => {
         alert('Message from server ', event.data);
 });
@@ -52,7 +56,7 @@ socket.addEventListener('close', function (event) {
 
 // Listen for errors
 socket.addEventListener('error', function (error) {
-    alert("WebSocket error: " + error);
+    alert("WebSocket error: " + error.message);
     console.log('WebSocket error: ', error);
 });
 
