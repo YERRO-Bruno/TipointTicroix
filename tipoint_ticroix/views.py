@@ -45,9 +45,9 @@ async def test(request):
         websocket, message = await connecclient("ipaddress",connec[1])
         print(message)
         settings.WEBSOCKET=websocket
-        userconnecteds = UserConnected.objects.filter(pseudo="test client")
-        if len(userconnecteds)>0:
-            userconnected=UserConnected.objects.create(pseudo="test client")
+        #userconnecteds = UserConnected.objects.filter(pseudo="test client")
+        #if len(userconnecteds)>0:
+        #    userconnected=UserConnected.objects.create(pseudo="test client")
         return render(request, "test.html", context)
     else:
         context["connexion"]="Non"
