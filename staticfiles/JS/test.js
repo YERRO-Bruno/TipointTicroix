@@ -33,4 +33,21 @@ document.addEventListener("DOMContentLoaded", function () {
         alert('click')
         alert(event.target.textContent)
     })
+
+    alert("websocket")
+    var socket = new WebSocket('ws://77.37.125.25:8765/ws/chat/');
+    alert("websock2")
+    socket.addEventListener('open', (event) => {
+            alert('WebSocket is connected.');
+            alert(JSON.stringify({ message: 'Hello Server!' }));
+    });
+    // Envoyer un message au serveur
+    var message = {
+        'message': 'Hello, server!'
+    };
+    socket.send(JSON.stringify(message));
+    
+    socket.addEventListener('message', (event) => {
+            alert('Message from server ', event.data);
+    });
 })
