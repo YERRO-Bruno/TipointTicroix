@@ -1417,9 +1417,9 @@ async def connecclient(host, pseudo):
     async with websockets.connect(f"ws://77.37.125.25:8765/ws/chat/") as websocket:
         print("connect")
         await websocket.send(pseudo)
-        
-        
-        return websocket, "test ok"
+        message= await websocket.recv()
+        print("recu de server : ",message)
+        return websocket, message
     
 def connecclientX(host,pseudo):
     # Définition d'un client réseau rudimentaire
