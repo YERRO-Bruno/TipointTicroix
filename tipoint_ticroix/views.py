@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.conf import settings
 from .functions import coupordi,coupmachine,majgrille,trouve_5, estconnecté
-from .functions import nomniveau,connecclient,connecserveur, nbtour
+from .functions import nomniveau,connecclient,connecserveur, nbtour, estconnecté_async
 from django.shortcuts import render,redirect
 from django.utils.crypto import get_random_string
 import bcrypt
@@ -38,7 +38,7 @@ def test2(request):
 import json
 async def test(request):
     context = {}
-    connec=estconnecté(request)
+    connec=await estconnecté_async(request)
     if connec[0]:
         context["connexion"]="Oui"
         context["connec"]=connec[1]

@@ -1263,6 +1263,20 @@ def estconnecté(req):
     else:
         return(False,"")
 
+#version asynchrone de estconnecté()
+from asgiref.sync import sync_to_async
+
+async def estconnecté_async(req):
+    emailx = await sync_to_async(req.session.get)('email')
+    passwordx = await sync_to_async(req.session.get)('password')
+    userConnected = await sync_to_async(authenticate)(email=emailx, password=passwordx)
+    if userConnected is not None:
+        userx = await sync_to_async(User.objects.get)(email=emailx)
+        pseudox = userx.pseudo
+        return (True, pseudox)
+    else:
+        return (False, "")
+
 def serveursocket (host):
     # Définition d'un serveur réseau rudimentaire
 # Ce serveur attend la connexion d'un client, pour entamer un dialogue avec lui
