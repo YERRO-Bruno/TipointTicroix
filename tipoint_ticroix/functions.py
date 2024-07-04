@@ -1413,7 +1413,7 @@ async def connecclient(host, pseudo):
     import websockets
     import json
 
-    async with websockets.connect(f"wss://ti-points_ti-croix.fr:8765/ws/chat/") as websocket:
+    async with websockets.connect(f"wss://ti-points-ti-croix.fr:8765/ws/chat/") as websocket:
         print("connect")
         await websocket.send(json.dumps({"message": pseudo}))
         message= await websocket.recv()
