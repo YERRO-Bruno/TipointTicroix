@@ -63,4 +63,5 @@ document.addEventListener("DOMContentLoaded", function () {
     // Send a message to the server
     document.getElementById('sendButton').addEventListener('click', function () {
         const messageInput = document.getElementById('messageInput');
+    })
 })
