@@ -1403,7 +1403,7 @@ async def connecclienty(host,pseudo):
     import websockets
     from websockets.sync.client import connect
     #with connect("ws://"+host+":8765") as websocket:
-    async with connect("ws://77.37.125.25:8765") as websocket:
+    async with connect("ws://77.37.125.25:8765",pseudo) as websocket:
         await websocket.send(pseudo)
         message = await websocket.recv
         
