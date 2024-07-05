@@ -1327,7 +1327,7 @@ def connecserveur (host,pseudo):
 
     import asyncio
     from websockets.server import serve
-    port = 8765
+    port = 443
     msg=""
     webs=""
     async def echo(websocket):
@@ -1338,7 +1338,7 @@ def connecserveur (host,pseudo):
             webs=websocket
     async def main():
         print("Server is activated on ws://{}:{}".format(host,port))
-        #async with serve(echo, "localhost", 8765):
+        #async with serve(echo, "localhost", 443):
         async with serve(echo, host, port):
                 await asyncio.Future()  # run forever
     asyncio.run(main())
@@ -1413,7 +1413,7 @@ async def connecclient(host, pseudo):
     import websockets
     import json
 
-    async with websockets.connect(f"wss://ti-points-ti-croix.fr:8765/ws/chat/") as websocket:
+    async with websockets.connect(f"wss://ti-points-ti-croix.fr:443/ws/chat/") as websocket:
         print("connect")
         await websocket.send(json.dumps({"message": pseudo}))
         message= await websocket.recv()
