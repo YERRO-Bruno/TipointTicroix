@@ -38,6 +38,7 @@ try {
 }
 alert("websock2")
 try {
+    alert("3")
     socket.addEventListener('open', (event) => {
             alert('WebSocket is connected.');
             socket.send(JSON.stringify({ message: 'Hello Server!' }));
@@ -56,7 +57,7 @@ socket.addEventListener('close', function (event) {
 
 // Listen for errors
 socket.addEventListener('error', function (error) {
-    alert("WebSocket error: " + error.message);
+    alert("WebSocket error: " + error);
     console.log('WebSocket error: ', error);
 });
 
