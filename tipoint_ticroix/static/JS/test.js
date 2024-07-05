@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 alert("websocket")
 try {
     var socket = new WebSocket('ws://ti-points-ti-croix.fr:8765/ws/chat/');
+    alert("2")
 } catch (error) {
     alert("Failed to create WebSocket: " + error);
 }
