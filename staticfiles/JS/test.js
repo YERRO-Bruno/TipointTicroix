@@ -30,34 +30,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     filluserconnecteds()
 })
-alert("websocket")
-try {
-    var socket = new WebSocket('ws://ti-points-ti-croix.fr:8765/ws/chat/');
-} catch (error) {
-    alert("Failed to create WebSocket: " + error);
-}
-alert("websock2")
-try {
-    alert("3")
-    socket.addEventListener('open', (event) => {
-            alert('WebSocket is connected.');
-            socket.send(JSON.stringify({ message: 'Hello Server!' }));
-    });    
-} catch (error) {
-    alert("Failed toopen WebSocket: " + error).message;
-}
-socket.addEventListener('message', (event) => {
-        alert('Message from server ', event.data);
-});
-// Connection closed
-socket.addEventListener('close', function (event) {
-    alert("WebSocket is closed now.");
-    console.log('WebSocket is closed now.');
-});
-
-// Listen for errors
-socket.addEventListener('error', function (error) {
-    alert("WebSocket error: " + error);
-    console.log('WebSocket error: ', error);
-});
 
