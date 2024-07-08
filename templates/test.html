@@ -34,13 +34,15 @@ font-weight: 400;font-style: normal">
         alert("Websocket");
         // Créez une connexion WebSocket vers votre serveur
         const socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
-
+        alert("Websocket2");
+        
         // Événement déclenché lorsque la connexion est établie
         socket.addEventListener('open', (event) => {
-        console.log('WebSocket connected.');
-        // Envoyez un message au serveur
-        socket.send('Hello Server!');
+            alert('WebSocket connected.');
+            // Envoyez un message au serveur
+            socket.send('Hello Server!');
         });
+        alert("Websocket3");
 
         // Événement déclenché lorsqu'un message est reçu du serveur
         socket.addEventListener('message', (event) => {
