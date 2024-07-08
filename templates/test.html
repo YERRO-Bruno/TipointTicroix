@@ -8,6 +8,7 @@ Ti_Point-Ti_Croix
 {%  endblock %}
 {% block style %}
 {%  endblock %}
+<script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
 {%  load static %}
 {%  block content %}
 <div class="col-10 border border-dark" style="font-family: 'Pacifico', cursive;
@@ -28,7 +29,6 @@ Ti_Point-Ti_Croix
 </div>
 {%  endblock %}
 {%  block script %}
-<script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
 <script>
     alert("debut websock")
     const io = require('socket.io-client');
