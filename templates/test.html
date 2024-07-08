@@ -31,26 +31,33 @@ font-weight: 400;font-style: normal">
     <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
     <script src="{% static 'JS/test.js'%}"></script>
     <script>
-        alert("debut websock")
-        const socket = io.connect('wss://ti-points-ti-croix.fr:8765/ws/chat/', {
-        transports: ['websocket']});
-        alert("websock1")
-        // Écoutez les événements
-        socket.on('connect', () => {
-        alert('WebSocket is connected.');
-        socket.send(JSON.stringify({ message: 'Hello Server!' }));
+        alert("Websocket");
+        var socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
+        alert("Websock2");
+        try {
+            socket.addEventListener('open', (event) => {
+                alert('WebSocket is connected.');
+                socket.send(JSON.stringify({ message: 'Hello Server!' }));
+            });
+        } catch (error) {
+            alert("Failed to connect WebSocket: " + error);
+        }
+        alert("Websock3");
+
+        socket.addEventListener('message', (event) => {
+            alert('Message from server: ' + event.data);
         });
 
-        socket.on('message', (data) => {
-        alert('Message from server:', data);
+        // Connection closed
+        socket.addEventListener('close', function (event) {
+            alert("WebSocket is closed now.");
+            console.log('WebSocket is closed now.');
         });
 
-        socket.on('disconnect', () => {
-        alert('WebSocket is closed now.');
-        });
-
-        socket.on('error', (error) => {
-        alert('WebSocket error:', error);
+        // Listen for errors
+        socket.addEventListener('error', function (error) {
+            alert("WebSocket error: " + error);
+            console.log('WebSocket error: ', error);
         });
     </script>
 {%  endblock %}
