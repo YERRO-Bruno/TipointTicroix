@@ -32,32 +32,33 @@ font-weight: 400;font-style: normal">
     <script src="{% static 'JS/test.js'%}"></script>
     <script>
         alert("Websocket");
-        var socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
-        alert("Websock2");
-        try {
-            socket.addEventListener('open', (event) => {
-                alert('WebSocket is connected.');
-                socket.send(JSON.stringify({ message: 'Hello Server!' }));
-            });
-        } catch (error) {
-            alert("Failed to connect WebSocket: " + error);
-        }
-        alert("Websock3");
+        // Créez une connexion WebSocket vers votre serveur
+        const socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
 
+        // Événement déclenché lorsque la connexion est établie
+        socket.addEventListener('open', (event) => {
+        console.log('WebSocket connected.');
+        // Envoyez un message au serveur
+        socket.send('Hello Server!');
+        });
+
+        // Événement déclenché lorsqu'un message est reçu du serveur
         socket.addEventListener('message', (event) => {
-            alert('Message from server: ' + event.data);
+        console.log('Message from server:', event.data);
         });
 
-        // Connection closed
-        socket.addEventListener('close', function (event) {
-            alert("WebSocket is closed now.");
-            console.log('WebSocket is closed now.');
+        // Événement déclenché lorsque la connexion est fermée
+        socket.addEventListener('close', (event) => {
+        if (event.wasClean) {
+            console.log(`Connection closed cleanly, code=${event.code}, reason=${event.reason}`);
+        } else {
+            console.log('Connection died unexpectedly.');
+        }
         });
 
-        // Listen for errors
-        socket.addEventListener('error', function (error) {
-            alert("WebSocket error: " + error);
-            console.log('WebSocket error: ', error);
+        // Événement déclenché en cas d'erreur
+        socket.addEventListener('error', (error) => {
+        console.error('WebSocket error:', error);
         });
     </script>
 {%  endblock %}
