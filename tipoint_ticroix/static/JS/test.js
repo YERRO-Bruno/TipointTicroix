@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     filluserconnecteds()
 })
 alert("debut websock")
+    const io = require('socket.io-client');
     const socket = io.connect('wss://ti-points-ti-croix.fr:8765/ws/chat/', {
     transports: ['websocket']});
     alert("websock1")
