@@ -42,9 +42,9 @@ async def test(request):
     if connec[0]:
         context["connexion"]="Oui"
         context["connec"]=connec[1]
-        websocket, message = await connecclient("ipaddress",connec[1])
-        print(message)
-        settings.WEBSOCKET=websocket
+        #websocket, message = await connecclient("ipaddress",connec[1])
+        #print(message)
+        #settings.WEBSOCKET=websocket
         #userconnecteds = UserConnected.objects.filter(pseudo="test client")
         #if len(userconnecteds)>0:
         #    userconnected=UserConnected.objects.create(pseudo="test client")
