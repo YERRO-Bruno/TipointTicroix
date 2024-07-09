@@ -4,7 +4,7 @@ import websockets
 import logging
 import ssl
 
-logging.basicConfig(level=logging.DEBUG, filename='server.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.DEBUG, filename='/etc/easypanel/projects/tipointticroix/tipointticroix/server.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
 
 connected_clients = set()
 
