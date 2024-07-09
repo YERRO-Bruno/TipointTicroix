@@ -2,6 +2,7 @@
 import asyncio
 import websockets
 import logging
+import ssl
 
 logging.basicConfig(level=logging.DEBUG, filename='server.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
 
@@ -32,6 +33,10 @@ async def handler(websocket):
         connected_clients.remove(websocket)
         await websocket.close()
         logging.debug("Connection closed and removed from the list.")
+
+ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+ssl_context.load_cert_chain(certfile='/etc/easypanel/traefik/dump/ti-points-ti-croix.fr/certificate.crt', keyfile='/etc/easypanel/traefik/dump/ti-points-ti-croix.fr/privatekey.key')
+
 
 async def main():
     async with websockets.serve(handler, "ti-points-ti-croix.fr", 8765):
