@@ -39,7 +39,7 @@ ssl_context.load_cert_chain(certfile='/etc/easypanel/traefik/dump/ti-points-ti-c
 
 
 async def main():
-    async with websockets.serve(handler, "ti-points-ti-croix.fr", 8765):
+    async with websockets.serve(handler, "ti-points-ti-croix.fr", 8765, ssl=ssl_context):
         await asyncio.Future()  # run forever
 
 if __name__ == "__main__":
