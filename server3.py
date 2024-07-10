@@ -11,6 +11,7 @@ connected_clients = set()
 async def handler(websocket):
     global connected_clients
     connected_clients.add(websocket)
+    print("connected")
     try:
         async for message in websocket:
             logging.debug(f"Message received: {message}")
