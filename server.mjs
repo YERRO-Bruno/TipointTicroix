@@ -1,7 +1,7 @@
 import WebSocket from 'ws';
-
-const server = new WebSocket.Server({ port: 8765 });
-
+const ip = '0.0.0.0'; // Ecouter sur toutes les interfaces disponibles
+const port = 8765;
+const server = new WebSocket.Server({ ip, port });
 server.on('connection', (socket) => {
     console.log('Client connected');
 
@@ -20,4 +20,4 @@ server.on('connection', (socket) => {
     });
 });
 
-console.log('WebSocket server is running on ws://localhost:8765');
+console.log(`WebSocket server is running on ws://${ip}:${port}`);
