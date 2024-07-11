@@ -1,7 +1,7 @@
-import WebSocket from 'ws';
+import { WebSocketServer } from 'ws';
 const ip = '0.0.0.0'; // Ecouter sur toutes les interfaces disponibles
 const port = 8765;
-const server = new WebSocket.Server({ ip, port });
+const server = new WebSocketServer({ ip, port });
 server.on('connection', (socket) => {
     console.log('Client connected');
 
