@@ -1,5 +1,5 @@
 import { WebSocketServer } from 'ws';
-const ip = '0.0.0.0'; // Ecouter sur toutes les interfaces disponibles
+const ip = '77.37.125.25'; // Ecouter sur toutes les interfaces disponibles
 const port = 8765;
 const server = new WebSocketServer({ ip, port });
 server.on('connection', (socket) => {
