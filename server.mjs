@@ -20,4 +20,4 @@ server.on('connection', (socket) => {
     });
 });
 
-console.log(`WebSocket server is running on ws://${ip}:${port}`);
+console.log(`WebSocket server is running on wss://${ip}:${port}`);
