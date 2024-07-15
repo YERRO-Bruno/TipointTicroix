@@ -37,11 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("click joueur")
         alert(e.target.id)
     })
-    document.getElementById("btn-joueur").addEventListener('click', function(e) {
-        alert(e.target.id)
-        e.preventDefault()
-        
-    })
     //alert("Websocket1");
     var socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
     //alert("Websock2");
