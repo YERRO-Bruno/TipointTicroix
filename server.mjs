@@ -15,7 +15,7 @@ const dbConfig = {
 };
 
 // Fonction pour insérer un user dans la table userconnected
-async function insertIntoDatabase(data) {
+async function insertIntoDatabase(pseudo) {
     try {
         const connection = await mysql.createConnection(dbConfig);
         const [rows] = await connection.execute(
