@@ -29,16 +29,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
     }
+    document.getElementsByClassName("joueur").addEventListener("click", function(e) {
+        e.preventDefault()
+        alert("click joueur")
+        alert(e.target.id)
+    })
+    document.getElementById("btn-joueur").addEventListener('click', function(e) {
+        alert(e.target.id)
+        e.preventDefault()
+        
+    })
     filluserconnecteds()
 })
-document.getElementsByClassName("joueur").addEventListener("click", function(e) {
-    e.preventDefault()
-    alert("click joueur")
-    alert(e.target.id)
-})
-document.getElementById("btn-joueur").addEventListener('click', function(e) {
-    alert(e.target.id)
-    e.preventDefault()
-    
-  })
 
