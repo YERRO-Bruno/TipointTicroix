@@ -20,7 +20,7 @@ async function insertIntoDatabase(data) {
         const connection = await mysql.createConnection(dbConfig);
         const [rows] = await connection.execute(
             'INSERT INTO userconnected (pseudo) VALUES (?)', 
-            [msg[1]] 
+            [pseudo] 
         );
         console.log('Data inserted successfully:', rows);
         await connection.end();
@@ -35,7 +35,7 @@ async function deleteFromDatabase(pseudo) {
         const connection = await mysql.createConnection(dbConfig);
         const [rows] = await connection.execute(
             'DELETE FROM userconnected WHERE pseudo = ?', 
-            [pseudox] 
+            [pseudo] 
         );
         console.log('Data deleted successfully:', rows);
         await connection.end();
@@ -74,8 +74,8 @@ wss.on('connection', (socket) => {
         console.log('Received: %s', message);
         msg=message.split("/")
         if (msg[0]='connexion') {
-            insertIntoDatabase(msg[1])
             userx=msg[1]
+            insertIntoDatabase(userx)
         }
 
         // Répondre au client
