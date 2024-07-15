@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
             success: function (data) {
                 var i = 0;
                 data.forEach(userconnected => {
-                    const li=document.createElement("a")
+                    const li=document.createElement("li")
                     li.textContent=data[i].pseudo
                     li.id=data[i].pseudo
                     li.class="joueur"
