@@ -8,4 +8,7 @@ rm -rf node_modules
 echo "Installing dependencies..."
 npm install
 
+systemctl daemon-reload
+systemctl enable monservice.service
+systemctl restart monservice.service
 echo "All done!"

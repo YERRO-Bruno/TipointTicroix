@@ -54,7 +54,7 @@ font-weight: 400;font-style: normal">
             // Listen for errors
             socket.addEventListener('error', function (error) {
                 alert("WebSocket error: " + error);
-                
+                console.log('WebSocket error: ', error);
             });
     </script>
 {%  endblock %}
