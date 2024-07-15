@@ -17,7 +17,7 @@ from django.http import JsonResponse
 
 #page test
 import json
-def test2(request):
+def test(request):
     context = {}
     connec=estconnecté(request)
     if connec[0]:
@@ -36,7 +36,7 @@ def test2(request):
 
 #page test
 import json
-async def test(request):
+async def testsav(request):
     context = {}
     connec=await estconnecté_async(request)
     if connec[0]:
