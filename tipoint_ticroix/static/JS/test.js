@@ -29,7 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
     }
-    
+    let pseudox=document.getElementById('id-connec').textContent
+    document.getElementsById(pseudox).addEventListener("click", function(e) {
+        e.preventDefault()
+        alert("click joueur")
+        alert(e.target.id)
+    })
     document.getElementById("btn-joueur").addEventListener('click', function(e) {
         alert(e.target.id)
         e.preventDefault()
