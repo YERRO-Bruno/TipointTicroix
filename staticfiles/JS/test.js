@@ -30,10 +30,10 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
     filluserconnecteds()
-    document.getElementsByClassName("joueur").addEventListener("click", function(e) {
-        e.preventDefault()
-        alert("click joueur")
-        alert(e.target.id)
-    })
+})
+document.getElementsByClassName("joueur").addEventListener("click", function(e) {
+    e.preventDefault()
+    alert("click joueur")
+    alert(e.target.id)
 })
 
