@@ -2,12 +2,11 @@ import https from 'https';
 import { WebSocketServer } from 'ws';
 import fs from 'fs';
 import path from 'path';
-const ip = '77.37.125.25'; // Ecouter sur toutes les interfaces disponibles
-const port = 8765;
-const server = new WebSocketServer({ ip, port });
 
-const __dirname = path.resolve();
-console.log("server websocket")
+// Adresse IP et port
+const ip = '77.37.125.25'; // Adresse IP spécifique à écouter
+const port = 8765;
+
 // Chemins vers les fichiers de certificat SSL
 const privateKeyPath = '/etc/easypanel/traefik/dump/ti-points-ti-croix.fr/privatekey.key';
 const certificatePath = '/etc/easypanel/traefik/dump/ti-points-ti-croix.fr/certificate.crt';
