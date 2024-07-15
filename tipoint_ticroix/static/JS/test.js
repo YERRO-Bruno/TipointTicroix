@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
             success: function (data) {
                 var i = 0;
                 data.forEach(userconnected => {
-                    alert("success")
                     const li=document.createElement("a")
                     li.textContent=data[i].pseudo
+                    li.id=data[i].pseudo
                     li.class="joueur"
                     li.href='action'
                     if (data[i].pseudo==pseudox) {
@@ -30,5 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
     filluserconnecteds()
+    document.getElementsByClassName("joueur").addEventListener("click", function(e) {
+        alert("click joueur")
+        alert(e.target.id)
+    })
 })
 
