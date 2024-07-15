@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
     alert("1")
-    
+    pseudox=document.getElementById("id-connec").textContent
     const userconnecteds=document.getElementById("id_userconnecteds")
     userconnecteds.addEventListener("click", function(e) {
         e.preventDefault()
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     socket.addEventListener('open', (event) => {
         //alert('WebSocket is connected.');
-        socket.send(JSON.stringify({ message: 'Hello Server!' }));
+        socket.send(JSON.stringify({ message: 'connexion/'.concat(pseudox) }));
     });
 
     socket.addEventListener('message', (event) => {
