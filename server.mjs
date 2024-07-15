@@ -7,7 +7,7 @@ const port = 8765;
 const server = new WebSocketServer({ ip, port });
 
 const __dirname = path.resolve();
-alert("server websocket")
+console.log("server websocket")
 // Chemins vers les fichiers de certificat SSL
 const privateKeyPath = '/etc/easypanel/traefik/dump/ti-points-ti-croix.fr/privatekey.key';
 const certificatePath = '/etc/easypanel/traefik/dump/ti-points-ti-croix.fr/certificate.crt';
@@ -24,11 +24,11 @@ const wss = new WebSocketServer({ server: httpsServer });
 
 // Événement déclenché lorsqu'une connexion est établie
 wss.on('connection', (socket) => {
-    alert('Client connected');
+    console.log('Client connected');
 
     // Événement déclenché lorsqu'un message est reçu du client
     socket.on('message', (message) => {
-        alert('Received: %s', message);
+        console.log('Received: %s', message);
 
         // Répondre au client
         socket.send('Hello from server!');
@@ -36,7 +36,7 @@ wss.on('connection', (socket) => {
 
     // Événement déclenché lorsque la connexion WebSocket est fermée
     socket.on('close', () => {
-        alert('Client disconnected');
+        console.log('Client disconnected');
     });
 
     // Gestion des erreurs WebSocket
@@ -47,5 +47,5 @@ wss.on('connection', (socket) => {
 
 // Démarrer le serveur HTTPS
 httpsServer.listen(port, ip, () => {
-    alert(`WebSocket Secure server is running on wss://${ip}:${port}`);
+    console.log(`WebSocket Secure server is running on wss://${ip}:${port}`);
 });
