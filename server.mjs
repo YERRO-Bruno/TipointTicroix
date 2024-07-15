@@ -1,7 +1,48 @@
 import https from 'https';
 import { WebSocketServer } from 'ws';
 import fs from 'fs';
-import path from 'path';
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+// Configuration de la connexion MySQL
+const dbConfig = {
+    host: process.env.HOST,       // Remplacez par l'adresse de votre serveur MySQL
+    user: process.env.USER,   // Remplacez par votre nom d'utilisateur MySQL
+    password: process.env.PASSWORD, // Remplacez par votre mot de passe MySQL
+    database: process.env.NAME  // Remplacez par le nom de votre base de données
+};
+
+// Fonction pour insérer un user dans la table userconnected
+async function insertIntoDatabase(data) {
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        const [rows] = await connection.execute(
+            'INSERT INTO userconnected (pseudo) VALUES (?)', 
+            [msg[1]] 
+        );
+        console.log('Data inserted successfully:', rows);
+        await connection.end();
+    } catch (error) {
+        console.error('Error inserting data into MySQL:', error.message);
+    }
+}
+
+// Fonction pour supprimer un user de la table userconnected
+async function deleteFromDatabase(pseudo) {
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        const [rows] = await connection.execute(
+            'DELETE FROM userconnected WHERE pseudo = ?', 
+            [pseudox] 
+        );
+        console.log('Data deleted successfully:', rows);
+        await connection.end();
+    } catch (error) {
+        console.error('Error deleting data from MySQL:', error.message);
+    }
+}
 
 // Adresse IP et port
 const ip = '77.37.125.25'; // Adresse IP spécifique à écouter
@@ -22,12 +63,20 @@ const httpsServer = https.createServer({ key: privateKey, cert: certificate });
 const wss = new WebSocketServer({ server: httpsServer });
 
 // Événement déclenché lorsqu'une connexion est établie
+let userx=""
 wss.on('connection', (socket) => {
     console.log('Client connected');
+
+    
 
     // Événement déclenché lorsqu'un message est reçu du client
     socket.on('message', (message) => {
         console.log('Received: %s', message);
+        msg=message.split("/")
+        if (msg[0]='connexion') {
+            insertIntoDatabase(msg[1])
+            userx=msg[1]
+        }
 
         // Répondre au client
         socket.send('Hello from server!');
@@ -36,6 +85,7 @@ wss.on('connection', (socket) => {
     // Événement déclenché lorsque la connexion WebSocket est fermée
     socket.on('close', () => {
         console.log('Client disconnected');
+        deleteFromDatabase(userx)
     });
 
     // Gestion des erreurs WebSocket

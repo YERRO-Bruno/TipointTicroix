@@ -16,42 +16,15 @@ from django.http import JsonResponse
 # Create your views here.
 
 #page test
-import json
 def test(request):
     context = {}
     connec=estconnecté(request)
     if connec[0]:
         context["connexion"]="Oui"
         context["connec"]=connec[1] 
-    
-        userconnecteds = UserConnected.objects.filter(pseudo=connec[1])
-        if len(userconnecteds)>0:
-            return render(request, "test.html", context)
-        userconnected=UserConnected.objects.create(pseudo=connec[1])
-        print("connexion"+"/"+connec[1])
         return render(request, "test.html", context)
     else:
         context["connexion"]="Non"
-        return redirect('/tipointticroix/connect',context)
-
-#page test
-import json
-async def testsav(request):
-    context = {}
-    connec=await estconnecté_async(request)
-    if connec[0]:
-        context["connexion"]="Oui"
-        context["connec"]=connec[1]
-        #websocket, message = await connecclient("ipaddress",connec[1])
-        #print(message)
-        #settings.WEBSOCKET=websocket
-        #userconnecteds = UserConnected.objects.filter(pseudo="test client")
-        #if len(userconnecteds)>0:
-        #    userconnected=UserConnected.objects.create(pseudo="test client")
-        return render(request, "test.html", context)
-    else:
-        context["connexion"]="Non"
-        context["connec"]=connec[1]
         return redirect('/tipointticroix/connect',context)
 
 #page accueil
