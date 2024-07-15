@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const li=document.createElement("a")
                     li.textContent=data[i].pseudo
                     li.class="joueur"
-                    li.src='action'
+                    li.href='action'
                     if (data[i].pseudo==pseudox) {
                         //alert(pseudox)
                         li.style.color='blue'
