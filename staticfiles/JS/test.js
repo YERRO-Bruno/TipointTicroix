@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     alert("1")
     let pseudox=document.getElementById('id-connec').textContent
-    alert("2")
-    document.getElementsById(pseudox).addEventListener("click", function(e) {
+    alert(pseudox)
+    document.getElementsById("id_userconnecteds").addEventListener("click", function(e) {
         e.preventDefault()
         alert("click joueur")
         alert(e.target.id)
