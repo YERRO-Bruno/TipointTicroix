@@ -10,9 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 var i = 0;
                 data.forEach(userconnected => {
                     alert("success")
-                    const li=document.createElement("li")
+                    const li=document.createElement("a")
                     li.textContent=data[i].pseudo
                     li.class="joueur"
+                    li.href='action'
                     if (data[i].pseudo==pseudox) {
                         //alert(pseudox)
                         li.style.color='blue'
