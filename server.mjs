@@ -5,7 +5,7 @@ import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
 dotenv.config();
-global.connectedUsers = {};
+global.connectedUsers = [];
 
 // Configuration de la connexion MySQL
 const dbConfig = {
@@ -64,12 +64,10 @@ const httpsServer = https.createServer({ key: privateKey, cert: certificate });
 const wss = new WebSocketServer({ server: httpsServer });
 
 // Événement déclenché lorsqu'une connexion est établie
-let userx=""
+let pseudo=""
 
 wss.on('connection', (socket) => {
-    console.log('Client connected');
-    global.connected_clients.add(wss)
-    
+    console.log('Client connected');    
 
     // Événement déclenché lorsqu'un message est reçu du client
     socket.on('message', (message) => {
@@ -77,9 +75,9 @@ wss.on('connection', (socket) => {
         const msgStr = message.toString();
         let msg=msgStr.split("/")
         if (msg[0]='connexion') {
-            userx=msg[1]
-            global.connectedUsers[pseudo] = socket
-            insertIntoDatabase(userx)
+            pseudo=msg[1]
+            global.connectedUsers.push(pseudo)
+            insertIntoDatabase(pseudo)
         }
 
         // Répondre au client
@@ -89,14 +87,9 @@ wss.on('connection', (socket) => {
     // Événement déclenché lorsque la connexion WebSocket est fermée
     socket.on('close', () => {
         console.log('Client disconnected');
-        for (const pseudo in global.connectedUsers) {
-            if (global.connectedUsers[pseudo] === socket) {
-                deleteFromDatabase(pseudo);
-                delete global.connectedUsers[pseudo]; 
-                break;
-            }
-        }
-        deleteFromDatabase(userx)
+        const index = global.connectedUsers.indexOf(pseudo);
+        const x = global.connectedUsers.splice(index, 1);
+        deleteFromDatabase(pseudo)
     });
 
     // Gestion des erreurs WebSocket
