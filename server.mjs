@@ -28,12 +28,12 @@ const wss = new WebSocketServer({ server: httpsServer });
 // Événement déclenché lorsqu'une connexion est établie
 let pseudo=""
 global.connectedUsers=new Map
-let tabusers=[]
 wss.on('connection', (socket) => {
     console.log('Client connected');    
-
+    
     // Événement déclenché lorsqu'un message est reçu du client
     socket.on('message', (message) => {
+        let tabusers=[]
         console.log('Received: %s', message);
         const msgStr = message.toString();
         let msg=msgStr.split("/")
