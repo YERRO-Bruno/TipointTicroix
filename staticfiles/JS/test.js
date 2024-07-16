@@ -20,22 +20,17 @@ document.addEventListener("DOMContentLoaded", function () {
         alert('Message from server: ' + event.data);
         joueurs=event.data.split(",")
         for (let i = 0; i < joueurs.length; i++) {
-            alert("55")
             const li=document.createElement("li")
             li.textContent=joueurs[i]
             li.id=joueurs[i]
             li.class="joueur"
             li.href='action'
-            alert("66")
             if (joueurs[i]==pseudox) {
                 li.style.color='blue'
                 li.style.fontWeight='1000'
             }
-            alert("77")
             userconnecteds.appendChild(li)
-            alert("88")
         }
-        alert("99")
     });
 
     // Connection closed

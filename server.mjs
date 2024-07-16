@@ -27,7 +27,8 @@ const wss = new WebSocketServer({ server: httpsServer });
 
 // Événement déclenché lorsqu'une connexion est établie
 let pseudo=""
-
+global.connectedUsers={}
+users=[]
 wss.on('connection', (socket) => {
     console.log('Client connected');    
 
@@ -38,18 +39,19 @@ wss.on('connection', (socket) => {
         let msg=msgStr.split("/")
         if (msg[0]='connexion') {
             pseudo=msg[1]
-            global.connectedUsers.push(pseudo)
+            global.connectedUsers[socket]=pseudo
         }
-
         // Répondre au client
-        socket.send(global.connectedUsers.join());
+        for (var [key, value] of connectedUsers) {
+            users.push(value)
+        }
+        socket.send(users.join());
     });
 
     // Événement déclenché lorsque la connexion WebSocket est fermée
     socket.on('close', () => {
         console.log('Client disconnected');
-        const index = global.connectedUsers.indexOf(pseudo);
-        const x = global.connectedUsers.splice(index, 1);
+        global.connectedUsers.delete(socket);
     });
 
     // Gestion des erreurs WebSocket
