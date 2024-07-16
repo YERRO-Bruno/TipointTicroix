@@ -28,7 +28,7 @@ const wss = new WebSocketServer({ server: httpsServer });
 // Événement déclenché lorsqu'une connexion est établie
 let pseudo=""
 global.connectedUsers=new Map.
-let users=[]
+let tabusers=[]
 wss.on('connection', (socket) => {
     console.log('Client connected');    
 
@@ -43,9 +43,9 @@ wss.on('connection', (socket) => {
         }
         // Répondre au client
         for (var [key, value] of global.connectedUsers) {
-            users.push(value)
+            tabusers.push(value)
         }
-        socket.send(users.join());
+        socket.send(tabusers.join());
     });
 
     // Événement déclenché lorsque la connexion WebSocket est fermée
