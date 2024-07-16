@@ -1,34 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    function filluserconnecteds() {
-        const userconnecteds=document.getElementById("id_userconnecteds")
-        const pseudox=document.getElementById("id-connec").textContent
-        $.ajax({
-            url:'/api/userconnecteds',
-            method: "GET",
-            dataType: "json",
-            success: function (data) {
-                var i = 0;
-                data.forEach(userconnected => {
-                    const li=document.createElement("li")
-                    li.textContent=data[i].pseudo
-                    li.id=data[i].pseudo
-                    li.class="joueur"
-                    li.href='action'
-                    if (data[i].pseudo==pseudox) {
-                        //alert(pseudox)
-                        li.style.color='blue'
-                        li.style.fontWeight='1000'
-                    }
-                    userconnecteds.appendChild(li)
-                    i++
-                })
-            },
-            error: function (xhr, status, error) {
-                alert("error")
-
-            }
-        })
-    }
     alert("1")
     pseudox=document.getElementById("id-connec").textContent
     const userconnecteds=document.getElementById("id_userconnecteds")
@@ -49,6 +19,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     socket.addEventListener('message', (event) => {
         alert('Message from server: ' + event.data);
+        joueurs=event.data.split(",")
+        for (let i = 0; i < joueurs.length; i++) {
+            const li=document.createElement("li")
+                li.textContent=joueurs[i]
+                li.id=data[i].joueurs[i]
+                li.class="joueur"
+                li.href='action'
+                if (joueurs[i]==pseudox) {
+                    li.style.color='blue'
+                    li.style.fontWeight='1000'
+                }
+                userconnecteds.appendChild(li)
+        }
     });
 
     // Connection closed
@@ -62,6 +45,5 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("WebSocket error: " + error);
         console.log('WebSocket error: ', error);
     });
-    filluserconnecteds()
 })
 
