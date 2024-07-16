@@ -42,12 +42,12 @@ document.addEventListener("DOMContentLoaded", function () {
     //alert("Websock2");
 
     socket.addEventListener('open', (event) => {
-        //alert('WebSocket is connected.');
+        alert('WebSocket is connected.');
         socket.send(JSON.stringify({ message: 'connexion/'.concat(pseudox) }));
     });
 
     socket.addEventListener('message', (event) => {
-        //alert('Message from server: ' + event.data);
+        alert('Message from server: ' + event.data);
     });
 
     // Connection closed

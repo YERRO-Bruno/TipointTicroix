@@ -64,6 +64,7 @@ const wss = new WebSocketServer({ server: httpsServer });
 
 // Événement déclenché lorsqu'une connexion est établie
 let userx=""
+
 wss.on('connection', (socket) => {
     console.log('Client connected');
 
@@ -72,7 +73,8 @@ wss.on('connection', (socket) => {
     // Événement déclenché lorsqu'un message est reçu du client
     socket.on('message', (message) => {
         console.log('Received: %s', message);
-        msg=message.split("/")
+        const msgStr = message.toString();
+        msg=msgStr.split("/")
         if (msg[0]='connexion') {
             userx=msg[1]
             insertIntoDatabase(userx)
