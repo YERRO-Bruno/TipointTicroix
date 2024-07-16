@@ -7,6 +7,44 @@ import dotenv from 'dotenv';
 dotenv.config();
 global.connectedUsers = [];
 
+// Configuration de la connexion MySQL
+const dbConfig = {
+    host: process.env.HOST,       // Remplacez par l'adresse de votre serveur MySQL
+    user: process.env.USER,   // Remplacez par votre nom d'utilisateur MySQL
+    password: process.env.PASSWORD, // Remplacez par votre mot de passe MySQL
+    database: process.env.NAME  // Remplacez par le nom de votre base de données
+};
+
+// Fonction pour insérer un user dans la table userconnected
+async function insertIntoDatabase(pseudo) {
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        const [rows] = await connection.execute(
+            'INSERT INTO userconnected (pseudo) VALUES (?)', 
+            [pseudo] 
+        );
+        console.log('Data inserted successfully:', rows);
+        await connection.end();
+    } catch (error) {
+        console.error('Error inserting data into MySQL:', error.message);
+    }
+}
+
+// Fonction pour supprimer un user de la table userconnected
+async function deleteFromDatabase(pseudo) {
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        const [rows] = await connection.execute(
+            'DELETE FROM userconnected WHERE pseudo = ?', 
+            [pseudo] 
+        );
+        console.log('Data deleted successfully:', rows);
+        await connection.end();
+    } catch (error) {
+        console.error('Error deleting data from MySQL:', error.message);
+    }
+}
+
 // Adresse IP et port
 const ip = '77.37.125.25'; // Adresse IP spécifique à écouter
 const port = 8765;
@@ -39,10 +77,11 @@ wss.on('connection', (socket) => {
         if (msg[0]='connexion') {
             pseudo=msg[1]
             global.connectedUsers.push(pseudo)
+            insertIntoDatabase(pseudo)
         }
 
         // Répondre au client
-        socket.send(global.connectedUsers.join());
+        socket.send(global.connectedUsers);
     });
 
     // Événement déclenché lorsque la connexion WebSocket est fermée
@@ -50,6 +89,7 @@ wss.on('connection', (socket) => {
         console.log('Client disconnected');
         const index = global.connectedUsers.indexOf(pseudo);
         const x = global.connectedUsers.splice(index, 1);
+        deleteFromDatabase(pseudo)
     });
 
     // Gestion des erreurs WebSocket
