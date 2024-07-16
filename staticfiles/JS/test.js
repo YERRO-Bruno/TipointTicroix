@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     socket.addEventListener('open', (event) => {
         alert('WebSocket is connected.');
-        //socket.send(JSON.stringify({ message: 'connexion/'.concat(pseudox) }));
         socket.send('connexion/'.concat(pseudox));
     });
 
@@ -21,16 +20,17 @@ document.addEventListener("DOMContentLoaded", function () {
         alert('Message from server: ' + event.data);
         joueurs=event.data.split(",")
         for (let i = 0; i < joueurs.length; i++) {
+            alert(joueurs[i])
             const li=document.createElement("li")
-                li.textContent=joueurs[i]
-                li.id=data[i].joueurs[i]
-                li.class="joueur"
-                li.href='action'
-                if (joueurs[i]==pseudox) {
-                    li.style.color='blue'
-                    li.style.fontWeight='1000'
-                }
-                userconnecteds.appendChild(li)
+            li.textContent=joueurs[i]
+            li.id=data[i].joueurs[i]
+            li.class="joueur"
+            li.href='action'
+            if (joueurs[i]==pseudox) {
+                li.style.color='blue'
+                li.style.fontWeight='1000'
+            }
+            userconnecteds.appendChild(li)
         }
     });
 
