@@ -43,7 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     socket.addEventListener('open', (event) => {
         alert('WebSocket is connected.');
-        socket.send(JSON.stringify({ message: 'connexion/'.concat(pseudox) }));
+        //socket.send(JSON.stringify({ message: 'connexion/'.concat(pseudox) }));
+        socket.send('connexion/'.concat(pseudox));
     });
 
     socket.addEventListener('message', (event) => {
