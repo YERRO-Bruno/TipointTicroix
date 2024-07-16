@@ -19,9 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     socket.addEventListener('message', (event) => {
         alert('Message from server: ' + event.data);
         joueurs=event.data.split(",")
-        alert(joueurs)
         for (let i = 0; i < joueurs.length; i++) {
-            alert(joueurs[i])
             const li=document.createElement("li")
             li.textContent=joueurs[i]
             li.id=data[i].joueurs[i]
@@ -31,8 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 li.style.color='blue'
                 li.style.fontWeight='1000'
             }
+            alert(joueurs[i])
             userconnecteds.appendChild(li)
         }
+        alert("99")
     });
 
     // Connection closed
