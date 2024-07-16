@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("55")
             const li=document.createElement("li")
             li.textContent=joueurs[i]
-            li.id=data[i].joueurs[i]
+            li.id=joueurs[i]
             li.class="joueur"
             li.href='action'
             alert("66")
