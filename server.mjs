@@ -49,8 +49,9 @@ wss.on('connection', (socket) => {
             socket.send(tabusers.join());
         }
         if (msg[0]='invite') {
+            console.log("invite")
             let socketinvité=""
-            tabinvite.push("invite")
+            //tabinvite.push("invite")
             //tabinvite.push(global.connectedUsers.get(String(socket)))
             for (var [key, value] of global.connectedUsers) {
                 if (value=msg[1]) {
