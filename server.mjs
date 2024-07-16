@@ -5,6 +5,7 @@ import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
 dotenv.config();
+global.connectedUsers = {};
 
 // Configuration de la connexion MySQL
 const dbConfig = {
@@ -67,26 +68,34 @@ let userx=""
 
 wss.on('connection', (socket) => {
     console.log('Client connected');
-
+    global.connected_clients.add(wss)
     
 
     // Événement déclenché lorsqu'un message est reçu du client
     socket.on('message', (message) => {
         console.log('Received: %s', message);
         const msgStr = message.toString();
-        msg=msgStr.split("/")
+        let msg=msgStr.split("/")
         if (msg[0]='connexion') {
             userx=msg[1]
+            global.connectedUsers[pseudo] = socket
             insertIntoDatabase(userx)
         }
 
         // Répondre au client
-        socket.send('Hello from server!');
+        socket.send(global.connectedUsers);
     });
 
     // Événement déclenché lorsque la connexion WebSocket est fermée
     socket.on('close', () => {
         console.log('Client disconnected');
+        for (const pseudo in global.connectedUsers) {
+            if (global.connectedUsers[pseudo] === socket) {
+                deleteFromDatabase(pseudo);
+                delete global.connectedUsers[pseudo]; 
+                break;
+            }
+        }
         deleteFromDatabase(userx)
     });
 
