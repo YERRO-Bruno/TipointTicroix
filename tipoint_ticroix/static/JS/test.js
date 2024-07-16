@@ -15,10 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
         alert('WebSocket is connected.');
         socket.send('connexion/'.concat(pseudox));
     });
-
+    let joueurs=[]
     socket.addEventListener('message', (event) => {
         alert('Message from server: ' + event.data);
-        let joueurs=event.data.split(",")
+        joueurs=event.data.split(",")
+        alert(joueurs)
         for (let i = 0; i < joueurs.length; i++) {
             alert(joueurs[i])
             const li=document.createElement("li")
