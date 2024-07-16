@@ -51,7 +51,7 @@ wss.on('connection', (socket) => {
         if (msg[0]='invite') {
             let socketinvité=""
             tabinvite.push("invite")
-            tabinvite.push(global.connectedUsers(socket))
+            tabinvite.push(global.connectedUsers.get(socket))
             for (var [key, value] of global.connectedUsers) {
                 if (value=msg[1]) {
                     socketinvité=key
