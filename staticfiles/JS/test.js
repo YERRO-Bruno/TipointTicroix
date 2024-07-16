@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     socket.addEventListener('message', (event) => {
         alert('Message from server: ' + event.data);
-        joueurs=event.data.split(",")
+        let joueurs=event.data.split(",")
         for (let i = 0; i < joueurs.length; i++) {
             alert(joueurs[i])
             const li=document.createElement("li")
