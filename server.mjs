@@ -54,11 +54,11 @@ wss.on('connection', (socket) => {
 
     // Événement déclenché lorsque la connexion WebSocket est fermée
     socket.on('close', () => {
-        Object.keys(global.connectedUsers).forEach(pseudox => {
-            const socketx = global.clientSockets[pseudox];
+        Object.keys(global.connectedUsers).forEach(pseudo => {
+            const socketx = global.clientSockets[pseudo];
             if (socketx==socket) {
-                console.log('Client disconnected',pseudox);
-                delete global.connectedUsers[pseudox];
+                console.log('Client disconnected',pseudo);
+                delete global.connectedUsers[pseudo];
                 console.log(Object.keys(global.connectedUsers))
             }
         });
