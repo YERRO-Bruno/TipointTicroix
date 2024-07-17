@@ -29,7 +29,7 @@ const wss = new WebSocketServer({ server: httpsServer });
 let pseudo=""
 global.connectedUsers={}
 wss.on('connection', (socket) => {
-    //console.log('Client connected');    
+    console.log('Client connected');    
     
     // Événement déclenché lorsqu'un message est reçu du client
     socket.on('message', (message) => {
@@ -37,7 +37,7 @@ wss.on('connection', (socket) => {
         console.log('Received: %s', message);
         const msgStr = message.toString();
         let msg=msgStr.split("/")
-        if (msg[0]='connexion') {
+        if (msg[0]=='connexion') {
             pseudo=msg[1]
             global.connectedUsers[pseudo]=socket
             // Répondre au client-connexion
@@ -47,7 +47,7 @@ wss.on('connection', (socket) => {
             });
             socket.send(tabusers.join("/"));
         }
-        if (msg[0]='connexion') {
+        if (msg[0]=='invite') {
             let socketinvite=global.connectedUsers[msg[1]]
             socketinvite.send("invitation reçue")
         }

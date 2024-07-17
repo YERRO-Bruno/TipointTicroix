@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //alert("Websock2");
 
     socket.addEventListener('open', (event) => {
-        alert('WebSocket is connected.');
+        //alert('WebSocket is connected.');
         socket.send('connexion/'.concat(pseudox));
     });
 
