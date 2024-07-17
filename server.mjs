@@ -34,7 +34,6 @@ wss.on('connection', (socket) => {
     // Événement déclenché lorsqu'un message est reçu du client
     socket.on('message', (message) => {
         let tabusers=[]
-        let tabinvite=[]
         console.log('Received: %s', message);
         const msgStr = message.toString();
         let msg=msgStr.split("/")
@@ -48,20 +47,7 @@ wss.on('connection', (socket) => {
             }
             socket.send(tabusers.join());
         }
-        if (msg[0]='invite') {
-            console.log("invite")
-            let socketinvité=""
-            //tabinvite.push("invite")
-            //tabinvite.push(global.connectedUsers.get(String(socket)))
-            for (var [key, value] of global.connectedUsers) {
-                if (value=msg[1]) {
-                    socketinvité=key
-                    break
-                }
-            }
-            socketinvité.send(tabinvite.join)
-        }
-
+        
     });
 
     // Événement déclenché lorsque la connexion WebSocket est fermée
