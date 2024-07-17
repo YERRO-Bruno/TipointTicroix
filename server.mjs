@@ -5,7 +5,6 @@ import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
 dotenv.config();
-global.connectedUsers = [];
 
 // Adresse IP et port
 const ip = '77.37.125.25'; // Adresse IP spécifique à écouter
@@ -27,7 +26,7 @@ const wss = new WebSocketServer({ server: httpsServer });
 
 // Événement déclenché lorsqu'une connexion est établie
 let pseudo=""
-global.connectedUsers={}
+//global.connectedUsers={}
 wss.on('connection', (socket) => {
     console.log('Client connected');    
     

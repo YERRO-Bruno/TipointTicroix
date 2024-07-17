@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (msg[i]!=pseudox) {
                     li.style.color='blue'
                     li.style.fontWeight='1000'
+                    userconnecteds.appendChild(li)
                 }
-                userconnecteds.appendChild(li)
             }
         }
         if (msg[0]=="invite") {
