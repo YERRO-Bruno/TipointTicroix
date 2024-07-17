@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let msg=[]
     socket.addEventListener('message', (event) => {
         alert('Message from server: ' + event.data);
-        msg=event.data.split(",")
+        msg=event.data.split("/")
         if (msg[0]=="connected") {
             for (let i = 1; i < msg.length; i++) {
                 const li=document.createElement("li")
@@ -26,11 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 li.id=msg[i]
                 li.class="joueur"
                 li.href='action'
-                if (msg[i]==pseudox) {
-                    li.style.color='blue'
-                    li.style.fontWeight='1000'
+                if (msg[i]!=pseudox) {
+                    userconnecteds.appendChild(li)
                 }
-                userconnecteds.appendChild(li)
             }
         }
         if (msg[0]=="invite") {
