@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //alert("Websock2");
 
     socket.addEventListener('open', (event) => {
-        //alert('WebSocket is connected.');
+        alert('WebSocket is connected.');
         socket.send('connexion/'.concat(pseudox));
     });
 
@@ -27,8 +27,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 li.class="joueur"
                 li.href='action'
                 if (msg[i]!=pseudox) {
-                    userconnecteds.appendChild(li)
+                    li.style.color='blue'
+                    li.style.fontWeight='1000'
                 }
+                userconnecteds.appendChild(li)
             }
         }
         if (msg[0]=="invite") {
