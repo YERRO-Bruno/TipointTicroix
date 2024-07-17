@@ -42,12 +42,11 @@ wss.on('connection', (socket) => {
             global.connectedUsers[pseudo]=socket
             // Répondre au client-connexion
             tabusers.push("connected")
-            for (var [key, value] of global.connectedUsers) {
-                tabusers.push(value)
-            }
+            Object.keys(global.connectedUsers).forEach(pseudo => {
+                tabusers.push(pseudo)
+            });
             socket.send(tabusers.join());
         }
-        
     });
 
     // Événement déclenché lorsque la connexion WebSocket est fermée
