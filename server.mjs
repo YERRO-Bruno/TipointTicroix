@@ -27,6 +27,7 @@ const wss = new WebSocketServer({ server: httpsServer });
 // Événement déclenché lorsqu'une connexion est établie
 let pseudo=""
 let hote=""
+let invité=""
 global.connectedUsers={}
 wss.on('connection', (socket) => {
     console.log('Client connected');    
