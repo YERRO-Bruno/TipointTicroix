@@ -32,9 +32,7 @@ if (document.getElementById("id-jeton").textContent=="Non") {
 document.getElementById("table").addEventListener('click', function(e) {
   //e.preventDefault()
   if ((document.getElementById("id-victoire").value=="Non" &&
-   document.getElementById("id-defaite").value=="Non") ||
-    (document.getElementById("id-victoire").value=="" &&
-   document.getElementById("id-defaite").value=="")) {
+   document.getElementById("id-defaite").value=="Non")) {
      if (document.getElementById("id-jeton").textContent=="Non") {
        alert("Ce n'est pas à vous de jouer")
      } else {
@@ -62,8 +60,8 @@ document.getElementById("table").addEventListener('click', function(e) {
          document.forms["internet"].submit();
        } else {
            alert("Case déjà utilisée")
-       }
-    }
+        }
+      }
   } else {
     alert("la partie est terminée!")
   }

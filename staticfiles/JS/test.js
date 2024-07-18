@@ -15,6 +15,44 @@ document.addEventListener("DOMContentLoaded", function () {
         
     })
 
+    // Click du joueur sur une des cases
+    document.getElementById("table").addEventListener('click', function(e) {
+        //e.preventDefault()
+        if (document.getElementById("id-finpartie").value=="Non") {
+        if (document.getElementById("id-jeton").textContent=="Non") {
+            alert("Ce n'est pas à vous de jouer")
+        } else {
+            if (document.getElementById("id-begin").textContent=="Oui") {
+            marque="O"
+            } else {
+            marque="X"
+            }
+            if (document.getElementById(e.target.id).textContent=="") {
+            case_clicked = e.target.id.split('/')
+            document.getElementById(e.target.id).textContent = marque
+            document.getElementById(e.target.id).style.fontSize="0.9vw"
+            if (marque=="X") {
+                document.getElementById(e.target.id).style.color="red"
+            } else {
+                document.getElementById(e.target.id).style.color="blue"
+            }   
+            e.target.blur()
+            document.getElementById("coup-joueur").value=e.target.id
+            document.getElementById("ALUI").style.display="block"   
+            document.getElementById("AVOUS").style.display="none"
+            document.getElementById("jeton").value="Oui"
+            document.getElementById("id-rolesocket").value=document.getElementById("rolesocket").textContent
+            document.getElementById("id-sequence").value=e.target.id   
+            document.forms["internet"].submit();
+            } else {
+                alert("Case déjà utilisée")
+            }
+            }
+        } else {
+        alert("la partie est terminée!")
+        }
+    })
+
     socket.addEventListener('open', (event) => {
         if (etape.value=="connexion") {
             //alert("connexion "+pseudox)
@@ -23,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     socket.addEventListener('message', (event) => {
-        alert('Message from server: ' + event.data);
+        //alert('Message from server: ' + event.data);
         msg=event.data.split("/")
         if (msg[0]=="connected") {
             for (let i = 1; i < msg.length; i++) {
