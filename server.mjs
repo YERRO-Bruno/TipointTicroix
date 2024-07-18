@@ -36,11 +36,11 @@ wss.on('connection', (socket) => {
     socket.on('message', (message) => {
         let tabusers=[]
         console.log('Received: %s', message);
-        console.log(socket)
-        //const msgStr = message.toString();
-        msg=message.toString().split("/")
+        const msgStr = message.toString();
+        msg=msgStr.split("/")
         global.connectedUsers[msg[1]]=socket
         if (msg[0]=='connexion') {
+            console.log("connexion")
             pseudo=msg[1]
             global.disponibleUsers[pseudo]=socket
             // Répondre au client-connexion
@@ -51,11 +51,12 @@ wss.on('connection', (socket) => {
             socket.send(tabusers.join("/"));
         }
         if (msg[0]=='invite') {
-            Object.keys(global.connectedUsers).forEach(pseudo => {
-                if (pseudo=msg[1]) {
-                    socketinvite=global.connectedUsers[pseudo]
+            console.log("invite")
+            Object.keys(global.connectedUsers).forEach(pseudox => {
+                if (pseudox=msg[1]) {
+                    socketinvite=global.connectedUsers[pseudox]
                     console.log('invité : ',msg[1])
-                    socketinvite.send("invite/"+pseudo)
+                    socketinvite.send("invite/"+pseudox)
                 }
             })
         }
