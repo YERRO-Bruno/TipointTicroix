@@ -208,8 +208,8 @@ function displayGameBoard(){
             document.getElementById("btn-manche2").style.display="block"
             }
         
-        document.getElementById("ALUI").style.display="none"   
-        document.getElementById("AVOUS").style.display="none"
+        //document.getElementById("ALUI").style.display="none"   
+        //document.getElementById("AVOUS").style.display="none"
         win=win.split(",")
         for (let i = 0;i<5;i++) {
             document.getElementById(win[i]).style.backgroundColor="yellow"
