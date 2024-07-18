@@ -69,21 +69,46 @@ font-weight: 400;font-style: normal">
     <div>
         <form id="internet" method="post">
             <input type="text" name="etape" id="id-etape" value="{{ etape }}">
-            <label>Jeton : </label>
-            <input type="text" name="jeton" id="id-jeton" value="{{ jeton }}">
-            <input type="text" name="adversaire" id="id-adversaire" value="{{ adversaire }}">
-            <input type="text" name="joueur" id="id-joueur" value="{{ joueur }}">
-            <label id="id-match" type="text">{{ match }}</label>
-            <label>Joueur commence : </label>
-            <label id="id-begin" type="text">{{ begin }}</label>
-            <input name="coupjoueur" id="coup-joueur" type="text">
-            <label for="id-sequence">Coups joués</label>
-            <input id="id-sequence" type="text" value="{{ sequence }}">
-            <label id="id-finpartie" type="text">{{ finpartie }}</label>
-            <label for="id-victoire">victoire joueur</label>
-            <input id="id-victoire" type="text" value="{{ victoire }}">
-            <label for="id-defaite">défaite joueur</label>
-            <input id="id-defaite" type="array" value="{{ defaite }}">
+            <div>
+                <label>Jeton : </label>
+                <input type="text" name="jeton" id="id-jeton" value="{{ jeton }}">
+            </div>
+            <div>
+                <label>Joueur : </label>
+                <input type="text" name="joueur" id="id-joueur" value="{{ joueur }}">
+            </div>
+            <div>
+                <label>Adversaire : </label>
+                <input type="text" name="adversaire" id="id-adversaire" value="{{ adversaire }}">
+            </div>
+            <div>                
+                <label>Match : </label>
+                <label id="id-match" type="text">{{ match }}</label>
+            </div>
+            <div>                
+                <label>Joueur commence : </label>
+                <label id="id-begin" type="text">{{ begin }}</label>
+            </div>
+            <div>                
+                <label>Coup joueur : </label>
+                <input name="coupjoueur" id="coup-joueur" type="text">
+            </div>
+            <div>
+                <label for="id-sequence">Coups joués</label>
+                <input id="id-sequence" type="text" value="{{ sequence }}">
+            </div>
+            <div>                
+                <label>Fin de partie : </label>
+                <label id="id-finpartie" type="text">{{ finpartie }}</label>
+            </div>
+            <div>                
+                <label for="id-victoire">victoire joueur</label>
+                <input id="id-victoire" type="text" value="{{ victoire }}">
+            </div>
+            <div>                
+                <label for="id-defaite">défaite joueur</label>
+                <input id="id-defaite" type="array" value="{{ defaite }}">
+            </div>
         </form>
     </div>
     <button class="btn btn-0" id="btn-quitter" type="button" style="width:20vh;font-size:1.2vw;
