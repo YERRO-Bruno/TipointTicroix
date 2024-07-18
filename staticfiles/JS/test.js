@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         alert('Message from server: ' + event.data);
         msg=event.data.split("/")
         if (msg[0]=="connected") {
+            alert("connected")
             for (let i = 1; i < msg.length; i++) {
                 const li=document.createElement("li")
                 li.textContent=msg[i]
@@ -75,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('WebSocket error: ', error);
     });
 
-    if (etape.value="tourjeu") {
+    if (etape.value=="tourjeu") {
         displayGameBoard()
     }
 })
