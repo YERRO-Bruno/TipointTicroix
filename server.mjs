@@ -55,8 +55,11 @@ wss.on('connection', (socket) => {
                 if (socketx==socket) {
                     hote=pseudox
                 }
+                if (pseudox=msg[1]) {
+                    socketinvite=global.connectedUsers[pseudox]
+                }
             });
-            let socketinvite=global.connectedUsers[msg[1]]
+            //let socketinvite=global.connectedUsers[msg[1]]
             socketinvite.send("invite/"+hote)
         }
         if (msg[0]=='accept') {
