@@ -33,7 +33,7 @@ def test(request):
                     context['joueur']=settings.SECOND
                     context['adversaire']=settings.PREMIER
                     settings.BEGIN="Non"
-                settings.MATCH=settings.MATCH+1
+                settings.MATCH=1
                 settings.SCORE1=0
                 settings.SCORE2=0
                 settings.TOUR=1

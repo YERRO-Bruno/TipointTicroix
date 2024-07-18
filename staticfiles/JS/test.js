@@ -18,10 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Click du joueur sur une des cases
     document.getElementById("table").addEventListener('click', function(e) {
         //e.preventDefault()
-        if (document.getElementById("id-finpartie").value=="Non") {
-        if (document.getElementById("id-jeton").textContent=="Non") {
-            alert("Ce n'est pas à vous de jouer")
-        } else {
+        if (document.getElementById("id-finpartie").te=="Non") {
+            if (document.getElementById("id-jeton").textContent=="Non") {
+                alert("Ce n'est pas à vous de jouer")
+            } else {
             if (document.getElementById("id-begin").textContent=="Oui") {
             marque="O"
             } else {
@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("ALUI").style.display="block"   
             document.getElementById("AVOUS").style.display="none"
             document.getElementById("jeton").value="Oui"
-            document.getElementById("id-rolesocket").value=document.getElementById("rolesocket").textContent
             document.getElementById("id-sequence").value=e.target.id   
             document.forms["internet"].submit();
             } else {
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             }
         } else {
-        alert("la partie est terminée!")
+            alert("la partie est terminée!")
         }
     })
 
@@ -108,10 +107,11 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('WebSocket error: ', error);
     });
 
-    if (etape.value=="tourjeu") {
-        displayGameBoard()
-    }
 })
+
+if (etape.value=="tourjeu") {
+    displayGameBoard()
+}
 //Functions
 //Affichage de la grille
 function displayGameBoard(){
