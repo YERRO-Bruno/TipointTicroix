@@ -50,9 +50,55 @@ def test(request):
                 context["victoire"]="Non"
                 context["defaite"]="Non"
                 return render(request, "test.html", context)
-            if request.POST['etape'] =="jeu":
+            if request.POST['etape'] =="tourjeu":
                 #tour de jeu
-                print("jeu")
+                print("tourjeu")
+                if settings.BEGIN=="Oui":
+                    marque="O"
+                else:
+                    marque="X"
+                context["finpartie"]="Non"
+                context["victoire"]="Non"
+                context["defaite"]="Non"
+                majgrille(request.POST["coupjoueur"],marque)    
+                settings.SEQUENCE=settings.SEQUENCE+[request.POST["coupjoueur"]]
+                res = trouve_5(request.POST["coupjoueur"],marque)
+                if res != "Non":
+                    settings.MATCH=settings.MATCH+1
+                    if request.POST['jeton']=="Oui":
+                        context['defaite']=res
+                        context['victoire']="Non"
+                        if settings.BEGIN=="Oui":
+                            settings.SCORE2=settings.SCORE2+1
+                            context['score2']=settings.SCORE2
+                        else:
+                            settings.SCORE1=settings.SCORE1+1
+                            context['score1']=settings.SCORE1
+                    else:
+                        context['defaite']="Non"
+                        context['victoire']=res
+                        if settings.BEGIN=="Oui":
+                            settings.SCORE1=settings.SCORE1+1
+                            context['score1']=settings.SCORE1
+                        else:
+                            settings.SCORE2=settings.SCORE2+1
+                            context['score2']=settings.SCORE2
+                    if settings.MATCH>2:
+                        context['finpartie']="Oui"
+                    
+                if request.POST['jeton']=="Oui":
+                    context['jeton']="Oui"
+                else:
+                    context['jeton']="Non"
+                context["match"]=settings.MATCH
+                context['begin']=settings.BEGIN
+                context["premier"]=settings.PREMIER
+                context["second"]=settings.SECOND
+                context["score1"]=settings.SCORE1
+                context["score2"]=settings.SCORE2
+                context["nbtour"]=nbtour()
+                context["etape"]="tourjeu"
+                return render(request, "test.html", context)
         else:    
             context["etape"]="connexion"
             settings.MATCH=0

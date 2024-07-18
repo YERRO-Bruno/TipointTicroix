@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Click du joueur sur une des cases
     document.getElementById("table").addEventListener('click', function(e) {
         //e.preventDefault()
-        if (document.getElementById("id-finpartie").textContent=="Non") {
+        if ((document.getElementById("id-victoire").value=="Non" &&
+            document.getElementById("id-defaite").value=="Non")) {
             if (document.getElementById("id-jeton").value=="Non") {
                 alert("Ce n'est pas à vous de jouer")
             } else {
@@ -38,10 +39,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }   
             e.target.blur()
             document.getElementById("coup-joueur").value=e.target.id
-            document.getElementById("ALUI").style.display="block"   
-            document.getElementById("AVOUS").style.display="none"
-            document.getElementById("jeton").value="Oui"
-            document.getElementById("id-sequence").value=e.target.id   
+            etape.value="tourjeu"
+            jeton.value="Non"
+              
+            alert("jeu")
+            socket.send('tourjeu/'.concat(adversaire.value,"/",e.target.id))
             document.forms["internet"].submit();
             } else {
                 alert("Case déjà utilisée")
@@ -88,6 +90,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         if (msg[0]=="accept") {
             etape.value="début"
+            jeton.value="Oui"
+            joueur.value=pseudox
+            adversaire.value=msg[1]
+            document.forms["internet"].submit();
+        } 
+        if (msg[0]=="tourjeu") {
+            document.getElementById("coup-joueur").value=msg[2]
+            etape.value="tourjeu"
             jeton.value="Oui"
             joueur.value=pseudox
             adversaire.value=msg[1]

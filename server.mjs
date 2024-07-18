@@ -68,6 +68,10 @@ wss.on('connection', (socket) => {
             let sockethote=global.connectedUsers[msg[1]]
             sockethote.send("accept/"+invité)
         }
+        if (msg[0]=='tourjeu') {
+            let socketadversaire=global.connectedUsers[msg[1]]
+            socketadversaire.send("tourjeu/"+msg[2])
+        }
     });
 
     // Événement déclenché lorsque la connexion WebSocket est fermée
