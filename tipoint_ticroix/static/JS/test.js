@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 adversaire.value=msg[1]
                 document.forms["internet"].submit();
             } 
+        }
         if (msg[0]=="accept") {
             alert("acceptation de " + msg[1])
             etape.value="début"
@@ -59,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
             adversaire.value=msg[1]
             document.forms["internet"].submit();
         } 
-        }
     });
 
     // Connection closed
