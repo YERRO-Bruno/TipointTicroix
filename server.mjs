@@ -76,8 +76,8 @@ wss.on('connection', (socket) => {
         }
         if (msg[0]=='tourjeu') {
             console.log=(msg[1])
-            let socketadversaire=global.connectedUsers[msg[1]]
-            socketadversaire.send("tourjeu,"+msg[2])
+            //let socketadversaire=global.connectedUsers[msg[1]]
+            //socketadversaire.send("tourjeu,"+msg[2])
         }
     });
 
