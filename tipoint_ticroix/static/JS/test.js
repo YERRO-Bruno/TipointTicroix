@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     socket.addEventListener('open', (event) => {
-        //alert('WebSocket is connected.');
         if (etape.value=="connexion") {
             //alert("connexion "+pseudox)
             socket.send('connexion/'.concat(pseudox));
@@ -27,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
         alert('Message from server: ' + event.data);
         msg=event.data.split("/")
         if (msg[0]=="connected") {
-            alert("connected")
             for (let i = 1; i < msg.length; i++) {
                 const li=document.createElement("li")
                 li.textContent=msg[i]
@@ -42,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
         if (msg[0]=="invite") {
-            alert("invité par " + msg[1])
             if (confirm("Acceptez-vous de jouer avec "+msg[1])) {
                 socket.send('accept/'.concat(msg[1]))
                 etape.value="début"
@@ -53,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
             } 
         }
         if (msg[0]=="accept") {
-            alert("acceptation de " + msg[1])
             etape.value="début"
             jeton.value="Oui"
             joueur.value=pseudox
@@ -113,6 +109,7 @@ function displayGameBoard(){
           cell.style.textAlign = "center"
       }
     }
+    document.getElementById("btn-manche2").style.display="none"
     document.getElementById("victoire").style.display="none"
     document.getElementById("defaite").style.display="none"
     if (document.getElementById("id-jeton").textContent=="Oui") {
