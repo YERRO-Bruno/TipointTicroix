@@ -39,7 +39,7 @@ wss.on('connection', (socket) => {
         const msgStr = message.toString();
         let msg=msgStr.split("/")
         pseudo=msg[1]
-        global.connectedUsers[pseudo]=socket
+        global.connectedUsers[pseudomsg[1]]=socket
         if (msg[0]=='connexion') {
             // Répondre au client-connexion
             tabusers.push("connected")
