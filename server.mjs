@@ -57,6 +57,16 @@ wss.on('connection', (socket) => {
             let socketinvite=global.connectedUsers[msg[1]]
             socketinvite.send("invite/"+hote)
         }
+        if (msg[0]=='accept') {
+            Object.keys(global.connectedUsers).forEach(pseudox => {
+                const socketx = global.connectedUsers[pseudox];
+                if (socketx==socket) {
+                    invité=pseudox
+                }
+            });
+            let sockethote=global.connectedUsers[msg[1]]
+            sockethote.send("accept/"+invité)
+        }
     });
 
     // Événement déclenché lorsque la connexion WebSocket est fermée

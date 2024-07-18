@@ -32,6 +32,7 @@ def test(request):
                 settings.SCORE2=0
                 settings.TOUR=0
                 settings.BEGINCLIENT="Non"
+                context["etape"]="tourjeu"
                 context["match"]=settings.MATCH
                 context["premier"]=settings.PREMIER
                 context["second"]=settings.SECOND
