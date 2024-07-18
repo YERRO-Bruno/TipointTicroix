@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
     userconnecteds.addEventListener("click", function(e) {
         e.preventDefault()
-        socket.send('invite,'.concat(e.target.id))
+        socket.send('invite,'.concat(pseudox,",",e.target.id))
         
     })
 
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
             jeton.value="Non"
               
             alert("jeu")
-            socket.send('tourjeu,'.concat(adversaire.value,",",e.target.id))
+            socket.send('tourjeu,'.concat(pseudox,",",adversaire.value,",",e.target.id))
             document.forms["internet"].submit();
             } else {
                 alert("Case déjà utilisée")
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         if (msg[0]=="invite") {
             if (confirm("Acceptez-vous de jouer avec "+msg[1])) {
-                socket.send('accept,'.concat(msg[1]))
+                socket.send('accept,'.concat(pseudox,',',msg[1]))
                 etape.value="début"
                 jeton.value="Non"
                 joueur.value=pseudox

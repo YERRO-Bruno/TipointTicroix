@@ -61,7 +61,7 @@ wss.on('connection', (socket) => {
                     hote=pseudox
                 }
             });
-            let socketinvite=global.connectedUsers[msg[1]]
+            let socketinvite=global.connectedUsers[msg[2]]
             socketinvite.send("invite,"+hote)
         }
         if (msg[0]=='accept') {
@@ -74,15 +74,15 @@ wss.on('connection', (socket) => {
                     invité=pseudox
                 }
             });
-            let sockethote=global.connectedUsers[msg[1]]
+            let sockethote=global.connectedUsers[msg[2]]
             sockethote.send("accept,"+invité)
         }
         if (msg[0]=="tourjeu") {
             delete global.connectedUsers[msg[1]]
             global.connectedUsers[msg[1]]=socket           
             console.log("OK2")
-            let socketadversaire=global.connectedUsers[msg[1]]
-            socketadversaire.send("tourjeu,"+msg[2])
+            let socketadversaire=global.connectedUsers[msg[2]]
+            socketadversaire.send("tourjeu,"+msg[3])
         }
         if (msg[0]=='tourjeu') {
             console.log=("OKOK")
