@@ -8,12 +8,7 @@ from django.shortcuts import render,redirect
 from django.utils.crypto import get_random_string
 import bcrypt
 from django.core.mail import send_mail
-from socket import gethostbyname_ex, gethostname
-import socket
-import websockets
-from websockets.sync.client import connect
 from django.http import JsonResponse
-# Create your views here.
 
 #page test
 def test(request):
@@ -21,8 +16,38 @@ def test(request):
     connec=estconnecté(request)
     if connec[0]:
         context["connexion"]="Oui"
-        context["connec"]=connec[1] 
-        return render(request, "test.html", context)
+        context["connec"]=connec[1]
+        if request.method == 'POST':
+            if request.POST['etape'] =="début":
+                #Début
+                print("début")
+                if request.POST["jeton"]=="Oui":
+                    settings.PREMIER=request.POST['joueur']
+                    settings.SECOND=request.POST['adversaire']
+                else:
+                    settings.PREMIER=request.POST['adversaire']
+                    settings.SECOND=request.POST['Joueur']
+                settings.MATCH=settings.MATCH+1
+                settings.SCORE1=0
+                settings.SCORE2=0
+                settings.TOUR=0
+                settings.BEGINCLIENT="Non"
+                context["match"]=settings.MATCH
+                context["premier"]=settings.PREMIER
+                context["second"]=settings.SECOND
+                context["score1"]=settings.SCORE1
+                context["score2"]=settings.SCORE2
+                context["nbtour"]=settings.TOUR
+                context["victoire"]="Non"
+                context["defaite"]="Non"
+                return render(request, "test.html", context)
+            if request.POST['etape'] =="jeu":
+                #tour de jeu
+                print("jeu")
+        else:    
+            context["etape"]="connexion"
+            settings.MATCH=0
+            return render(request, "test.html", context)
     else:
         context["connexion"]="Non"
         return redirect('/tipointticroix/connect',context)
