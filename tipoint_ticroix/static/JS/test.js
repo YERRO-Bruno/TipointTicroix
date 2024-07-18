@@ -107,11 +107,11 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('WebSocket error: ', error);
     });
 
+    if (etape.value=="tourjeu") {
+        displayGameBoard()
+    }
 })
 
-if (etape.value=="tourjeu") {
-    displayGameBoard()
-}
 //Functions
 //Affichage de la grille
 function displayGameBoard(){
