@@ -37,7 +37,7 @@ wss.on('connection', (socket) => {
         let tabusers=[]
         console.log('Received: %s', message);
         const msgStr = message.toString();
-        let msg=msgStr.split("/")
+        let msg=msgStr.split(",")
         pseudo=msg[1]
         if (msg[0]=='connexion') {
             // Répondre au client-connexion
@@ -46,7 +46,7 @@ wss.on('connection', (socket) => {
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 tabusers.push(pseudox)
             });
-            socket.send(tabusers.join("/"));
+            socket.send(tabusers.join(","));
             
         }
         if (msg[0]=='invite') {
@@ -59,7 +59,7 @@ wss.on('connection', (socket) => {
                 }
             });
             let socketinvite=global.connectedUsers[msg[1]]
-            socketinvite.send("invite/"+hote)
+            socketinvite.send("invite,"+hote)
         }
         if (msg[0]=='accept') {
             
@@ -70,12 +70,12 @@ wss.on('connection', (socket) => {
                 }
             });
             let sockethote=global.connectedUsers[msg[1]]
-            sockethote.send("accept/"+invité)
+            sockethote.send("accept,"+invité)
         }
         if (msg[0]=='tourjeu') {
             
             let socketadversaire=global.connectedUsers[msg[1]]
-            //socketadversaire.send("tourjeu/"+msg[2])
+            socketadversaire.send("tourjeu,"+msg[2])
         }
     });
 
@@ -103,27 +103,3 @@ httpsServer.listen(port, ip, () => {
     console.log(`WebSocket Secure server is running on wss://${ip}:${port}`);
 });
 
-function listAllConnections() {
-    for (const [pseudo1, socket1] of Object.entries(global.connectedUsers)) {
-        console.log(`Pseudo: ${pseudo1}, Socket: ${socket1}`);
-        socket1.send(pseudo1)
-    }
-}
-// Parcourir le dictionnaire global et envoyer des messages
-function broadcastToAllClients() {
-    for (const [pseudo, socket] of Object.entries(global.connectedUsers)) {
-        console.log(`Pseudo: ${pseudo}, Socket: ${socket}`);
-        if (socket.readyState === WebSocket.OPEN) {
-            console.log(`Sending message to ${pseudo}`);
-            socket.send(`Hello, ${pseudo}`);
-        } else {
-            console.error(`Socket for ${pseudo} is not open`);
-        }
-    }
-}
-
-// Exemple d'utilisation de la fonction pour parcourir le dictionnaire
-setInterval(() => {
-    console.log('Broadcasting to all active connections:');
-    broadcastToAllClients();
-}, 60000); // Diffuse à toutes les connexions toutes les 60 secondes
