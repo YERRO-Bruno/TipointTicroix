@@ -47,6 +47,7 @@ wss.on('connection', (socket) => {
                 tabusers.push(pseudox)
             });
             socket.send(tabusers.join("/"));
+            broadcastToAllClients()
         }
         if (msg[0]=='invite') {
             global.connectedUsers[msg[1]]=socket
@@ -106,5 +107,16 @@ function listAllConnections() {
     for (const [pseudo1, socket1] of Object.entries(global.connectedUsers)) {
         console.log(`Pseudo: ${pseudo1}, Socket: ${socket1}`);
         socket1.send(pseudo1)
+    }
+}
+// Parcourir le dictionnaire global et envoyer des messages
+function broadcastToAllClients() {
+    for (const [pseudo, socket] of Object.entries(global.connectedUsers)) {
+        console.log(`Pseudo: ${pseudo}, Socket: ${socket}`);
+        if (socket.readyState === WebSocket.OPEN) {
+            socket.send(pseudo);
+        } else {
+            console.error(`Socket for ${pseudo} is not open`);
+        }
     }
 }
