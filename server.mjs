@@ -41,6 +41,7 @@ wss.on('connection', (socket) => {
         pseudo=msg[1]
         if (msg[0]=='connexion') {
             // Répondre au client-connexion
+            delete global.connectedUsers[msg[1]]
             global.connectedUsers[msg[1]]=socket
             tabusers.push("connected")
             Object.keys(global.connectedUsers).forEach(pseudox => {
