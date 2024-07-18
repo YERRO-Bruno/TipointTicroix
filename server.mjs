@@ -40,9 +40,9 @@ wss.on('connection', (socket) => {
         let msg=msgStr.split(",")
         console.log(msg[0])
         pseudo=msg[1]
-        delete global.connectedUsers[msg[1]]
-        global.connectedUsers[msg[1]]=socket
         if (msg[0]=='connexion') {
+            delete global.connectedUsers[msg[1]]
+            global.connectedUsers[msg[1]]=socket
             // Répondre au client-connexion
             tabusers.push("connected")
             Object.keys(global.connectedUsers).forEach(pseudox => {
@@ -52,7 +52,8 @@ wss.on('connection', (socket) => {
             
         }
         if (msg[0]=='invite') {
-            
+            delete global.connectedUsers[msg[1]]
+            global.connectedUsers[msg[1]]=socket           
             
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 let socketx = global.connectedUsers[pseudox];
@@ -64,6 +65,8 @@ wss.on('connection', (socket) => {
             socketinvite.send("invite,"+hote)
         }
         if (msg[0]=='accept') {
+            delete global.connectedUsers[msg[1]]
+            global.connectedUsers[msg[1]]=socket           
             
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 const socketx = global.connectedUsers[pseudox];
@@ -75,6 +78,8 @@ wss.on('connection', (socket) => {
             sockethote.send("accept,"+invité)
         }
         if (msg[0]=="tourjeu") {
+            delete global.connectedUsers[msg[1]]
+            global.connectedUsers[msg[1]]=socket           
             console.log("OK2")
             let socketadversaire=global.connectedUsers[msg[1]]
             socketadversaire.send("tourjeu,"+msg[2])
