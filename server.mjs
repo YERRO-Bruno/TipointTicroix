@@ -1,6 +1,7 @@
 import https from 'https';
 import { WebSocketServer } from 'ws';
 import fs from 'fs';
+import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -26,9 +27,6 @@ const wss = new WebSocketServer({ server: httpsServer });
 // Événement déclenché lorsqu'une connexion est établie
 let pseudo=""
 global.connectedUsers={}
-global.disponibleUsers={}
-let msg=[]
-let socketinvite=""
 wss.on('connection', (socket) => {
     console.log('Client connected');    
     
@@ -37,28 +35,20 @@ wss.on('connection', (socket) => {
         let tabusers=[]
         console.log('Received: %s', message);
         const msgStr = message.toString();
-        msg=msgStr.split("/")
-        global.connectedUsers[msg[1]]=socket
+        let msg=msgStr.split("/")
         if (msg[0]=='connexion') {
-            console.log("connexion")
             pseudo=msg[1]
-            global.disponibleUsers[pseudo]=socket
+            global.connectedUsers[pseudo]=socket
             // Répondre au client-connexion
             tabusers.push("connected")
-            Object.keys(global.disponibleUsers).forEach(pseudox => {
+            Object.keys(global.connectedUsers).forEach(pseudox => {
                 tabusers.push(pseudox)
             });
             socket.send(tabusers.join("/"));
         }
         if (msg[0]=='invite') {
-            console.log("invite")
-            Object.keys(global.connectedUsers).forEach(pseudox => {
-                if (pseudox=msg[1]) {
-                    socketinvite=global.connectedUsers[pseudox]
-                    console.log('invité : ',msg[1])
-                    socketinvite.send("invite/"+pseudox)
-                }
-            })
+            let socketinvite=global.connectedUsers[msg[1]]
+            socketinvite.send("invite/"+pseudo)
         }
     });
 
@@ -70,12 +60,6 @@ wss.on('connection', (socket) => {
                 console.log('Client disconnected',pseudo);
                 delete global.connectedUsers[pseudo];
                 console.log(Object.keys(global.connectedUsers))
-            }
-        });
-        Object.keys(global.disponibleUsers).forEach(pseudo => {
-            const socketx = global.disponibleUsers[pseudo];
-            if (socketx==socket) {
-                delete global.disponibleUsers[pseudo];
             }
         });
 
