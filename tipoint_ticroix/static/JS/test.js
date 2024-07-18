@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (msg[0]=="invite") {
             alert("invité par " + msg[1])
             if (confirm("Acceptez-vous de jouer avec "+msg[1])) {
-                socket.send('accept/'+msg[1])
+                socket.send('accept/'.concat(msg[1]))
                 etape.value="début"
                 jeton.value="Non"
                 joueur.value=pseudox
