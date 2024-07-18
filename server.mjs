@@ -39,9 +39,9 @@ wss.on('connection', (socket) => {
         const msgStr = message.toString();
         let msg=msgStr.split("/")
         pseudo=msg[1]
-        global.connectedUsers[msg[1]]=socket
         if (msg[0]=='connexion') {
             // Répondre au client-connexion
+            global.connectedUsers[msg[1]]=socket
             tabusers.push("connected")
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 tabusers.push(pseudox)
@@ -49,21 +49,19 @@ wss.on('connection', (socket) => {
             socket.send(tabusers.join("/"));
         }
         if (msg[0]=='invite') {
-            let socketinvite=""
+            global.connectedUsers[msg[1]]=socket
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 const socketx = global.connectedUsers[pseudox];
                 console.log("--",pseudox)
                 if (socketx==socket) {
                     hote=pseudox
                 }
-                if (pseudox=msg[1]) {
-                    socketinvite=global.connectedUsers[pseudox]
-                }
             });
-            //let socketinvite=global.connectedUsers[msg[1]]
+            let socketinvite=global.connectedUsers[msg[1]]
             socketinvite.send("invite/"+hote)
         }
         if (msg[0]=='accept') {
+            global.connectedUsers[msg[1]]=socket
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 const socketx = global.connectedUsers[pseudox];
                 if (socketx==socket) {
@@ -74,6 +72,7 @@ wss.on('connection', (socket) => {
             sockethote.send("accept/"+invité)
         }
         if (msg[0]=='tourjeu') {
+            global.connectedUsers[msg[1]]=socket
             let socketadversaire=global.connectedUsers[msg[1]]
             //socketadversaire.send("tourjeu/"+msg[2])
         }
