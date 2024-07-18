@@ -27,6 +27,7 @@ const wss = new WebSocketServer({ server: httpsServer });
 let pseudo=""
 global.connectedUsers={}
 global.disponibleUsers={}
+let msg=[]
 wss.on('connection', (socket) => {
     console.log('Client connected');    
     
@@ -34,8 +35,8 @@ wss.on('connection', (socket) => {
     socket.on('message', (message) => {
         let tabusers=[]
         console.log('Received: %s', message);
-        const msgStr = message.toString();
-        let msg=msgStr.split("/")
+        //const msgStr = message.toString();
+        msg=message.toString().split("/")
         global.connectedUsers[msg[1]]=socket
         if (msg[0]=='connexion') {
             pseudo=msg[1]
