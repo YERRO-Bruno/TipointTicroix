@@ -49,6 +49,7 @@ wss.on('connection', (socket) => {
             socket.send(tabusers.join("/"));
         }
         if (msg[0]=='invite') {
+            let socketinvite=""
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 const socketx = global.connectedUsers[pseudox];
                 console.log("--",pseudox)
@@ -56,7 +57,7 @@ wss.on('connection', (socket) => {
                     hote=pseudox
                 }
                 if (pseudox=msg[1]) {
-                    let socketinvite=global.connectedUsers[pseudox]
+                    socketinvite=global.connectedUsers[pseudox]
                 }
             });
             //let socketinvite=global.connectedUsers[msg[1]]
