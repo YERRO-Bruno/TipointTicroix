@@ -52,6 +52,7 @@ wss.on('connection', (socket) => {
             global.connectedUsers[msg[1]]=socket
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 const socketx = global.connectedUsers[pseudox];
+                socketx.send("- "+pseudox)
                 console.log("--",pseudox)
                 if (socketx==socket) {
                     hote=pseudox
