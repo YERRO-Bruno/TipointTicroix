@@ -24,22 +24,29 @@ def test(request):
                 if request.POST["jeton"]=="Oui":
                     settings.PREMIER=request.POST['joueur']
                     settings.SECOND=request.POST['adversaire']
+                    context['joueur']=settings.PREMIER
+                    context['adversaire']=settings.SECOND
+                    settings.BEGIN="Oui"
                 else:
                     settings.PREMIER=request.POST['adversaire']
                     settings.SECOND=request.POST['joueur']
+                    context['joueur']=settings.SECOND
+                    context['adversaire']=settings.PREMIER
+                    settings.BEGIN="Non"
                 settings.MATCH=settings.MATCH+1
                 settings.SCORE1=0
                 settings.SCORE2=0
                 settings.TOUR=1
-                settings.BEGINCLIENT="Non"
                 context["etape"]="tourjeu"
                 context["jeton"]=request.POST['jeton']
                 context["match"]=settings.MATCH
+                context['begin']=settings.BEGIN
                 context["premier"]=settings.PREMIER
                 context["second"]=settings.SECOND
                 context["score1"]=settings.SCORE1
                 context["score2"]=settings.SCORE2
                 context["nbtour"]=settings.TOUR
+                context["finpartie"]="Non"
                 context["victoire"]="Non"
                 context["defaite"]="Non"
                 return render(request, "test.html", context)
