@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
     userconnecteds.addEventListener("click", function(e) {
         e.preventDefault()
-        socket.send('invite/'.concat(e.target.id))
+        socket.send('invite,'.concat(pseudox,",",e.target.id))
         
     })
 
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
             marque="X"
             }
             if (document.getElementById(e.target.id).textContent=="") {
-            case_clicked = e.target.id.split('/')
+            case_clicked = e.target.id.split(',')
             document.getElementById(e.target.id).textContent = marque
             document.getElementById(e.target.id).style.fontSize="0.9vw"
             if (marque=="X") {
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
             jeton.value="Non"
               
             alert("jeu")
-            socket.send('tourjeu/'.concat(adversaire.value,"/",e.target.id))
+            socket.send('tourjeu,'.concat(pseudox,",",adversaire.value,",",e.target.id))
             document.forms["internet"].submit();
             } else {
                 alert("Case déjà utilisée")
@@ -57,13 +57,13 @@ document.addEventListener("DOMContentLoaded", function () {
     socket.addEventListener('open', (event) => {
         if (etape.value=="connexion") {
             //alert("connexion "+pseudox)
-            socket.send('connexion/'.concat(pseudox));
+            socket.send('connexion,'.concat(pseudox));
         }
     });
 
     socket.addEventListener('message', (event) => {
-        //alert('Message from server: ' + event.data);
-        msg=event.data.split("/")
+        alert('Message from server: ' + event.data);
+        msg=event.data.split(",")
         if (msg[0]=="connected") {
             for (let i = 1; i < msg.length; i++) {
                 const li=document.createElement("li")
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         if (msg[0]=="invite") {
             if (confirm("Acceptez-vous de jouer avec "+msg[1])) {
-                socket.send('accept/'.concat(msg[1]))
+                socket.send('accept,'.concat(pseudox,',',msg[1]))
                 etape.value="début"
                 jeton.value="Non"
                 joueur.value=pseudox
