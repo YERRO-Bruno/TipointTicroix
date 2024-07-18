@@ -38,9 +38,9 @@ wss.on('connection', (socket) => {
         console.log('Received: %s', message);
         const msgStr = message.toString();
         let msg=msgStr.split("/")
+        pseudo=msg[1]
+        global.connectedUsers[pseudo]=socket
         if (msg[0]=='connexion') {
-            pseudo=msg[1]
-            global.connectedUsers[pseudo]=socket
             // Répondre au client-connexion
             tabusers.push("connected")
             Object.keys(global.connectedUsers).forEach(pseudox => {
