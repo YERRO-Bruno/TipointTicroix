@@ -49,7 +49,8 @@ wss.on('connection', (socket) => {
             socket.send(tabusers.join("/"));
         }
         if (msg[0]=='invite') {
-            let socketinvite=global.connectedUsers[msg[1]]
+            socketinvite=global.connectedUsers[msg[1]]
+            console.log('invité : ',msg[1])
             socketinvite.send("invite/"+pseudo)
         }
     });
