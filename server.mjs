@@ -74,8 +74,11 @@ wss.on('connection', (socket) => {
             let sockethote=global.connectedUsers[msg[1]]
             sockethote.send("accept,"+invité)
         }
+        if (msg[o]="tourjeu") {
+            console.log("OK2")
+        }
         if (msg[0]=='tourjeu') {
-            console.log=(msg[1])
+            console.log=("OKOK")
             //let socketadversaire=global.connectedUsers[msg[1]]
             //socketadversaire.send("tourjeu,"+msg[2])
         }
