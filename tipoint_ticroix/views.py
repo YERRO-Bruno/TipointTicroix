@@ -30,9 +30,10 @@ def test(request):
                 settings.MATCH=settings.MATCH+1
                 settings.SCORE1=0
                 settings.SCORE2=0
-                settings.TOUR=0
+                settings.TOUR=1
                 settings.BEGINCLIENT="Non"
                 context["etape"]="tourjeu"
+                context["jeton"]=request.POST['jeton']
                 context["match"]=settings.MATCH
                 context["premier"]=settings.PREMIER
                 context["second"]=settings.SECOND
