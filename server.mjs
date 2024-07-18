@@ -1,7 +1,6 @@
 import https from 'https';
 import { WebSocketServer } from 'ws';
 import fs from 'fs';
-import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -40,7 +39,7 @@ wss.on('connection', (socket) => {
         global.connectedUsers[pseudo]=socket
         if (msg[0]=='connexion') {
             pseudo=msg[1]
-            global.disponibleUsersUsers[pseudo]=socket
+            global.disponibleUsers[pseudo]=socket
             // Répondre au client-connexion
             tabusers.push("connected")
             Object.keys(global.disponibleUsers).forEach(pseudox => {
