@@ -38,6 +38,7 @@ wss.on('connection', (socket) => {
         console.log('Received: %s', message);
         const msgStr = message.toString();
         let msg=msgStr.split(",")
+        console.log(msg[0])
         pseudo=msg[1]
         if (msg[0]=='connexion') {
             // Répondre au client-connexion
@@ -74,7 +75,7 @@ wss.on('connection', (socket) => {
             sockethote.send("accept,"+invité)
         }
         if (msg[0]=='tourjeu') {
-            console.log=(msg[1],msg[2])
+            console.log=(msg[1]+" "+msg[2])
             let socketadversaire=global.connectedUsers[msg[1]]
             socketadversaire.send("tourjeu,"+msg[2])
         }
