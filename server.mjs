@@ -28,6 +28,7 @@ let pseudo=""
 global.connectedUsers={}
 global.disponibleUsers={}
 let msg=[]
+let socketinvite=""
 wss.on('connection', (socket) => {
     console.log('Client connected');    
     
