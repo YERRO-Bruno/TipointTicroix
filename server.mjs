@@ -30,7 +30,7 @@ let hote=""
 let invité=""
 global.connectedUsers={}
 wss.on('connection', (socket) => {
-    console.log('Client connected');    
+    //console.log('Client connected');    
     
     // Événement déclenché lorsqu'un message est reçu du client
     socket.on('message', (message) => {
