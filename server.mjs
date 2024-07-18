@@ -103,7 +103,8 @@ httpsServer.listen(port, ip, () => {
 });
 
 function listAllConnections() {
-    for (const [pseudo, socket] of Object.entries(global.connectedUsers)) {
-        console.log(`Pseudo: ${pseudo}, Socket: ${socket}`);
+    for (const [pseudo1, socket1] of Object.entries(global.connectedUsers)) {
+        console.log(`Pseudo: ${pseudo1}, Socket: ${socket1}`);
+        socket1.send(pseudo1)
     }
 }
