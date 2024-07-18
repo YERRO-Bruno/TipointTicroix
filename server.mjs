@@ -51,6 +51,7 @@ wss.on('connection', (socket) => {
         if (msg[0]=='invite') {
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 const socketx = global.connectedUsers[pseudox];
+                console.log("--",pseudox)
                 if (socketx==socket) {
                     hote=pseudox
                 }
