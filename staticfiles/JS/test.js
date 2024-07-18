@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Click du joueur sur une des cases
     document.getElementById("table").addEventListener('click', function(e) {
         //e.preventDefault()
-        if (document.getElementById("id-finpartie").te=="Non") {
+        if (document.getElementById("id-finpartie").textContent=="Non") {
             if (document.getElementById("id-jeton").textContent=="Non") {
                 alert("Ce n'est pas à vous de jouer")
             } else {
@@ -150,7 +150,7 @@ function displayGameBoard(){
     document.getElementById("btn-manche2").style.display="none"
     document.getElementById("victoire").style.display="none"
     document.getElementById("defaite").style.display="none"
-    if (document.getElementById("id-jeton").textContent=="Oui") {
+    if (document.getElementById("id-jeton").value=="Oui") {
         document.getElementById("ALUI").style.display="none"
     } else {
         document.getElementById("AVOUS").style.display="none"
