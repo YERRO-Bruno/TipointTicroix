@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     socket.addEventListener('open', (event) => {
         //alert('WebSocket is connected.');
         if (etape.value=="connexion") {
+            //alert("connexion "+pseudox)
             socket.send('connexion/'.concat(pseudox));
         }
     });
