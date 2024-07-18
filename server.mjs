@@ -47,11 +47,11 @@ wss.on('connection', (socket) => {
                 tabusers.push(pseudox)
             });
             socket.send(tabusers.join("/"));
-            broadcastToAllClients()
+            
         }
         if (msg[0]=='invite') {
-            global.connectedUsers[msg[1]]=socket
-            listAllConnections()
+            
+            
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 let socketx = global.connectedUsers[pseudox];
                 if (socketx==socket) {
@@ -62,7 +62,7 @@ wss.on('connection', (socket) => {
             socketinvite.send("invite/"+hote)
         }
         if (msg[0]=='accept') {
-            global.connectedUsers[msg[1]]=socket
+            
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 const socketx = global.connectedUsers[pseudox];
                 if (socketx==socket) {
@@ -73,7 +73,7 @@ wss.on('connection', (socket) => {
             sockethote.send("accept/"+invité)
         }
         if (msg[0]=='tourjeu') {
-            global.connectedUsers[msg[1]]=socket
+            
             let socketadversaire=global.connectedUsers[msg[1]]
             //socketadversaire.send("tourjeu/"+msg[2])
         }
@@ -85,8 +85,8 @@ wss.on('connection', (socket) => {
             const socketx = global.connectedUsers[pseudo];
             if (socketx==socket) {
                 console.log('Client disconnected',pseudo);
-                delete global.connectedUsers[pseudo];
-                console.log(Object.keys(global.connectedUsers))
+                //delete global.connectedUsers[pseudo];
+                //console.log(Object.keys(global.connectedUsers))
             }
         });
 
