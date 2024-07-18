@@ -1,5 +1,5 @@
 import https from 'https';
-import { WebSocketServer } from 'ws';
+import { WebSocketServer, WebSocket } from 'ws'
 import fs from 'fs';
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
