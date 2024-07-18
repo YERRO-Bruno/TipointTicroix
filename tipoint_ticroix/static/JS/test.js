@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("table").addEventListener('click', function(e) {
         //e.preventDefault()
         if (document.getElementById("id-finpartie").textContent=="Non") {
-            if (document.getElementById("id-jeton").textContent=="Non") {
+            if (document.getElementById("id-jeton").value=="Non") {
                 alert("Ce n'est pas à vous de jouer")
             } else {
             if (document.getElementById("id-begin").textContent=="Oui") {
