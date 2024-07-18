@@ -114,9 +114,16 @@ function broadcastToAllClients() {
     for (const [pseudo, socket] of Object.entries(global.connectedUsers)) {
         console.log(`Pseudo: ${pseudo}, Socket: ${socket}`);
         if (socket.readyState === WebSocket.OPEN) {
-            socket.send(pseudo);
+            console.log(`Sending message to ${pseudo}`);
+            socket.send(`Hello, ${pseudo}`);
         } else {
             console.error(`Socket for ${pseudo} is not open`);
         }
     }
 }
+
+// Exemple d'utilisation de la fonction pour parcourir le dictionnaire
+setInterval(() => {
+    console.log('Broadcasting to all active connections:');
+    broadcastToAllClients();
+}, 60000); // Diffuse à toutes les connexions toutes les 60 secondes
