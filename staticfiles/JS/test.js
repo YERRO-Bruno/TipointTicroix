@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
     userconnecteds.addEventListener("click", function(e) {
         e.preventDefault()
-        socket.send('invite,'.concat(pseudox,",",e.target.id))
+        invite=e.target.id
+        socket.send('invite,'.concat(pseudox,",",invite))
         
     })
 
