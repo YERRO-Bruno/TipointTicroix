@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     pseudox=document.getElementById("id-connec").textContent
     const userconnecteds=document.getElementById("id_userconnecteds")
     let msg=[]
-    let adv=""
     const etape=document.getElementById("id-etape")
     const jeton=document.getElementById("id-jeton")
 
@@ -12,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
     userconnecteds.addEventListener("click", function(e) {
         e.preventDefault()
-        adv=e.target.id
         socket.send('invite/'.concat(e.target.id))
         
     })
@@ -46,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (msg[0]=="invite") {
             alert("invité par " + msg[1])
             if (confirm("Acceptez-vous de jouer avec "+msg[1])) {
-                socket.send('accept/'+adv)
+                socket.send('accept/'+msg[1])
                 etape.value="début"
                 jeton.value="Non"
                 joueur.value=pseudox
