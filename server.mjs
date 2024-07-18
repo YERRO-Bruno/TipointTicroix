@@ -50,10 +50,9 @@ wss.on('connection', (socket) => {
         }
         if (msg[0]=='invite') {
             global.connectedUsers[msg[1]]=socket
+            listAllConnections()
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 let socketx = global.connectedUsers[pseudox];
-                socketx.send("- "+pseudox)
-                console.log("--",pseudox)
                 if (socketx==socket) {
                     hote=pseudox
                 }
@@ -102,3 +101,9 @@ wss.on('connection', (socket) => {
 httpsServer.listen(port, ip, () => {
     console.log(`WebSocket Secure server is running on wss://${ip}:${port}`);
 });
+
+function listAllConnections() {
+    for (const [pseudo, socket] of Object.entries(global.clientSockets)) {
+        console.log(`Pseudo: ${pseudo}, Socket: ${socket}`);
+    }
+}
