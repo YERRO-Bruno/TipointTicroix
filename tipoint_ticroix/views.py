@@ -26,7 +26,7 @@ def test(request):
                     settings.SECOND=request.POST['adversaire']
                 else:
                     settings.PREMIER=request.POST['adversaire']
-                    settings.SECOND=request.POST['Joueur']
+                    settings.SECOND=request.POST['joueur']
                 settings.MATCH=settings.MATCH+1
                 settings.SCORE1=0
                 settings.SCORE2=0
