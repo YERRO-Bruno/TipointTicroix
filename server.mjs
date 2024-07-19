@@ -38,12 +38,12 @@ wss.on('connection', (socket) => {
         console.log('Received: %s', message);
         const msgStr = message.toString();
         let msg=msgStr.split(",")
-        console.log(msg[0])
         pseudo=msg[1]
         //delete global.connectedUsers[msg[1]]
         global.connectedUsers[msg[1]]=socket
         if (msg[0]=='connexion') {
             // Répondre au client-connexion
+            console.log(msg[0],msg[1])
             tabusers.push("connected")
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 tabusers.push(pseudox)
@@ -51,6 +51,10 @@ wss.on('connection', (socket) => {
             socket.send(tabusers.join(","));
             
         }
+        if (msg[0]=='nouveautour') {
+            console.log(msg[0],msg[1])
+        }
+
         if (msg[0]=='invite') {         
             
             Object.keys(global.connectedUsers).forEach(pseudox => {

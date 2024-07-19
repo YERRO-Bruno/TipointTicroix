@@ -62,6 +62,9 @@ document.addEventListener("DOMContentLoaded", function () {
             //alert("connexion "+pseudox)
             socket.send('connexion,'.concat(pseudox));
         }
+        if (etape.value=="nouveautour") {
+            socket.send('nouveautour,'.concat(pseudox));
+        }
     });
 
     socket.addEventListener('message', (event) => {
