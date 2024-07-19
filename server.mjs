@@ -74,9 +74,6 @@ wss.on('connection', (socket) => {
             let socketadversaire=global.connectedUsers[msg[2]]
             socketadversaire.send("tourjeu,"+msg[3])
         }
-        if (msg[0]=='tourjeu') {
-            console.log=("OKOK")
-        }
     });
 
     // Événement déclenché lorsque la connexion WebSocket est fermée
