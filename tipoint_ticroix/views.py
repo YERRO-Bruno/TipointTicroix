@@ -98,6 +98,7 @@ def test(request):
                 context["score2"]=settings.SCORE2
                 context["nbtour"]=nbtour()
                 context['sequence']=settings.SEQUENCE
+                print("seq",context['sequence'])
                 context["etape"]="nouveautour"
                 return render(request, "test.html", context)
         else:    
