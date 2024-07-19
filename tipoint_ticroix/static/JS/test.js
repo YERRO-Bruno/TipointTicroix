@@ -184,6 +184,7 @@ function displayGameBoard(){
         var marque="O"
         for (let i = 0;i<nbcoup;i++) {
             document.getElementById(sequence[i]).textContent=marque
+            document.getElementById(sequence[i]).style.background="pink"
             alert(sequence[i])
             if (marque=="X") {
                 document.getElementById(sequence[i]).style.color="red"
