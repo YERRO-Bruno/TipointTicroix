@@ -59,10 +59,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     socket.addEventListener('open', (event) => {
         if (etape.value=="connexion") {
-            //alert("connexion "+pseudox)
+            alert("connexion "+pseudox)
             socket.send('connexion,'.concat(pseudox));
         }
         if (etape.value=="nouveautour") {
+            alert("nouveau tour "+pseudox)
             socket.send('nouveautour,'.concat(pseudox));
         }
     });
