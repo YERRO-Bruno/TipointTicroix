@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('WebSocket error: ', error);
     });
 
-    if (etape.value=="tourjeu") {
+    if (etape.value=="nouveautour") {
         displayGameBoard()
     }
 })
