@@ -40,9 +40,9 @@ wss.on('connection', (socket) => {
         let msg=msgStr.split(",")
         console.log(msg[0])
         pseudo=msg[1]
+        //delete global.connectedUsers[msg[1]]
+        global.connectedUsers[msg[1]]=socket
         if (msg[0]=='connexion') {
-            delete global.connectedUsers[msg[1]]
-            global.connectedUsers[msg[1]]=socket
             // Répondre au client-connexion
             tabusers.push("connected")
             Object.keys(global.connectedUsers).forEach(pseudox => {
@@ -51,9 +51,7 @@ wss.on('connection', (socket) => {
             socket.send(tabusers.join(","));
             
         }
-        if (msg[0]=='invite') {
-            delete global.connectedUsers[msg[1]]
-            global.connectedUsers[msg[1]]=socket           
+        if (msg[0]=='invite') {         
             
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 let socketx = global.connectedUsers[pseudox];
@@ -65,22 +63,10 @@ wss.on('connection', (socket) => {
             socketinvite.send("invite,"+hote)
         }
         if (msg[0]=='accept') {
-            delete global.connectedUsers[msg[1]]
-            global.connectedUsers[msg[1]]=socket           
-            
-            Object.keys(global.connectedUsers).forEach(pseudox => {
-                const socketx = global.connectedUsers[pseudox];
-                if (socketx==socket) {
-                    invité=pseudox
-                }
-            });
             let sockethote=global.connectedUsers[msg[2]]
-            sockethote.send("accept,"+invité)
+            sockethote.send("accept,"+msg[1])
         }
         if (msg[0]=="tourjeu") {
-            delete global.connectedUsers[msg[1]]
-            global.connectedUsers[msg[1]]=socket           
-            console.log("OK2")
             let socketadversaire=global.connectedUsers[msg[2]]
             socketadversaire.send("tourjeu,"+msg[3])
         }
@@ -95,7 +81,7 @@ wss.on('connection', (socket) => {
             const socketx = global.connectedUsers[pseudo];
             if (socketx==socket) {
                 console.log('Client disconnected',pseudo);
-                //delete global.connectedUsers[pseudo];
+                delete global.connectedUsers[pseudo];
                 //console.log(Object.keys(global.connectedUsers))
             }
         });
