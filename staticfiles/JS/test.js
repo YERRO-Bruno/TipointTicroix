@@ -132,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //Functions
 //Affichage de la grille
 function displayGameBoard(){
+    alert(board)
     document.getElementById("x-jouer").style.display="none"
     document.getElementById("x-board").style.display="block"
     
@@ -177,6 +178,7 @@ function displayGameBoard(){
     res=document.getElementById("id-sequence").value
     
     if (res.length > 0) { 
+        alert(board2)
         let sequence=res.split(',')  
         //Affichage des coups joués
         let nbcoup=sequence.length
