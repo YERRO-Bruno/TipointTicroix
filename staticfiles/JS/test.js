@@ -178,14 +178,13 @@ function displayGameBoard(){
     alert(res,res.length)
     
     if (res.length > 0) { 
-        alert(res)
         let sequence=res.split(',')  
         //Affichage des coups joués
         let nbcoup=sequence.length
         var marque="O"
         for (let i = 0;i<nbcoup;i++) {
-            alert(sequence[i])
             document.getElementById(sequence[i]).textContent=marque
+            alert(sequence[i])
             if (marque=="X") {
                 document.getElementById(sequence[i]).style.color="red"
             } else {
