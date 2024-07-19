@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault()
         invite=e.target.id
         message="invite,"+pseudox+","+e.target.id
-        alert(message)
+        //alert(message)
         socket.send(message)
         
     })
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
             etape.value="tourjeu"
             jeton.value="Non"
               
-            alert("jeu")
+            //alert("jeu")
             socket.send('tourjeu,'.concat(pseudox,",",adversaire.value,",",e.target.id))
             document.forms["internet"].submit();
             } else {
@@ -59,17 +59,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     socket.addEventListener('open', (event) => {
         if (etape.value=="connexion") {
-            alert("connexion "+pseudox)
+            //alert("connexion "+pseudox)
             socket.send('connexion,'.concat(pseudox));
         }
         if (etape.value=="nouveautour") {
-            alert("nouveau tour "+pseudox)
+            //alert("nouveau tour "+pseudox)
             socket.send('nouveautour,'.concat(pseudox));
         }
     });
 
     socket.addEventListener('message', (event) => {
-        alert('Message from server: ' + event.data);
+        //alert('Message from server: ' + event.data);
         msg=event.data.split(",")
         if (msg[0]=="connected") {
             for (let i = 1; i < msg.length; i++) {
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.forms["internet"].submit();
         } 
         if (msg[0]=="tourjeu") {
-            document.getElementById("coup-joueur").value=msg[2]
+            document.getElementById("coup-joueur").value=msg[1]
             etape.value="tourjeu"
             jeton.value="Oui"
             joueur.value=pseudox
