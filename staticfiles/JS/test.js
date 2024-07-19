@@ -165,6 +165,7 @@ function displayGameBoard(){
           cell.style.textAlign = "center"
       }
     }
+    alert("board1")
     document.getElementById("btn-manche2").style.display="none"
     document.getElementById("victoire").style.display="none"
     document.getElementById("defaite").style.display="none"
@@ -174,11 +175,13 @@ function displayGameBoard(){
         document.getElementById("AVOUS").style.display="none"
     }
     
+    alert("board2")
     //document.getElementById("nb-tour").textContent="1"
     res=document.getElementById("id-sequence").value
+    alert("board3")
     
     if (res.length > 0) { 
-        alert("board2")
+        alert("board4")
         let sequence=res.split(',')  
         //Affichage des coups joués
         let nbcoup=sequence.length
