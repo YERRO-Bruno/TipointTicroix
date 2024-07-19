@@ -90,6 +90,12 @@ def test(request):
                     context['jeton']="Oui"
                 else:
                     context['jeton']="Non"
+                if settings.BEGIN=="Oui":
+                    context['joueur']=settings.PREMIER
+                    context['adversaire']=settings.SECOND
+                else:
+                    context['joueur']=settings.SECOND
+                    context['adversaire']=settings.PREMIER
                 context["match"]=settings.MATCH
                 context['begin']=settings.BEGIN
                 context["premier"]=settings.PREMIER
