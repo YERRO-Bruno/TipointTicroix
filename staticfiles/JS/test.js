@@ -132,7 +132,6 @@ document.addEventListener("DOMContentLoaded", function () {
 //Functions
 //Affichage de la grille
 function displayGameBoard(){
-    alert("board")
     document.getElementById("x-jouer").style.display="none"
     document.getElementById("x-board").style.display="block"
     
@@ -165,7 +164,6 @@ function displayGameBoard(){
           cell.style.textAlign = "center"
       }
     }
-    alert("board1")
     document.getElementById("btn-manche2").style.display="none"
     document.getElementById("victoire").style.display="none"
     document.getElementById("defaite").style.display="none"
@@ -175,18 +173,18 @@ function displayGameBoard(){
         document.getElementById("AVOUS").style.display="none"
     }
     
-    alert("board2")
     //document.getElementById("nb-tour").textContent="1"
     res=document.getElementById("id-sequence").value
-    alert("board3")
+    alert(res,res.length)
     
     if (res.length > 0) { 
-        alert("board4")
+        alert(res)
         let sequence=res.split(',')  
         //Affichage des coups joués
         let nbcoup=sequence.length
         var marque="O"
         for (let i = 0;i<nbcoup;i++) {
+            alert(sequence[i])
             document.getElementById(sequence[i]).textContent=marque
             if (marque=="X") {
                 document.getElementById(sequence[i]).style.color="red"
