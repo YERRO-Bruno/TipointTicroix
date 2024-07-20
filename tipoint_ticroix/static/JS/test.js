@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     userconnecteds.addEventListener("click", function(e) {
         e.preventDefault()
         invite=e.target.id
-        message="invite,"+pseudox+","+e.target.id
+        message="invite,"+document.getElementById("id-connec").textContent+","+e.target.id
         //alert(message)
         socket.send(message)
         
