@@ -3,7 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.conf import settings
 from .functions import coupordi,coupmachine,majgrille,trouve_5, estconnecté
-from .functions import nomniveau,connecclient,connecserveur, nbtour, estconnecté_async
+from .functions import nomniveau,connecclient,connecserveur, nbtour
+from .functions import majgrilleI,trouve_5I
 from django.shortcuts import render,redirect
 from django.utils.crypto import get_random_string
 import bcrypt
@@ -22,12 +23,16 @@ def test(request):
                 #Début
                 print("début")
                 if request.POST["jeton"]=="Oui":
+                    settings.SEQUENCEPREMIER=[]
+                    settings.GRILLEPREMIER = [["-"] * 25 for _ in range(25)]
                     settings.PREMIER=request.POST['joueur']
                     settings.SECOND=request.POST['adversaire']
                     context['joueur']=settings.PREMIER
                     context['adversaire']=settings.SECOND
                     settings.BEGIN="Oui"
                 else:
+                    settings.SEQUENCESECOND=[]
+                    settings.GRILLESECOND = [["-"] * 25 for _ in range(25)]
                     settings.PREMIER=request.POST['adversaire']
                     settings.SECOND=request.POST['joueur']
                     context['joueur']=settings.SECOND
@@ -38,7 +43,6 @@ def test(request):
                 settings.SCORE2=0
                 settings.TOUR=1
                 settings.SEQUENCE=[]
-                settings.GRILLE = [["-"] * 25 for _ in range(25)]
                 context["etape"]="nouveautour"
                 context["jeton"]=request.POST['jeton']
                 context["match"]=settings.MATCH
@@ -62,8 +66,16 @@ def test(request):
                 context["finpartie"]="Non"
                 context["victoire"]="Non"
                 context["defaite"]="Non"
-                
-                res = trouve_5(request.POST["coupjoueur"],marque)
+                if settings.BEGIN=="Oui":
+                    majgrilleI(request.POST["coupjoueur"],marque,settings.GRILLEPREMIER)
+                    context['sequence']=settings.SEQUENCEPREMIER    
+                    settings.SEQUENCEPREMIER=settings.SEQUENCEPREMIER+[request.POST["coupjoueur"]]
+                    res = trouve_5I(request.POST["coupjoueur"],marque,settings.GRILLEPREMIER)
+                else:
+                    majgrilleI(request.POST["coupjoueur"],marque,settings.GRILLESECOND)
+                    context['sequence']=settings.SEQUENCESECOND    
+                    settings.SEQUENCESECOND=settings.SEQUENCEPREMIER+[request.POST["coupjoueur"]]
+                    res = trouve_5I(request.POST["coupjoueur"],marque,settings.GRILLESECOND)
                 if res != "Non":
                     settings.MATCH=settings.MATCH+1
                     if request.POST['jeton']=="Oui":
@@ -88,8 +100,6 @@ def test(request):
                         context['finpartie']="Oui"
                     
                 if request.POST['jeton']=="Oui":
-                    majgrille(request.POST["coupjoueur"],marque)    
-                    settings.SEQUENCE=settings.SEQUENCE+[request.POST["coupjoueur"]]
                     context['jeton']="Oui"
                 else:
                     context['jeton']="Non"
@@ -106,7 +116,7 @@ def test(request):
                 context["score1"]=settings.SCORE1
                 context["score2"]=settings.SCORE2
                 context["nbtour"]=nbtour()
-                context['sequence']=settings.SEQUENCE
+                
                 print("seq",context['sequence'])
                 context["etape"]="nouveautour"
                 return render(request, "test.html", context)

@@ -1029,9 +1029,25 @@ def majgrille(coup,marque):
     i=int(coup.split("/")[1])
     settings.GRILLE[i][y]=marque
 
+#MAJ GRILLE avec le coup joué joueur vs joueur
+def majgrilleI(coup,marque,settingrille):
+    y=int(coup.split("/")[0])
+    i=int(coup.split("/")[1])
+    settingrille[i][y]=marque
+
 def trouve_5(coup,marque):
     marque5=marque*5
     grid=settings.GRILLE
+    j0=int(coup.split("/")[0])
+    i0=int(coup.split("/")[1])
+    imin=max(i0-4,0)
+    imax=min(i0+4,24)
+    jmin=max(j0-4,0)
+    jmax=min(j0+4,24)
+
+def trouve_5I(coup,marque,settingrille):
+    marque5=marque*5
+    grid=settingrille
     j0=int(coup.split("/")[0])
     i0=int(coup.split("/")[1])
     imin=max(i0-4,0)
