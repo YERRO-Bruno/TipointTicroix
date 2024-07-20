@@ -5,9 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let msg=[]
     const etape=document.getElementById("id-etape")
     const jeton=document.getElementById("id-jeton")
-
     const joueur=document.getElementById("id-joueur")
-    const adversaire=document.getElementById("id-adversaire")
     var socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
     userconnecteds.addEventListener("click", function(e) {
         e.preventDefault()
@@ -26,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (document.getElementById("id-jeton").value=="Non") {
                 alert("Ce n'est pas à vous de jouer")
             } else {
-            if (document.getElementById("id-begin").textContent==document.getElementById("id-joueur").value) {
+            if (document.getElementById("id-begin").textContent==document.getElementById("joueur").value) {
             marque="O"
             } else {
             marque="X"
@@ -46,8 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
             jeton.value="Non"
               
             //alert("jeu")
-            document.getElementById("id-joueur").value=pseudox
-            socket.send('tourjeu,'.concat(pseudox,",",adversaire.value,",",e.target.id))
+            document.getElementById("joueur").value=pseudox
+            socket.send('tourjeu,'.concat(pseudox,",",document.getElementById("id-adversaire").value,",",e.target.id))
             document.forms["internet"].submit();
             } else {
                 alert("Case déjà utilisée")
@@ -92,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 etape.value="début"
                 jeton.value="Non"
                 joueur.value=pseudox
-                adversaire.value=msg[1]
+                document.getElementById("id-adversaire").value=msg[1]
                 document.forms["internet"].submit();
             } 
         }
@@ -100,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
             etape.value="début"
             jeton.value="Oui"
             joueur.value=pseudox
-            adversaire.value=msg[1]
+            document.getElementById("id-adversaire")=msg[1]
             document.forms["internet"].submit();
         } 
         if (msg[0]=="tourjeu") {
@@ -108,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
             etape.value="tourjeu"
             jeton.value="Oui"
             joueur.value=pseudox
-            adversaire.value=msg[1]
+            document.getElementById("id-adversaire").value=msg[1]
             document.forms["internet"].submit();
         } 
     });
