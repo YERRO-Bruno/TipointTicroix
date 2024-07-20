@@ -37,6 +37,8 @@ def test(request):
                 settings.SCORE1=0
                 settings.SCORE2=0
                 settings.TOUR=1
+                settings.SEQUENCE=[]
+                settings.GRILLE = [["-"] * 25 for _ in range(25)]
                 context["etape"]="nouveautour"
                 context["jeton"]=request.POST['jeton']
                 context["match"]=settings.MATCH
