@@ -28,9 +28,10 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
             marque="X"
             }
+            alert(marque)
             if (document.getElementById(e.target.id).textContent=="") {
-            case_clicked = e.target.id.split(',')
             document.getElementById(e.target.id).textContent = marque
+            alert("mrqued")
             document.getElementById(e.target.id).style.fontSize="0.9vw"
             if (marque=="X") {
                 document.getElementById(e.target.id).style.color="red"
