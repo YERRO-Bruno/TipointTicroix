@@ -62,8 +62,7 @@ def test(request):
                 context["finpartie"]="Non"
                 context["victoire"]="Non"
                 context["defaite"]="Non"
-                majgrille(request.POST["coupjoueur"],marque)    
-                settings.SEQUENCE=settings.SEQUENCE+[request.POST["coupjoueur"]]
+                
                 res = trouve_5(request.POST["coupjoueur"],marque)
                 if res != "Non":
                     settings.MATCH=settings.MATCH+1
@@ -89,6 +88,8 @@ def test(request):
                         context['finpartie']="Oui"
                     
                 if request.POST['jeton']=="Oui":
+                    majgrille(request.POST["coupjoueur"],marque)    
+                    settings.SEQUENCE=settings.SEQUENCE+[request.POST["coupjoueur"]]
                     context['jeton']="Oui"
                 else:
                     context['jeton']="Non"
