@@ -170,7 +170,7 @@ function displayGameBoard(){
     } else {
         document.getElementById("AVOUS").style.display="none"
     }
-    
+    alert("display1")
     //document.getElementById("nb-tour").textContent="1"
     res=document.getElementById("id-sequence").value
     
@@ -222,6 +222,7 @@ function displayGameBoard(){
             document.getElementById(win[i]).style.backgroundColor="yellow"
         }
         //fin de partie
+        alert("disp9")
         }
     }
 }
