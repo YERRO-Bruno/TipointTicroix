@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault()
         invite=e.target.id
         message="invite,"+document.getElementById("id-connec").textContent+","+e.target.id
-        alert(message)
         socket.send(message)
         
     })
@@ -85,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         if (msg[0]=="invite") {
             if (confirm("Acceptez-vous de jouer avec "+msg[1])) {
-                socket.send('accept,'.concat(document.getElementById("id-connec").textContent+',',msg[1]))
+                socket.send('accept,'.concat(document.getElementById("id-connec").textContent,',',msg[1]))
                 etape.value="début"
                 jeton.value="Non"
                 joueur.value=document.getElementById("id-connec").textContent
