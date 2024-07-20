@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
             jeton.value="Non"
               
             //alert("jeu")
-            document.getElementById("joueur").value=pseudox
+            document.getElementById("id-joueur").value=pseudox
             socket.send('tourjeu,'.concat(pseudox,",",adversaire.value,",",e.target.id))
             document.forms["internet"].submit();
             } else {
