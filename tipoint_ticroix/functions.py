@@ -1477,6 +1477,10 @@ def nbtour():
     res=len(settings.SEQUENCE)
     return((res//2)+1)
 
+def nbtourI(settingrille):
+    res=len(settingrille)
+    return((res//2)+1)
+
 
 
 

@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.conf import settings
 from .functions import coupordi,coupmachine,majgrille,trouve_5, estconnecté
 from .functions import nomniveau,connecclient,connecserveur, nbtour
-from .functions import majgrilleI,trouve_5I
+from .functions import majgrilleI,trouve_5I, nbtourI
 from django.shortcuts import render,redirect
 from django.utils.crypto import get_random_string
 import bcrypt
@@ -70,11 +70,13 @@ def test(request):
                     majgrilleI(request.POST["coupjoueur"],marque,settings.GRILLEPREMIER)
                     context['sequence']=settings.SEQUENCEPREMIER    
                     settings.SEQUENCEPREMIER=settings.SEQUENCEPREMIER+[request.POST["coupjoueur"]]
+                    context["nbtour"]=nbtourI(settings.GRILLEPREMIER)
                     res = trouve_5I(request.POST["coupjoueur"],marque,settings.GRILLEPREMIER)
                 else:
                     majgrilleI(request.POST["coupjoueur"],marque,settings.GRILLESECOND)
                     context['sequence']=settings.SEQUENCESECOND    
                     settings.SEQUENCESECOND=settings.SEQUENCEPREMIER+[request.POST["coupjoueur"]]
+                    context["nbtour"]=nbtourI(settings.GRILLESECOND)
                     res = trouve_5I(request.POST["coupjoueur"],marque,settings.GRILLESECOND)
                 if res != "Non":
                     settings.MATCH=settings.MATCH+1
@@ -115,7 +117,6 @@ def test(request):
                 context["second"]=settings.SECOND
                 context["score1"]=settings.SCORE1
                 context["score2"]=settings.SCORE2
-                context["nbtour"]=nbtour()
                 
                 print("seq",context['sequence'])
                 context["etape"]="nouveautour"
