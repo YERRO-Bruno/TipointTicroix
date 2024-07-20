@@ -68,14 +68,14 @@ def test(request):
                 context["defaite"]="Non"
                 if settings.BEGIN=="Oui":
                     majgrilleI(request.POST["coupjoueur"],marque,settings.GRILLEPREMIER)
-                    context['sequence']=settings.SEQUENCEPREMIER    
                     settings.SEQUENCEPREMIER=settings.SEQUENCEPREMIER+[request.POST["coupjoueur"]]
+                    context['sequence']=settings.SEQUENCEPREMIER    
                     context["nbtour"]=nbtourI(settings.GRILLEPREMIER)
                     res = trouve_5I(request.POST["coupjoueur"],marque,settings.GRILLEPREMIER)
                 else:
                     majgrilleI(request.POST["coupjoueur"],marque,settings.GRILLESECOND)
-                    context['sequence']=settings.SEQUENCESECOND    
                     settings.SEQUENCESECOND=settings.SEQUENCEPREMIER+[request.POST["coupjoueur"]]
+                    context['sequence']=settings.SEQUENCESECOND    
                     context["nbtour"]=nbtourI(settings.GRILLESECOND)
                     res = trouve_5I(request.POST["coupjoueur"],marque,settings.GRILLESECOND)
                 if res != "Non":
