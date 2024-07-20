@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
             etape.value="début"
             jeton.value="Oui"
             joueur.value=document.getElementById("id-connec").textContent
-            document.getElementById("id-adversaire")=msg[1]
+            document.getElementById("id-adversaire").value=msg[1]
             document.forms["internet"].submit();
         } 
         if (msg[0]=="tourjeu") {
