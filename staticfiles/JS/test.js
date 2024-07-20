@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (document.getElementById("id-jeton").value=="Non") {
                 alert("Ce n'est pas à vous de jouer")
             } else {
-            if (document.getElementById("id-begin").textContent=="Oui") {
+            if (document.getElementById("id-begin").textContent==pseudox) {
             marque="O"
             } else {
             marque="X"
@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
             jeton.value="Non"
               
             //alert("jeu")
+            document.getElementById("joueur").value=pseudox
             socket.send('tourjeu,'.concat(pseudox,",",adversaire.value,",",e.target.id))
             document.forms["internet"].submit();
             } else {
@@ -175,7 +176,6 @@ function displayGameBoard(){
     
     //document.getElementById("nb-tour").textContent="1"
     res=document.getElementById("id-sequence").value
-    alert(res,res.length)
     
     if (res.length > 0) { 
         let sequence=res.split(',')  

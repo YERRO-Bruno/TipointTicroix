@@ -29,7 +29,6 @@ def test(request):
                     settings.SECOND=request.POST['adversaire']
                     context['joueur']=settings.PREMIER
                     context['adversaire']=settings.SECOND
-                    settings.BEGIN="Oui"
                 else:
                     settings.SEQUENCESECOND=[]
                     settings.GRILLESECOND = [["-"] * 25 for _ in range(25)]
@@ -37,7 +36,7 @@ def test(request):
                     settings.SECOND=request.POST['joueur']
                     context['joueur']=settings.SECOND
                     context['adversaire']=settings.PREMIER
-                    settings.BEGIN="Non"
+                settings.BEGIN=settings.PREMIER
                 settings.MATCH=1
                 settings.SCORE1=0
                 settings.SCORE2=0
@@ -66,7 +65,7 @@ def test(request):
                 context["finpartie"]="Non"
                 context["victoire"]="Non"
                 context["defaite"]="Non"
-                if settings.BEGIN=="Oui":
+                if settings.BEGIN==request.POST['joueur']:
                     majgrilleI(request.POST["coupjoueur"],marque,settings.GRILLEPREMIER)
                     settings.SEQUENCEPREMIER=settings.SEQUENCEPREMIER+[request.POST["coupjoueur"]]
                     context['sequence']=settings.SEQUENCEPREMIER    
@@ -83,7 +82,7 @@ def test(request):
                     if request.POST['jeton']=="Oui":
                         context['defaite']=res
                         context['victoire']="Non"
-                        if settings.BEGIN=="Oui":
+                        if settings.BEGIN==request.POST['joueur']:
                             settings.SCORE2=settings.SCORE2+1
                             context['score2']=settings.SCORE2
                         else:
@@ -92,7 +91,7 @@ def test(request):
                     else:
                         context['defaite']="Non"
                         context['victoire']=res
-                        if settings.BEGIN=="Oui":
+                        if settings.BEGIN==request.POST['joueur']":
                             settings.SCORE1=settings.SCORE1+1
                             context['score1']=settings.SCORE1
                         else:
@@ -105,7 +104,7 @@ def test(request):
                     context['jeton']="Oui"
                 else:
                     context['jeton']="Non"
-                if settings.BEGIN=="Oui":
+                if settings.BEGIN==request.POST['joueur']:
                     context['joueur']=settings.PREMIER
                     context['adversaire']=settings.SECOND
                 else:
