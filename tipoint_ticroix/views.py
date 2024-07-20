@@ -91,7 +91,7 @@ def test(request):
                     else:
                         context['defaite']="Non"
                         context['victoire']=res
-                        if settings.BEGIN==request.POST['joueur']":
+                        if settings.BEGIN==request.POST['joueur']:
                             settings.SCORE1=settings.SCORE1+1
                             context['score1']=settings.SCORE1
                         else:
