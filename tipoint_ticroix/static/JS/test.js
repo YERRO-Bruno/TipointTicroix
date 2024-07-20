@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("x-board").style.display="none"
-    pseudox=document.getElementById("id-connec").textContent
+    //pseudox=document.getElementById("id-connec").textContent
     const userconnecteds=document.getElementById("id_userconnecteds")
     let msg=[]
     const etape=document.getElementById("id-etape")
@@ -59,11 +59,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     socket.addEventListener('open', (event) => {
         if (etape.value=="connexion") {
-            socket.send('connexion,'.concat(pseudox));
+            socket.send('connexion,'.concat(document.getElementById("id-connec").textContent));
         }
         if (etape.value=="nouveautour") {
-            //alert("nouveau tour "+pseudox)
-            socket.send('nouveautour,'.concat(pseudox));
+            socket.send('nouveautour,'.concat(document.getElementById("id-connec").textContent));
         }
     });
 
@@ -77,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 li.id=msg[i]
                 li.class="joueur"
                 li.href='action'
-                if (msg[i]!=pseudox) {
+                if (msg[i]!=document.getElementById("id-connec").textContent) {
                     li.style.color='blue'
                     li.style.fontWeight='1000'
                     userconnecteds.appendChild(li)
@@ -86,10 +85,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         if (msg[0]=="invite") {
             if (confirm("Acceptez-vous de jouer avec "+msg[1])) {
-                socket.send('accept,'.concat(pseudox,',',msg[1]))
+                socket.send('accept,'.concat(document.getElementById("id-connec").textContent+',',msg[1]))
                 etape.value="début"
                 jeton.value="Non"
-                joueur.value=pseudox
+                joueur.value=document.getElementById("id-connec").textContent
                 document.getElementById("id-adversaire").value=msg[1]
                 document.forms["internet"].submit();
             } 
@@ -97,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (msg[0]=="accept") {
             etape.value="début"
             jeton.value="Oui"
-            joueur.value=pseudox
+            joueur.value=document.getElementById("id-connec").textContent
             document.getElementById("id-adversaire")=msg[1]
             document.forms["internet"].submit();
         } 
@@ -105,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("coup-joueur").value=msg[1]
             etape.value="tourjeu"
             jeton.value="Oui"
-            joueur.value=pseudox
+            joueur.value=document.getElementById("id-connec").textContent
             document.getElementById("id-adversaire").value=msg[1]
             document.forms["internet"].submit();
         } 
