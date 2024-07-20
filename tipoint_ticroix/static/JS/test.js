@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault()
         invite=e.target.id
         message="invite,"+document.getElementById("id-connec").textContent+","+e.target.id
-        //alert(message)
+        alert(message)
         socket.send(message)
         
     })
