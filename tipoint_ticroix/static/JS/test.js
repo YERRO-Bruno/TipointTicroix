@@ -44,8 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
             jeton.value="Non"
               
             //alert("jeu")
-            document.getElementById("joueur").value=pseudox
-            socket.send('tourjeu,'.concat(pseudox,",",document.getElementById("id-adversaire").value,",",e.target.id))
+            document.getElementById("joueur").value=document.getElementById("id-connec").textContent+
+            socket.send('tourjeu,'.concat(document.getElementById("id-connec").textContent,
+            ",",document.getElementById("id-adversaire").value,",",e.target.id))
             document.forms["internet"].submit();
             } else {
                 alert("Case déjà utilisée")
@@ -58,7 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     socket.addEventListener('open', (event) => {
         if (etape.value=="connexion") {
-            //alert("connexion "+pseudox)
             socket.send('connexion,'.concat(pseudox));
         }
         if (etape.value=="nouveautour") {
