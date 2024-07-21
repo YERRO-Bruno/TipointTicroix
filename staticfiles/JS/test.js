@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ",",document.getElementById("id-adversaire").value,",",e.target.id))
             document.getElementById("id-etape").value="tourjeu"
             document.getElementById("id-jeton").value="Non"
-            document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+            //document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
             document.forms["internet"].submit();
             } else {
                 alert("Case déjà utilisée")
@@ -100,10 +100,10 @@ document.addEventListener("DOMContentLoaded", function () {
             document.forms["internet"].submit();
         } 
         if (msg[0]=="tourjeu") {
-            document.getElementById("coup-joueur").value=msg[1]
+            document.getElementById("coup-joueur").value=msg[3]
             document.getElementById("id-etape").value="tourjeu"
             document.getElementById("id-jeton").value="Oui"
-            document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+            //document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
             //document.getElementById("id-adversaire").value=msg[1]
             document.forms["internet"].submit();
         } 

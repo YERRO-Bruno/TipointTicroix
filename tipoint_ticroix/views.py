@@ -104,12 +104,12 @@ def test(request):
                     context['jeton']="Oui"
                 else:
                     context['jeton']="Non"
-                if settings.BEGIN==request.POST['joueur']:
-                    context['joueur']=settings.PREMIER
-                    context['adversaire']=settings.SECOND
-                else:
-                    context['joueur']=settings.SECOND
-                    context['adversaire']=settings.PREMIER
+                #if settings.BEGIN==request.POST['joueur']:
+                context['joueur']=request.POST['joueur']
+                context['adversaire']=request.POST['adversaire']
+                #else:
+                #    context['joueur']=settings.SECOND
+                #    context['adversaire']=settings.PREMIER
                 context["match"]=settings.MATCH
                 context['begin']=settings.BEGIN
                 context["premier"]=settings.PREMIER
