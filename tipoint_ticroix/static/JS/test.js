@@ -179,8 +179,7 @@ function displayGameBoard(){
         alert("sequence ",sequence[0])
         var marque="O"
         for (let i = 0;i<nbcoup;i++) {
-            document.getElementById(sequence[i]).textContent=marque
-            document.getElementById(sequence[i]).style.background="pink"
+            alert("2222")
             alert(sequence[i])
             if (marque=="X") {
                 document.getElementById(sequence[i]).style.color="red"
