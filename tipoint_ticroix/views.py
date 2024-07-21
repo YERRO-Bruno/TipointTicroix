@@ -57,6 +57,7 @@ def test(request):
                 return render(request, "test.html", context)
             if request.POST['etape'] =="tourjeu":
                 #tour de jeu
+                print(request.post)
                 print("tourjeu")
                 print(settings.PREMIER,settings.SECOND,settings.BEGIN,settings.MATCH,
                       settings.SEQUENCEPREMIER,settings.SEQUENCESECOND,request.POST['joueur'])
