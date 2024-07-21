@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Click du joueur sur une des cases
     document.getElementById("table").addEventListener('click', function(e) {
         //e.preventDefault()
+        alert("click1")
         if ((document.getElementById("id-victoire").value=="Non" &&
             document.getElementById("id-defaite").value=="Non")) {
             if (document.getElementById("id-jeton").value=="Non") {
@@ -170,9 +171,9 @@ function displayGameBoard(){
     } else {
         document.getElementById("AVOUS").style.display="none"
     }
-    alert("display1")
     //document.getElementById("nb-tour").textContent="1"
     res=document.getElementById("id-sequence").value
+    alert("display1")
     
     if (res.length > 0) { 
         let sequence=res.split(',')  
@@ -209,20 +210,21 @@ function displayGameBoard(){
             document.getElementById("victoire").style.display="none"
         }
         if (win != "Non") { 
-        if (document.getElementById("id-finpartie").textContent=="Oui") {
-            document.getElementById("btn-rejouer").style.display="block"
-        } else {
-            document.getElementById("btn-manche2").style.display="block"
+            if (document.getElementById("id-finpartie").textContent=="Oui") {
+                document.getElementById("btn-rejouer").style.display="block"
+            } else {
+                document.getElementById("btn-manche2").style.display="block"
             }
-        
-        //document.getElementById("ALUI").style.display="none"   
-        //document.getElementById("AVOUS").style.display="none"
-        win=win.split(",")
-        for (let i = 0;i<5;i++) {
-            document.getElementById(win[i]).style.backgroundColor="yellow"
-        }
-        //fin de partie
-        alert("disp9")
+            
+            //document.getElementById("ALUI").style.display="none"   
+            //document.getElementById("AVOUS").style.display="none"
+            win=win.split(",")
+            for (let i = 0;i<5;i++) {
+                document.getElementById(win[i]).style.backgroundColor="yellow"
+            }
+            //fin de partie
+            alert("disp9")
         }
     }
+    alert("display99")
 }
