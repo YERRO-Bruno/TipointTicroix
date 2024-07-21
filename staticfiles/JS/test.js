@@ -18,13 +18,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Click du joueur sur une des cases
     document.getElementById("table").addEventListener('click', function(e) {
         //e.preventDefault()
-        alert("click1")
         if ((document.getElementById("id-victoire").value=="Non" &&
-            document.getElementById("id-defaite").value=="Non")) {
+        document.getElementById("id-defaite").value=="Non")) {
+            alert("click1")
             if (document.getElementById("id-jeton").value=="Non") {
                 alert("Ce n'est pas à vous de jouer")
             } else {
-            if (document.getElementById("id-begin").textContent==document.getElementById("joueur").value) {
+            if (document.getElementById("id-begin").textContent==document.getElementById("id-joueur").value) {
             marque="O"
             } else {
             marque="X"
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
             jeton.value="Non"
               
             //alert("jeu")
-            document.getElementById("joueur").value=document.getElementById("id-connec").textContent+
+            document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent+
             socket.send('tourjeu,'.concat(document.getElementById("id-connec").textContent,
             ",",document.getElementById("id-adversaire").value,",",e.target.id))
             document.forms["internet"].submit();
