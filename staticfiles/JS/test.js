@@ -174,9 +174,11 @@ function displayGameBoard(){
     alert("display1")
     
     if (res.length > 0) { 
+        alert("display2")
         let sequence=res.split(',')  
         //Affichage des coups joués
         let nbcoup=sequence.length
+        alert("display3")
         var marque="O"
         for (let i = 0;i<nbcoup;i++) {
             document.getElementById(sequence[i]).textContent=marque
