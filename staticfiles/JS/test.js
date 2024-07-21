@@ -27,10 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
             marque="O"
             } else {
             }
-            alert(marque)
             if (document.getElementById(e.target.id).textContent=="") {
             document.getElementById(e.target.id).textContent = marque
-            alert("mrqued")
             document.getElementById(e.target.id).style.fontSize="0.9vw"
             if (marque=="X") {
                 document.getElementById(e.target.id).style.color="red"
@@ -171,7 +169,8 @@ function displayGameBoard(){
     }
     //document.getElementById("nb-tour").textContent="1"
     res=document.getElementById("id-sequence").value
-    alert(res,"-",res.split(','))
+    alert(res,"---",res.split(','))
+    alert("1111")
     if (res.length > 0) { 
         let sequence=res.split(',')  
         //Affichage des coups joués
