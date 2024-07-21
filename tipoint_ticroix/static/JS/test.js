@@ -181,6 +181,7 @@ function displayGameBoard(){
         for (let i = 0;i<nbcoup;i++) {
             alert("2222")
             alert(sequence[i])
+            document.getElementById(sequence[i]).textContent=marque
             if (marque=="X") {
                 document.getElementById(sequence[i]).style.color="red"
             } else {
