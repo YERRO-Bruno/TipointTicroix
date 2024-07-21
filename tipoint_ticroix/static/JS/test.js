@@ -170,10 +170,10 @@ function displayGameBoard(){
     //document.getElementById("nb-tour").textContent="1"
     res=document.getElementById("id-sequence").value
     alert(res)
-    alert(res[0])
+    
     alert("1111")
     if (res.length > 0) { 
-        let sequence=res[0].split(',')  
+        let sequence=res.split(',')  
         //Affichage des coups joués
         let nbcoup=sequence.length
         alert("sequence ",sequence[0])
