@@ -40,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("id-jeton").value="Non"
               
             //alert("jeu")
-            document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent+
             socket.send('tourjeu,'.concat(document.getElementById("id-connec").textContent,
             ",",document.getElementById("id-adversaire").value,",",e.target.id))
             document.getElementById("id-etape").value="tourjeu"
