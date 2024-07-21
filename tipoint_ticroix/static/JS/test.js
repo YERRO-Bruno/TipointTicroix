@@ -44,6 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent+
             socket.send('tourjeu,'.concat(document.getElementById("id-connec").textContent,
             ",",document.getElementById("id-adversaire").value,",",e.target.id))
+            etape.value="tourjeu"
+            jeton.value="Non"
+            joueur.value=document.getElementById("id-connec").textContent
             document.forms["internet"].submit();
             } else {
                 alert("Case déjà utilisée")
@@ -169,18 +172,12 @@ function displayGameBoard(){
     }
     //document.getElementById("nb-tour").textContent="1"
     res=document.getElementById("id-sequence").value
-    alert(res)
-    
-    alert("1111")
     if (res.length > 0) { 
         let sequence=res.split(',')  
         //Affichage des coups joués
         let nbcoup=sequence.length
-        alert("sequence ",sequence[0])
         var marque="O"
         for (let i = 0;i<nbcoup;i++) {
-            alert("2222")
-            alert(sequence[i])
             document.getElementById(sequence[i]).textContent=marque
             if (marque=="X") {
                 document.getElementById(sequence[i]).style.color="red"
