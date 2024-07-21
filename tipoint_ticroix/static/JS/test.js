@@ -169,7 +169,8 @@ function displayGameBoard(){
     }
     //document.getElementById("nb-tour").textContent="1"
     res=document.getElementById("id-sequence").value
-    alert(res,"---",res[0].split(','))
+    alert(res)
+    alert(res[0])
     alert("1111")
     if (res.length > 0) { 
         let sequence=res[0].split(',')  
