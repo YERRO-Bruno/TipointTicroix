@@ -192,6 +192,7 @@ function displayGameBoard(){
                 marque="O"
             }              
         }
+        alert("display9")
         win="Non"
         if (document.getElementById("id-victoire").value!="Non") {
             win=document.getElementById("id-victoire").value
@@ -219,4 +220,5 @@ function displayGameBoard(){
             //fin de partie
         }
     }
+    alert("display9")
 }
