@@ -171,7 +171,7 @@ function displayGameBoard(){
     }
     //document.getElementById("nb-tour").textContent="1"
     res=document.getElementById("id-sequence").value
-    alert(res)
+    alert(res,"-",res.split(','))
     if (res.length > 0) { 
         let sequence=res.split(',')  
         //Affichage des coups joués
