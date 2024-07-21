@@ -122,6 +122,7 @@ def test(request):
                 
                 print("seq",context['sequence'])
                 context["etape"]="nouveautour"
+                print(settings.PREMIER,settings.SECOND,settings.BEGIN)
                 print(context)
                 return render(request, "test.html", context)
         else:    
