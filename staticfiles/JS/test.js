@@ -217,8 +217,6 @@ function displayGameBoard(){
                 document.getElementById(win[i]).style.backgroundColor="yellow"
             }
             //fin de partie
-            alert("disp9")
         }
     }
-    alert("display99")
 }
