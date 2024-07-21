@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.forms["internet"].submit();
         } 
         if (msg[0]=="tourjeu") {
-            print(msg)
+            alert(msg)
             document.getElementById("coup-joueur").value=msg[3]
             document.getElementById("id-etape").value="tourjeu"
             document.getElementById("id-jeton").value="Oui"
