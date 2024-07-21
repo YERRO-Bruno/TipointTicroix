@@ -58,24 +58,24 @@ def test(request):
             if request.POST['etape'] =="tourjeu":
                 #tour de jeu
                 print("tourjeu")
-                if settings.BEGIN=="Oui":
-                    marque="O"
-                else:
-                    marque="X"
+                print(settings.PREMIER,settings.SECOND,settings.BEGIN,settings.MATCH,
+                      settings.SEQUENCEPREMIER,settings.SEQUENCESECOND,request.POST['joueur'])
                 context["finpartie"]="Non"
                 context["victoire"]="Non"
                 context["defaite"]="Non"
                 if settings.BEGIN==request.POST['joueur']:
+                    marque="O"
                     majgrilleI(request.POST["coupjoueur"],marque,settings.GRILLEPREMIER)
                     settings.SEQUENCEPREMIER=settings.SEQUENCEPREMIER+[request.POST["coupjoueur"]]
                     context['sequence']=','.join(str(i) for i in settings.SEQUENCEPREMIER)    
-                    context["nbtour"]=nbtourI(settings.GRILLEPREMIER)
+                    context["nbtour"]=nbtourI(settings.SEQUENCEPREMIER)
                     res = trouve_5I(request.POST["coupjoueur"],marque,settings.GRILLEPREMIER)
                 else:
+                    marque="X"
                     majgrilleI(request.POST["coupjoueur"],marque,settings.GRILLESECOND)
                     settings.SEQUENCESECOND=settings.SEQUENCEPREMIER+[request.POST["coupjoueur"]]
                     context['sequence']=','.join(str(i) for i in settings.SEQUENCESECOND)   
-                    context["nbtour"]=nbtourI(settings.GRILLESECOND)
+                    context["nbtour"]=nbtourI(settings.SEQUENCESECOND)
                     res = trouve_5I(request.POST["coupjoueur"],marque,settings.GRILLESECOND)
                 if res != "Non":
                     settings.MATCH=settings.MATCH+1
@@ -119,6 +119,7 @@ def test(request):
                 
                 print("seq",context['sequence'])
                 context["etape"]="nouveautour"
+                print(context)
                 return render(request, "test.html", context)
         else:    
             context["etape"]="connexion"
