@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Click du joueur sur une des cases
     document.getElementById("table").addEventListener('click', function(e) {
-        //e.preventDefault()
+        alert('click')
         if ((document.getElementById("id-victoire").value=="Non" &&
         document.getElementById("id-defaite").value=="Non")) {
             if (document.getElementById("id-jeton").value=="Non") {
@@ -103,8 +103,8 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("coup-joueur").value=msg[3]
             document.getElementById("id-etape").value="tourjeu"
             document.getElementById("id-jeton").value="Oui"
-            //document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
-            //document.getElementById("id-adversaire").value=msg[1]
+            document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+            document.getElementById("id-adversaire").value=msg[1]
             document.forms["internet"].submit();
         } 
     });
@@ -220,5 +220,5 @@ function displayGameBoard(){
             //fin de partie
         }
     }
-    alert("display9")
+    alert("display99")
 }
