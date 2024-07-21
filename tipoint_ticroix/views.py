@@ -31,7 +31,7 @@ def test(request):
                     settings.SECOND=request.POST['adversaire']
                     context['joueur']=settings.PREMIER
                     context['adversaire']=settings.SECOND
-                else:
+                if request.POST["jeton"]=="Non":
                     settings.PREMIER=request.POST['adversaire']
                     settings.SECOND=request.POST['joueur']
                     context['joueur']=settings.SECOND
