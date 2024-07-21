@@ -59,7 +59,8 @@ def test(request):
                 #tour de jeu
                 print("tourjeu")
                 print(settings.PREMIER,settings.SECOND,settings.BEGIN,settings.MATCH,
-                      settings.SEQUENCEPREMIER,settings.SEQUENCESECOND,request.POST['joueur'])
+                      settings.SEQUENCEPREMIER,settings.SEQUENCESECOND,request.POST['joueur'],
+                      request.POST['coupjoueur'])
                 context["finpartie"]="Non"
                 context["victoire"]="Non"
                 context["defaite"]="Non"
