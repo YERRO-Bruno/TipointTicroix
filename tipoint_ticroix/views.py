@@ -32,12 +32,14 @@ def test(request):
                     settings.SECOND=request.POST['adversaire']
                     context['joueur']=settings.PREMIER
                     context['adversaire']=settings.SECOND
+                    print("premier",settings.PREMIER)
                 if request.POST["jeton"]=="Non":
                     print("jetonnon")
                     settings.PREMIER=request.POST['adversaire']
                     settings.SECOND=request.POST['joueur']
                     context['joueur']=settings.SECOND
                     context['adversaire']=settings.PREMIER
+                    print("premier",settings.PREMIER)
                 settings.BEGIN=settings.PREMIER
                 settings.MATCH=1
                 settings.SCORE1=0
