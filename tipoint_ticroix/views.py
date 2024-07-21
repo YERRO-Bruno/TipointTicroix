@@ -25,7 +25,7 @@ def test(request):
                 settings.GRILLEPREMIER = [["-"] * 25 for _ in range(25)]
                 settings.SEQUENCESECOND=[]
                 settings.GRILLESECOND = [["-"] * 25 for _ in range(25)]
-                print("début")
+                print("début",request.POST['jeton'],request.POST['joueur'])
                 if request.POST["jeton"]=="Oui":
                     settings.PREMIER=request.POST['joueur']
                     settings.SECOND=request.POST['adversaire']
