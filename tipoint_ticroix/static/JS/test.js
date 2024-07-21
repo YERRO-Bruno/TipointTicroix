@@ -20,14 +20,12 @@ document.addEventListener("DOMContentLoaded", function () {
         //e.preventDefault()
         if ((document.getElementById("id-victoire").value=="Non" &&
         document.getElementById("id-defaite").value=="Non")) {
-            alert("click1")
             if (document.getElementById("id-jeton").value=="Non") {
                 alert("Ce n'est pas à vous de jouer")
             } else {
             if (document.getElementById("id-begin").textContent==document.getElementById("id-joueur").value) {
             marque="O"
             } else {
-            marque="X"
             }
             alert(marque)
             if (document.getElementById(e.target.id).textContent=="") {

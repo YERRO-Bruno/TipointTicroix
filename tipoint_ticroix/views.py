@@ -21,17 +21,17 @@ def test(request):
         if request.method == 'POST':
             if request.POST['etape'] =="début":
                 #Début
+                settings.SEQUENCEPREMIER=[]
+                settings.GRILLEPREMIER = [["-"] * 25 for _ in range(25)]
+                settings.SEQUENCESECOND=[]
+                settings.GRILLESECOND = [["-"] * 25 for _ in range(25)]
                 print("début")
                 if request.POST["jeton"]=="Oui":
-                    settings.SEQUENCEPREMIER=[]
-                    settings.GRILLEPREMIER = [["-"] * 25 for _ in range(25)]
                     settings.PREMIER=request.POST['joueur']
                     settings.SECOND=request.POST['adversaire']
                     context['joueur']=settings.PREMIER
                     context['adversaire']=settings.SECOND
                 else:
-                    settings.SEQUENCESECOND=[]
-                    settings.GRILLESECOND = [["-"] * 25 for _ in range(25)]
                     settings.PREMIER=request.POST['adversaire']
                     settings.SECOND=request.POST['joueur']
                     context['joueur']=settings.SECOND
