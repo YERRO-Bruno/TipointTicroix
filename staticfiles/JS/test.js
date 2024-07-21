@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id-etape").value="début"
                 document.getElementById("id-jeton").value="Non"
                 document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
-                document.getElementById("id-adversaire").value=msg[2]
+                document.getElementById("id-adversaire").value=msg[1]
                 document.forms["internet"].submit();
             } 
         }
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("id-etape").value="début"
             document.getElementById("id-jeton").value="Oui"
             document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
-            document.getElementById("id-adversaire").value=msg[2]
+            document.getElementById("id-adversaire").value=msg[1]
             document.forms["internet"].submit();
         } 
         if (msg[0]=="tourjeu") {

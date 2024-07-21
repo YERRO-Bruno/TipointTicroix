@@ -64,11 +64,11 @@ wss.on('connection', (socket) => {
                 }
             });
             let socketinvite=global.connectedUsers[msg[2]]
-            socketinvite.send("invite,"+hote)
+            socketinvite.send("invite,"+msg[1]+","+msg[2])
         }
         if (msg[0]=='accept') {
             let sockethote=global.connectedUsers[msg[2]]
-            sockethote.send("accept,"+msg[1])
+            sockethote.send("accept,"+msg[1]+","+msg[2])
         }
         if (msg[0]=="tourjeu") {
             let socketadversaire=global.connectedUsers[msg[2]]
