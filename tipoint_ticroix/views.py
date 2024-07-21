@@ -54,6 +54,7 @@ def test(request):
                 context["finpartie"]="Non"
                 context["victoire"]="Non"
                 context["defaite"]="Non"
+                print(settings.PREMIER,settings.SECOND,settings.BEGIN)
                 print(context)
                 return render(request, "test.html", context)
             if request.POST['etape'] =="tourjeu":
