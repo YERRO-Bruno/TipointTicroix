@@ -109,7 +109,7 @@ def test(request):
                 return render(request, "test.html", context)
         else:    
             context["etape"]="connexion"
-            request.session['MATCH=0']
+            request.session['MATCH']=0
             return render(request, "test.html", context)
     else:
         context["connexion"]="Non"
