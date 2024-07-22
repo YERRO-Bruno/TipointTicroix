@@ -212,11 +212,11 @@ function displayGameBoard(){
             if (document.getElementById("id-finpartie").textContent=="Oui") {
                 document.getElementById("btn-rejouer").style.display="block"
             } else {
+                
                 for(let i=0;i>10;i++) {
-                    document.getElementById("id-bandeau").style.display="block"
-                    setTimeout(() => {
-                    }, 2);
+                    timeout = setTimeout(bandeau(), 2000);
                     document.getElementById("id-bandeau").style.display="none"
+        
                 }
             }
             
@@ -225,4 +225,8 @@ function displayGameBoard(){
             //fin de partie
         }
     }
+}
+
+function bandeau() {
+    document.getElementById("id-bandeau").style.display="block"
 }
