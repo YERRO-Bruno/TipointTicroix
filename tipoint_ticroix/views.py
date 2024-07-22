@@ -1,10 +1,8 @@
 from .models import User, VerifUser, UserConnected
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
-from django.conf import settings
 from .functions import coupordi,coupmachine,majgrille,trouve_5, estconnecté
 from .functions import nomniveau,connecclient,connecserveur, nbtour
-from .functions import majgrilleI,trouve_5I, nbtourI
 from django.shortcuts import render,redirect
 from django.utils.crypto import get_random_string
 import bcrypt
@@ -65,11 +63,11 @@ def test(request):
                     marque="O"
                 else:
                     marque="X"
-                majgrilleI(request.POST["coupjoueur"],marque,request.session['GRILLE'])
+                request.session['GRILLE']=majgrille(request.POST["coupjoueur"],marque,request.session['GRILLE'])
                 request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]
                 context['sequence']=','.join(str(i) for i in request.session['SEQUENCE'])    
-                context["nbtour"]=nbtourI(request.session['SEQUENCE'])
-                res = trouve_5I(request.POST["coupjoueur"],marque,request.session['GRILLE'])
+                context["nbtour"]=nbtour(request.session['SEQUENCE'])
+                res = trouve_5(request.POST["coupjoueur"],marque,request.session['GRILLE'])
                 if res != "Non":
                     request.session['.MATCH']=request.session['MATCH']+1
                     if request.POST['jeton']=="Oui":
@@ -111,7 +109,7 @@ def test(request):
                 return render(request, "test.html", context)
         else:    
             context["etape"]="connexion"
-            settings.MATCH=0
+            request.session['MATCH=0']
             return render(request, "test.html", context)
     else:
         context["connexion"]="Non"
@@ -171,7 +169,7 @@ def preregister(request):
                 print('mail error')
                 print(error)
                 return render(request,'register.html',{'email':emailx,'errorVerif':"error Mailing"})
-            settings.EMAIL=emailx
+            request.session['EMAIL']=emailx
             return redirect('/tipointticroix/register')
         return render(request, 'preregister.html',
                       {'errorVerif': "Email déjà existant", 'email': emailx})
@@ -215,7 +213,7 @@ def register(request):
             return render(request, 'register.html',
                         {'errorinscription': "Code inexact", 'email': emailx})
     else:
-       return render(request, 'register.html',{'email':settings.EMAIL,'pseudo':"",'password':""})
+       return render(request, 'register.html',{'email':request.session['EMAIL'],'pseudo':"",'password':""})
     
 #connexion
 def connect(request):
@@ -247,104 +245,103 @@ def tipointticroix(request):
         context["connec"]="Vous"
     print(context)
     if request.method == 'POST':
-        print("tour : " + str(settings.TOUR))
+        print("tour : " + str(request.session['TOUR']))
         print("joueur : " + request.POST["coupjoueur"])
         if request.POST["annuler"]=="Oui":
             print("annuler : " + request.POST["annuler"])
-            settings.TOUR=settings.TOUR-1 
-            context['tour']=str(settings.TOUR)
-            seq=settings.SEQUENCE
+            request.session['TOUR']=request.session['TOUR']-1 
+            context['tour']=str(request.session['TOUR'])
+            seq=request.session['SEQUENCE']
             derniercoup = seq[-1]
             avantdercoup = seq[-2]
-            #suppression 2 derniers coups dans settings.SEQUENCE
+            #suppression 2 derniers coups dans SEQUENCE
             seq.pop(-1)
             seq.pop(-1)
-            settings.SEQUENCE=seq
-            context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
-            #suppression 2 derniers coups dans settings.GRILLE
-            grid=settings.GRILLE
+            request.session['SEQUENCE']=seq
+            context['sequence']=','.join([str(i) for i in request.session['SEQUENCE]'])
+            #suppression 2 derniers coups dans GRILLE
+            grid=request.session['GRILLE
             ix=int(derniercoup.split("/")[1])
             iy=int(derniercoup.split("/")[0])
             grid[ix][iy]="-"
             ix=int(avantdercoup.split("/")[1])
             iy=int(avantdercoup.split("/")[0])
             grid[ix][iy]="-"
-            context['begin']=settings.BEGIN
+            context['begin']=request.session['BEGIN'])
             context['victoire']="Non"
             context['defaite']="Non"
             print(context)
             return render(request, "tipointticroix.html", context)
             
         #MAJ TABLEAU
-        if settings.TOUR==0 :
-            settings.NIVEAU=int(request.POST["niveau"])
+        if request.session['TOUR']==0 :
+            request.session['NIVEAU']=int(request.POST["niveau"])
             if request.POST["check-begin"]=="Non" :
                 marqueordi="O"
                 marquejoueur="X"
                 #le joueur ne commence pas - 1er COUP ORDINATEUR
-                #settings.GRILLE[12][12]="X"
-                majgrille("12/12",marqueordi)
+                #request.session['GRILLE[12][12]="X"
+                request.session['GRILLE']=majgrille("12/12",marqueordi,request.session['GRILLE'])
                 print("ordi : " + "12/12")
-                settings.SEQUENCE=settings.SEQUENCE+["12/12"]
+                request.session['SEQUENCE']=request.session['SEQUENCE']+["12/12"]
                 context['begin']="Non"
-                settings.BEGIN="Non"
+                request.session['BEGIN']="Non"
             else:
                 marqueordi="X"
                 marquejoueur="O"
                 context['begin']="Oui"
-                settings.BEGIN="Oui"
-            settings.MARQUEORDI=marqueordi
-            settings.MARQUEJOUEUR=marquejoueur
-            context['nom1']=nomniveau(settings.NIVEAU)
-            context['niveau']=settings.NIVEAU
-            context['tour']=str(settings.TOUR)
+                request.session['BEGIN']="Oui"
+            request.session['MARQUEORDI']=marqueordi
+            request.session['MARQUEJOUEUR']=marquejoueur
+            context['nom1']=nomniveau(request.session['NIVEAU'])
+            context['niveau']=request.session['NIVEAU']
+            context['tour']=str(request.session['TOUR'])
             context['victoire']="Non"
             context['defaite']="Non"
         else :
-            marqueordi=settings.MARQUEORDI
-            marquejoueur=settings.MARQUEJOUEUR
-            context['nom1']=nomniveau(settings.NIVEAU)
-            context['niveau']=settings.NIVEAU
-            context['begin']=settings.BEGIN
+            marqueordi=request.session['MARQUEORDI']
+            marquejoueur=request.session['MARQUEJOUEUR']
+            context['nom1']=nomniveau(request.session['NIVEAU'])
+            context['niveau']=request.session['NIVEAU']
+            context['begin']=request.session['BEGIN']
             context['victoire']="Non"
             context['defaite']="Non"
             #COUP JOUEUR
-            settings.SEQUENCE=settings.SEQUENCE+[request.POST["coupjoueur"]]
-            #settings.GRILLE=COUPDUJOUEUR
-            majgrille(request.POST["coupjoueur"],marquejoueur)
+            request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]
+            #GRILLE=COUPDUJOUEUR
+            request.session['GRILLE']=majgrille(request.POST["coupjoueur"],marquejoueur,request.session['GRILLE'])
             #victoire joueur
             res = trouve_5(request.POST["coupjoueur"],marquejoueur)
             if res != "Non":
                 context['victoire']=res
-                context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
-                context['tour']=str(settings.TOUR)
+                context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                context['tour']=str(request.session['TOUR'])
                 #print(context) 
                 return render(request, "tipointticroix.html", context)
 
             #COUP ORDINATEUR
-            coupordinateur=coupordi(marqueordi)
-            settings.SEQUENCE=settings.SEQUENCE+[coupordinateur]
-            #settings.GRILLE=COUPORDINATEUR
-            majgrille(coupordinateur,marqueordi)
+            coupordinateur=coupordi(marqueordi,request.session['NIVEAU'],request.session['TOUR'],
+                request.session['SEQUENCE'],request.session['GRILLE'])
+            request.session['SEQUENCE']=request.session['SEQUENCE']+[coupordinateur]
+            #GRILLE=COUPORDINATEUR
+            request.session['GRILLE']=majgrille(coupordinateur,marqueordi,request.session['GRILLE'])
             res = trouve_5(coupordinateur,marqueordi)
             if res != "Non":
                 context['defaite']=res
-                context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
-                context['tour']=str(settings.TOUR)
+                context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                context['tour']=str(request.session['TOUR'])
                 print(context) 
                 return render(request, "tipointticroix.html", context)
         context['marquevous']=marquejoueur
         context['marqueordi']=marqueordi
-        settings.TOUR=settings.TOUR+1 
-        context['tour']=str(settings.TOUR)   
-        context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
-        #print(settings.GRILLE)
-        #print(context) 
+        request.session['TOUR']=request.session['TOUR']+1 
+        context['tour']=str(request.session['TOUR'])   
+        context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
         return render(request, "tipointticroix.html", context)
     #Appel initial
-    settings.TOUR=0
-    settings.GRILLE = [["-"] * 25 for _ in range(25)]
-    settings.SEQUENCE=[]
+    request.session['TOUR']=0
+    request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
+    request.session['SEQUENCE']=[]
     return render(request, "tipointticroix.html", context)
 
 #page machines
@@ -361,18 +358,18 @@ def machines(request):
     if request.method == 'POST':
         if request.POST["annuler"]=="Oui":
             print("annuler : " + request.POST["annuler"])
-            settings.TOUR=settings.TOUR-1 
-            context['tour']=str(settings.TOUR)
-            seq=settings.SEQUENCE
+            request.session['TOUR']=request.session['TOUR']-1 
+            context['tour']=str(request.session['TOUR'])
+            seq=request.session['SEQUENCE']
             derniercoup = seq[-1]
             avantdercoup = seq[-2]
-            #suppression 2 derniers coups dans settings.SEQUENCE
+            #suppression 2 derniers coups dans request.session['SEQUENCE']
             seq.pop(-1)
             seq.pop(-1)
-            settings.SEQUENCE=seq
-            context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
-            #suppression 2 derniers coups dans settings.GRILLE
-            grid=settings.GRILLE
+            request.session['SEQUENCE']=seq
+            context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+            #suppression 2 derniers coups dans request.session['GRILLE']
+            grid=request.session['GRILLE']
             ix=int(derniercoup.split("/")[1])
             iy=int(derniercoup.split("/")[0])
             grid[ix][iy]="-"
@@ -381,74 +378,74 @@ def machines(request):
             grid[ix][iy]="-"
             context['victoire1']="Non"
             context['victoire2']="Non" 
-            context['nom1']=nomniveau(settings.NIVEAU1)
-            context['nom2']=nomniveau(settings.NIVEAU2)
-            context['niveau1']=settings.NIVEAU1
-            context['niveau2']=settings.NIVEAU2
-            settings.MODEJEU="pas à pas"
-            context['modejeu']=settings.MODEJEU
+            context['nom1']=nomniveau(request.session['NIVEAU1'])
+            context['nom2']=nomniveau(request.session['NIVEAU2'])
+            context['niveau1']=request.session['NIVEAU1']
+            context['niveau2']=request.session['NIVEAU2']
+            request.session['MODEJEU']="pas à pas"
+            context['modejeu']=request.session['MODEJEU']
             context['victoire1']="Non"
             context['victoire2']="Non" 
             print(context)
             return render(request, "machines.html", context)
         #MAJ TABLEAU
-        if settings.TOUR==0 :
-           settings.SEQUENCE=[]
-           settings.NIVEAU1=int(request.POST["niveau1"])
-           settings.NIVEAU2=int(request.POST["niveau2"])
-           settings.MODEJEU=request.POST["modejeu"]
-           context['tour']=str(settings.TOUR)
+        if request.session['TOUR']==0 :
+           request.session['SEQUENCE']=[]
+           request.session['NIVEAU1']=int(request.POST["niveau1"])
+           request.session['NIVEAU2']=int(request.POST["niveau2"])
+           request.session['MODEJEU']=request.POST["modejeu"]
+           context['tour']=str(request.session['TOUR'])
            context['sequence']=""
-        nbcoup=len(settings.SEQUENCE)
+        nbcoup=len(request.session['SEQUENCE'])
         if nbcoup%2==0:
-            coup=coupmachine("O",settings.NIVEAU1)
-            settings.SEQUENCE=settings.SEQUENCE+[coup]
-            majgrille(coup,"O")
+            coup=coupmachine("O",request.session['NIVEAU1'])
+            request.session['SEQUENCE']=request.session['SEQUENCE']+[coup]
+            request.session['GRILLE']=majgrille(coup,"O",request.session['GRILLE'])
             res = trouve_5(coup,"O")
             if res != "Non":
-                context['nom1']=nomniveau(settings.NIVEAU1)
-                context['nom2']=nomniveau(settings.NIVEAU2)
-                context['niveau1']=settings.NIVEAU1
-                context['niveau2']=settings.NIVEAU2
+                context['nom1']=nomniveau(request.session['NIVEAU1'])
+                context['nom2']=nomniveau(request.session['NIVEAU2'])
+                context['niveau1']=request.session['NIVEAU1']
+                context['niveau2']=request.session['NIVEAU2']
                 context['victoire1']=res
                 context['victoire2']="Non"
-                context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
-                context['tour']=str(settings.TOUR)
+                context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                context['tour']=str(request.session['TOUR'])
                 #print(context) 
                 return render(request, "machines.html", context)
         else:
-            coup=coupmachine("X",settings.NIVEAU2)
-            settings.SEQUENCE=settings.SEQUENCE+[coup]
-            majgrille(coup,"X")
+            coup=coupmachine("X",request.session['NIVEAU2'])
+            request.session['SEQUENCE']=request.session['SEQUENCE']+[coup]
+            request.session['GRILLE']=majgrille(coup,"X",request.session['GRILLE'])
             res = trouve_5(coup,"X")
             if res != "Non":
-                context['nom1']=nomniveau(settings.NIVEAU1)
-                context['nom2']=nomniveau(settings.NIVEAU2)
-                context['niveau1']=settings.NIVEAU1
-                context['niveau2']=settings.NIVEAU2
+                context['nom1']=nomniveau(request.session['NIVEAU1'])
+                context['nom2']=nomniveau(request.session['NIVEAU2'])
+                context['niveau1']=request.session['NIVEAU1']
+                context['niveau2']=request.session['NIVEAU2']
                 context['victoire2']=res
                 context['victoire1']="Non"
-                context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
-                context['tour']=str(settings.TOUR)
+                context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                context['tour']=str(request.session['TOUR'])
                 #print(context) 
                 return render(request, "machines.html", context)
         context['victoire1']="Non"
         context['victoire2']="Non"
-        context['nom1']=nomniveau(settings.NIVEAU1)
-        print(nomniveau(settings.NIVEAU1))
-        context['nom2']=nomniveau(settings.NIVEAU2)    
-        context['niveau1']=settings.NIVEAU1
-        context['niveau2']=settings.NIVEAU2
-        context['modejeu']=settings.MODEJEU
-        settings.TOUR=len(settings.SEQUENCE)//2+1
-        print(settings.TOUR)
-        context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
-        context['tour']=str(settings.TOUR)
+        context['nom1']=nomniveau(request.session['NIVEAU1'])
+        print(nomniveau(request.session['NIVEAU1']))
+        context['nom2']=nomniveau(request.session['NIVEAU2'])    
+        context['niveau1']=request.session['NIVEAU1']
+        context['niveau2']=request.session['NIVEAU2']
+        context['modejeu']=request.session['MODEJEU']
+        request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
+        print(request.session['TOUR'])
+        context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+        context['tour']=str(request.session['TOUR'])
         #print(context)    
         return render(request, "machines.html", context) 
-    settings.TOUR=0
-    settings.GRILLE = [["-"] * 25 for _ in range(25)]
-    settings.SEQUENCE=[] 
+    request.session['TOUR']=0
+    request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
+    request.session['SEQUENCE']=[] 
     return render(request, "machines.html", context) 
 
 #page internet
@@ -477,14 +474,14 @@ def internet(request):
         if request.POST['etape'] =="Connexion":
             print("connexion")
             #connexion
-            settings.SCORESERVEUR=0  
-            settings.SCORECLIENT=0  
-            context['score1']=settings.SCORE1
-            context['score2']=settings.SCORE2
+            request.session['SCORESERVEUR']=0  
+            request.session['SCORECLIENT']=0  
+            context['score1']=request.session['SCORE1']
+            context['score2']=request.session['SCORE2']
             if request.POST['rolesocket'] =="client":
                 print("client")
                 if request.POST['serveur'] !="":
-                    settings.SERVEURHOST=request.POST['serveur']
+                    request.session['SERVEURHOST']=request.POST['serveur']
                     msg,mySocket=connecclient(request.POST['serveur'],connec[1])
                     context['begin']="Non"
                     context['jeton']="Non"
@@ -492,16 +489,16 @@ def internet(request):
                     context['premier']=msg
                     context["second"]=connec[1]
                     context["rolesocket"]="client"
-                    settings.BEGINCLIENT="Non"
-                    settings.MATCH="1"
-                    settings.NOMSERVEUR=context['premier']
-                    settings.NOMCLIENT=connec[1]
-                    settings.PREMIER=settings.NOMSERVEUR
-                    settings.SECOND=settings.NOMCLIENT
-                    settings.SOCKETSERVEUR = mySocket
+                    request.session['BEGINCLIENT']="Non"
+                    request.session['MATCH']="1"
+                    request.session['NOMSERVEUR']=context['premier']
+                    request.session['NOMCLIENT']=connec[1]
+                    request.session['PREMIER']=request.session['NOMSERVEUR']
+                    request.session['SECOND']=request.session['NOMCLIENT']
+                    request.session['SOCKETSERVEUR'] = mySocket
                     context['etape']="echange"
                     context['finpartie']="Non" 
-                    context['nbtour']=nbtour()   
+                    context['nbtour']=nbtour(request.session['SEQUENCE'])   
                     return render(request, "internet.html", context)
                 else:
                     print("noserver")
@@ -516,22 +513,22 @@ def internet(request):
                 context['premier']=connec[1]
                 context["second"]=msg
                 context["rolesocket"]="serveur"
-                settings.BEGINSERVEUR="Oui"
-                settings.NOMSERVEUR=context['premier']
-                settings.PREMIER=settings.NOMSERVEUR
-                settings.SECOND=settings.NOMCLIENT
-                settings.NOMCLIENT=context['second']
-                #settings.SOCKETCLIENT = mySocket
+                request.session['BEGINSERVEUR']="Oui"
+                request.session['NOMSERVEUR']=context['premier']
+                request.session['PREMIER']=request.session['NOMSERVEUR']
+                request.session['SECOND']=request.session['NOMCLIENT']
+                request.session['NOMCLIENT']=context['second']
+                #SOCKETCLIENT = mySocket
                 context['etape']="echange"
                 context['finpartie']="Non"
-                context['nbtour']=nbtour()    
+                context['nbtour']=nbtour(request.session['SEQUENCE'])    
                 return render(request, "internet.html", context)
         
         if request.POST['etape'] =="deconnexion":
-            if settings.SOCKETSERVEUR!="":
-                settings.SOCKETSERVEUR.close()
-            if settings.SOCKETCLIENT!="":
-                settings.SOCKETCLIENT.close()
+            if request.session['SOCKETSERVEUR']!="":
+                request.session['SOCKETSERVEUR'].close()
+            if request.session['SOCKETCLIENT']!="":
+                request.session['SOCKETCLIENT'].close()
             print("cloture des socket")
             return redirect('/tipointticroix')
         
@@ -541,31 +538,31 @@ def internet(request):
             context['match']="1"
             context['victoire']="Non"
             context['defaite']="Non"
-            settings.SCORE1=0
-            settings.SCORE2=0
-            settings.MATCH="1"
+            request.session['SCORE1']=0
+            request.session['SCORE2']=0
+            request.session['MATCH']="1"
             context['score1']=0
             context['score2']=0
-            settings.PREMIER=settings.NOMSERVEUR
-            settings.SECOND=settings.NOMCLIENT
-            context['premier']=settings.PREMIER
-            context["second"]=settings.SECOND
-            settings.GRILLE=[["-"] * 25 for _ in range(25)]
-            settings.SEQUENCE=[]
+            request.session['PREMIER']=request.session['NOMSERVEUR']
+            request.session['SECOND']=request.session['NOMCLIENT']
+            context['premier']=request.session['PREMIER']
+            context["second"]=request.session['SECOND']
+            request.session['GRILLE']=[["-"] * 25 for _ in range(25)]
+            request.session['SEQUENCE']=[]
             context['finpartie']="Non"   
             context['etape']="echange"
-            context['nbtour']=nbtour()   
+            context['nbtour']=nbtour(request.session['SEQUENCE'])   
             if request.POST['rolesocket'] =="client":
                 context['begin']="Non"
                 context['jeton']="Non"               
                 context["rolesocket"]="client"
-                settings.BEGINCLIENT="Non"
+                request.session['BEGINCLIENT']="Non"
                 return render(request, "internet.html", context)
             if request.POST['rolesocket'] =="serveur":
                 context['begin']="Oui"
                 context['jeton']="Oui"
                 context["rolesocket"]="serveur"    
-                settings.BEGINSERVEUR="Oui"
+                request.session['BEGINSERVEUR']="Oui"
                 return render(request, "internet.html", context)
             
         if request.POST['etape'] =="change":
@@ -573,164 +570,164 @@ def internet(request):
             print("change")
             context['victoire']="Non"
             context['defaite']="Non"
-            settings.PREMIER=settings.NOMCLIENT
-            settings.SECOND=settings.NOMSERVEUR
-            context['premier']=settings.PREMIER
-            context["second"]=settings.SECOND
+            request.session['PREMIER']=request.session['NOMCLIENT']
+            request.session['SECOND']=request.session['NOMSERVEUR']
+            context['premier']=request.session['PREMIER']
+            context["second"]=request.session['SECOND']
             context['finpartie']="Non"
-            context['nbtour']=nbtour()
-            settings.GRILLE=[["-"] * 25 for _ in range(25)]
-            settings.SEQUENCE=[]   
-            context['sequence']=','.join([str(i) for i in settings.SEQUENCE])   
+            context['nbtour']=nbtour(request.session['SEQUENCE'])
+            request.session['GRILLE']=[["-"] * 25 for _ in range(25)]
+            request.session['SEQUENCE']=[]   
+            context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])   
             if request.POST['rolesocket'] =="client":
-                settings.GRILLE=[["-"] * 25 for _ in range(25)]
-                settings.SEQUENCE=[]
+                request.session['GRILLE']=[["-"] * 25 for _ in range(25)]
+                request.session['SEQUENCE']=[]
                 context['begin']="Oui"
                 context['jeton']="Oui"
                 context['match']="2"
-                if settings.MATCH=="1":
-                    res=settings.SCORE1
-                    settings.SCORE1=settings.SCORE2
-                    settings.SCORE2=res
-                settings.MATCH="2"
-                context['score1']=settings.SCORE1
-                context['score2']=settings.SCORE2
+                if request.session['MATCH']=="1":
+                    res=request.session['SCORE1']
+                    request.session['SCORE1']=request.session['SCORE2']
+                    request.session['SCORE2']=res
+                request.session['MATCH']="2"
+                context['score1']=request.session['SCORE1']
+                context['score2']=request.session['SCORE2']
                 context["rolesocket"]="client"
-                settings.BEGINCLIENT="Oui"
+                request.session['BEGINCLIENT']="Oui"
                 context['etape']="echange"
                 return render(request, "internet.html", context)
             if request.POST['rolesocket'] =="serveur":
-                settings.GRILLE=[["-"] * 25 for _ in range(25)]
-                settings.SEQUENCE=[]
+                request.session['GRILLE']=[["-"] * 25 for _ in range(25)]
+                request.session['SEQUENCE']=[]
                 context['begin']="Non"
                 context['jeton']="Non"
                 context['match']="2"
                 context["rolesocket"]="serveur"
-                if settings.MATCH=="1":
-                    res=settings.SCORE1
-                    settings.SCORE1=settings.SCORE2
-                    settings.SCORE2=res
-                settings.MATCH="2"
-                context['score1']=settings.SCORE1
-                context['score2']=settings.SCORE2    
-                settings.BEGINSERVEUR="Non"
+                if request.session['MATCH']=="1":
+                    res=request.session['SCORE1']
+                    request.session['SCORE1']=request.session['SCORE2']
+                    request.session['SCORE2']=res
+                request.session['MATCH']="2"
+                context['score1']=request.session['SCORE1']
+                context['score2']=request.session['SCORE2']    
+                request.session['BEGINSERVEUR']="Non"
                 context['etape']="echange"
                 return render(request, "internet.html", context)
             
         if request.POST['etape'] =="echange":
             #echanges
             print("echange",request.POST['rolesocket'],request.POST['jeton'])
-            context['score1']=settings.SCORE1
-            context['score2']=settings.SCORE2
+            context['score1']=request.session['SCORE1']
+            context['score2']=request.session['SCORE2']
             context['finpartie']="Non"
             context['victoire']="Non"
             context['defaite']="Non"
             context['etape']="echange"
-            context['premier']=settings.PREMIER
-            context["second"]=settings.SECOND
+            context['premier']=request.session['PREMIER']
+            context["second"]=request.session['SECOND']
             if request.POST['jeton']=="Oui":
                 context['jeton']="Non"
                 if request.POST['rolesocket'] =="client":
                     #COUP JOUEUR
-                    context['begin']=settings.BEGINCLIENT
-                    context['match']=settings.MATCH
-                    settings.SEQUENCE=settings.SEQUENCE+[request.POST["coupjoueur"]]
-                    context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
-                    majgrille(request.POST["coupjoueur"],"X")
+                    context['begin']=request.session['BEGINCLIENT']
+                    context['match']=request.session['MATCH']
+                    request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]
+                    context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                    request.session['GRILLE']=majgrille(request.POST["coupjoueur"],"X",request.session['GRILLE'])
                     res = trouve_5(request.POST["coupjoueur"],"X")
                     if res != "Non":
                         context['victoire']=res
                         context['defaite']="Non"
-                        if settings.MATCH=="1":
-                            settings.SCORE2=settings.SCORE2+1
-                            context['score2']=settings.SCORE2
+                        if request.session['MATCH']=="1":
+                            request.session['SCORE2']=request.session['SCORE2']+1
+                            context['score2']=request.session['SCORE2']
                         else:
-                            settings.SCORE1=settings.SCORE1+1
-                            context['score1']=settings.SCORE1
-                        if settings.MATCH=="2":
+                            request.session['SCORE1']=request.session['SCORE1']+1
+                            context['score1']=request.session['SCORE1']
+                        if request.session['MATCH']=="2":
                             context['finpartie']="Oui"
                         context['etape']="change"
                         context['jeton']="Fin"
                         print("victoire") 
                     context["rolesocket"]="client"
-                    settings.SOCKETSERVEUR.send(request.POST["coupjoueur"].encode('utf-8'))
+                    request.session['SOCKETSERVEUR'].send(request.POST["coupjoueur"].encode('utf-8'))
 
                 if request.POST['rolesocket'] =="serveur":
                     #COUP JOUEUR
-                    context['begin']=settings.BEGINSERVEUR
-                    context['match']=settings.MATCH
-                    settings.SEQUENCE=settings.SEQUENCE+[request.POST["coupjoueur"]]
-                    context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
-                    majgrille(request.POST["coupjoueur"],"O")
+                    context['begin']=request.session['BEGINSERVEUR']
+                    context['match']=request.session['MATCH']
+                    request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]
+                    context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                    request.session['GRILLE']=majgrille(request.POST["coupjoueur"],"O",request.session['GRILLE'])
                     res = trouve_5(request.POST["coupjoueur"],"O")
                     if res != "Non":
                         context['victoire']=res
                         context['defaite']="Non"
-                        if settings.MATCH=="1":
-                            settings.SCORE1=settings.SCORE1+1
-                            context['score1']=settings.SCORE1
+                        if request.session['MATCH']=="1":
+                            request.session['SCORE1']=request.session['SCORE1']+1
+                            context['score1']=request.session['SCORE1']
                         else:
-                            settings.SCORE2=settings.SCORE2+1
-                            context['score2']=settings.SCORE2
-                        if settings.MATCH=="2":
+                            request.session['SCORE2']=request.session['SCORE2']+1
+                            context['score2']=request.session['SCORE2']
+                        if request.session['MATCH']=="2":
                             context['finpartie']="Oui"
                         context['etape']="change"
                         context['jeton']="Fin"
                         print("victoire")   
                     context["rolesocket"]="serveur"
-                    settings.SOCKETCLIENT.send(request.POST["coupjoueur"].encode('utf-8'))
-                context['nbtour']=nbtour()
+                    request.session['SOCKETCLIENT'].send(request.POST["coupjoueur"].encode('utf-8'))
+                context['nbtour']=nbtour(request.session['SEQUENCE'])
                 return render(request, "internet.html", context)
             else:
                 context['jeton']="Oui"
-                context['match']=settings.MATCH
+                context['match']=request.session['MATCH']
                 context['etape']="echange"
-                context['premier']=settings.PREMIER
-                context["second"]=settings.SECOND
+                context['premier']=request.session['PREMIER']
+                context["second"]=request.session['SECOND']
                 context['finpartie']="Non"
                 msgserveur=""
                 if request.POST['rolesocket'] =="client":
-                    msgserveur=settings.SOCKETSERVEUR.recv(1024)
+                    msgserveur=request.session['SOCKETSERVEUR'].recv(1024)
                     print("fromserveur : ",msgserveur)
                     res = trouve_5(msgserveur,"O")
                     if res != "Non":
                         context['victoire']="Non"
                         context['defaite']=res
-                        context['score1']=settings.SCORE1
-                        context['score2']=settings.SCORE2
+                        context['score1']=request.session['SCORE1']
+                        context['score2']=request.session['SCORE2']
                         context['etape']="change"
                         context['jeton']="Fin"
-                        if settings.MATCH=="2":
+                        if request.session['MATCH']=="2":
                             context['finpartie']="Oui"
                         print("defaite")
-                    context['begin']=settings.BEGINCLIENT
+                    context['begin']=request.session['BEGINCLIENT']
                     context["rolesocket"]="client"
-                    context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
+                    context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 if request.POST['rolesocket'] =="serveur":
-                    context['premier']=settings.PREMIER
-                    msgclient=settings.SOCKETCLIENT.recv(1024)
+                    context['premier']=request.session['PREMIER']
+                    msgclient=request.session['SOCKETCLIENT'].recv(1024)
                     print(msgclient.decode('utf-8'),"X")
                     res = trouve_5(msgclient.decode('utf-8'),"X")
                     if res != "Non":
                         context['victoire']="Non"
                         context['defaite']=res
-                        context['score1']=settings.SCORE1
-                        context['score2']=settings.SCORE2
+                        context['score1']=request.session['SCORE1']
+                        context['score2']=request.session['SCORE2']
                         context['finpartie']="Oui"
                         context['etape']="echange"
                         context['jeton']="Fin"
-                        if settings.MATCH=="2":
+                        if request.session['MATCH']=="2":
                             context['finpartie']="Oui"
                         print("defaite")
-                    context['begin']=settings.BEGINSERVEUR
+                    context['begin']=request.session['BEGINSERVEUR']
                     context["rolesocket"]="serveur"
-                    context['premier']=settings.PREMIER
-                    context["second"]=settings.SECOND
-                    context['sequence']=','.join([str(i) for i in settings.SEQUENCE])
-                context['nbtour']=nbtour()
+                    context['premier']=request.session['PREMIER']
+                    context["second"]=request.session['SECOND']
+                    context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                context['nbtour']=nbtour(request.session['SEQUENCE'])
                 return render(request, "internet.html", context)                   
     else:
-        settings.SEQUENCE=[]
+        request.session['SEQUENCE']=[]
         import socket
         if connec[0]:
             import asyncio
