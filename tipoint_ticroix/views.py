@@ -21,112 +21,92 @@ def test(request):
         if request.method == 'POST':
             if request.POST['etape'] =="début":
                 #Début
-                settings.SEQUENCEPREMIER=[]
-                settings.GRILLEPREMIER = [["-"] * 25 for _ in range(25)]
-                settings.SEQUENCESECOND=[]
-                settings.GRILLESECOND = [["-"] * 25 for _ in range(25)]
+                request.session['SEQUENCE']=[]
+                request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
                 print("début",request.POST['jeton'],request.POST['joueur'])
                 if request.POST["jeton"]=="Oui":
                     print("jetonoui")
-                    settings.PREMIER=request.POST['joueur']
-                    settings.SECOND=request.POST['adversaire']
-                    context['joueur']=settings.PREMIER
-                    context['adversaire']=settings.SECOND
-                    print("premier",settings.PREMIER)
+                    request.session['PREMIER']=request.POST['joueur']
+                    request.session['SECOND']=request.POST['adversaire']
+                    context['joueur']=request.session['PREMIER']
+                    context['adversaire']=request.session['SECOND']
                 if request.POST["jeton"]=="Non":
                     print("jetonnon")
-                    settings.PREMIER=request.POST['adversaire']
-                    settings.SECOND=request.POST['joueur']
-                    context['joueur']=settings.SECOND
-                    context['adversaire']=settings.PREMIER
-                    print("premier",settings.PREMIER)
-                settings.BEGIN=settings.PREMIER
-                settings.MATCH=1
-                settings.SCORE1=0
-                settings.SCORE2=0
-                settings.TOUR=1
-                settings.SEQUENCE=[]
+                    request.session['PREMIER']=request.POST['adversaire']
+                    request.session['SECOND']=request.POST['joueur']
+                    context['joueur']=request.session['SECOND']
+                    context['adversaire']=request.session['PREMIER']
+                request.session['BEGIN']=request.session['PREMIER']
+                request.session['MATCH']=1
+                request.session['SCORE1']=0
+                request.session['SCORE2']=0
+                request.session['TOUR']=1
                 context["etape"]="nouveautour"
                 context["jeton"]=request.POST['jeton']
-                context["match"]=settings.MATCH
-                context['begin']=settings.BEGIN
-                context["premier"]=settings.PREMIER
-                context["second"]=settings.SECOND
-                context["score1"]=settings.SCORE1
-                context["score2"]=settings.SCORE2
-                context["nbtour"]=settings.TOUR
+                context["match"]=request.session['MATCH']
+                context["begin"]=request.session['BEGIN']
+                context["premier"]=request.session['PREMIER']
+                context["second"]=request.session['SECOND']
+                context["score1"]=request.session['SCORE1']
+                context["score2"]=request.session['SCORE2']
+                context["nbtour"]=1
                 context["finpartie"]="Non"
                 context["victoire"]="Non"
                 context["defaite"]="Non"
-                print(settings.PREMIER,settings.SECOND,settings.BEGIN)
                 print(context)
                 return render(request, "test.html", context)
             if request.POST['etape'] =="tourjeu":
                 #tour de jeu
                 print("tourjeu")
-                print(settings.PREMIER,settings.SECOND,settings.BEGIN,settings.MATCH,
-                      settings.SEQUENCEPREMIER,settings.SEQUENCESECOND,request.POST['joueur'],
-                      request.POST['coupjoueur'])
                 context["finpartie"]="Non"
                 context["victoire"]="Non"
                 context["defaite"]="Non"
-                if settings.BEGIN==request.POST['joueur']:
+                if request.session['BEGIN']==request.POST['joueur']:
                     marque="O"
-                    majgrilleI(request.POST["coupjoueur"],marque,settings.GRILLEPREMIER)
-                    settings.SEQUENCEPREMIER=settings.SEQUENCEPREMIER+[request.POST["coupjoueur"]]
-                    context['sequence']=','.join(str(i) for i in settings.SEQUENCEPREMIER)    
-                    context["nbtour"]=nbtourI(settings.SEQUENCEPREMIER)
-                    res = trouve_5I(request.POST["coupjoueur"],marque,settings.GRILLEPREMIER)
                 else:
                     marque="X"
-                    majgrilleI(request.POST["coupjoueur"],marque,settings.GRILLESECOND)
-                    settings.SEQUENCESECOND=settings.SEQUENCEPREMIER+[request.POST["coupjoueur"]]
-                    context['sequence']=','.join(str(i) for i in settings.SEQUENCESECOND)   
-                    context["nbtour"]=nbtourI(settings.SEQUENCESECOND)
-                    res = trouve_5I(request.POST["coupjoueur"],marque,settings.GRILLESECOND)
+                majgrilleI(request.POST["coupjoueur"],marque,request.session['GRILLE'])
+                request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]
+                context['sequence']=','.join(str(i) for i in request.session['SEQUENCE'])    
+                context["nbtour"]=nbtourI(request.session['SEQUENCE'])
+                res = trouve_5I(request.POST["coupjoueur"],marque,request.session['GRILLE'])
                 if res != "Non":
-                    settings.MATCH=settings.MATCH+1
+                    request.session['.MATCH']=request.session['MATCH']+1
                     if request.POST['jeton']=="Oui":
                         context['defaite']=res
                         context['victoire']="Non"
-                        if settings.BEGIN==request.POST['joueur']:
-                            settings.SCORE2=settings.SCORE2+1
-                            context['score2']=settings.SCORE2
+                        if request.session['BEGIN']==request.POST['joueur']:
+                            request.session['SCORE2']=request.session['SCORE2']+1
+                            context['score2']=request.session['SCORE2']
                         else:
-                            settings.SCORE1=settings.SCORE1+1
-                            context['score1']=settings.SCORE1
+                            request.session['SCORE1']=request.session['SCORE1']+1
+                            context['score1']=request.session['SCORE1']
                     else:
                         context['defaite']="Non"
                         context['victoire']=res
-                        if settings.BEGIN==request.POST['joueur']:
-                            settings.SCORE1=settings.SCORE1+1
-                            context['score1']=settings.SCORE1
+                        if request.session['BEGIN']==request.POST['joueur']:
+                            request.session['SCORE1']=request.session['SCORE1']+1
+                            context['score1']=request.session['SCORE1']
                         else:
-                            settings.SCORE2=settings.SCORE2+1
-                            context['score2']=settings.SCORE2
-                    if settings.MATCH>2:
+                            request.session['SCORE2']=request.session['SCORE2']+1
+                            context['score2']=request.session['SCORE2']
+                    if request.session['MATCH']>2:
                         context['finpartie']="Oui"
                     
                 if request.POST['jeton']=="Oui":
                     context['jeton']="Oui"
                 else:
                     context['jeton']="Non"
-                #if settings.BEGIN==request.POST['joueur']:
                 context['joueur']=request.POST['joueur']
                 context['adversaire']=request.POST['adversaire']
-                #else:
-                #    context['joueur']=settings.SECOND
-                #    context['adversaire']=settings.PREMIER
-                context["match"]=settings.MATCH
-                context['begin']=settings.BEGIN
-                context["premier"]=settings.PREMIER
-                context["second"]=settings.SECOND
-                context["score1"]=settings.SCORE1
-                context["score2"]=settings.SCORE2
-                
+                context["match"]=request.session['MATCH']
+                context["begin"]=request.session['BEGIN']
+                context["premier"]=request.session['PREMIER']
+                context["second"]=request.session['SECOND']
+                context["score1"]=request.session['SCORE1']
+                context["score2"]=request.session['SCORE2']
                 print("seq",context['sequence'])
                 context["etape"]="nouveautour"
-                print(settings.PREMIER,settings.SECOND,settings.BEGIN)
                 print(context)
                 return render(request, "test.html", context)
         else:    
