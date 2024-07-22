@@ -311,7 +311,7 @@ def tipointticroix(request):
             #GRILLE=COUPDUJOUEUR
             request.session['GRILLE']=majgrille(request.POST["coupjoueur"],marquejoueur,request.session['GRILLE'])
             #victoire joueur
-            res = trouve_5(request.POST["coupjoueur"],marquejoueur)
+            res = trouve_5(request.POST["coupjoueur"],marquejoueur,request.session['GRILLE'])
             if res != "Non":
                 context['victoire']=res
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
