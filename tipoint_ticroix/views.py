@@ -258,16 +258,16 @@ def tipointticroix(request):
             seq.pop(-1)
             seq.pop(-1)
             request.session['SEQUENCE']=seq
-            context['sequence']=','.join([str(i) for i in request.session['SEQUENCE]'])
+            context['sequence']=','.join(str(i) for i in request.session['SEQUENCE'])
             #suppression 2 derniers coups dans GRILLE
-            grid=request.session['GRILLE
+            grid=request.session['GRILLE']
             ix=int(derniercoup.split("/")[1])
             iy=int(derniercoup.split("/")[0])
             grid[ix][iy]="-"
             ix=int(avantdercoup.split("/")[1])
             iy=int(avantdercoup.split("/")[0])
             grid[ix][iy]="-"
-            context['begin']=request.session['BEGIN'])
+            context['begin']=request.session['BEGIN']
             context['victoire']="Non"
             context['defaite']="Non"
             print(context)
