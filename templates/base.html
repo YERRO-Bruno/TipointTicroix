@@ -64,7 +64,7 @@
                 </div>   
                 <div>
                     <p id="id-bandeau" align="center" style="font-size: 1.5vw;color: red;
-                        font-weight: bolder;margin: 0%">2eme manche dans 10 s</p> 
+                        font-weight:bolder;margin:0%;background-color:blue">2eme manche dans 10 s</p> 
                 </div>
             </div>
             <div class="col-2" align="center" style="margin-top: 6vh;font-size:1.5vw"
@@ -124,6 +124,12 @@
         let photo="https://ik.imagekit.io/kpvotazbj/photo".concat(alea,".avif")
         //alert(photo)
         document.getElementById("id_imagekit").src=photo
+        for(let i=0;i>10;i++) {
+            document.getElementById("id-bandeau").style.display="block"
+            setTimeout(() => {
+            }, 2);
+            document.getElementById("id-bandeau").style.display="none"
+        }
     </script>
     {% block script %}{% endblock %}
 </body>
