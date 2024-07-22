@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Click du joueur sur une des cases
     document.getElementById("table").addEventListener('click', function(e) {
-        alert('click')
         if ((document.getElementById("id-victoire").value=="Non" &&
         document.getElementById("id-defaite").value=="Non")) {
             if (document.getElementById("id-jeton").value=="Non") {
@@ -25,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (document.getElementById("id-begin").textContent==document.getElementById("id-joueur").value) {
             marque="O"
             } else {
+                marque="X"
             }
             if (document.getElementById(e.target.id).textContent=="") {
             document.getElementById(e.target.id).textContent = marque
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ",",document.getElementById("id-adversaire").value,",",e.target.id))
             document.getElementById("id-etape").value="tourjeu"
             document.getElementById("id-jeton").value="Non"
-            //document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+            document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
             document.forms["internet"].submit();
             } else {
                 alert("Case déjà utilisée")
@@ -192,7 +192,6 @@ function displayGameBoard(){
                 marque="O"
             }              
         }
-        alert("display9")
         win="Non"
         if (document.getElementById("id-victoire").value!="Non") {
             win=document.getElementById("id-victoire").value
@@ -220,5 +219,4 @@ function displayGameBoard(){
             //fin de partie
         }
     }
-    alert("display99")
 }
