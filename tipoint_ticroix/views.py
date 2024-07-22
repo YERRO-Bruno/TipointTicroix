@@ -325,7 +325,7 @@ def tipointticroix(request):
             request.session['SEQUENCE']=request.session['SEQUENCE']+[coupordinateur]
             #GRILLE=COUPORDINATEUR
             request.session['GRILLE']=majgrille(coupordinateur,marqueordi,request.session['GRILLE'])
-            res = trouve_5(coupordinateur,marqueordi)
+            res = trouve_5(coupordinateur,marqueordi,request.session['GRILLE'])
             if res != "Non":
                 context['defaite']=res
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
@@ -401,7 +401,7 @@ def machines(request):
             coup=coupmachine("O",request.session['NIVEAU1'])
             request.session['SEQUENCE']=request.session['SEQUENCE']+[coup]
             request.session['GRILLE']=majgrille(coup,"O",request.session['GRILLE'])
-            res = trouve_5(coup,"O")
+            res = trouve_5(coup,"O",request.session['GRILLE'])
             if res != "Non":
                 context['nom1']=nomniveau(request.session['NIVEAU1'])
                 context['nom2']=nomniveau(request.session['NIVEAU2'])
@@ -417,7 +417,7 @@ def machines(request):
             coup=coupmachine("X",request.session['NIVEAU2'])
             request.session['SEQUENCE']=request.session['SEQUENCE']+[coup]
             request.session['GRILLE']=majgrille(coup,"X",request.session['GRILLE'])
-            res = trouve_5(coup,"X")
+            res = trouve_5(coup,"X",request.session['GRILLE'])
             if res != "Non":
                 context['nom1']=nomniveau(request.session['NIVEAU1'])
                 context['nom2']=nomniveau(request.session['NIVEAU2'])
@@ -634,7 +634,7 @@ def internet(request):
                     request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]
                     context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                     request.session['GRILLE']=majgrille(request.POST["coupjoueur"],"X",request.session['GRILLE'])
-                    res = trouve_5(request.POST["coupjoueur"],"X")
+                    res = trouve_5(request.POST["coupjoueur"],"X",request.session['GRILLE'])
                     if res != "Non":
                         context['victoire']=res
                         context['defaite']="Non"
@@ -659,7 +659,7 @@ def internet(request):
                     request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]
                     context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                     request.session['GRILLE']=majgrille(request.POST["coupjoueur"],"O",request.session['GRILLE'])
-                    res = trouve_5(request.POST["coupjoueur"],"O")
+                    res = trouve_5(request.POST["coupjoueur"],"O",request.session['GRILLE'])
                     if res != "Non":
                         context['victoire']=res
                         context['defaite']="Non"
@@ -689,7 +689,7 @@ def internet(request):
                 if request.POST['rolesocket'] =="client":
                     msgserveur=request.session['SOCKETSERVEUR'].recv(1024)
                     print("fromserveur : ",msgserveur)
-                    res = trouve_5(msgserveur,"O")
+                    res = trouve_5(msgserveur,"O",request.session['GRILLE'])
                     if res != "Non":
                         context['victoire']="Non"
                         context['defaite']=res
@@ -707,7 +707,7 @@ def internet(request):
                     context['premier']=request.session['PREMIER']
                     msgclient=request.session['SOCKETCLIENT'].recv(1024)
                     print(msgclient.decode('utf-8'),"X")
-                    res = trouve_5(msgclient.decode('utf-8'),"X")
+                    res = trouve_5(msgclient.decode('utf-8'),"X",request.session['GRILLE'])
                     if res != "Non":
                         context['victoire']="Non"
                         context['defaite']=res
