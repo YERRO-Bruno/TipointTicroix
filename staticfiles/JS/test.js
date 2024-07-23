@@ -160,7 +160,6 @@ function displayGameBoard(){
           cell.style.textAlign = "center"
       }
     }
-    alert("display0")
     document.getElementById("victoire").style.display="none"
     document.getElementById("defaite").style.display="none"
     if (document.getElementById("id-jeton").value=="Oui") {
@@ -168,7 +167,6 @@ function displayGameBoard(){
     } else {
         document.getElementById("AVOUS").style.display="none"
     }
-    alert("display1")
     //document.getElementById("nb-tour").textContent="1"
     res=document.getElementById("id-sequence").value
     if (res.length > 0) { 
@@ -220,7 +218,17 @@ function displayGameBoard(){
             for (let i = 0;i<5;i++) {
                 document.getElementById(win[i]).style.backgroundColor="yellow"
             }
-            //fin de partie
+            document.getElementById("id-bandeau").style.display="block"
+        
+            const countdownField = document.getElementById("id-bandeau");
+            let count = 1;
+            const interval = setInterval(function() {
+                countdownField.textContent ="La manche 2 demarre dans ".concat(count," s")
+                if (count >= 10) {
+                    clearInterval(interval);
+                }
+                count++;
+            }, 1000); // 1000ms = 1 second
         }
     }
 }
