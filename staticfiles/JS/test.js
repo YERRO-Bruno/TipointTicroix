@@ -160,7 +160,7 @@ function displayGameBoard(){
           cell.style.textAlign = "center"
       }
     }
-    document.getElementById("btn-manche2").style.display="none"
+    alert("display0")
     document.getElementById("victoire").style.display="none"
     document.getElementById("defaite").style.display="none"
     if (document.getElementById("id-jeton").value=="Oui") {
@@ -168,6 +168,7 @@ function displayGameBoard(){
     } else {
         document.getElementById("AVOUS").style.display="none"
     }
+    alert("display1")
     //document.getElementById("nb-tour").textContent="1"
     res=document.getElementById("id-sequence").value
     if (res.length > 0) { 
