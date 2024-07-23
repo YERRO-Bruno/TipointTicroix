@@ -37,7 +37,7 @@ def test(request):
                 request.session['BEGIN']=request.session['PREMIER']
                 request.session['MATCH']=int(request.POST['match'])
                 request.session['SCORE1']=int(request.POST['score1'])
-                request.session['SCORE2']=int(request.POST['score1'])
+                request.session['SCORE2']=int(request.POST['score2'])
                 request.session['TOUR']=1
                 context["etape"]="nouveautour"
                 context["jeton"]=request.POST['jeton']

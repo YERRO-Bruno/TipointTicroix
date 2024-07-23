@@ -238,7 +238,6 @@ function displayGameBoard(){
                         //document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
                         //document.getElementById("id-adversaire").value=document.getElementById("id-adversaire").value
                         document.getElementById("id-match").value="2"
-                        alert(document.getElementById("id-score1").value,"--",document.getElementById("id-score2").value)
                         let scorx1=document.getElementById("id-score1").value
                         document.getElementById("id-score1").value=document.getElementById("id-score2").value
                         document.getElementById("id-score2").value=scorx1
