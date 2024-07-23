@@ -124,7 +124,8 @@
         let photo="https://ik.imagekit.io/kpvotazbj/photo".concat(alea,".avif")
         alert("photo")
         for (let i=0;i<10;i++) {
-            ligne="2eme Manche dans ".concat((10-i).toString,"seconde")
+            
+            ligne="2eme Manche dans ".concat((10-i).toString(),"seconde")
             document.getElementById("id-bandeau").textContent=ligne
             document.getElementById("id-bandeau").style.display="block"
             timeout = setTimeout(bandeau(), 2000);
