@@ -1,84 +1,152 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // mise en place plateau de jeu HTLM
-  //displayGameBoard()
-  // Click du joueur sur le bouton quitter en cours de jeu
-  
-  document.getElementById("btn-quitter2").addEventListener('click', function(e) {
-    alert("quitter2")
-    e.preventDefault()
-    if (document.getElementById("nb-tour").textContent > "0") {
-      if (confirm("Voulez vous revenir à l'accueil?")==true) {
-        document.location.href='/tipointticroix'
-      }
-    }
-  })
+    document.getElementById("x-board").style.display="none"
+    document.getElementById("id-bandeau").style.display="none"
+    //pseudox=document.getElementById("id-connec").textContent
+    const userconnecteds=document.getElementById("id_userconnecteds")
+    let msg=[]
+    
+    const joueur=document.getElementById("id-joueur")
+    var socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
+    userconnecteds.addEventListener("click", function(e) {
+        e.preventDefault()
+        invite=e.target.id
+        message="invite,"+document.getElementById("id-connec").textContent+","+e.target.id
+        socket.send(message)  
+    })
 
-})
-document.getElementById("btn-manche2").style.display="none"
-document.getElementById("btn-rejouer").style.display="none"
-displayGameBoard()
-if (document.getElementById("id-jeton").textContent=="Non") {
-  document.getElementById("ALUI").style.display="block"   
-  document.getElementById("AVOUS").style.display="none"
-  document.getElementById("victoire").style.display="none"
-  document.getElementById("defaite").style.display="none"
-  document.getElementById("jeton").value="Non"
-  document.getElementById("id-rolesocket").value=document.getElementById("rolesocket").textContent
-  //displayGameBoard()
-  document.forms["internet"].submit();
-}
+    document.getElementById("btn-quitter").addEventListener('click', function(e) {
+        e.preventDefault()
+        document.location.href='/tipointticroix'        
+    })
 
-// Click du joueur sur une des cases
-document.getElementById("table").addEventListener('click', function(e) {
-  //e.preventDefault()
-  if ((document.getElementById("id-victoire").value=="Non" &&
-   document.getElementById("id-defaite").value=="Non")) {
-     if (document.getElementById("id-jeton").textContent=="Non") {
-       alert("Ce n'est pas à vous de jouer")
-     } else {
-       if (document.getElementById("id-begin").textContent=="Oui") {
-         marque="O"
-       } else {
-         marque="X"
-       }
-       if (document.getElementById(e.target.id).textContent=="") {
-         case_clicked = e.target.id.split('/')
-         document.getElementById(e.target.id).textContent = marque
-         document.getElementById(e.target.id).style.fontSize="0.9vw"
-         if (marque=="X") {
-             document.getElementById(e.target.id).style.color="red"
-         } else {
-             document.getElementById(e.target.id).style.color="blue"
-         }   
-         e.target.blur()
-         document.getElementById("coup-joueur").value=e.target.id
-         document.getElementById("ALUI").style.display="block"   
-         document.getElementById("AVOUS").style.display="none"
-         document.getElementById("jeton").value="Oui"
-         document.getElementById("id-rolesocket").value=document.getElementById("rolesocket").textContent
-         document.getElementById("id-sequence").value=e.target.id   
-         document.forms["internet"].submit();
-       } else {
-           alert("Case déjà utilisée")
+    // Click du joueur sur une des cases
+    document.getElementById("table").addEventListener('click', function(e) {
+        if ((document.getElementById("id-victoire").value=="Non" &&
+        document.getElementById("id-defaite").value=="Non")) {
+            if (document.getElementById("id-jeton").value=="Non") {
+                alert("Ce n'est pas à vous de jouer")
+            } else {
+            if (document.getElementById("id-begin").textContent==document.getElementById("id-joueur").value) {
+            marque="O"
+            } else {
+                marque="X"
+            }
+            if (document.getElementById(e.target.id).textContent=="") {
+            document.getElementById(e.target.id).textContent = marque
+            document.getElementById(e.target.id).style.fontSize="0.9vw"
+            if (marque=="X") {
+                document.getElementById(e.target.id).style.color="red"
+            } else {
+                document.getElementById(e.target.id).style.color="blue"
+            }   
+            e.target.blur()
+            document.getElementById("coup-joueur").value=e.target.id
+            document.getElementById("id-etape").value="tourjeu"
+            document.getElementById("id-jeton").value="Non"
+              
+            //alert("jeu")
+            socket.send('tourjeu,'.concat(document.getElementById("id-connec").textContent,
+            ",",document.getElementById("id-adversaire").value,",",e.target.id))
+            document.getElementById("id-etape").value="tourjeu"
+            document.getElementById("id-jeton").value="Non"
+            document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+            document.forms["internet"].submit();
+            } else {
+                alert("Case déjà utilisée")
+            }
+            }
+        } else {
+            if (document.getElementById("nb-tour").textContent="0") {
+                alert("Choisissez votre adversaire!")
+            } else {
+                alert("partie terminée !")
+              }
         }
-      }
-  } else {
-      if (document.getElementById("nb-tour").textContent=0) {
-        alert("Choisissez votre adversaire!")
-      } else {
-        alert("partie terminée !")
-      }
-      
-  }
+    })
+
+    socket.addEventListener('open', (event) => {
+        if (document.getElementById("id-etape").value=="connexion") {
+            socket.send('connexion,'.concat(document.getElementById("id-connec").textContent));
+        }
+        if (document.getElementById("id-etape").value=="nouveautour") {
+            socket.send('nouveautour,'.concat(document.getElementById("id-connec").textContent));
+        }
+    });
+
+    socket.addEventListener('message', (event) => {
+        //alert('Message from server: ' + event.data);
+        msg=event.data.split(",")
+        if (msg[0]=="connected") {
+            for (let i = 1; i < msg.length; i++) {
+                const li=document.createElement("li")
+                li.textContent=msg[i]
+                li.id=msg[i]
+                li.class="joueur"
+                li.href='action'
+                if (msg[i]!=document.getElementById("id-connec").textContent) {
+                    li.style.color='blue'
+                    li.style.fontWeight='1000'
+                    userconnecteds.appendChild(li)
+                }
+            }
+        }
+        if (msg[0]=="invite") {
+            if (confirm("Acceptez-vous de jouer avec "+msg[1])) {
+                socket.send('accept,'.concat(document.getElementById("id-connec").textContent,',',msg[1]))
+                document.getElementById("id-etape").value="début"
+                document.getElementById("id-jeton").value="Non"
+                document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+                document.getElementById("id-adversaire").value=msg[1]
+                document.getElementById("id-match").value=1
+                document.getElementById("id-score1").value=0
+                document.getElementById("id-score2").value=0
+                document.forms["internet"].submit();
+            } 
+        }
+        if (msg[0]=="accept") {
+            document.getElementById("id-etape").value="début"
+            document.getElementById("id-jeton").value="Oui"
+            document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+            document.getElementById("id-adversaire").value=msg[1]
+            document.getElementById("id-match").value=1
+            document.getElementById("id-score1").value=0
+            document.getElementById("id-score2").value=0
+            document.forms["internet"].submit();
+        } 
+        if (msg[0]=="tourjeu") {
+            document.getElementById("coup-joueur").value=msg[3]
+            document.getElementById("id-etape").value="tourjeu"
+            document.getElementById("id-jeton").value="Oui"
+            document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+            document.getElementById("id-adversaire").value=msg[1]
+            document.forms["internet"].submit();
+        } 
+    });
+
+    // Connection closed
+    socket.addEventListener('close', function (event) {
+        alert("WebSocket is closed now.");
+        console.log('WebSocket is closed now.');
+    });
+
+    // Listen for errors
+    socket.addEventListener('error', function (error) {
+        alert("WebSocket error: " + error);
+        console.log('WebSocket error: ', error);
+    });
+
+    //if (document.getElementById("id-etape").value=="nouveautour") {
+        displayGameBoard()
+    //}
 })
-  //Functions
-  //Affichage de la grille
-  function displayGameBoard(){
-    if (document.getElementById("id-etape").value=="connexion") {
-      document.getElementById("x-board").style.display="none"
-    }
-    if (document.getElementById("id-etape").value!="connexion") {
-      document.getElementById("x-connect").style.display="none"
+
+//Functions
+//Affichage de la grille
+function displayGameBoard(){
+    if (document.getElementById("id-etape").value=="nouveautour") {
+        document.getElementById("x-jouer").style.display="none"
+        document.getElementById("x-board").style.display="block"
+        document.getElementById("btn-quitter").style.display="none"
     }
     // creation lignes du tableau
     var cell, ligne;
@@ -109,127 +177,87 @@ document.getElementById("table").addEventListener('click', function(e) {
           cell.style.textAlign = "center"
       }
     }
-    if (document.getElementById("id-etape").value=="echange") {
-      document.getElementById("victoire").style.display="none"
-      document.getElementById("defaite").style.display="none"
-      if (document.getElementById("id-jeton").textContent=="Oui") {
+    document.getElementById("victoire").style.display="none"
+    document.getElementById("defaite").style.display="none"
+    if (document.getElementById("id-jeton").value=="Oui") {
         document.getElementById("ALUI").style.display="none"
-      } else {
-
+    } else {
         document.getElementById("AVOUS").style.display="none"
-      }
     }
     //document.getElementById("nb-tour").textContent="1"
     res=document.getElementById("id-sequence").value
-    
-      if (res.length > 0) { 
-      let sequence=res.split(',')  
-      //Affichage des coups joués
-      let nbcoup=sequence.length
-      var marque="O"
-      for (let i = 0;i<nbcoup;i++) {
-          document.getElementById(sequence[i]).textContent=marque
-          if (marque=="X") {
-              document.getElementById(sequence[i]).style.color="red"
-          } else {
-              document.getElementById(sequence[i]).style.color="blue"
-          }
-          if (i>sequence.length -3) {
-              document.getElementById(sequence[i]).style.fontWeight="1000"
-          }
-          if (marque=="O") {
-              marque="X"
-          } else {
-              marque="O"
-          }              
-      }
-      win="Non"
-      if (document.getElementById("id-victoire").value!="Non") {
-          win=document.getElementById("id-victoire").value
-          document.getElementById("victoire").style.display="block"
-          document.getElementById("defaite").style.display="none"
-      }
-      if (document.getElementById("id-defaite").value!="Non") {
-          win=document.getElementById("id-defaite").value
-          document.getElementById("defaite").style.display="block"
-          document.getElementById("victoire").style.display="none"
-      }
-      if (win != "Non") { 
-        if (document.getElementById("id-finpartie").textContent=="Oui") {
-          document.getElementById("btn-rejouer").style.display="block"
-        } else {
-          document.getElementById("btn-manche2").style.display="block"
-          }
-        
-        document.getElementById("ALUI").style.display="none"   
-        document.getElementById("AVOUS").style.display="none"
-        win=win.split(",")
-        for (let i = 0;i<5;i++) {
-            document.getElementById(win[i]).style.backgroundColor="yellow"
+    if (res.length > 0) { 
+        let sequence=res.split(',')  
+        //Affichage des coups joués
+        let nbcoup=sequence.length
+        var marque="O"
+        for (let i = 0;i<nbcoup;i++) {
+            document.getElementById(sequence[i]).textContent=marque
+            if (marque=="X") {
+                document.getElementById(sequence[i]).style.color="red"
+            } else {
+                document.getElementById(sequence[i]).style.color="blue"
+            }
+            if (i>sequence.length -3) {
+                document.getElementById(sequence[i]).style.fontWeight="1000"
+            }
+            if (marque=="O") {
+                marque="X"
+            } else {
+                marque="O"
+            }              
         }
-        //fin de partie
-      }
+        win="Non"
+        if (document.getElementById("id-victoire").value!="Non") {
+            document.getElementById("ALUI").style.display="none"
+            document.getElementById("AVOUS").style.display="none"
+            win=document.getElementById("id-victoire").value
+            document.getElementById("victoire").style.display="block"
+            document.getElementById("defaite").style.display="none"
+        }
+        if (document.getElementById("id-defaite").value!="Non") {
+            win=document.getElementById("id-defaite").value
+            document.getElementById("defaite").style.display="block"
+            document.getElementById("victoire").style.display="none"
+        }
+        if (win != "Non") { 
+            document.getElementById("ALUI").style.display="none"
+            document.getElementById("AVOUS").style.display="none"
+            if (document.getElementById("id-finpartie").textContent=="Oui") {
+                
+            } else {
+                win=win.split(",")
+                for (let i = 0;i<5;i++) {
+                    document.getElementById(win[i]).style.backgroundColor="yellow"
+                }
+                document.getElementById("id-bandeau").style.display="block"
+                
+                const countdownField = document.getElementById("id-bandeau");
+                let count = 1;
+                const interval = setInterval(function() {
+                    countdownField.textContent ="La manche 2 demarre dans ".concat(10-count," s")
+                    if (count >= 10) {
+                        clearInterval(interval);
+                        document.getElementById("id-etape").value="début"
+                        if (document.getElementById("id-begin").textContent==
+                            document.getElementById("id-joueur").value) {
+                            document.getElementById("id-jeton").value="Non"
+                        } else {
+                            document.getElementById("id-jeton").value="Oui"
+                        }
+                        //document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+                        //document.getElementById("id-adversaire").value=document.getElementById("id-adversaire").value
+                        document.getElementById("id-match").value="2"
+                        let scorx1=document.getElementById("id-score1").value
+                        document.getElementById("id-score1").value=document.getElementById("id-score2").value
+                        document.getElementById("id-score2").value=scorx1
+                        document.forms["internet"].submit();
+                    }
+                    count++;
+                }, 1000); // 1000ms = 1 second
+
+
+            }
+        }
     }
-  }
-
-//si 1ere manche préparation 2eme manche
-document.getElementById("btn-manche2").addEventListener('click', function(e) {
-  document.getElementById("id-etape").value="change"
-  for (let j = 0; j < 25; j++) {
-    for (let i = 0; i < 25; i++) {
-      var idx= j+"/"+i
-      let cell=document.getElementById(idx)
-      cell.textContent = ""
-    }
-    document.getElementById("id-sequence").value=""
-  }
-  if (document.getElementById("rolesocket").textContent=="client") {
-    document.getElementById("id-rolesocket").value="client"
-    document.forms["internet"].submit();
-  } else {
-    document.getElementById("id-rolesocket").value="serveur"    
-    document.forms["internet"].submit();
-  }
-})
-
-document.getElementById("btn-rejouer").addEventListener('click', function(e) {
-  document.getElementById("id-etape").value="debut"
-  for (let j = 0; j < 25; j++) {
-    for (let i = 0; i < 25; i++) {
-      var idx= j+"/"+i
-      let cell=document.getElementById(idx)
-      cell.textContent = ""
-    }
-  }
-  if (document.getElementById("rolesocket").textContent=="client") {
-    document.getElementById("id-rolesocket").value="client"
-    document.forms["internet"].submit();
-  } else {
-    document.getElementById("id-rolesocket").value="serveur"    
-    document.forms["internet"].submit();
-  }
-})
-
-document.getElementById("btn-client").addEventListener('click', function(e) {
-  //alert("client")
-  e.preventDefault()
-  document.getElementById("id-etape").value="Connexion"
-  document.getElementById("id-rolesocket").value="client"
-  document.forms["internet"].submit();
-})
-document.getElementById("btn-serveur").addEventListener('click', function(e) {
-  //alert("serveur")
-  e.preventDefault()
-  document.getElementById("id-etape").value="Connexion"
-  document.getElementById("id-rolesocket").value="serveur"
-  document.forms["internet"].submit();
-  })
-
-  // Click du joueur sur le bouton quitter en debut de jeu
-  document.getElementById("btn-quitter").addEventListener('click', function(e) {
-    e.preventDefault()
-    document.getElementById("id-etape").value="deconnexion"
-    document.forms["internet"].submit()
-  })
-
-  
+}
