@@ -89,6 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id-jeton").value="Non"
                 document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
                 document.getElementById("id-adversaire").value=msg[1]
+                document.getElementById("id-match").value=1
+                document.getElementById("score1").value=0
+                document.getElementById("score2").value=0
                 document.forms["internet"].submit();
             } 
         }
@@ -97,6 +100,9 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("id-jeton").value="Oui"
             document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
             document.getElementById("id-adversaire").value=msg[1]
+            document.getElementById("id-match").value=1
+            document.getElementById("score1").value=0
+            document.getElementById("score2").value=0
             document.forms["internet"].submit();
         } 
         if (msg[0]=="tourjeu") {
@@ -225,6 +231,21 @@ function displayGameBoard(){
                     }
                     count++;
                 }, 1000); // 1000ms = 1 second
+
+                document.getElementById("id-etape").value="début"
+                if (document.getElementById("begin")==document.getElementById("joueur")) {
+                    document.getElementById("id-jeton").value="Non"
+                } else {
+                    document.getElementById("id-jeton").value="Oui"
+                }
+                //document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+                //document.getElementById("id-adversaire").value=document.getElementById("id-adversaire").value
+                document.getElementById("id-match").value=2
+                scorx1=document.getElementById("score1").value
+                document.getElementById("score1").value=document.getElementById("score2").value
+                document.getElementById("score2").value=scorx1
+                document.forms["internet"].submit();
+
             }
         }
     }
