@@ -91,12 +91,12 @@ wss.on('connection', (socket) => {
                 });
                 console.log('Client disconnected',pseudo);
                 delete global.connectedUsers[pseudo];
-                //console.log(Object.keys(global.connectedUsers))
+                console.log(Object.keys(global.connectedUsers))
             }           
         })
         let tabusers2=global.tabusers
-        global.tabusers.forEach(pseudo => {
-                let socketx=global.connectedUsers[pseudo]
+        global.tabusers.forEach(pseudox => {
+                let socketx=global.connectedUsers[pseudox]
                 socketx.send("connected,"+tabusers2.join(","))                
         }) 
     });    
