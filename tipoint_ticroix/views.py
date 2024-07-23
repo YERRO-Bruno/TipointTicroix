@@ -70,6 +70,7 @@ def test(request):
                 context["nbtour"]=nbtour(request.session['SEQUENCE'])
                 res = trouve_5(request.POST["coupjoueur"],marque,request.session['GRILLE'])
                 if res != "Non":
+                    print(request.session['GRILLE'][0])
                     request.session['.MATCH']=request.session['MATCH']+1
                     if request.POST['jeton']=="Oui":
                         context['defaite']=res
