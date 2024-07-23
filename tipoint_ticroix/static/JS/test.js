@@ -206,11 +206,11 @@ function displayGameBoard(){
             document.getElementById("defaite").style.display="none"
             if (document.getElementById("id-begin").textContent==
                     document.getElementById("id-joueur").value) {
-                        document.getElementById("id-score1")=
-                            parseInt(document.getElementById("id-score1"))+1
+                        document.getElementById("id-score1").value=
+                            parseInt(document.getElementById("id-score1").value)+1
                     } else {
-                        document.getElementById("id-score2")=
-                        parseInt(document.getElementById("id-score2"))+1 
+                        document.getElementById("id-score2").value=
+                        parseInt(document.getElementById("id-score2").value)+1 
                     }
         }
         if (document.getElementById("id-defaite").value!="Non") {
@@ -219,11 +219,11 @@ function displayGameBoard(){
             document.getElementById("victoire").style.display="none"
             if (document.getElementById("id-begin").textContent==
                     document.getElementById("id-joueur").value) {
-                        document.getElementById("id-score2")=
-                            parseInt(document.getElementById("id-score2"))+1
+                        document.getElementById("id-score2").value=
+                            parseInt(document.getElementById("id-score2").value)+1
                     } else {
-                        document.getElementById("id-score1")=
-                        parseInt(document.getElementById("id-score1"))+1 
+                        document.getElementById("id-score1").value=
+                        parseInt(document.getElementById("id-score1").value)+1 
                     }
         }
         if (win != "Non") { 
