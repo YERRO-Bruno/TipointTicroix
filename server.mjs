@@ -34,7 +34,7 @@ wss.on('connection', (socket) => {
     
     // Événement déclenché lorsqu'un message est reçu du client
     socket.on('message', (message) => {
-        let tabusers=[]
+    //    let tabusers=[]
         console.log('Received: %s', message);
         const msgStr = message.toString();
         let msg=msgStr.split(",")
@@ -44,11 +44,11 @@ wss.on('connection', (socket) => {
         if (msg[0]=='connexion') {
             // Répondre au client-connexion
             console.log(msg[0],msg[1])
-            tabusers.push("connected")
+            //tabusers.push("connected")
             Object.keys(global.connectedUsers).forEach(pseudox => {
-                tabusers.push(pseudox)
+                global.tabusers.push(pseudox)
             });
-            socket.send(tabusers.join(","));
+            socket.send("connected,"+global.tabusers.join(","));
             
         }
         if (msg[0]=='nouveautour') {
@@ -81,13 +81,23 @@ wss.on('connection', (socket) => {
         Object.keys(global.connectedUsers).forEach(pseudo => {
             const socketx = global.connectedUsers[pseudo];
             if (socketx==socket) {
+                i=0
+                global.tabusers.array.forEach(pseudox => {
+                    if (pseudox=pseudo) {
+                        global.tabusers.splice(i,1)
+                    }
+                });
                 console.log('Client disconnected',pseudo);
                 delete global.connectedUsers[pseudo];
                 //console.log(Object.keys(global.connectedUsers))
-            }
-        });
-
-    });
+            }           
+        })
+        tabusers.forEach(pseudo => {
+            const socketx=global.connectedUsers[pseudo]
+            socketx.send("connected,"+global.tabusers.join(","))
+            
+        }) 
+    });    
 
     // Gestion des erreurs WebSocket
     socket.on('error', (error) => {
