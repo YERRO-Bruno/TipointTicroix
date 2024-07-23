@@ -233,7 +233,8 @@ function displayGameBoard(){
                 }, 1000); // 1000ms = 1 second
 
                 document.getElementById("id-etape").value="début"
-                if (document.getElementById("id-begin").textContent==document.getElementById("joueur").value) {
+                if (document.getElementById("id-begin").textContent==
+                    document.getElementById("id-joueur").value) {
                     document.getElementById("id-jeton").value="Non"
                 } else {
                     document.getElementById("id-jeton").value="Oui"
