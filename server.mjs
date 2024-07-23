@@ -83,8 +83,10 @@ wss.on('connection', (socket) => {
         Object.keys(global.connectedUsers).forEach(pseudo => {
             const socketx = global.connectedUsers[pseudo];
             if (socketx==socket) {
+                
                 for (let i=0;i<global.tabusers.length;i++) {
                     if (global.tabusers[i]=pseudo) {
+                        console.log("a supprimer ",global.tabusers[i])
                         global.tabusers.splice(i,1)
                     }
                 };
