@@ -219,7 +219,7 @@ function displayGameBoard(){
                 const countdownField = document.getElementById("id-bandeau");
                 let count = 1;
                 const interval = setInterval(function() {
-                    countdownField.textContent ="La manche 2 demarre dans ".concat(count," s")
+                    countdownField.textContent ="La manche 2 demarre dans ".concat(10-count," s")
                     if (count >= 10) {
                         clearInterval(interval);
                     }
