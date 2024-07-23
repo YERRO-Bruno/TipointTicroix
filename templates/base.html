@@ -127,9 +127,9 @@
             
             ligne="2eme Manche dans ".concat((10-i).toString(),"seconde")
             document.getElementById("id-bandeau").textContent=ligne
-            document.getElementById("id-bandeau").style.display="block"
+            
             alert("delai")
-            timeout = setTimeout(bandeau(), 2000);
+            timeout = setTimeout(document.getElementById("id-bandeau").style.display="block", 2000);
             //document.getElementById("id-bandeau").style.display="none"
         }
         document.getElementById("id-bandeau").style.display="block"
