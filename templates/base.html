@@ -123,13 +123,13 @@
         let alea=Math.floor(Math.random()*10)+1
         let photo="https://ik.imagekit.io/kpvotazbj/photo".concat(alea,".avif")
         //alert(photo)
-        document.getElementById("id_imagekit").src=photo
         for(let i=0;i>10;i++) {
+            document.getElementById("id-bandeau").style.display="block"
+            window.location.reload()
             timeout = setTimeout(bandeau(), 2000);
             document.getElementById("id-bandeau").style.display="none"
-        }
-        function bandeau() {
-            document.getElementById("id-bandeau").style.display="block"
+            window.location.reload()
+
         }
     </script>
     {% block script %}{% endblock %}

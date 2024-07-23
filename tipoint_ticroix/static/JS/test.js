@@ -214,8 +214,11 @@ function displayGameBoard(){
             } else {
                 
                 for(let i=0;i>10;i++) {
+                    document.getElementById("id-bandeau").style.display="block"
+                    window.location.reload()
                     timeout = setTimeout(bandeau(), 2000);
                     document.getElementById("id-bandeau").style.display="none"
+                    window.location.reload()
         
                 }
             }
