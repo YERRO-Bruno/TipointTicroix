@@ -10,10 +10,10 @@ Ti_Point-Ti_Croix
 {%  endblock %}
 {%  load static %}
 {%  block content %}
-<div class="col-3 border border-dark" style="font-family: 'Pacifico', cursive;
+<div class="col-2 border border-dark" style="font-family: 'Pacifico', cursive;
 font-weight: 400;font-style: normal">
     <div id="x-jouer" style="margin-top: 1vh;">
-        <h1 style="text-align: center;margin-left: 5vw">JOUER SUR INTERNET</h1>
+        <p class="text-center" style="font-size: 1vw">JOUER SUR INTERNET</p>
         <h6 class="texterror text-center" style="color: red">{{ errorLogin }}</h6>
         <div style="height: 5vh;"></div>
         <div class="col-2">
@@ -107,10 +107,13 @@ font-weight: 400;font-style: normal">
             Retour à l'accueil
     </button>
 </div>
-<div class="col-7 row justify-content-center" id="id_table">
+<div class="col-8 row justify-content-center" id="id_table">
     <div class="col-1">
     </div>
-    <div class="cadre align-self-midle col-10">    
+    <div class="cadre align-self-midle col-10">
+        <p align="center" style="margin:0"><span id="id-bandeau" align="center"
+            style="font-size:1vw;color: red;font-weight:bolder;margin:0%;background-color:blue;"
+            >MESSAGE</span></p>     
         <table class="m-auto" id="table" style="font-size: 1.8vh;margin-top:0vh">
         </table>
     </div>

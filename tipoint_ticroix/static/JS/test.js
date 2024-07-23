@@ -160,6 +160,7 @@ function displayGameBoard(){
           cell.style.textAlign = "center"
       }
     }
+    document.getElementById("id-bandeau").style.display="none"
     document.getElementById("victoire").style.display="none"
     document.getElementById("defaite").style.display="none"
     if (document.getElementById("id-jeton").value=="Oui") {
