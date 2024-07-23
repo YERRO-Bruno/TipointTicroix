@@ -49,7 +49,6 @@ wss.on('connection', (socket) => {
             Object.keys(global.connectedUsers).forEach(pseudox => {
                 global.tabusers.push(pseudox)
             });
-            socket.send("connected,"+global.tabusers.join(","));
             tabusers.forEach(pseudo => {
                 if (pseudo != msg[1]) {
                     const socketx=global.connectedUsers[pseudo]
