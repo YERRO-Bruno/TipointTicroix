@@ -47,7 +47,7 @@ wss.on('connection', (socket) => {
             console.log(msg[0],msg[1])
             //tabusers.push("connected")
             global.tabusers.push(msg[1])
-            console.Log(global.tabusers)
+            console.log(global.tabusers)
             let tabusers2=global.tabusers
             global.tabusers.forEach(pseudo => {
                     let tabusr=[]
