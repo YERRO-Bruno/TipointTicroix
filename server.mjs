@@ -84,18 +84,18 @@ wss.on('connection', (socket) => {
             const socketx = global.connectedUsers[pseudo];
             if (socketx==socket) {
                 
-                for (let i=0;i<global.tabusers.length;i++) {
-                    if (global.tabusers[i]=pseudo) {
-                        console.log("a supprimer ",global.tabusers[i])
-                        const x= global.tabusers.splice(i,1)
-                        
-                    }
-                };
+                asupprimer=pseudo
                 console.log('Client disconnected',pseudo);
                 delete global.connectedUsers[pseudo];
                 console.log("connectusers",Object.keys(global.connectedUsers))
             }           
         })
+        for (let i=0;i<global.tabusers.length;i++) {
+            if (global.tabusers[i]=asupprimer) {
+                console.log("a supprimer ",global.tabusers[i])
+                const x= global.tabusers.splice(i,1)
+            }
+        };
         console.log("tabusers",global.tabusers)
         let tabusers2=global.tabusers
         global.tabusers.forEach(pseudox => {
