@@ -127,9 +127,9 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('WebSocket error: ', error);
     });
 
-    if (document.getElementById("id-etape").value=="nouveautour") {
+    //if (document.getElementById("id-etape").value=="nouveautour") {
         displayGameBoard()
-    }
+    //}
 })
 
 //Functions
