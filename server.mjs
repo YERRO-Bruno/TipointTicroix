@@ -50,6 +50,13 @@ wss.on('connection', (socket) => {
                 global.tabusers.push(pseudox)
             });
             socket.send("connected,"+global.tabusers.join(","));
+            tabusers.forEach(pseudo => {
+                if (pseudo != msg[1]) {
+                    const socketx=global.connectedUsers[pseudo]
+                    socketx.send("connected,"+global.tabusers.join(","))
+                }
+                
+            }) 
             
         }
         if (msg[0]=='nouveautour') {
