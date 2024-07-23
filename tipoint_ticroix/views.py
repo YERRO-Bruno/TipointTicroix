@@ -63,6 +63,7 @@ def test(request):
                     marque="O"
                 else:
                     marque="X"
+                print("marque",marque)
                 request.session['GRILLE']=majgrille(request.POST["coupjoueur"],marque,request.session['GRILLE'])
                 request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]
                 context['sequence']=','.join(str(i) for i in request.session['SEQUENCE'])    
