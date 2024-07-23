@@ -193,6 +193,8 @@ function displayGameBoard(){
         }
         win="Non"
         if (document.getElementById("id-victoire").value!="Non") {
+            document.getElementById("ALUI").style.display="none"
+            document.getElementById("AVOUS").style.display="none"
             win=document.getElementById("id-victoire").value
             document.getElementById("victoire").style.display="block"
             document.getElementById("defaite").style.display="none"
@@ -203,33 +205,21 @@ function displayGameBoard(){
             document.getElementById("victoire").style.display="none"
         }
         if (win != "Non") { 
-            win=win.split(",")
-            for (let i = 0;i<5;i++) {
-                document.getElementById(win[i]).style.backgroundColor="yellow"
-            }
             document.getElementById("ALUI").style.display="none"
             document.getElementById("AVOUS").style.display="none"
             if (document.getElementById("id-finpartie").textContent=="Oui") {
                 document.getElementById("btn-rejouer").style.display="block"
             } else {
-                
-                for(let i=0;i>10;i++) {
-                    document.getElementById("id-bandeau").style.display="block"
-                    window.location.reload()
-                    timeout = setTimeout(bandeau(), 2000);
-                    document.getElementById("id-bandeau").style.display="none"
-                    window.location.reload()
-        
-                }
+                document.getElementById("btn-manche2").style.display="block"
             }
             
             //document.getElementById("ALUI").style.display="none"   
             //document.getElementById("AVOUS").style.display="none"
+            win=win.split(",")
+            for (let i = 0;i<5;i++) {
+                document.getElementById(win[i]).style.backgroundColor="yellow"
+            }
             //fin de partie
         }
     }
-}
-
-function bandeau() {
-    document.getElementById("id-bandeau").style.display="block"
 }
