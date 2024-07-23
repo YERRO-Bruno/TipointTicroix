@@ -213,19 +213,19 @@ function displayGameBoard(){
                 document.getElementById("btn-rejouer").style.display="block"
             } else {
                 
-                for(let i=0;i>10;i++) {
-                    document.getElementById("id-bandeau").style.display="block"
-                    window.location.reload()
-                    timeout = setTimeout(bandeau(), 2000);
-                    document.getElementById("id-bandeau").style.display="none"
-                    window.location.reload()
+                document.getElementById("id-bandeau").style.display="block"
+                    const countdownField = document.getElementById("id-bandeau");
+                    let count = 1;
+                    const interval = setInterval(function() {
+                        countdownField.textContent = "2eme manche dans ".concat(count," s.");
+                        if (count >= 10) {
+                            clearInterval(interval);
+                        }
+                        count++;
+                    }, 1000); // 1000ms = 1 second
         
                 }
-            }
-            
-            //document.getElementById("ALUI").style.display="none"   
-            //document.getElementById("AVOUS").style.display="none"
-            //fin de partie
+                
         }
     }
 }
