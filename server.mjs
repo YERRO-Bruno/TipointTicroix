@@ -88,7 +88,7 @@ wss.on('connection', (socket) => {
         Object.keys(global.connectedUsers).forEach(pseudo => {
             const socketx = global.connectedUsers[pseudo];
             if (socketx==socket) {
-                i=0
+                let i=0
                 global.tabusers.array.forEach(pseudox => {
                     if (pseudox=pseudo) {
                         global.tabusers.splice(i,1)
