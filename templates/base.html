@@ -124,6 +124,16 @@
         let photo="https://ik.imagekit.io/kpvotazbj/photo".concat(alea,".avif")
         document.getElementById("id-bandeau").style.display="block"
         
+        const countdownField = document.getElementById("id-bandeau");
+        let count = 1;
+        const interval = setInterval(function() {
+            countdownField.textContent = count;
+            if (count >= 10) {
+                clearInterval(interval);
+            }
+            count++;
+        }, 1000); // 1000ms = 1 second
+
     </script>
     {% block script %}{% endblock %}
 </body>
