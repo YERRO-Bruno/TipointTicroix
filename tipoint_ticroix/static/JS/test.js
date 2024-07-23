@@ -90,8 +90,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
                 document.getElementById("id-adversaire").value=msg[1]
                 document.getElementById("id-match").value=1
-                document.getElementById("score1").value=0
-                document.getElementById("score2").value=0
+                document.getElementById("id-score1").value=0
+                document.getElementById("id-score2").value=0
                 document.forms["internet"].submit();
             } 
         }
@@ -101,8 +101,8 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
             document.getElementById("id-adversaire").value=msg[1]
             document.getElementById("id-match").value=1
-            document.getElementById("score1").value=0
-            document.getElementById("score2").value=0
+            document.getElementById("id-score1").value=0
+            document.getElementById("id-score2").value=0
             document.forms["internet"].submit();
         } 
         if (msg[0]=="tourjeu") {
