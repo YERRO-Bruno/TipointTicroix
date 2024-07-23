@@ -52,7 +52,7 @@ def internet(request):
                 context["victoire"]="Non"
                 context["defaite"]="Non"
                 print(context)
-                return render(request, "test.html", context)
+                return render(request, "internet.html", context)
             if request.POST['etape'] =="tourjeu":
                 #tour de jeu
                 print("tourjeu")
@@ -115,11 +115,11 @@ def internet(request):
                 print("seq",context['sequence'])
                 context["etape"]="nouveautour"
                 print(context)
-                return render(request, "test.html", context)
+                return render(request, "internet.html", context)
         else:    
             context["etape"]="connexion"
             request.session['MATCH']=0
-            return render(request, "test.html", context)
+            return render(request, "internet.html", context)
     else:
         context["connexion"]="Non"
         return redirect('/tipointticroix/connect',context)
