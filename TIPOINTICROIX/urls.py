@@ -7,7 +7,6 @@ from django.conf import settings
 urlpatterns = [
     path('tipointticroix/', views.accueil, name='accueil'),
     path('tipointticroix/jeu', views.tipointticroix, name='tipointticroix'),
-    path('tipointticroix/test', views.test, name='test'),
     path('tipointticroix/machines/', views.machines, name='machines'),
     path('tipointticroix/internet/', views.internet, name='internet'),
     path('tipointticroix/preregister/', views.preregister, name='preregister'),
