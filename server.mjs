@@ -87,7 +87,7 @@ wss.on('connection', (socket) => {
                 for (let i=0;i<global.tabusers.length;i++) {
                     if (global.tabusers[i]=pseudo) {
                         console.log("a supprimer ",global.tabusers[i])
-                        delete global.tabusers.splice[i]
+                        delete global.tabusers[i]
                     }
                 };
                 console.log('Client disconnected',pseudo);
