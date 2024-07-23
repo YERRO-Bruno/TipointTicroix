@@ -47,17 +47,19 @@ wss.on('connection', (socket) => {
             console.log(msg[0],msg[1])
             //tabusers.push("connected")
             global.tabusers.push(msg[1])
+            console.timeLog(global.tabusers)
+            let tabusers2=global.tabusers
             const socketx=""
             global.tabusers.forEach(pseudo => {
                     let tabusr=[]
                     socketx=global.connectedUsers[pseudo]
-                })            
-            global.tabusers.forEach(pseudox=> {
-                if (pseudox!=msg[1]) {
-                    tabusr.push(pseudox)
-                }
-            })
-            socketx.send("connected,"+tabusr.join(","))                
+                    tabusers2.forEach(pseudox=> {
+                        if (pseudox!=pseudo) {
+                            tabusr.push(pseudox)
+                        }
+                    })
+                    socketx.send("connected,"+tabusr.join(","))                
+            })            
         }
         if (msg[0]=='nouveautour') {
             console.log(msg[0],msg[1])
