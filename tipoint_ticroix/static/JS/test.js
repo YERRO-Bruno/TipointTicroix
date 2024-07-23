@@ -245,25 +245,25 @@ function displayGameBoard(){
                     countdownField.textContent ="La manche 2 demarre dans ".concat(10-count," s")
                     if (count >= 10) {
                         clearInterval(interval);
+                        document.getElementById("id-etape").value="début"
+                        if (document.getElementById("id-begin").textContent==
+                            document.getElementById("id-joueur").value) {
+                            document.getElementById("id-jeton").value="Non"
+                        } else {
+                            document.getElementById("id-jeton").value="Oui"
+                        }
+                        //document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+                        //document.getElementById("id-adversaire").value=document.getElementById("id-adversaire").value
+                        document.getElementById("id-match").value="2"
+                        scorx1=document.getElementById("id-score1").value
+                        document.getElementById("id-score1").value=document.getElementById("id-score2").value
+                        document.getElementById("id-score2").value=scorx1
+                        alert("avant submit")
+                        document.forms["internet"].submit();
                     }
                     count++;
                 }, 1000); // 1000ms = 1 second
 
-                document.getElementById("id-etape").value="début"
-                if (document.getElementById("id-begin").textContent==
-                    document.getElementById("id-joueur").value) {
-                    document.getElementById("id-jeton").value="Non"
-                } else {
-                    document.getElementById("id-jeton").value="Oui"
-                }
-                //document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
-                //document.getElementById("id-adversaire").value=document.getElementById("id-adversaire").value
-                document.getElementById("id-match").value="2"
-                scorx1=document.getElementById("id-score1").value
-                document.getElementById("id-score1").value=document.getElementById("id-score2").value
-                document.getElementById("id-score2").value=scorx1
-                alert("avant submit")
-                document.forms["internet"].submit();
 
             }
         }
