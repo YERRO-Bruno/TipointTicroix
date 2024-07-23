@@ -127,6 +127,7 @@
         for(let i=0;i>10;i++) {
             ligne="2eme Manche dans " + toString(10-i) + "seconde"
             document.getElementById("id-bandeau").textContent=ligne
+            window.location.reload()
             timeout = setTimeout(bandeau(), 2000);
         }
     </script>
