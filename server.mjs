@@ -79,6 +79,7 @@ wss.on('connection', (socket) => {
     });
 
     // Événement déclenché lorsque la connexion WebSocket est fermée
+    let asupprimer=""
     socket.on('close', () => {
         Object.keys(global.connectedUsers).forEach(pseudo => {
             const socketx = global.connectedUsers[pseudo];
