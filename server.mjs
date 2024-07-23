@@ -88,7 +88,7 @@ wss.on('connection', (socket) => {
             const socketx = global.connectedUsers[pseudo];
             if (socketx==socket) {
                 let i=0
-                global.tabusers.array.forEach(pseudox => {
+                global.tabusers.forEach(pseudox => {
                     if (pseudox=pseudo) {
                         global.tabusers.splice(i,1)
                     }
