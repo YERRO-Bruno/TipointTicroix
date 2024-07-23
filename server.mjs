@@ -50,14 +50,8 @@ wss.on('connection', (socket) => {
             console.log(global.tabusers)
             let tabusers2=global.tabusers
             global.tabusers.forEach(pseudo => {
-                    let tabusr=[]
                     let socketx=global.connectedUsers[pseudo]
-                    tabusers2.forEach(pseudox=> {
-                        if (pseudox!=pseudo) {
-                            tabusr.push(pseudox)
-                        }
-                    })
-                    socketx.send("connected,"+tabusr.join(","))                
+                    socketx.send("connected,"+tabusers2.join(","))                
             })            
         }
         if (msg[0]=='nouveautour') {
@@ -100,16 +94,11 @@ wss.on('connection', (socket) => {
                 //console.log(Object.keys(global.connectedUsers))
             }           
         })
+        let tabusers2=global.tabusers
         global.tabusers.forEach(pseudo => {
-            let tabusr=[]
-            const socketx=global.connectedUsers[pseudo]
-            global.tabusers.forEach(pseudox=> {
-                if (pseudo!=pseudox) {
-                    tabusr.push(pseudox)
-                }
-            })
-            socketx.send("connected,"+tabusr.join(","))                
-    })            
+                let socketx=global.connectedUsers[pseudo]
+                socketx.send("connected,"+tabusers2.join(","))                
+        }) 
     });    
 
     // Gestion des erreurs WebSocket
