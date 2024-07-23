@@ -242,7 +242,7 @@ function displayGameBoard(){
                 //document.getElementById("id-adversaire").value=document.getElementById("id-adversaire").value
                 document.getElementById("id-match").value=2
                 scorx1=document.getElementById("id-score1").value
-                document.getElementById("id-score1").value=document.getElementById("score2").value
+                document.getElementById("id-score1").value=document.getElementById("id-score2").value
                 document.getElementById("id-score2").value=scorx1
                 document.forms["internet"].submit();
 
