@@ -49,10 +49,9 @@ wss.on('connection', (socket) => {
             global.tabusers.push(msg[1])
             console.timeLog(global.tabusers)
             let tabusers2=global.tabusers
-            const socketx=""
             global.tabusers.forEach(pseudo => {
                     let tabusr=[]
-                    socketx=global.connectedUsers[pseudo]
+                    let socketx=global.connectedUsers[pseudo]
                     tabusers2.forEach(pseudox=> {
                         if (pseudox!=pseudo) {
                             tabusr.push(pseudox)
