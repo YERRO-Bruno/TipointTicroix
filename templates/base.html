@@ -122,14 +122,15 @@
     <script>
         let alea=Math.floor(Math.random()*10)+1
         let photo="https://ik.imagekit.io/kpvotazbj/photo".concat(alea,".avif")
+        document.getElementById("id-bandeau").style.display="block"
         for (let i=0;i<10;i++) {
             
             ligne="2eme Manche dans ".concat((10-i).toString(),"seconde")
             document.getElementById("id-bandeau").textContent=ligne
-            timeout = setTimeout(document.getElementById("id-bandeau").style.display="block", 3000);
+            timeout = setTimeout(bandeau(), 3000);
             //document.getElementById("id-bandeau").style.display="none"
         }
-        document.getElementById("id-bandeau").style.display="block"
+        function bandeau() {}
     </script>
     {% block script %}{% endblock %}
 </body>
