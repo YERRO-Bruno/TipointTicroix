@@ -205,26 +205,28 @@ function displayGameBoard(){
             document.getElementById("victoire").style.display="block"
             document.getElementById("defaite").style.display="none"
             if (document.getElementById("id-begin").textContent==
-                    document.getElementById("id-joueur").value) {
-                        document.getElementById("id-score1").value=
-                            parseInt(document.getElementById("id-score1").value)+1
-                    } else {
-                        document.getElementById("id-score2").value=
-                        parseInt(document.getElementById("id-score2").value)+1 
-                    }
+                document.getElementById("id-joueur").value) {
+                    document.getElementById("id-score1").value=
+                        parseInt(document.getElementById("id-score1").value)+1
+                } else {
+                    document.getElementById("id-score2").value=
+                    parseInt(document.getElementById("id-score2").value)+1 
+                }
+                alert(document.getElementById("id-score1").value,document.getElementById("id-score2").value)
         }
         if (document.getElementById("id-defaite").value!="Non") {
             win=document.getElementById("id-defaite").value
             document.getElementById("defaite").style.display="block"
             document.getElementById("victoire").style.display="none"
             if (document.getElementById("id-begin").textContent==
-                    document.getElementById("id-joueur").value) {
-                        document.getElementById("id-score2").value=
-                            parseInt(document.getElementById("id-score2").value)+1
-                    } else {
-                        document.getElementById("id-score1").value=
-                        parseInt(document.getElementById("id-score1").value)+1 
-                    }
+                document.getElementById("id-joueur").value) {
+                    document.getElementById("id-score2").value=
+                        parseInt(document.getElementById("id-score2").value)+1
+                } else {
+                    document.getElementById("id-score1").value=
+                    parseInt(document.getElementById("id-score1").value)+1 
+                }
+                alert(document.getElementById("id-score1").value,document.getElementById("id-score2").value)
         }
         if (win != "Non") { 
             document.getElementById("ALUI").style.display="none"
@@ -254,7 +256,6 @@ function displayGameBoard(){
                         //document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
                         //document.getElementById("id-adversaire").value=document.getElementById("id-adversaire").value
                         document.getElementById("id-match").value="2"
-                        alert(document.getElementById("id-score1").value,document.getElementById("id-score2").value)
                         scorx1=document.getElementById("id-score1").value
                         document.getElementById("id-score1").value=document.getElementById("id-score2").value
                         document.getElementById("id-score2").value=scorx1
