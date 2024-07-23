@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("x-board").style.display="none"
+    document.getElementById("id-bandeau").style.display="none"
     //pseudox=document.getElementById("id-connec").textContent
     const userconnecteds=document.getElementById("id_userconnecteds")
     let msg=[]
@@ -160,7 +161,6 @@ function displayGameBoard(){
           cell.style.textAlign = "center"
       }
     }
-    document.getElementById("id-bandeau").style.display="none"
     document.getElementById("victoire").style.display="none"
     document.getElementById("defaite").style.display="none"
     if (document.getElementById("id-jeton").value=="Oui") {
