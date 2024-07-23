@@ -204,11 +204,27 @@ function displayGameBoard(){
             win=document.getElementById("id-victoire").value
             document.getElementById("victoire").style.display="block"
             document.getElementById("defaite").style.display="none"
+            if (document.getElementById("id-begin").textContent==
+                    document.getElementById("id-joueur").value) {
+                        document.getElementById("id-score1")=
+                            parseInt(document.getElementById("id-score1"))+1
+                    } else {
+                        document.getElementById("id-score2")=
+                        parseInt(document.getElementById("id-score2"))+1 
+                    }
         }
         if (document.getElementById("id-defaite").value!="Non") {
             win=document.getElementById("id-defaite").value
             document.getElementById("defaite").style.display="block"
             document.getElementById("victoire").style.display="none"
+            if (document.getElementById("id-begin").textContent==
+                    document.getElementById("id-joueur").value) {
+                        document.getElementById("id-score2")=
+                            parseInt(document.getElementById("id-score2"))+1
+                    } else {
+                        document.getElementById("id-score1")=
+                        parseInt(document.getElementById("id-score1"))+1 
+                    }
         }
         if (win != "Non") { 
             document.getElementById("ALUI").style.display="none"
