@@ -96,6 +96,7 @@ wss.on('connection', (socket) => {
         })
         let tabusers2=global.tabusers
         global.tabusers.forEach(pseudox => {
+                console.log("pseud",pseudox)
                 let socketx=global.connectedUsers[pseudox]
                 socketx.send("connected,"+tabusers2.join(","))                
         }) 
