@@ -11,8 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault()
         invite=e.target.id
         message="invite,"+document.getElementById("id-connec").textContent+","+e.target.id
-        socket.send(message)
-        
+        socket.send(message)  
+    })
+
+    document.getElementById("btn-quitter").addEventListener('click', function(e) {
+        e.preventDefault()
+        document.location.href='/tipointticroix'        
     })
 
     // Click du joueur sur une des cases
@@ -138,6 +142,7 @@ function displayGameBoard(){
     if (document.getElementById("id-etape").value=="nouveautour") {
         document.getElementById("x-jouer").style.display="none"
         document.getElementById("x-board").style.display="block"
+        document.getElementById("btn-quitter").style.display="none"
     }
     // creation lignes du tableau
     var cell, ligne;
