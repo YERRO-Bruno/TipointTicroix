@@ -135,9 +135,10 @@ document.addEventListener("DOMContentLoaded", function () {
 //Functions
 //Affichage de la grille
 function displayGameBoard(){
-    document.getElementById("x-jouer").style.display="none"
-    document.getElementById("x-board").style.display="block"
-    
+    if (document.getElementById("id-etape").value=="nouveautour") {
+        document.getElementById("x-jouer").style.display="none"
+        document.getElementById("x-board").style.display="block"
+    }
     // creation lignes du tableau
     var cell, ligne;
     var tableau = document.getElementById("table");
