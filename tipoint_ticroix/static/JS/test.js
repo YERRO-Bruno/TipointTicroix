@@ -207,28 +207,24 @@ function displayGameBoard(){
             document.getElementById("ALUI").style.display="none"
             document.getElementById("AVOUS").style.display="none"
             if (document.getElementById("id-finpartie").textContent=="Oui") {
-                document.getElementById("btn-rejouer").style.display="block"
+                
             } else {
-                document.getElementById("btn-manche2").style.display="block"
-            }
-            
-            //document.getElementById("ALUI").style.display="none"   
-            //document.getElementById("AVOUS").style.display="none"
-            win=win.split(",")
-            for (let i = 0;i<5;i++) {
-                document.getElementById(win[i]).style.backgroundColor="yellow"
-            }
-            document.getElementById("id-bandeau").style.display="block"
-        
-            const countdownField = document.getElementById("id-bandeau");
-            let count = 1;
-            const interval = setInterval(function() {
-                countdownField.textContent ="La manche 2 demarre dans ".concat(count," s")
-                if (count >= 10) {
-                    clearInterval(interval);
+                win=win.split(",")
+                for (let i = 0;i<5;i++) {
+                    document.getElementById(win[i]).style.backgroundColor="yellow"
                 }
-                count++;
-            }, 1000); // 1000ms = 1 second
+                document.getElementById("id-bandeau").style.display="block"
+                
+                const countdownField = document.getElementById("id-bandeau");
+                let count = 1;
+                const interval = setInterval(function() {
+                    countdownField.textContent ="La manche 2 demarre dans ".concat(count," s")
+                    if (count >= 10) {
+                        clearInterval(interval);
+                    }
+                    count++;
+                }, 1000); // 1000ms = 1 second
+            }
         }
     }
 }
