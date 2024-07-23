@@ -78,12 +78,12 @@ document.addEventListener("DOMContentLoaded", function () {
         msg=event.data.split(",")
         if (msg[0]=="connected") {
             for (let i = 1; i < msg.length; i++) {
-                const li=document.createElement("li")
-                li.textContent=msg[i]
-                li.id=msg[i]
-                li.class="joueur"
-                li.href='action'
                 if (msg[i]!=document.getElementById("id-connec").textContent) {
+                    const li=document.createElement("li")
+                    li.textContent=msg[i]
+                    li.id=msg[i]
+                    li.class="joueur"
+                    li.href='action'
                     li.style.color='blue'
                     li.style.fontWeight='1000'
                     userconnecteds.appendChild(li)
