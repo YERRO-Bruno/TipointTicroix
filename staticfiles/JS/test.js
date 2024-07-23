@@ -56,7 +56,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             }
         } else {
-            alert("la partie est terminée!")
+            if (document.getElementById("nb-tour").textContent="0") {
+                alert("Choisissez votre adversaire!")
+            } else {
+                alert("partie terminée !")
+              }
         }
     })
 
