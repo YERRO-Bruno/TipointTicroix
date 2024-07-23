@@ -60,9 +60,16 @@ def test(request):
                 context["victoire"]="Non"
                 context["defaite"]="Non"
                 if request.session['BEGIN']==request.POST['joueur']:
-                    marque="O"
+                    if request.POST['jeton']=="Oui":
+                        marque="O"
+                    else:
+                        marque="X"
                 else:
-                    marque="X"
+                    if request.POST['jeton']=="Oui":
+                        marque="X"
+                    else:
+                        marque="O"
+
                 print("marque",marque)
                 request.session['GRILLE']=majgrille(request.POST["coupjoueur"],marque,request.session['GRILLE'])
                 request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]
