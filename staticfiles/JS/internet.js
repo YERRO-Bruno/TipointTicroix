@@ -247,6 +247,7 @@ function displayGameBoard(){
                             msgfin="defaite : 0-2"
                         }
                     }
+                    document.getElementById("id-bandeau").style.display="block"
                     count = 1;
                     const interval = setInterval(function() {
                         countdownField.textContent =msgfin.concat(". Retour au lobby dans ",10-count," s")
