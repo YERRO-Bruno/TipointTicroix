@@ -77,6 +77,11 @@ document.addEventListener("DOMContentLoaded", function () {
         //alert('Message from server: ' + event.data);
         msg=event.data.split(",")
         if (msg[0]=="connected") {
+
+            while (userconnecteds.firstChild) {
+                myNode.removeChild(myNode.lastChild);
+            }
+
             for (let i = 1; i < msg.length; i++) {
                 if (msg[i]!=document.getElementById("id-connec").textContent) {
                     const li=document.createElement("li")
