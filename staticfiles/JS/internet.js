@@ -229,6 +229,7 @@ function displayGameBoard(){
             document.getElementById("AVOUS").style.display="none"
             const countdownField = document.getElementById("id-bandeau");
             let count = 0;
+            let msgfin=""
             if (document.getElementById("id-finpartie").textContent=="Oui") {
                 if (document.getElementById("id-victoire").value!="Non") {
                     if (document.getElementById("id-score1").value=
