@@ -23,13 +23,11 @@ def internet(request):
                 request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
                 print("début",request.POST['jeton'],request.POST['joueur'])
                 if request.POST["jeton"]=="Oui":
-                    print("jetonoui")
                     request.session['PREMIER']=request.POST['joueur']
                     request.session['SECOND']=request.POST['adversaire']
                     context['joueur']=request.session['PREMIER']
                     context['adversaire']=request.session['SECOND']
                 if request.POST["jeton"]=="Non":
-                    print("jetonnon")
                     request.session['PREMIER']=request.POST['adversaire']
                     request.session['SECOND']=request.POST['joueur']
                     context['joueur']=request.session['SECOND']
@@ -69,15 +67,12 @@ def internet(request):
                         marque="X"
                     else:
                         marque="O"
-
-                print("marque",marque)
                 request.session['GRILLE']=majgrille(request.POST["coupjoueur"],marque,request.session['GRILLE'])
                 request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]
                 context['sequence']=','.join(str(i) for i in request.session['SEQUENCE'])    
                 context["nbtour"]=nbtour(request.session['SEQUENCE'])
                 res = trouve_5(request.POST["coupjoueur"],marque,request.session['GRILLE'])
                 if res != "Non":
-                    print(request.session['GRILLE'][0])
                     request.session['.MATCH']=request.session['MATCH']+1
                     if request.POST['jeton']=="Oui":
                         context['defaite']=res
@@ -97,7 +92,7 @@ def internet(request):
                         else:
                             request.session['SCORE2']=request.session['SCORE2']+1
                             context['score2']=request.session['SCORE2']
-                    if request.session['MATCH']>2:
+                    if request.session['MATCH']==2:
                         context['finpartie']="Oui"
                     
                 if request.POST['jeton']=="Oui":
@@ -112,7 +107,6 @@ def internet(request):
                 context["second"]=request.session['SECOND']
                 context["score1"]=request.session['SCORE1']
                 context["score2"]=request.session['SCORE2']
-                print("seq",context['sequence'])
                 context["etape"]="nouveautour"
                 print(context)
                 return render(request, "internet.html", context)
