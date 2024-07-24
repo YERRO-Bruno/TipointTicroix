@@ -77,7 +77,7 @@ def internet(request):
                     if request.POST['jeton']=="Oui":
                         context['defaite']=res
                         context['victoire']="Non"
-                        if request.session['BEGIN']==request.POST['joueur']:
+                        if request.session['PREMIER']==request.POST['joueur']:
                             request.session['SCORE2']=request.session['SCORE2']+1
                             context['score2']=request.session['SCORE2']
                         else:
@@ -86,6 +86,12 @@ def internet(request):
                     else:
                         context['defaite']="Non"
                         context['victoire']=res
+                        if request.session['PREMIER']==request.POST['joueur']:
+                            request.session['SCORE1']=request.session['SCORE1']+1
+                            context['score1']=request.session['SCORE1']
+                        else:
+                            request.session['SCORE2']=request.session['SCORE2']+1
+                            context['score2']=request.session['SCORE2']
                     if request.session['MATCH']==2:
                         context['finpartie']="Oui"
                     
