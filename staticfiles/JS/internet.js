@@ -242,10 +242,10 @@ function displayGameBoard(){
                     if (document.getElementById("id-score1").value=
                         document.getElementById("id-score2").value) {
                             alert("match nul : 1-1")
-                            document.location.href='/tipointticroix/internet'
+                            //document.location.href='/tipointticroix/internet'
                         } else {
                             alert("defaite : 0-2")
-                            document.location.href='/tipointticroix/internet'
+                            //document.location.href='/tipointticroix/internet'
                         }
                 }
             } else {
