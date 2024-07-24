@@ -232,19 +232,19 @@ function displayGameBoard(){
             let msgfin=""
             if (document.getElementById("id-finpartie").textContent=="Oui") {
                 if (document.getElementById("id-victoire").value!="Non") {
-                    if (document.getElementById("id-score1").value=
-                        document.getElementById("id-score2").value) {
-                            msgfin="match nul : 1-1"
+                    if (document.getElementById("lscore1").textContent=
+                        document.getElementById("lscore2").textContent) {
+                            msgfin="match nul : 1-1. Retour au lobby dans "
                         } else {
-                            msgfin="victoire : 2-0"
+                            msgfin="victoire : 2-0. Retour au lobby dans "
                         }
                 }
                 if (document.getElementById("id-defaite").value!="Non") {
-                        if (document.getElementById("id-score1").value=
-                        document.getElementById("id-score2").value) {
-                            msgfin="match nul : 1-1"
+                    if (document.getElementById("lscore1").textContent=
+                        document.getElementById("lscore2").textContent) {
+                            msgfin="match nul : 1-1. Retour au lobby dans "
                         } else {
-                            msgfin="defaite : 0-2"
+                            msgfin="defaite : 0-2. Retour au lobby dans "
                         }
                 }                
             } else {
@@ -274,9 +274,9 @@ function displayGameBoard(){
                         //document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
                         //document.getElementById("id-adversaire").value=document.getElementById("id-adversaire").value
                         document.getElementById("id-match").value="2"
-                        let scorx1=document.getElementById("id-score1").value
-                        document.getElementById("id-score1").value=document.getElementById("id-score2").value
-                        document.getElementById("id-score2").value=scorx1
+                        //let scorx1=document.getElementById("id-score1").value
+                        //document.getElementById("id-score1").value=document.getElementById("id-score2").value
+                        //document.getElementById("id-score2").value=scorx1
                         document.forms["internet"].submit();
                     }
                 }
