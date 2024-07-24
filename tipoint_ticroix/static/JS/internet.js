@@ -246,32 +246,24 @@ function displayGameBoard(){
                         } else {
                             msgfin="defaite : 0-2"
                         }
-                }
-                countdownField.style.display="block"
-                count = 1;
-                alert("o")
-                interval = setInterval(function() {
-                    alert('1')
-                    document.getElementById("id-bandeau").textContent=msgfin
-                    alert('2')
-                    if (count >= 10) {
-                        clearInterval(interval);
-                    }
-                    count++;
-                }, 1000);
-                document.location.href='/tipointticroix/internet'
+                }                
             } else {
                 win=win.split(",")
                 for (let i = 0;i<5;i++) {
                     document.getElementById(win[i]).style.backgroundColor="yellow"
                 }
                 document.getElementById("id-bandeau").style.display="block"
-                
+                msgfin="La manche 2 demarre dans "
                 count = 1;
-                const interval = setInterval(function() {
-                    countdownField.textContent ="La manche 2 demarre dans ".concat(10-count," s")
-                    if (count >= 10) {
-                        clearInterval(interval);
+            }
+            countdownField.style.display="block"
+            let interval = setInterval(function() {
+                countdownField.textContent =msgfin.concat(10-count," s")
+                if (count >= 10) {
+                    clearInterval(interval);
+                    if (document.getElementById("id-finpartie").textContent=="Oui") {
+                        document.location.href='/tipointticroix/internet'
+                    } else {
                         document.getElementById("id-etape").value="début"
                         if (document.getElementById("id-begin").textContent==
                             document.getElementById("id-joueur").value) {
@@ -287,11 +279,9 @@ function displayGameBoard(){
                         document.getElementById("id-score2").value=scorx1
                         document.forms["internet"].submit();
                     }
-                    count++;
-                }, 1000);
-
-
-            }
+                }
+                count++;
+            }, 1000);       
         }
     }
 }
