@@ -250,7 +250,7 @@ function displayGameBoard(){
                     countdownField.style.display="block"
                     count = 1;
                     const interval2 = setInterval(function() {
-                        countdownField.textContent =msgfin.concat("Retour au lobbt dans ",10-count," s")
+                        document.getElementById("id-bandeau").textContent=msgfin
                         if (count >= 10) {
                             clearInterval(interval2);
                         }
