@@ -232,7 +232,7 @@ function displayGameBoard(){
             let msgfin=""
             if (document.getElementById("id-finpartie").textContent=="Oui") {
                 if (document.getElementById("id-victoire").value!="Non") {
-                    if (document.getElementById("lscore1").textContent=
+                    if (document.getElementById("lscore1").textContent==
                         document.getElementById("lscore2").textContent) {
                             msgfin="match nul : 1-1. Retour au lobby dans "
                         } else {
@@ -240,7 +240,7 @@ function displayGameBoard(){
                         }
                 }
                 if (document.getElementById("id-defaite").value!="Non") {
-                    if (document.getElementById("lscore1").textContent=
+                    if (document.getElementById("lscore1").textContent==
                         document.getElementById("lscore2").textContent) {
                             msgfin="match nul : 1-1. Retour au lobby dans "
                         } else {
