@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (msg[0]=="connected") {
 
             while (userconnecteds.firstChild) {
-                myNode.removeChild(myNode.lastChild);
+                userconnecteds.removeChild(myNode.lastChild);
             }
 
             for (let i = 1; i < msg.length; i++) {
