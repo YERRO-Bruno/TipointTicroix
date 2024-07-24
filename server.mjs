@@ -28,7 +28,7 @@ const wss = new WebSocketServer({ server: httpsServer });
 let pseudo=""
 let hote=""
 let invité=""
-global.tabusers=[]
+global.lobbyusers=[]
 global.connectedUsers={}
 wss.on('connection', (socket) => {
     //console.log('Client connected');    
@@ -46,12 +46,11 @@ wss.on('connection', (socket) => {
             // Répondre au client-connexion
             console.log(msg[0],msg[1])
             //tabusers.push("connected")
-            global.tabusers.push(msg[1])
-            console.log(global.tabusers)
-            let tabusers2=global.tabusers
-            global.tabusers.forEach(pseudo => {
-                    let socketx=global.connectedUsers[pseudo]
-                    socketx.send("connected,"+tabusers2.join(","))                
+            global.lobbyusers[msg[1]]=socket
+            let tabusers=Object.keys(global.lobbyUsers)
+            tabusers.forEach(pseudox => {
+                    let socketx=global.lobbyUsers[pseudox]
+                    socketx.send("connected,"+tabusers.join(","))                
             })            
         }
         if (msg[0]=='nouveautour') {
@@ -85,11 +84,15 @@ wss.on('connection', (socket) => {
         Object.keys(global.connectedUsers).forEach(pseudo => {
             const socketx = global.connectedUsers[pseudo];
             if (socketx==socket) {
-                
-                asupprimer=pseudo
                 console.log('Client disconnected',pseudo);
                 delete global.connectedUsers[pseudo];
-                console.log("connectusers",Object.keys(global.connectedUsers))
+            }           
+        })
+        Object.keys(global.lobbyUsers).forEach(pseudo => {
+            const socketx = global.lobbyUsers[pseudo];
+            if (socketx==socket) {
+                console.log('lobby disconnected',pseudo);
+                delete global.lobbyUsers[pseudo];
             }           
         })
         for (let i=0;i<global.tabusers.length;i++) {
@@ -98,13 +101,12 @@ wss.on('connection', (socket) => {
                 const x= global.tabusers.splice(i,1)
             }
         };
-        console.log("tabusers",global.tabusers)
-        let tabusers2=global.tabusers
-        global.tabusers.forEach(pseudox => {
-                console.log("pseud",pseudox)
-                let socketx=global.connectedUsers[pseudox]
-                socketx.send("connected,"+tabusers2.join(","))                
-        }) 
+        let tabusers=Object.keys(global.lobbyUsers)
+        console.log("tabusers",tabusers)
+            tabusers.forEach(pseudox => {
+                    let socketx=global.lobbyUsers[pseudox]
+                    socketx.send("connected,"+tabusers.join(","))                
+            })
     });    
 
     // Gestion des erreurs WebSocket
