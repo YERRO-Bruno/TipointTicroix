@@ -46,7 +46,7 @@ wss.on('connection', (socket) => {
             // Répondre au client-connexion
             console.log(msg[0],msg[1])
             //tabusers.push("connected")
-            global.lobbyusers[msg[1]]=socket
+            global.lobbyUsers[msg[1]]=socket
             let tabusers=Object.keys(global.lobbyUsers)
             tabusers.forEach(pseudox => {
                     let socketx=global.lobbyUsers[pseudox]
