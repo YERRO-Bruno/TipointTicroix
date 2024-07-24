@@ -247,12 +247,26 @@ function displayGameBoard(){
                             msgfin="defaite : 0-2"
                         }
                     }
-                    document.getElementById("id-bandeau").style.display="block"
+                    countdownField.style.display="block"
                     count = 1;
                     const interval = setInterval(function() {
-                        countdownField.textContent =msgfin.concat(". Retour au lobby dans ",10-count," s")
+                        countdownField.textContent ="La manche 2 demarre dans ".concat(10-count," s")
                         if (count >= 10) {
                             clearInterval(interval);
+                            document.getElementById("id-etape").value="début"
+                            if (document.getElementById("id-begin").textContent==
+                                document.getElementById("id-joueur").value) {
+                                document.getElementById("id-jeton").value="Non"
+                            } else {
+                                document.getElementById("id-jeton").value="Oui"
+                            }
+                            //document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+                            //document.getElementById("id-adversaire").value=document.getElementById("id-adversaire").value
+                            document.getElementById("id-match").value="2"
+                            let scorx1=document.getElementById("id-score1").value
+                            document.getElementById("id-score1").value=document.getElementById("id-score2").value
+                            document.getElementById("id-score2").value=scorx1
+                            document.forms["internet"].submit();
                         }
                         count++;
                     }, 1000);
