@@ -238,24 +238,27 @@ function displayGameBoard(){
                         } else {
                             msgfin="victoire : 2-0"
                         }
-                    }
-                    if (document.getElementById("id-defaite").value!="Non") {
+                }
+                if (document.getElementById("id-defaite").value!="Non") {
                         if (document.getElementById("id-score1").value=
                         document.getElementById("id-score2").value) {
                             msgfin="match nul : 1-1"
                         } else {
                             msgfin="defaite : 0-2"
                         }
+                }
+                countdownField.style.display="block"
+                count = 1;
+                alert("o")
+                const interval2 = setInterval(function() {
+                    alert('1')
+                    document.getElementById("id-bandeau").textContent=msgfin
+                    alert('2')
+                    if (count >= 10) {
+                        clearInterval(interval2);
                     }
-                    countdownField.style.display="block"
-                    count = 1;
-                    const interval2 = setInterval(function() {
-                        document.getElementById("id-bandeau").textContent=msgfin
-                        if (count >= 10) {
-                            clearInterval(interval2);
-                        }
-                        count++;
-                    }, 1000);
+                    count++;
+                }, 1000);
                 document.location.href='/tipointticroix/internet'
             } else {
                 win=win.split(",")
