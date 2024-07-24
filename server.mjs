@@ -28,7 +28,7 @@ const wss = new WebSocketServer({ server: httpsServer });
 let pseudo=""
 let hote=""
 let invité=""
-global.lobbyusers=[]
+global.lobbyusers={}
 global.connectedUsers={}
 wss.on('connection', (socket) => {
     //console.log('Client connected');    
