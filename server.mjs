@@ -28,7 +28,7 @@ const wss = new WebSocketServer({ server: httpsServer });
 let pseudo=""
 let hote=""
 let invité=""
-global.lobbyusers={}
+global.lobbyUsers={}
 global.connectedUsers={}
 wss.on('connection', (socket) => {
     //console.log('Client connected');    
@@ -95,12 +95,6 @@ wss.on('connection', (socket) => {
                 delete global.lobbyUsers[pseudo];
             }           
         })
-        for (let i=0;i<global.tabusers.length;i++) {
-            if (global.tabusers[i]=asupprimer) {
-                console.log("a supprimer ",global.tabusers[i])
-                const x= global.tabusers.splice(i,1)
-            }
-        };
         let tabusers=Object.keys(global.lobbyUsers)
         console.log("tabusers",tabusers)
             tabusers.forEach(pseudox => {
