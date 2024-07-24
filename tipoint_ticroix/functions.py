@@ -1,4 +1,3 @@
-from django.conf import settings
 from .models import User
 import random
 from django.contrib.auth import authenticate
@@ -17,15 +16,15 @@ def nomniveau(niv):
         return("expert")
 
 #coup ordinateur
-def coupordi(marque):
-    if settings.NIVEAU==1:
-        return(coupordi1(marque))
-    if settings.NIVEAU==2:
-        return(coupordi2(marque))
-    if settings.NIVEAU==3:
-        return(coupordi3(marque))
-    if settings.NIVEAU==4:
-        return(coupordi4(marque))
+def coupordi(marque,NIVEAU,TOUR,SEQUENCE,GRILLE):
+    if NIVEAU==1:
+        return(coupordi1(marque,SEQUENCE,GRILLE))
+    if NIVEAU==2:
+        return(coupordi2(marque,SEQUENCE,GRILLE))
+    if NIVEAU==3:
+        return(coupordi3(marque,SEQUENCE,GRILLE))
+    if NIVEAU==4:
+        return(coupordi4(marque,SEQUENCE,GRILLE))
 
 def coupmachine(marque,niveau):
     if niveau==1:
@@ -37,39 +36,35 @@ def coupmachine(marque,niveau):
     if niveau==4:
         return(coupordi4(marque))
 
-#coup ordi niveau0 (afin de test)
-def coupordi0(marque):
-    coup=str(settings.TOUR)+"/12"
-    return(coup)
 
 #coup ordinateur niveau1
-def coupordi1(marque):
+def coupordi1(marque,SEQUENCE,GRILLE):
     if marque=="X":
         marque1="O"
     else:
         marque1="X"
-    bornes=calculbornesjouées()
+    bornes=calculbornesjouées(SEQUENCE)
     ibmin=bornes[0]
     ibmax=bornes[1]
     jbmin=bornes[2]
     jbmax=bornes[3]
 
 #1er coup ordinateur quand il joue en 1er
-    if len(settings.SEQUENCE)==0:
+    if len(SEQUENCE)==0:
         coup="12/12"
         print("coup ordi1-0:",coup, marque)
         return(coup)
 
 #1er coup ordinateur quand il joue en 2eme
-    imin=max(int(settings.SEQUENCE[0].split("/")[1])-1,0)
-    imax=min(int(settings.SEQUENCE[0].split("/")[1])+1,24)
-    jmin=max(int(settings.SEQUENCE[0].split("/")[0])-1,0)
-    jmax=min(int(settings.SEQUENCE[0].split("/")[0])+1,24)
-    if len(settings.SEQUENCE)==1:
+    imin=max(int(SEQUENCE[0].split("/")[1])-1,0)
+    imax=min(int(SEQUENCE[0].split("/")[1])+1,24)
+    jmin=max(int(SEQUENCE[0].split("/")[0])-1,0)
+    jmax=min(int(SEQUENCE[0].split("/")[0])+1,24)
+    if len(SEQUENCE)==1:
         seq=[]
         for i in range(imin,imax+1):
             for j in range(jmin,jmax+1):
-                if settings.GRILLE[i][j]=="-":
+                if GRILLE[i][j]=="-":
                     seq=seq+[str(j)+"/"+str(i)]
         if seq!=[]:
             random.shuffle(seq)
@@ -81,9 +76,9 @@ def coupordi1(marque):
     seq=[]
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5)
+                result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     print("coup ordi1-2:",res[0], marque)
@@ -93,9 +88,9 @@ def coupordi1(marque):
     seq=[]
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque1,"ùùùùù".replace("ù",marque1),5)
+                result=cherche_size(coup,marque1,"ùùùùù".replace("ù",marque1),5,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     print("coup ordi1-3:",res[0], marque)
@@ -107,9 +102,9 @@ def coupordi1(marque):
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
             nb=0
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque1,"-ùùùù-".replace("ù",marque1),5)
+                result=cherche_size(coup,marque1,"-ùùùù-".replace("ù",marque1),5,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     seq=seq+[coup]
@@ -127,13 +122,13 @@ def coupordi1(marque):
     #si pas de coup trouvé on passe au coup du joueur précédent
     SEQO=[]
     if marque=="O":
-        for i in range(0,len(settings.SEQUENCE)):
+        for i in range(0,len(SEQUENCE)):
             if i%2==1:
-                SEQO=SEQO+[settings.SEQUENCE[i]]
+                SEQO=SEQO+[SEQUENCE[i]]
     else:
-        for i in range(0,len(settings.SEQUENCE)):
+        for i in range(0,len(SEQUENCE)):
             if i%2==0:
-                SEQO=SEQO+[settings.SEQUENCE[i]]   
+                SEQO=SEQO+[SEQUENCE[i]]   
     
     for i in range(len(SEQO)-1,-1,-1):
         i0=int(SEQO[i].split("/")[1])
@@ -145,7 +140,7 @@ def coupordi1(marque):
         seq=[]
         for i in range(imin,imax+1):
             for j in range(jmin,jmax+1):
-                if settings.GRILLE[i][j]=="-":
+                if GRILLE[i][j]=="-":
                     seq=seq+[str(j)+"/"+str(i)]
         if seq!=[]:
             random.shuffle(seq)
@@ -159,41 +154,41 @@ def coupordi1(marque):
     #en abcisse et ordonée entre 0 et 24.
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 print("coup ordi1-6:",coup, marque)
                 return(coup)
     
 #coup ordinateur niveau2
-def coupordi2(marque):
+def coupordi2(marque,SEQUENCE,GRILLE):
     if marque=="X":
         marque1="O"
     else:
         marque1="X"
-    bornes=calculbornesjouées()
+    bornes=calculbornesjouées(SEQUENCE)
     ibmin=bornes[0]
     ibmax=bornes[1]
     jbmin=bornes[2]
     jbmax=bornes[3]
 
 #1er coup ordinateur quand il joue en 1er
-    if len(settings.SEQUENCE)==0:
+    if len(SEQUENCE)==0:
         coup="12/12"
         print("coup ordi2-0:",coup, marque)
         return(coup)
 
-    imin=max(int(settings.SEQUENCE[-1].split("/")[1])-1,0)
-    imax=min(int(settings.SEQUENCE[-1].split("/")[1])+1,24)
-    jmin=max(int(settings.SEQUENCE[-1].split("/")[0])-1,0)
-    jmax=min(int(settings.SEQUENCE[-1].split("/")[0])+1,24)
+    imin=max(int(SEQUENCE[-1].split("/")[1])-1,0)
+    imax=min(int(SEQUENCE[-1].split("/")[1])+1,24)
+    jmin=max(int(SEQUENCE[-1].split("/")[0])-1,0)
+    jmax=min(int(SEQUENCE[-1].split("/")[0])+1,24)
 
     #1er coup ordinateur quand le joueur commence
     seq=[]
-    if len(settings.SEQUENCE)==1:
+    if len(SEQUENCE)==1:
         seq=[]
         for i in range(imin,imax+1):
             for j in range(jmin,jmax+1):
-                if settings.GRILLE[i][j]=="-":
+                if GRILLE[i][j]=="-":
                     seq=seq+[str(j)+"/"+str(i)]
         if seq!=[]:
             random.shuffle(seq)
@@ -205,9 +200,9 @@ def coupordi2(marque):
     seq=[]
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5)
+                result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     print("coup ordi2-2:",coup)
@@ -218,9 +213,9 @@ def coupordi2(marque):
     nbmax=0
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque1,"ùùùùù".replace("ù",marque1),5)
+                result=cherche_size(coup,marque1,"ùùùùù".replace("ù",marque1),5,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     seq=seq+[coup]
@@ -234,9 +229,9 @@ def coupordi2(marque):
     seq=[]
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"-ùùùù-".replace("ù",marque),5)
+                result=cherche_size(coup,marque,"-ùùùù-".replace("ù",marque),5,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     seq=seq+[coup]
@@ -250,9 +245,9 @@ def coupordi2(marque):
     seq=[]
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque1,"-ùùùù-".replace("ù",marque1),5)
+                result=cherche_size(coup,marque1,"-ùùùù-".replace("ù",marque1),5,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     seq=seq+res
@@ -266,17 +261,17 @@ def coupordi2(marque):
     seq=[]
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"-ùùùù".replace("ù",marque),4)
+                result=cherche_size(coup,marque,"-ùùùù".replace("ù",marque),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     seq=seq+[coup]
-                result=cherche_size(coup,marque,"ùùùù-".replace("ù",marque),4)
+                result=cherche_size(coup,marque,"ùùùù-".replace("ù",marque),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     seq=seq+[coup]
-                result=cherche_size(coup,marque,"-ùùù-".replace("ù",marque),4)
+                result=cherche_size(coup,marque,"-ùùù-".replace("ù",marque),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     seq=seq+[coup]
@@ -290,9 +285,9 @@ def coupordi2(marque):
     seq=[]
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"-ùùù-".replace("ù",marque),3)
+                result=cherche_size(coup,marque,"-ùùù-".replace("ù",marque),3,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     seq=seq+[coup]
@@ -306,9 +301,9 @@ def coupordi2(marque):
     seq=[]
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"-ùù-".replace("ù",marque),2)
+                result=cherche_size(coup,marque,"-ùù-".replace("ù",marque),2,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     seq=seq+[coup]
@@ -322,13 +317,13 @@ def coupordi2(marque):
     seq=[]
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"-ùù".replace("ù",marque),2)
+                result=cherche_size(coup,marque,"-ùù".replace("ù",marque),2,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     seq=seq+[coup]
-                result=cherche_size(coup,marque,"ùù-".replace("ù",marque),2)
+                result=cherche_size(coup,marque,"ùù-".replace("ù",marque),2,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     seq=seq+[coup]
@@ -342,11 +337,11 @@ def coupordi2(marque):
     #si pas de coup trouvé on passe au coup du joueur précédent
     SEQO=[]
     if marque=="X":
-        for i in range(0,len(settings.SEQUENCE),2):
-            SEQO=SEQO+[settings.SEQUENCE[i]]
+        for i in range(0,len(SEQUENCE),2):
+            SEQO=SEQO+[SEQUENCE[i]]
     else:
-        for i in range(0,len(settings.SEQUENCE),2):
-            SEQO=SEQO+[settings.SEQUENCE[i+1]]  
+        for i in range(0,len(SEQUENCE),2):
+            SEQO=SEQO+[SEQUENCE[i+1]]  
     for i in range(len(SEQO)-1,-1,-1):
         i0=int(SEQO[i].split("/")[1])
         j0=int(SEQO[i].split("/")[0])
@@ -357,7 +352,7 @@ def coupordi2(marque):
         seq=[]
         for i in range(imin,imax+1):
             for j in range(jmin,jmax+1):
-                if settings.GRILLE[i][j]=="-":
+                if GRILLE[i][j]=="-":
                     seq=seq+[str(j)+"/"+str(i)]
         if seq!=[]:
             random.shuffle(seq)
@@ -366,35 +361,35 @@ def coupordi2(marque):
             return(coup)
 
 #coup ordinateur niveau3
-def coupordi3(marque):
+def coupordi3(marque,SEQUENCE,GRILLE):
     if marque=="X":
         marque1="O"
     else:
         marque1="X"
-    bornes=calculbornesjouées()
+    bornes=calculbornesjouées(SEQUENCE)
     ibmin=bornes[0]
     ibmax=bornes[1]
     jbmin=bornes[2]
     jbmax=bornes[3]
 
 #1er coup ordinateur quand il joue en 1er
-    if len(settings.SEQUENCE)==0:
+    if len(SEQUENCE)==0:
         coup="12/12"
         print("coup ordi3-0:",coup, marque)
         return(coup)
 
-    imin=max(int(settings.SEQUENCE[-1].split("/")[1])-1,0)
-    imax=min(int(settings.SEQUENCE[-1].split("/")[1])+1,24)
-    jmin=max(int(settings.SEQUENCE[-1].split("/")[0])-1,0)
-    jmax=min(int(settings.SEQUENCE[-1].split("/")[0])+1,24)
+    imin=max(int(SEQUENCE[-1].split("/")[1])-1,0)
+    imax=min(int(SEQUENCE[-1].split("/")[1])+1,24)
+    jmin=max(int(SEQUENCE[-1].split("/")[0])-1,0)
+    jmax=min(int(SEQUENCE[-1].split("/")[0])+1,24)
 
     #1er coup ordinateur quand le joueur commence
     seq=[]
-    if len(settings.SEQUENCE)==1:
+    if len(SEQUENCE)==1:
         seq=[]
         for i in range(imin,imax+1):
             for j in range(jmin,jmax+1):
-                if settings.GRILLE[i][j]=="-":
+                if GRILLE[i][j]=="-":
                     seq=seq+[str(j)+"/"+str(i)]
         if seq!=[]:
             random.shuffle(seq)
@@ -406,9 +401,9 @@ def coupordi3(marque):
     seq=[]
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5)
+                result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     print("coup ordi3-2:",coup)
@@ -420,9 +415,9 @@ def coupordi3(marque):
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
             nb=0
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque1,"ùùùùù".replace("ù",marque1),5)
+                result=cherche_size(coup,marque1,"ùùùùù".replace("ù",marque1),5,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=result[1]
@@ -443,17 +438,17 @@ def coupordi3(marque):
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
             nb=0
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"-ùùùù-".replace("ù",marque),5)
+                result=cherche_size(coup,marque,"-ùùùù-".replace("ù",marque),5,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=result[1]
-                result=cherche_size(coup,marque,"ù-ùùù-ù".replace("ù",marque),6)
+                result=cherche_size(coup,marque,"ù-ùùù-ù".replace("ù",marque),6,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=nb+result[1]
-                result=cherche_size(coup,marque,"ùùù-ù-ùùù".replace("ù",marque),6)
+                result=cherche_size(coup,marque,"ùùù-ù-ùùù".replace("ù",marque),6,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=nb+result[1]
@@ -475,7 +470,7 @@ def coupordi3(marque):
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
             nb=0
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
                 result=cherche_size(coup,marque1,"-ùùùù-".replace("ù",marque1),5)
                 res=result[0]
@@ -507,17 +502,17 @@ def coupordi3(marque):
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
             nb=0
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"-ùùù-".replace("ù",marque),3)
+                result=cherche_size(coup,marque,"-ùùù-".replace("ù",marque),3,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=result[1]
-                result=cherche_size(coup,marque,"ùùùù-".replace("ù",marque),4)
+                result=cherche_size(coup,marque,"ùùùù-".replace("ù",marque),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=nb+result[1]
-                result=cherche_size(coup,marque,"ùùùù-".replace("ù",marque),4)
+                result=cherche_size(coup,marque,"ùùùù-".replace("ù",marque),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=nb+result[1]
@@ -539,13 +534,13 @@ def coupordi3(marque):
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
             nb=0
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"-ù-ùù-".replace("ù",marque),4)
+                result=cherche_size(coup,marque,"-ù-ùù-".replace("ù",marque),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=result[1]
-                result=cherche_size(coup,marque,"-ùù-ù-".replace("ù",marque),4)
+                result=cherche_size(coup,marque,"-ùù-ù-".replace("ù",marque),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=nb+result[1]
@@ -567,13 +562,13 @@ def coupordi3(marque):
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
             nb=0
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"-ùùùù".replace("ù",marque),4)
+                result=cherche_size(coup,marque,"-ùùùù".replace("ù",marque),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=result[1]
-                result=cherche_size(coup,marque,"ùùùù-".replace("ù",marque),4)
+                result=cherche_size(coup,marque,"ùùùù-".replace("ù",marque),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=nb+result[1]
@@ -595,13 +590,13 @@ def coupordi3(marque):
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
             nb=0
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"ù-ùùù".replace("ù",marque),4)
+                result=cherche_size(coup,marque,"ù-ùùù".replace("ù",marque),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=result[1]
-                result=cherche_size(coup,marque,"ùùù-u".replace("ù",marque),4)
+                result=cherche_size(coup,marque,"ùùù-u".replace("ù",marque),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=nb+result[1]
@@ -623,25 +618,25 @@ def coupordi3(marque):
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
             nb=0
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque1,"-ùùù-".replace("ù",marque1),3)
+                result=cherche_size(coup,marque1,"-ùùù-".replace("ù",marque1),3,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=result[1]
-                result=cherche_size(coup,marque1,"-ùùùù".replace("ù",marque1),4)
+                result=cherche_size(coup,marque1,"-ùùùù".replace("ù",marque1),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=nb+result[1]
-                result=cherche_size(coup,marque1,"ùùùù-".replace("ù",marque1),4)
+                result=cherche_size(coup,marque1,"ùùùù-".replace("ù",marque1),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=nb+result[1]
-                result=cherche_size(coup,marque1,"ù-ùùù".replace("ù",marque1),4)
+                result=cherche_size(coup,marque1,"ù-ùùù".replace("ù",marque1),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=nb+result[1]
-                result=cherche_size(coup,marque1,"ùùù-ù".replace("ù",marque1),4)
+                result=cherche_size(coup,marque1,"ùùù-ù".replace("ù",marque1),4,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=nb+result[1]
@@ -663,17 +658,17 @@ def coupordi3(marque):
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
             nb=0
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"-ùù-".replace("ù",marque),2)
+                result=cherche_size(coup,marque,"-ùù-".replace("ù",marque),2,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=result[1]
-                result=cherche_size(coup,marque,"-ùùù&".replace("ù",marque).replace("&",marque1),2)
+                result=cherche_size(coup,marque,"-ùùù&".replace("ù",marque).replace("&",marque1),2,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=result[1]
-                result=cherche_size(coup,marque,"&ùùù-".replace("ù",marque).replace("&",marque1),2)
+                result=cherche_size(coup,marque,"&ùùù-".replace("ù",marque).replace("&",marque1),2,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=result[1]
@@ -695,9 +690,9 @@ def coupordi3(marque):
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
             nb=0
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque1,"-ùù-".replace("ù",marque1),2)
+                result=cherche_size(coup,marque1,"-ùù-".replace("ù",marque1),2,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=result[1]
@@ -717,11 +712,11 @@ def coupordi3(marque):
     #Un des coups est choisi aléatoirement. Si pas de coup trouvé on passe au coup précédent.
     SEQO=[]
     if marque=="X":
-        for i in range(0,len(settings.SEQUENCE),2):
-            SEQO=SEQO+[settings.SEQUENCE[i]]
+        for i in range(0,len(SEQUENCE),2):
+            SEQO=SEQO+[SEQUENCE[i]]
     else:
-        for i in range(0,len(settings.SEQUENCE),2):
-            SEQO=SEQO+[settings.SEQUENCE[i+1]]  
+        for i in range(0,len(SEQUENCE),2):
+            SEQO=SEQO+[SEQUENCE[i+1]]  
     for i in range(len(SEQO)-1,-1,-1):
         i0=int(SEQO[i].split("/")[1])
         j0=int(SEQO[i].split("/")[0])
@@ -732,7 +727,7 @@ def coupordi3(marque):
         seq=[]
         for i in range(imin,imax+1):
             for j in range(jmin,jmax+1):
-                if settings.GRILLE[i][j]=="-":
+                if GRILLE[i][j]=="-":
                     seq=seq+[str(j)+"/"+str(i)]
         if seq!=[]:
             random.shuffle(seq)
@@ -741,34 +736,34 @@ def coupordi3(marque):
             return(coup)
 
 #coup ordinateur niveau4
-def coupordi4(marque):
+def coupordi4(marque,SEQUENCE,GRILLE):
     if marque=="X":
         marque1="O"
     else:
         marque1="X"
-    bornes=calculbornesjouées()
+    bornes=calculbornesjouées(SEQUENCE)
     ibmin=bornes[0]
     ibmax=bornes[1]
     jbmin=bornes[2]
     jbmax=bornes[3]
 #1er coup ordinateur quand il joue en 1er
-    if len(settings.SEQUENCE)==0:
+    if len(SEQUENCE)==0:
         coup="12/12"
         print("coup ordi4-0:",coup, marque)
         return(coup)
 
-    imin=max(int(settings.SEQUENCE[-1].split("/")[1])-1,0)
-    imax=min(int(settings.SEQUENCE[-1].split("/")[1])+1,24)
-    jmin=max(int(settings.SEQUENCE[-1].split("/")[0])-1,0)
-    jmax=min(int(settings.SEQUENCE[-1].split("/")[0])+1,24)
+    imin=max(int(SEQUENCE[-1].split("/")[1])-1,0)
+    imax=min(int(SEQUENCE[-1].split("/")[1])+1,24)
+    jmin=max(int(SEQUENCE[-1].split("/")[0])-1,0)
+    jmax=min(int(SEQUENCE[-1].split("/")[0])+1,24)
 
     #1er coup ordinateur quand le joueur commence
     seq=[]
-    if len(settings.SEQUENCE)==1:
+    if len(SEQUENCE)==1:
         seq=[]
         for i in range(imin,imax+1):
             for j in range(jmin,jmax+1):
-                if settings.GRILLE[i][j]=="-":
+                if GRILLE[i][j]=="-":
                     seq=seq+[str(j)+"/"+str(i)]
         if seq!=[]:
             random.shuffle(seq)
@@ -780,9 +775,9 @@ def coupordi4(marque):
     seq=[]
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5)
+                result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     print("coup ordi4-2:",coup)
@@ -794,9 +789,9 @@ def coupordi4(marque):
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
             nb=0
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque1,"ùùùùù".replace("ù",marque1),5)
+                result=cherche_size(coup,marque1,"ùùùùù".replace("ù",marque1),5,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=result[1]
@@ -817,9 +812,9 @@ def coupordi4(marque):
     grid=[]
     for i in range(ibmin,ibmax+1):
         for j in range(jbmin,jbmax+1):
-            if settings.GRILLE[i][j]=="-":
+            if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                scor=score(coup,marque)
+                scor=score(coup,marque,GRILLE)
                 if scor>0:
                     if scor==scormax:
                         coup=str(j)+"/"+str(i)
@@ -839,11 +834,11 @@ def coupordi4(marque):
     #Un des coups est choisi aléatoirement. Si pas de coup trouvé on passe au coup précédent.
     SEQO=[]
     if marque=="X":
-        for i in range(0,len(settings.SEQUENCE),2):
-            SEQO=SEQO+[settings.SEQUENCE[i]]
+        for i in range(0,len(SEQUENCE),2):
+            SEQO=SEQO+[SEQUENCE[i]]
     else:
-        for i in range(0,len(settings.SEQUENCE),2):
-            SEQO=SEQO+[settings.SEQUENCE[i+1]]  
+        for i in range(0,len(SEQUENCE),2):
+            SEQO=SEQO+[SEQUENCE[i+1]]  
     for i in range(len(SEQO)-1,-1,-1):
         i0=int(SEQO[i].split("/")[1])
         j0=int(SEQO[i].split("/")[0])
@@ -854,7 +849,7 @@ def coupordi4(marque):
         seq=[]
         for i in range(imin,imax+1):
             for j in range(jmin,jmax+1):
-                if settings.GRILLE[i][j]=="-":
+                if GRILLE[i][j]=="-":
                     seq=seq+[str(j)+"/"+str(i)]
         if seq!=[]:
             random.shuffle(seq)
@@ -862,52 +857,52 @@ def coupordi4(marque):
             print("coup ordi4-4:",coup, seq)
             return(coup)
 
-def score(coup,marque):
+def score(coup,marque,GRILLE):
     if marque=="X":
         marque1="O"
     else:
         marque1="X"
     nb=0
     #joueur :-ùùùù- ù-ùùù-ù ùùù-ù-ùùù
-    result=cherche_size(coup,marque,"-ùùùù-".replace("ù",marque),5)
+    result=cherche_size(coup,marque,"-ùùùù-".replace("ù",marque),5,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque,"ù-ùùù-ù".replace("ù",marque),6)
+    result=cherche_size(coup,marque,"ù-ùùù-ù".replace("ù",marque),6,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque,"ùùù-ù-ùùù".replace("ù",marque),6)
+    result=cherche_size(coup,marque,"ùùù-ù-ùùù".replace("ù",marque),6,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
     nb1=nb
     #adversaire :-ùùùù- ù-ùùù-ù ùùù-ù-ùùù
     nb=0
-    result=cherche_size(coup,marque1,"-ùùùù-".replace("ù",marque1),5)
+    result=cherche_size(coup,marque1,"-ùùùù-".replace("ù",marque1),5,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque1,"ù-ùùù-ù".replace("ù",marque1),6)
+    result=cherche_size(coup,marque1,"ù-ùùù-ù".replace("ù",marque1),6,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque1,"ùùù-ù-ùùù".replace("ù",marque1),6)
+    result=cherche_size(coup,marque1,"ùùù-ù-ùùù".replace("ù",marque1),6,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
     nb1d=nb
     #joueur -ùùù- ùùùù- ùùùù- 
     nb=0
-    result=cherche_size(coup,marque,"-ùùù-".replace("ù",marque),3)
+    result=cherche_size(coup,marque,"-ùùù-".replace("ù",marque),3,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque,"-ùùùù&".replace("ù",marque).replace("&",marque1),4)
+    result=cherche_size(coup,marque,"-ùùùù&".replace("ù",marque).replace("&",marque1),4,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque,"&ùùùù-".replace("ù",marque).replace("&",marque1),4)
+    result=cherche_size(coup,marque,"&ùùùù-".replace("ù",marque).replace("&",marque1),4,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
@@ -917,19 +912,19 @@ def score(coup,marque):
     
     #joueur ù-ùùù ùùù-ù -ù-ùù- -ùù-ù-
     nb=0
-    result=cherche_size(coup,marque,"-ù-ùù-".replace("ù",marque),4)
+    result=cherche_size(coup,marque,"-ù-ùù-".replace("ù",marque),4,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque,"-ùu-ù-".replace("ù",marque),4)
+    result=cherche_size(coup,marque,"-ùu-ù-".replace("ù",marque),4,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque,"ù-ùùù".replace("ù",marque),4)
+    result=cherche_size(coup,marque,"ù-ùùù".replace("ù",marque),4,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque,"ùùù-u".replace("ù",marque),4)
+    result=cherche_size(coup,marque,"ùùù-u".replace("ù",marque),4,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
@@ -939,15 +934,15 @@ def score(coup,marque):
     
     #adversairejoueur -ùùù- ùùùù- ùùùù- 
     nb=0
-    result=cherche_size(coup,marque1,"-ùùù-".replace("ù",marque1),3)
+    result=cherche_size(coup,marque1,"-ùùù-".replace("ù",marque1),3,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=result[1]
-    result=cherche_size(coup,marque1,"&ùùùù-".replace("ù",marque1).replace("&",marque),4)
+    result=cherche_size(coup,marque1,"&ùùùù-".replace("ù",marque1).replace("&",marque),4,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque1,"-ùùùù&".replace("ù",marque1).replace("&",marque),4)
+    result=cherche_size(coup,marque1,"-ùùùù&".replace("ù",marque1).replace("&",marque),4,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
@@ -957,19 +952,19 @@ def score(coup,marque):
     
     #adversairejoueur ù-ùùù ùùù-ù -ù-ùù- -ùù-ù-
     nb=0
-    result=cherche_size(coup,marque1,"-ù-ùù-".replace("ù",marque1),4)
+    result=cherche_size(coup,marque1,"-ù-ùù-".replace("ù",marque1),4,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque1,"-ùu-ù-".replace("ù",marque1),4)
+    result=cherche_size(coup,marque1,"-ùu-ù-".replace("ù",marque1),4,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque1,"ù-ùùù".replace("ù",marque1),4)
+    result=cherche_size(coup,marque1,"ù-ùùù".replace("ù",marque1),4,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque1,"ùùù-u".replace("ù",marque1),4)
+    result=cherche_size(coup,marque1,"ùùù-u".replace("ù",marque1),4,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
@@ -979,30 +974,30 @@ def score(coup,marque):
 
     #joueur -ùù- &ùùù- -ùùù&
     nb=0
-    result=cherche_size(coup,marque,"-ùù-".replace("ù",marque),2)
+    result=cherche_size(coup,marque,"-ùù-".replace("ù",marque),2,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=result[1]
-    result=cherche_size(coup,marque,"-ùùù&".replace("ù",marque).replace("&",marque1),2)
+    result=cherche_size(coup,marque,"-ùùù&".replace("ù",marque).replace("&",marque1),2,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque,"&ùùù-".replace("ù",marque).replace("&",marque1),2)
+    result=cherche_size(coup,marque,"&ùùù-".replace("ù",marque).replace("&",marque1),2,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
     nb3=nb
     #adversaire -ùù- &ùùù- -ùùù&
     nb=0
-    result=cherche_size(coup,marque1,"-ùù-".replace("ù",marque1),2)
+    result=cherche_size(coup,marque1,"-ùù-".replace("ù",marque1),2,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=result[1]
-    result=cherche_size(coup,marque1,"-ùùù&".replace("ù",marque1).replace("&",marque),2)
+    result=cherche_size(coup,marque1,"-ùùù&".replace("ù",marque1).replace("&",marque),2,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
-    result=cherche_size(coup,marque1,"&ùùù-".replace("ù",marque1).replace("&",marque),2)
+    result=cherche_size(coup,marque1,"&ùùù-".replace("ù",marque1).replace("&",marque),2,GRILLE)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
@@ -1024,14 +1019,15 @@ def score(coup,marque):
     return(score)
 
 #MAJ GRILLE avec le coup joué
-def majgrille(coup,marque):
+def majgrille(coup,marque,GRILLE):
     y=int(coup.split("/")[0])
     i=int(coup.split("/")[1])
-    settings.GRILLE[i][y]=marque
+    GRILLE[i][y]=marque
+    return(GRILLE)
 
-def trouve_5(coup,marque):
+def trouve_5(coup,marque,GRILLE):
     marque5=marque*5
-    grid=settings.GRILLE
+    grid=GRILLE
     j0=int(coup.split("/")[0])
     i0=int(coup.split("/")[1])
     imin=max(i0-4,0)
@@ -1062,11 +1058,11 @@ def trouve_5(coup,marque):
     #les recherches sont négatives
     return("Non")
 
-def cherche_size(coup,marque,rech,size):
+def cherche_size(coup,marque,rech,size,GRILLE):
     grid=[["-"] * 25 for _ in range(25)]
     for i in range(0,24):
         for j in range(0,24):
-            grid[i][j]=settings.GRILLE[i][j]
+            grid[i][j]=GRILLE[i][j]
     j0=int(coup.split("/")[0])
     i0=int(coup.split("/")[1])
     grid[i0][j0]=marque
@@ -1229,8 +1225,7 @@ def rechercheA(i0,j0,grid,nbcar,rech):
     return("Non")    
 
 #calcul les abcisses et les ordonnées minimum et maximum jouées soit la zone jouable.
-def calculbornesjouées():
-    seq=settings.SEQUENCE
+def calculbornesjouées(seq):
     ibornemin=24
     ibornemax=0
     jbornemin=24
@@ -1262,6 +1257,20 @@ def estconnecté(req):
         return(True,pseudox)
     else:
         return(False,"")
+
+#version asynchrone de estconnecté()
+from asgiref.sync import sync_to_async
+
+async def estconnecté_async(req):
+    emailx = await sync_to_async(req.session.get)('email')
+    passwordx = await sync_to_async(req.session.get)('password')
+    userConnected = await sync_to_async(authenticate)(email=emailx, password=passwordx)
+    if userConnected is not None:
+        userx = await sync_to_async(User.objects.get)(email=emailx)
+        pseudox = userx.pseudo
+        return (True, pseudox)
+    else:
+        return (False, "")
 
 def serveursocket (host):
     # Définition d'un serveur réseau rudimentaire
@@ -1311,7 +1320,36 @@ def connecserveur (host,pseudo):
     # Définition d'un serveur réseau rudimentaire
 # Ce serveur attend la connexion d'un client, pour entamer un dialogue avec lui
 
-    PORT = 50000
+    import asyncio
+    from websockets.server import serve
+    port = 8765
+    msg=""
+    webs=""
+    async def echo(websocket):
+        async for message in websocket:
+            print("received from {}:{} : ".format(websocket.remote_address[0],websocket.remote_address[1]) + message)
+            await websocket.send(pseudo)
+            msg=message
+            webs=websocket
+    async def main():
+        print("Server is activated on ws://{}:{}".format(host,port))
+        #async with serve(echo, "localhost", 8765):
+        async with serve(echo, host, port):
+                await asyncio.Future()  # run forever
+    asyncio.run(main())
+    return(msg)
+
+def connecserveur1 (host,pseudo):
+    # Définition d'un serveur réseau rudimentaire
+# Ce serveur attend la connexion d'un client, pour entamer un dialogue avec lui
+
+    import socket
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    ipaddress = s.getsockname()[0]
+    s.close()
+    print("ip",ipaddress)
+    PORT = 8765
     # 1) création du socket :
     mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -1319,13 +1357,13 @@ def connecserveur (host,pseudo):
     try:
         mySocket.bind((host, PORT))
     except socket.error:
-        print("La liaison du socket à l'adresse choisie a échoué.")
+        print("La liaison du socket à l'adresse choisie a échoué.", socket.error)
         sys.exit()
 
     while 1:
         # 3) Attente de la requête de connexion d'un client :
         print("Serveur prêt, en attente de requêtes ...")
-        mySocket.listen(5)
+        mySocket.listen()
 
         # 4) Etablissement de la connexion :
         connexion, adresse = mySocket.accept()
@@ -1366,7 +1404,36 @@ def clientsocket(host):
     print("Connexion interrompue.")
     mySocket.close()
 
-def connecclient(host,pseudo):
+async def connecclient(host, pseudo):
+    import websockets
+    import json
+
+    async with websockets.connect(f"ws://ti-points-ti-croix.fr:8765/ws/chat/") as websocket:
+        print("connect")
+        await websocket.send(json.dumps({"message": pseudo}))
+        message= await websocket.recv()
+        print("recu de server : ",message)
+        return websocket, message
+    
+def connecclientX(host,pseudo):
+    # Définition d'un client réseau rudimentaire
+    # Ce client dialogue avec un serveur ad hoc
+    
+    import asyncio
+    import websockets
+    from websockets.sync.client import connect
+    #with connect("ws://"+host+":8765") as websocket:
+    with connect("ws://77.37.125.25:8765") as websocket:
+        #while True:
+        #message = websocket.recv()
+        #print(message)
+        websocket.send(pseudo)
+        websocket.close
+        #print(f"Received from server : {message}")
+        return(websocket,"testok")
+    
+    
+def connecclient1(host,pseudo):
     # Définition d'un client réseau rudimentaire
     # Ce client dialogue avec un serveur ad hoc
     PORT = 50000
@@ -1376,18 +1443,19 @@ def connecclient(host,pseudo):
 
     # 2) envoi d'une requête de connexion au serveur :
     try:
-        mySocket.connect((host, PORT))
+        mySocket.connect((host, 8765))
     except socket.error:
-        print("La connexion a échoué.")
+        print("La connexion a échoué.", socket.error)
         sys.exit()
     print("Connexion établie avec le serveur.")
     msgServeur = mySocket.recv(1024)
     mySocket.send(pseudo.encode('utf-8'))
     return(msgServeur.decode('utf-8'),mySocket)
 
-def nbtour():
-    res=len(settings.SEQUENCE)
+def nbtour(SEQUENCE):
+    res=len(SEQUENCE)
     return((res//2)+1)
+
 
 
 

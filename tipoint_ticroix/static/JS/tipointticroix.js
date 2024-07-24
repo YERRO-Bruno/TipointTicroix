@@ -74,7 +74,7 @@ document.getElementById("btn-annuler").addEventListener('click', function(e) {
 // Click du joueur sur le bouton rejouer
 document.getElementById("btn-rejouer").addEventListener('click', function(e) {
     e.preventDefault()
-    document.location.href='/tipointticroix/jeux'
+    document.location.href='/tipointticroix/jeu'
     })
 
     //var tablx = document.getElementById("table")

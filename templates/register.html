@@ -12,72 +12,79 @@ Ti_Point-Ti_Croix
 {%  endblock %}
 
 {%  block content %}
-    <div class="col-10 border border-dark" style="font-family: 'Pacifico', cursive;
-    font-weight: 400;font-style: normal">
-        <div style="height: 10vh;"></div>
-        <h1 class="text-center" style="margin-left: 8vw;">Inscription</h1>
-        <div style="height: 5vh;"></div>
-        <h4 class="texterror text-center" style="color: red">{{ errorinscription }}</h4>
-        <form  class="justify-content-center" method="post" autocomplete="off">            
-            {% csrf_token %}
-            <div class="row" style="font-size: larger;">
-                <div class="col-4"></div>
-                <p class="col-4 row">
-                    <label class="col-5" for="id_email">Email:</label>
-                    <input class="col-7" type="email" name="email" maxlength="64" required 
-                        value="{{ email }}" id="id_email" readonly>
-                </p>
-                <div class="col-4"></div>
-                <div class="col-4"></div>
-                <p class="col-4 row">
-                    <label class="col-5" for="id_verification">Verification:</label>
-                    <input class="col-7" type="text" name="verification" maxlength="64" required="" id="id_verification">
-                </p>
-                <div class="col-4">
-                    <span> code de vérification qui vous  été envoyé par email</span>
+    <div class="col-10 border border-dark row" style="font-family: 'Pacifico', cursive;
+        font-weight: 400;font-style: normal">
+        <div class="col-3"></div>
+        <div class="col-9">
+            <div style="height: 10vh;"></div>
+            <h1 class="text-center" style="margin-right: 10vw;">Inscription</h1>
+            <div style="height: 5vh;"></div>
+            <h4 class="texterror text-center" style="color: red">{{ errorinscription }}</h4>
+            <form  class="justify-content-center" method="post" autocomplete="off">            
+                {% csrf_token %}
+                <div class="row" style="font-size: larger;margin-right:14vw">
+                    <div class="col-4"></div>
+                    <p class="col-4 row">
+                        <label class="col-5" for="id_email">Email:</label>
+                        <input class="col-7" type="email" name="email" maxlength="64" required 
+                            value="{{ email }}" id="id_email" readonly>
+                    </p>
+                    <div class="col-4"></div>
+                    <div class="col-4"></div>
+                    <p class="col-4 row">
+                        <label class="col-5" for="id_verification">Verification:</label>
+                        <input class="col-7" type="text" name="verification" maxlength="64" 
+                        required="" id="id_verification">
+                    </p>
+                    <div class="col-4">
+                        <span> code de vérification qui vous  été envoyé par email</span>
+                    </div>
+                    <div class="col-4"></div>
+                    <p class="col-4 row">
+                        <label class="col-5" for="id_pseudo">Pseudo:</label>
+                        <input class="col-7" type="text" name="pseudo" maxlength="24" required 
+                            value="{{ pseudo }}" id="id_pseudo">
+                    </p>
+                    <div class="col-4"></div>
+                    <div class="col-4"></div>
+                    <p class="col-4 row">
+                        <label class="col-5" for="id_password">Password:</label>
+                        <input class="col-7" type="password" name="password" maxlength="64" 
+                            id="id_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Must contain at least one number and one uppercase and lowercase 
+                            letter, and at least 8 or more characters" value="{{ password }}" required>
+                    </p>
+                    <div class="col-4"></div>
+                    <div class="col-4"></div>
+                    <p class="col-4 row">
+                        <label class="col-5" for="id_confirm_password">Confirmer Password:</label>
+                        <input class="col-7" type="password" name="confirm_password" maxlength="64" 
+                        required="" id="id_confirm_password" style="height:4vh;margin-top:2vh">
+                    </p>
+                    <div class="col-4"></div>
+                    <div class="col-4"></div>
+                    <div class="col-8">
+                        <div style="height: 4vh"></div>
+                        <button class="btn btn-5 mx-1" href="{% url 'tipointticroix' %}" 
+                        style="width:8vw;background:rgb(0, 208, 255)" 
+                        type="button" id="cancel">Annuler</button>
+                        <button class="btn btn-5 mx-3" type="submit" style="width: 8vw;
+                        background: rgb(0, 208, 255)">S'inscrire</button>
+                    </div>    
                 </div>
-                <div class="col-4"></div>
-                <p class="col-4 row">
-                    <label class="col-5" for="id_pseudo">Pseudo:</label>
-                    <input class="col-7" type="text" name="pseudo" maxlength="24" required 
-                        value="{{ pseudo }}" id="id_pseudo">
-                </p>
-                <div class="col-4"></div>
-                <div class="col-4"></div>
-                <p class="col-4 row">
-                    <label class="col-5" for="id_password">Password:</label>
-                    <input class="col-7" type="password" name="password" maxlength="64" id="id_password"
-                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                           title="Must contain at least one number and one uppercase and lowercase letter, and at least
-                            8 or more characters" value="{{ password }}" required>
-                </p>
-                <div class="col-4"></div>
-                <div class="col-4"></div>
-                <p class="col-4 row">
-                    <label class="col-5" for="id_confirm_password">Confirmer Password:</label>
-                    <input class="col-7" type="password" name="confirm_password" maxlength="64" required="" id="id_confirm_password">
-                </p>
-                <div class="col-4"></div>
-                <div class="col-5"></div>
-                <div class="col-4">
-                    <div style="height: 4vh"></div>
-                    <button class="btn btn-5 mx-4" style="width: 8vw;background: rgb(0, 208, 255)"
-                         href="{% url 'tipointticroix' %}" type="button" id="cancel">Annuler</button>
-                    <button class="btn btn-5 mx-4" style="width: 8vw;background: rgb(0, 208, 255)" type="submit">S'inscrire</button>
-                </div>    
+            </form>
+            <div id="message">
+              <h5 class="text-center">Password must contain the following:</h5>
+                <div class="row">
+                    <p id="letter" class="invalid col-3">A <b>lowercase</b> letter</p>
+                    <p id="capital" class="invalid col-3">A <b>capital (uppercase)</b> letter</p>
+                    <p id="number" class="invalid col-3">A <b>number</b></p>
+                    <p id="length" class="invalid col-3">Minimum <b>8 characters</b></p>
+                </div>
             </div>
-        </form>
-    </div>
-
-    <div id="message">
-      <h5 class="text-center">Password must contain the following:</h5>
-        <div class="row">
-            <p id="letter" class="invalid col-3">A <b>lowercase</b> letter</p>
-            <p id="capital" class="invalid col-3">A <b>capital (uppercase)</b> letter</p>
-            <p id="number" class="invalid col-3">A <b>number</b></p>
-            <p id="length" class="invalid col-3">Minimum <b>8 characters</b></p>
         </div>
     </div>
+
 {%  endblock %}
 {%  block script %}    
     <script src="/static/JS/registerform.js"></script>

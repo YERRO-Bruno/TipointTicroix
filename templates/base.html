@@ -9,6 +9,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     {% block meta %}{% endblock %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -56,9 +57,14 @@
             <div class="col-2">
                 <img style="height: 18vh;width: 18vw" src="/static/images/logo.jpg">
             </div>
-            <div class="col-8" style="font-size:6vw">   
-                <p align="center" style="font-family: 'Pacifico', cursive;
-                font-weight: 400;margin: 1%;font-style: normal">Ti_Point-Ti_Croix</p>
+            <div class="col-8" style="font-size:5vw">
+                <div>
+                    <p align="center" style="font-family: 'Pacifico', cursive;
+                    font-weight: 400;margin: 0%;font-style: normal">Ti_Point-Ti_Croix</p>
+                    
+                </div>   
+                <div>
+                </div>
             </div>
             <div class="col-2" align="center" style="margin-top: 6vh;font-size:1.5vw"
                 id="id-deconnexion">
@@ -85,12 +91,12 @@
             
         </div>
     </div>
-    <div class="row" style="height: 3.5vh;width: 100vw;background-color:black">
-        <center class="col-6" style="font-family: 'Pacifico', cursive;font-weight: 400;
+    <div class="row" style="height: 7vh;width: 100vw;background-color:black">
+        <center class="col-6 mt-3" style="font-family: 'Pacifico', cursive;font-weight: 400;
         font-style: normal;font-size:1.8vh">
             <a href="{% url 'mentions' %}">Mentions légales</a>
         </center>
-        <center class="col-6" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        <center class="col-6 mt-3" style="font-family: 'Pacifico', cursive;font-weight: 400;
         font-style: normal;font-size:1.8vh">
             <a href="{% url 'apropos' %}">A propos</a>
         </center>
@@ -108,14 +114,13 @@
             document.getElementById("id-connexion").style.display="none"
             
         } else {
-            document.getElementById("id-deconnexion").style.display="none"
+            //document.getElementById("id-deconnexion").style.display="none"
             
         }
     </script>
     <script>
         let alea=Math.floor(Math.random()*10)+1
         let photo="https://ik.imagekit.io/kpvotazbj/photo".concat(alea,".avif")
-        //alert(photo)
         document.getElementById("id_imagekit").src=photo
     </script>
     {% block script %}{% endblock %}

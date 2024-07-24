@@ -4,13 +4,13 @@ import random
 
 #coup ordinateur
 def coupordi(marque):
-    if settings.NIVEAU==1:
+    if request.session['NIVEAU']==1:
         return(coupordi1(marque))
-    if settings.NIVEAU==2:
+    if request.session['NIVEAU']==2:
         return(coupordi2(marque))
-    if settings.NIVEAU==3:
+    if request.session['NIVEAU']==3:
         return(coupordi3(marque))
-    if settings.NIVEAU==4:
+    if request.session['NIVEAU']==4:
         return(coupordi4(marque))
 
 def coupmachine(marque,niveau):

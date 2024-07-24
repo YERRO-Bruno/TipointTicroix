@@ -16,4 +16,5 @@ urlpatterns = [
     path('tipointticroix/apropos/', views.apropos, name='apropos'),
     path('tipointticroix/mentions/', views.mentions, name='mentions'),
     path('admin/', admin.site.urls),
+    path("api/userconnecteds",views.api_userconnecteds,name="api_userconnecteds")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
