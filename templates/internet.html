@@ -69,7 +69,7 @@ font-weight: 400;font-style: normal">
             <label id="defaite" style="font-size: 1.4vw;color: red">VOUS AVEZ PERDU</label>
           </div>            
     </div>
-    <div >
+    <div hidden>
         <form id="internet" method="post">
             {% csrf_token %}
             <input type="text" name="etape" id="id-etape" value="{{ etape }}">
