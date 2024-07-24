@@ -48,6 +48,7 @@ wss.on('connection', (socket) => {
             //tabusers.push("connected")
             global.lobbyUsers[msg[1]]=socket
             let tabusers=Object.keys(global.lobbyUsers)
+            console.log("tabusers conn",tabusers)
             tabusers.forEach(pseudox => {
                     let socketx=global.lobbyUsers[pseudox]
                     socketx.send("connected,"+tabusers.join(","))                
@@ -96,7 +97,7 @@ wss.on('connection', (socket) => {
             }           
         })
         let tabusers=Object.keys(global.lobbyUsers)
-        console.log("tabusers",tabusers)
+        console.log("tabusers deconn",tabusers)
             tabusers.forEach(pseudox => {
                     let socketx=global.lobbyUsers[pseudox]
                     socketx.send("connected,"+tabusers.join(","))                
