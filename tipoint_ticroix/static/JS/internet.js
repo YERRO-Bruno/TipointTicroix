@@ -227,27 +227,34 @@ function displayGameBoard(){
         if (win != "Non") { 
             document.getElementById("ALUI").style.display="none"
             document.getElementById("AVOUS").style.display="none"
+            const countdownField = document.getElementById("id-bandeau");
+            let count = 0;
             if (document.getElementById("id-finpartie").textContent=="Oui") {
                 if (document.getElementById("id-victoire").value!="Non") {
                     if (document.getElementById("id-score1").value=
                         document.getElementById("id-score2").value) {
-                            alert("match nul : 1-1")
-                            document.location.href='/tipointticroix/internet'
+                            msgfin="match nul : 1-1"
                         } else {
-                            alert("victoire : 2-0")
-                            document.location.href='/tipointticroix/internet'
+                            msgfin="victoire : 2-0"
                         }
                     }
-                if (document.getElementById("id-defaite").value!="Non") {
-                    if (document.getElementById("id-score1").value=
+                    if (document.getElementById("id-defaite").value!="Non") {
+                        if (document.getElementById("id-score1").value=
                         document.getElementById("id-score2").value) {
-                            alert("match nul : 1-1")
-                            //document.location.href='/tipointticroix/internet'
+                            msgfin="match nul : 1-1"
                         } else {
-                            alert("defaite : 0-2")
-                            //document.location.href='/tipointticroix/internet'
+                            msgfin="defaite : 0-2"
                         }
-                }
+                    }
+                    count = 1;
+                    const interval = setInterval(function() {
+                        countdownField.textContent =msgfin.concat(". Retour au lobby dans ",10-count," s")
+                        if (count >= 10) {
+                            clearInterval(interval);
+                        }
+                        count++;
+                    }, 1000);
+                document.location.href='/tipointticroix/internet'
             } else {
                 win=win.split(",")
                 for (let i = 0;i<5;i++) {
@@ -255,8 +262,7 @@ function displayGameBoard(){
                 }
                 document.getElementById("id-bandeau").style.display="block"
                 
-                const countdownField = document.getElementById("id-bandeau");
-                let count = 1;
+                count = 1;
                 const interval = setInterval(function() {
                     countdownField.textContent ="La manche 2 demarre dans ".concat(10-count," s")
                     if (count >= 10) {
@@ -277,7 +283,7 @@ function displayGameBoard(){
                         document.forms["internet"].submit();
                     }
                     count++;
-                }, 1000); // 1000ms = 1 second
+                }, 1000);
 
 
             }
