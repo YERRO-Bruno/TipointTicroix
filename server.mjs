@@ -1,7 +1,6 @@
 import https from 'https';
 import { WebSocketServer, WebSocket } from 'ws'
 import fs from 'fs';
-import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -27,35 +26,26 @@ const wss = new WebSocketServer({ server: httpsServer });
 // Événement déclenché lorsqu'une connexion est établie
 let pseudo=""
 let hote=""
-let invité=""
 global.lobbyUsers={}
 global.connectedUsers={}
 wss.on('connection', (socket) => {
-    //console.log('Client connected');    
+    console.log('Client connected');    
     
     // Événement déclenché lorsqu'un message est reçu du client
     socket.on('message', (message) => {
-    //    let tabusers=[]
         console.log('Received: %s', message);
         const msgStr = message.toString();
         let msg=msgStr.split(",")
         pseudo=msg[1]
-        //delete global.connectedUsers[msg[1]]
         global.connectedUsers[msg[1]]=socket
         if (msg[0]=='connexion') {
             // Répondre au client-connexion
-            console.log(msg[0],msg[1])
-            //tabusers.push("connected")
             global.lobbyUsers[msg[1]]=socket
             let tabusers=Object.keys(global.lobbyUsers)
-            console.log("tabusers conn",tabusers)
             tabusers.forEach(pseudox => {
                     let socketx=global.lobbyUsers[pseudox]
                     socketx.send("connected,"+tabusers.join(","))                
             })            
-        }
-        if (msg[0]=='nouveautour') {
-            console.log(msg[0],msg[1])
         }
 
         if (msg[0]=='invite') {           
@@ -79,25 +69,20 @@ wss.on('connection', (socket) => {
     });
 
     // Événement déclenché lorsque la connexion WebSocket est fermée
-    let asupprimer=""
-    console.log("tabusers",global.tabusers)
     socket.on('close', () => {
         Object.keys(global.connectedUsers).forEach(pseudo => {
             const socketx = global.connectedUsers[pseudo];
             if (socketx==socket) {
-                console.log('Client disconnected',pseudo);
                 delete global.connectedUsers[pseudo];
             }           
         })
         Object.keys(global.lobbyUsers).forEach(pseudo => {
             const socketx = global.lobbyUsers[pseudo];
             if (socketx==socket) {
-                console.log('lobby disconnected',pseudo);
                 delete global.lobbyUsers[pseudo];
             }           
         })
         let tabusers=Object.keys(global.lobbyUsers)
-        console.log("tabusers deconn",tabusers)
             tabusers.forEach(pseudox => {
                     let socketx=global.lobbyUsers[pseudox]
                     socketx.send("connected,"+tabusers.join(","))                
