@@ -230,7 +230,7 @@ function displayGameBoard(){
             if (document.getElementById("id-finpartie").textContent=="Oui") {
                 if (document.getElementById("id-victoire").value!="Non") {
                     if (document.getElementById("id-score1").value=
-                        document.getElementById("id-score1").value) {
+                        document.getElementById("id-score2").value) {
                             alert("match nul : 1-1")
                             document.location.href='/tipointticroix/internet'
                         } else {
@@ -240,7 +240,7 @@ function displayGameBoard(){
                     }
                 if (document.getElementById("id-defaite").value!="Non") {
                     if (document.getElementById("id-score1").value=
-                        document.getElementById("id-score1").value) {
+                        document.getElementById("id-score2").value) {
                             alert("match nul : 1-1")
                             document.location.href='/tipointticroix/internet'
                         } else {

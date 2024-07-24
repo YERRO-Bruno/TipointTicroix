@@ -42,6 +42,7 @@ wss.on('connection', (socket) => {
             // Répondre au client-connexion
             global.lobbyUsers[msg[1]]=socket
             let tabusers=Object.keys(global.lobbyUsers)
+            tabusers.sort()
             tabusers.forEach(pseudox => {
                     let socketx=global.lobbyUsers[pseudox]
                     socketx.send("connected,"+tabusers.join(","))                
@@ -83,10 +84,11 @@ wss.on('connection', (socket) => {
             }           
         })
         let tabusers=Object.keys(global.lobbyUsers)
-            tabusers.forEach(pseudox => {
-                    let socketx=global.lobbyUsers[pseudox]
-                    socketx.send("connected,"+tabusers.join(","))                
-            })
+        tabusers.sort()
+        tabusers.forEach(pseudox => {
+                let socketx=global.lobbyUsers[pseudox]
+                socketx.send("connected,"+tabusers.join(","))                
+        })
     });    
 
     // Gestion des erreurs WebSocket
