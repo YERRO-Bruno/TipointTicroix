@@ -228,7 +228,26 @@ function displayGameBoard(){
             document.getElementById("ALUI").style.display="none"
             document.getElementById("AVOUS").style.display="none"
             if (document.getElementById("id-finpartie").textContent=="Oui") {
-                
+                if (document.getElementById("id-victoire").value!="Non") {
+                    if (document.getElementById("id-score1").value=
+                        document.getElementById("id-score1").value) {
+                            alert("match nul : 1-1")
+                            document.location.href='/tipointticroix/internet'
+                        } else {
+                            alert("victoire : 2-0")
+                            document.location.href='/tipointticroix/internet'
+                        }
+                    }
+                if (document.getElementById("id-defaite").value!="Non") {
+                    if (document.getElementById("id-score1").value=
+                        document.getElementById("id-score1").value) {
+                            alert("match nul : 1-1")
+                            document.location.href='/tipointticroix/internet'
+                        } else {
+                            alert("defaite : 0-2")
+                            document.location.href='/tipointticroix/internet'
+                        }
+                }
             } else {
                 win=win.split(",")
                 for (let i = 0;i<5;i++) {
