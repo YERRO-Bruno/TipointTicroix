@@ -250,12 +250,12 @@ function displayGameBoard(){
                 countdownField.style.display="block"
                 count = 1;
                 alert("o")
-                const interval2 = setInterval(function() {
+                interval = setInterval(function() {
                     alert('1')
                     document.getElementById("id-bandeau").textContent=msgfin
                     alert('2')
                     if (count >= 10) {
-                        clearInterval(interval2);
+                        clearInterval(interval);
                     }
                     count++;
                 }, 1000);
