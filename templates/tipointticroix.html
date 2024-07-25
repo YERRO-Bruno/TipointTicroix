@@ -1,11 +1,11 @@
 {%  extends "base.html" %}
 
 {% block title %}
+Ti_Point-Ti_Croix
+{%  endblock %}
 {% block meta %}
 <meta name="Ti-point_Ti-croix" content="Jouez au jeu Ti-point_Ti-croix contre des algorithmes de
  différents niveaux.">
-{%  endblock %}
-Ti_Point-Ti_Croix
 {%  endblock %}
 {%  load static %}
 {% block style %}
@@ -22,7 +22,7 @@ Ti_Point-Ti_Croix
                 <table>
                     <tr>
                         <fieldset>
-                            <legend style="font-size: 1.4vw">Choisissez le niveau de la machine</legend>
+                            <legend style="font-size: 1.2vw">Choisissez le niveau de la machine</legend>
                                 <div>
                                     <label for="niveau1" style="font-size: 1vw;
                                         margin-left: 1vw"><input type="radio" id="niveau1" 
@@ -49,7 +49,7 @@ Ti_Point-Ti_Croix
                                 </div>
                         </fieldset>
                         <fieldset>
-                            <legend style="font-size: 1.4vw">Voulez-vous commencer?</legend>
+                            <legend style="font-size: 1.2vw">Voulez-vous commencer?</legend>
                                 <div>
                                     <label for="begin-yes" style="font-size: 1vw;
                                         margin-left: 1vw"><input type="radio" id="begin-yes" 
@@ -81,12 +81,12 @@ Ti_Point-Ti_Croix
                     <label id="id-beginer" style="font-size: 1vw"></label>
                 </div>
                 <div>
-                    <label  style="font-size: 1vw;font-weight: bolder">{{ connec }} : </label>
+                    <label id="vous" style="font-size: 1vw;font-weight: bolder">{{ connec }} </label>
                     <label  id="id-vous" style="font-size: 1vw;
                         font-weight: bolder">{{ marquevous }}</label>
                 </div>
                 <div>
-                    <label style="font-size: 1vw;font-weight: bolder">{{ nom1 }} :</label>
+                    <label id="ordi" style="font-size: 1vw;font-weight: bolder">{{ nom1 }} </label>
                     <label id="id-ordi" style="font-size: 1vw;
                         font-weight: bolder">{{ marqueordi }}</label>
                 </div>

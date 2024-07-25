@@ -88,10 +88,14 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
             document.getElementById("id-beginer").textContent="Vous jouez en premier"
         }
         if (document.getElementById("id-vous").textContent=="O") {
+            document.getElementById("vous").style.color = "blue"
             document.getElementById("id-vous").style.color = "blue"
+            document.getElementById("ordi").style.color = "red"
             document.getElementById("id-ordi").style.color = "red"
         } else {
+            document.getElementById("vous").style.color = "red"
             document.getElementById("id-vous").style.color = "red"
+            document.getElementById("ordi").style.color = "blue"
             document.getElementById("id-ordi").style.color = "blue"
         }
         document.getElementById("amoi").style.display="none"

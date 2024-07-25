@@ -16,7 +16,7 @@ def nomniveau(niv):
         return("expert")
 
 #coup ordinateur
-def coupordi(marque,NIVEAU,TOUR,SEQUENCE,GRILLE):
+def coupordi(marque,NIVEAU,SEQUENCE,GRILLE):
     if NIVEAU==1:
         return(coupordi1(marque,SEQUENCE,GRILLE))
     if NIVEAU==2:
@@ -26,15 +26,15 @@ def coupordi(marque,NIVEAU,TOUR,SEQUENCE,GRILLE):
     if NIVEAU==4:
         return(coupordi4(marque,SEQUENCE,GRILLE))
 
-def coupmachine(marque,niveau):
+def coupmachine(marque,niveau,SEQUENCE,GRILLE):
     if niveau==1:
-        return(coupordi1(marque))
+        return(coupordi1(marque,SEQUENCE,GRILLE))
     if niveau==2:
-        return(coupordi2(marque))
+        return(coupordi2(marque,SEQUENCE,GRILLE))
     if niveau==3:
-        return(coupordi3(marque))
+        return(coupordi3(marque,SEQUENCE,GRILLE))
     if niveau==4:
-        return(coupordi4(marque))
+        return(coupordi4(marque,SEQUENCE,GRILLE))
 
 
 #coup ordinateur niveau1
@@ -472,15 +472,15 @@ def coupordi3(marque,SEQUENCE,GRILLE):
             nb=0
             if GRILLE[i][j]=="-":
                 coup=str(j)+"/"+str(i)
-                result=cherche_size(coup,marque1,"-ùùùù-".replace("ù",marque1),5)
+                result=cherche_size(coup,marque1,"-ùùùù-".replace("ù",marque1),5,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=result[1]
-                result=cherche_size(coup,marque1,"ù-ùùù-ù".replace("ù",marque1),6)
+                result=cherche_size(coup,marque1,"ù-ùùù-ù".replace("ù",marque1),6,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=nb+result[1]
-                result=cherche_size(coup,marque1,"ùùù-ù-ùùù".replace("ù",marque1),6)
+                result=cherche_size(coup,marque1,"ùùù-ù-ùùù".replace("ù",marque1),6,GRILLE)
                 res=result[0]
                 if res!= "Non":
                     nb=nb+result[1]
@@ -1271,186 +1271,6 @@ async def estconnecté_async(req):
         return (True, pseudox)
     else:
         return (False, "")
-
-def serveursocket (host):
-    # Définition d'un serveur réseau rudimentaire
-# Ce serveur attend la connexion d'un client, pour entamer un dialogue avec lui
-
-    PORT = 50000
-    # 1) création du socket :
-    mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    # 2) liaison du socket à une adresse précise :
-    try:
-        mySocket.bind((host, PORT))
-    except socket.error:
-        print("La liaison du socket à l'adresse choisie a échoué.")
-        sys.exit()
-
-    while 1:
-        # 3) Attente de la requête de connexion d'un client :
-        print("Serveur prêt, en attente de requêtes ...")
-        mySocket.listen(5)
-
-        # 4) Etablissement de la connexion :
-        connexion, adresse = mySocket.accept()
-        print("Client connecté, adresse IP %s, port %s" % (adresse[0], adresse[1]))
-
-        # 5) Dialogue avec le client :
-        connexion.send("Vous êtes connecté au serveur Marcel. Envoyez vos messages.")
-        msgClient = connexion.recv(1024)
-        while 1:
-            print("C>", msgClient)
-            if msgClient.upper() == "FIN" or msgClient =="":
-                break
-            msgServeur = input("S> ")
-            connexion.send(msgServeur)
-            msgClient = connexion.recv(1024)
-
-        # 6) Fermeture de la connexion :
-        connexion.send("Au revoir !")
-        print("Connexion interrompue.")
-        connexion.close()
-
-        ch = input("<R>ecommencer <T>erminer ? ")
-        if ch.upper() =='T':
-            break
-
-def connecserveur (host,pseudo):
-    # Définition d'un serveur réseau rudimentaire
-# Ce serveur attend la connexion d'un client, pour entamer un dialogue avec lui
-
-    import asyncio
-    from websockets.server import serve
-    port = 8765
-    msg=""
-    webs=""
-    async def echo(websocket):
-        async for message in websocket:
-            print("received from {}:{} : ".format(websocket.remote_address[0],websocket.remote_address[1]) + message)
-            await websocket.send(pseudo)
-            msg=message
-            webs=websocket
-    async def main():
-        print("Server is activated on ws://{}:{}".format(host,port))
-        #async with serve(echo, "localhost", 8765):
-        async with serve(echo, host, port):
-                await asyncio.Future()  # run forever
-    asyncio.run(main())
-    return(msg)
-
-def connecserveur1 (host,pseudo):
-    # Définition d'un serveur réseau rudimentaire
-# Ce serveur attend la connexion d'un client, pour entamer un dialogue avec lui
-
-    import socket
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    ipaddress = s.getsockname()[0]
-    s.close()
-    print("ip",ipaddress)
-    PORT = 8765
-    # 1) création du socket :
-    mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    # 2) liaison du socket à une adresse précise :
-    try:
-        mySocket.bind((host, PORT))
-    except socket.error:
-        print("La liaison du socket à l'adresse choisie a échoué.", socket.error)
-        sys.exit()
-
-    while 1:
-        # 3) Attente de la requête de connexion d'un client :
-        print("Serveur prêt, en attente de requêtes ...")
-        mySocket.listen()
-
-        # 4) Etablissement de la connexion :
-        connexion, adresse = mySocket.accept()
-        print("Client connecté, adresse IP %s, port %s" % (adresse[0], adresse[1]))
-
-        connexion.send(pseudo.encode('utf-8'))
-        msgClient = connexion.recv(1024)
-        return(msgClient.decode('utf-8'),connexion)
-
-def clientsocket(host):
-    # Définition d'un client réseau rudimentaire
-    # Ce client dialogue avec un serveur ad hoc
-    PORT = 50000
-
-    # 1) création du socket :
-    mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    # 2) envoi d'une requête de connexion au serveur :
-    try:
-        mySocket.connect((host, PORT))
-    except socket.error:
-        print("La connexion a échoué.")
-        sys.exit()
-    print("Connexion établie avec le serveur.")
-
-    # 3) Dialogue avec le serveur :
-    msgServeur = mySocket.recv(1024)
-
-    while 1:
-        if msgServeur.upper() == "FIN" or msgServeur =="":
-            break
-        print("S>", msgServeur)
-        msgClient = input("C> ")
-        mySocket.send(msgClient)
-        msgServeur = mySocket.recv(1024)
-
-    # 4) Fermeture de la connexion :
-    print("Connexion interrompue.")
-    mySocket.close()
-
-async def connecclient(host, pseudo):
-    import websockets
-    import json
-
-    async with websockets.connect(f"ws://ti-points-ti-croix.fr:8765/ws/chat/") as websocket:
-        print("connect")
-        await websocket.send(json.dumps({"message": pseudo}))
-        message= await websocket.recv()
-        print("recu de server : ",message)
-        return websocket, message
-    
-def connecclientX(host,pseudo):
-    # Définition d'un client réseau rudimentaire
-    # Ce client dialogue avec un serveur ad hoc
-    
-    import asyncio
-    import websockets
-    from websockets.sync.client import connect
-    #with connect("ws://"+host+":8765") as websocket:
-    with connect("ws://77.37.125.25:8765") as websocket:
-        #while True:
-        #message = websocket.recv()
-        #print(message)
-        websocket.send(pseudo)
-        websocket.close
-        #print(f"Received from server : {message}")
-        return(websocket,"testok")
-    
-    
-def connecclient1(host,pseudo):
-    # Définition d'un client réseau rudimentaire
-    # Ce client dialogue avec un serveur ad hoc
-    PORT = 50000
-
-    # 1) création du socket :
-    mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    # 2) envoi d'une requête de connexion au serveur :
-    try:
-        mySocket.connect((host, 8765))
-    except socket.error:
-        print("La connexion a échoué.", socket.error)
-        sys.exit()
-    print("Connexion établie avec le serveur.")
-    msgServeur = mySocket.recv(1024)
-    mySocket.send(pseudo.encode('utf-8'))
-    return(msgServeur.decode('utf-8'),mySocket)
 
 def nbtour(SEQUENCE):
     res=len(SEQUENCE)

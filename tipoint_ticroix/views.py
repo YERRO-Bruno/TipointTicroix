@@ -2,7 +2,7 @@ from .models import User, VerifUser, UserConnected
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from .functions import coupordi,coupmachine,majgrille,trouve_5, estconnecté
-from .functions import nomniveau,connecclient,connecserveur, nbtour
+from .functions import nomniveau, nbtour
 from django.shortcuts import render,redirect
 from django.utils.crypto import get_random_string
 import bcrypt
@@ -324,7 +324,7 @@ def tipointticroix(request):
                 return render(request, "tipointticroix.html", context)
 
             #COUP ORDINATEUR
-            coupordinateur=coupordi(marqueordi,request.session['NIVEAU'],request.session['TOUR'],
+            coupordinateur=coupordi(marqueordi,request.session['NIVEAU'],
                 request.session['SEQUENCE'],request.session['GRILLE'])
             request.session['SEQUENCE']=request.session['SEQUENCE']+[coupordinateur]
             #GRILLE=COUPORDINATEUR
@@ -402,7 +402,8 @@ def machines(request):
            context['sequence']=""
         nbcoup=len(request.session['SEQUENCE'])
         if nbcoup%2==0:
-            coup=coupmachine("O",request.session['NIVEAU1'])
+            coup=coupmachine("O",request.session['NIVEAU1'],
+                             request.session['SEQUENCE'],request.session['GRILLE'])
             request.session['SEQUENCE']=request.session['SEQUENCE']+[coup]
             request.session['GRILLE']=majgrille(coup,"O",request.session['GRILLE'])
             res = trouve_5(coup,"O",request.session['GRILLE'])
@@ -418,7 +419,8 @@ def machines(request):
                 #print(context) 
                 return render(request, "machines.html", context)
         else:
-            coup=coupmachine("X",request.session['NIVEAU2'])
+            coup=coupmachine("X",request.session['NIVEAU2'],request.session['SEQUENCE'],
+                             request.session['GRILLE'])
             request.session['SEQUENCE']=request.session['SEQUENCE']+[coup]
             request.session['GRILLE']=majgrille(coup,"X",request.session['GRILLE'])
             res = trouve_5(coup,"X",request.session['GRILLE'])

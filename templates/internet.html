@@ -40,17 +40,23 @@ font-weight: 400;font-style: normal">
     </div>
     <div id="x-board">
         <div>
-            <label style="font-size: 2vw;">Match : {{ match }}/2</label>
+            <label style="font-size: 1.5vw;">Match : {{ match }}/2</label>
           </div>
-          <div>
-            <label  style="font-size: 1.5vw;">{{ premier }} : </label>
-            <label  style="font-size: 1.5vw;color: blue;font-weight: bolder">O</label>
-            <label id="lscore1" style="font-size: 2vw;font-weight: bolder"> : {{ score1 }}</label>
-          </div>
-          <div>
-            <label style="font-size: 1.5vw">{{ second }} :</label>
-            <label style="font-size: 1.5vw;color: red;font-weight: bolder">X</label>
-            <label id="lscore2" style="font-size: 2vw;font-weight: bolder"> : {{ score2 }}</label>
+          <div class="row">
+            <div class="col-10">
+                <label  style="font-size: 1vw;color: blue;">{{ premier }} O </label>
+            </div>
+            <div class="col-2">
+                <label id="lscore1" style="font-size: 1vw;font-weight: bolder">: {{ score1 }}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <label style="font-size: 1vw;color: red;">{{ second }} X </label>
+            </div>
+            <div class="col-2">
+                <label id="lscore2" style="font-size: 1vw;font-weight: bolder"> : {{ score2 }}</label>
+            </div>
           </div>
           <div>
             <label style="font-size: 1.5vw">Tour :</label>

@@ -24,10 +24,13 @@ document.getElementById("btn-quitter").addEventListener('click', function(e) {
 // Click du joueur sur le bouton quitter en cours de jeu
 document.getElementById("btn-quitter2").addEventListener('click', function(e) {
     e.preventDefault()
-    if (document.getElementById("nb-tour").textContent > "0") {
-        if (confirm("Voulez vous revenir à l'accueil?")==true) {
+    if (document.getElementById("id-victoire1").value!="Non"||
+        document.getElementById("id-victoire2").value!="Non") {
             document.location.href='/tipointticroix'
-        }
+        } else {
+            if (confirm("Voulez vous revenir à l'accueil?")==true) {
+                document.location.href='/tipointticroix'
+            }
     }
 })
 
