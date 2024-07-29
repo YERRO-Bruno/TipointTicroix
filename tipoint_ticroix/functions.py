@@ -1,7 +1,7 @@
 from .models import User
 import random
 from django.contrib.auth import authenticate
-import socket, sys
+
 
 #FONCTIONS
 #nom en fonction du niveau
@@ -14,6 +14,8 @@ def nomniveau(niv):
         return("Pro")
     if niv==4:
         return("expert")
+    if niv==5:
+        return("chamion")
 
 #coup ordinateur
 def coupordi(marque,NIVEAU,SEQUENCE,GRILLE):
@@ -25,6 +27,8 @@ def coupordi(marque,NIVEAU,SEQUENCE,GRILLE):
         return(coupordi3(marque,SEQUENCE,GRILLE))
     if NIVEAU==4:
         return(coupordi4(marque,SEQUENCE,GRILLE))
+    if NIVEAU==5:
+        return(coupordi5(marque,SEQUENCE,GRILLE))
 
 def coupmachine(marque,niveau,SEQUENCE,GRILLE):
     if niveau==1:
@@ -35,6 +39,8 @@ def coupmachine(marque,niveau,SEQUENCE,GRILLE):
         return(coupordi3(marque,SEQUENCE,GRILLE))
     if niveau==4:
         return(coupordi4(marque,SEQUENCE,GRILLE))
+    if niveau==5:
+        return(coupordi5(marque,SEQUENCE,GRILLE))
 
 
 #coup ordinateur niveau1
@@ -857,6 +863,521 @@ def coupordi4(marque,SEQUENCE,GRILLE):
             print("coup ordi4-4:",coup, seq)
             return(coup)
 
+#coup ordinateur niveau5
+def coupordi5(marque,SEQUENCE,GRILLE):
+    if marque=="X":
+        marque1="O"
+    else:
+        marque1="X"
+    bornes=calculbornesjouées(SEQUENCE)
+    ibmin=bornes[0]
+    ibmax=bornes[1]
+    jbmin=bornes[2]
+    jbmax=bornes[3]
+#1er coup ordinateur quand il joue en 1er
+    if len(SEQUENCE)==0:
+        coup="12/12"
+        print("coup ordi5-0:",coup, marque)
+        return(coup)
+
+    imin=max(int(SEQUENCE[-1].split("/")[1])-1,0)
+    imax=min(int(SEQUENCE[-1].split("/")[1])+1,24)
+    jmin=max(int(SEQUENCE[-1].split("/")[0])-1,0)
+    jmax=min(int(SEQUENCE[-1].split("/")[0])+1,24)
+
+    #1er coup ordinateur quand le joueur commence
+    seq=[]
+    if len(SEQUENCE)==1:
+        seq=[]
+        for i in range(imin,imax+1):
+            for j in range(jmin,jmax+1):
+                if GRILLE[i][j]=="-":
+                    seq=seq+[str(j)+"/"+str(i)]
+        if seq!=[]:
+            random.shuffle(seq)
+            coup=seq[0]
+            print("coup ordi5-1:",coup)
+            return(coup)
+
+    #recherche du coup entrainant la victoire soit ùùùùù
+    seq=[]
+    for i in range(ibmin,ibmax+1):
+        for j in range(jbmin,jbmax+1):
+            if GRILLE[i][j]=="-":
+                coup=str(j)+"/"+str(i)
+                result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    print("coup ordi5-2:",coup)
+                    return(coup)
+
+    #recherche du coup de l'adversaire à contrer entrainant sa victoire soit ùùùùù
+    seqmax=[]
+    nbmax=0
+    for i in range(ibmin,ibmax+1):
+        for j in range(jbmin,jbmax+1):
+            nb=0
+            if GRILLE[i][j]=="-":
+                coup=str(j)+"/"+str(i)
+                result=cherche_size(coup,marque1,"ùùùùù".replace("ù",marque1),5,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=result[1]
+                    if nb==nbmax:
+                        seqmax=seqmax+[coup]
+                    if nb>nbmax:
+                        seqmax=[coup]
+                        nbmax=nb
+    if seqmax!=[]:
+        random.shuffle(seqmax)
+        coup=seqmax[0]
+        print("coup ordi5-3 :",coup, seqmax)
+        return(coup)
+    
+    ##recherche du coup entrainant -ùùùù- et ù-ùùù-u et ùùù-ù-ùùù
+    seqmax=[]
+    nbmax=0
+    for i in range(ibmin,ibmax+1):
+        for j in range(jbmin,jbmax+1):
+            nb=0
+            if GRILLE[i][j]=="-":
+                coup=str(j)+"/"+str(i)
+                result=cherche_size(coup,marque,"-ùùùù-".replace("ù",marque),5,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=result[1]
+                result=cherche_size(coup,marque,"ù-ùùù-ù".replace("ù",marque),6,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+                result=cherche_size(coup,marque,"ùùù-ù-ùùù".replace("ù",marque),6,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+            if nb>0:
+                if nb==nbmax:
+                    seqmax=seqmax+[coup]
+                if nb>nbmax:
+                    seqmax=[coup]
+                    nbmax=nb
+    if seqmax!=[]:
+        random.shuffle(seqmax)
+        coup=seqmax[0]
+        print("coup ordi5-4 :",coup, seqmax)
+        return(coup)
+    
+    #recherche des coups entrainant -ùùùù et ùùùù- et ùùù-ù et ùù-ùùet ù-ùùù
+    seqmax=[]
+    seq4=[]
+    nbmax=0
+    for i in range(ibmin,ibmax+1):
+        for j in range(jbmin,jbmax+1):
+            nb=0
+            if GRILLE[i][j]=="-":
+                coup=str(j)+"/"+str(i)
+                result=cherche_size(coup,marque,"-ùùùù".replace("ù",marque),5,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=result[1]
+                result=cherche_size(coup,marque,"ùùùù-".replace("ù",marque),6,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+                result=cherche_size(coup,marque,"ùùù-ù".replace("ù",marque),6,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+                result=cherche_size(coup,marque,"ùù-ùù".replace("ù",marque),6,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+                result=cherche_size(coup,marque,"ù-ùùù".replace("ù",marque),6,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+            if nb>0:
+                
+                seq4=seq4+[coup]
+                if nb>nbmax:
+                    seqmax=[coup]
+                    coupmax=coup
+                    nbmax=nb
+            if nbmax>1:
+                return(coupmax)
+            
+    #recherche récursive suite aux coups entrainant -ùùùù- et ù-ùùù-u et ùùù-ù-ùùù
+    for coup4_0 in seq4:
+        imin4_0=max(0,int(coup4_0.split("/")[1])-5)
+        imax4_0=min(24,int(coup4_0.split("/")[1])+5)
+        jmin4_0=max(0,int(coup4_0.split("/")[0])-5)
+        jmax4_0=min(24,int(coup4_0.split("/")[0])+5)
+        GRILLE4_0=[["-"] * 25 for _ in range(25)]
+        for j in range(0,25):
+            for i in range(0,25):
+                GRILLE4_0[i][j]=GRILLE[i][j]
+        GRILLE4_0=majgrille(coup4_0,marque,GRILLE4_0)
+        #recherche du coup empêchant la victoire soit ùùùùù
+        seqdef_0=[]
+        for i in range(imin4_0,imax4_0+1):
+            for j in range(jmin4_0,jmax4_0+1):
+                if GRILLE4_0[i][j]=="-":
+                    coup=str(j)+"/"+str(i)
+                    result=cherche_size(coup,marque1,"ùùùùù".replace("ù",marque),5,GRILLE4_0)
+                    res=result[0]
+                    if res!= "Non":
+                       seqdef_0=seqdef_0+[coup]
+        testvictoire=False
+        for coup4_1 in seqdef_0:
+            imin4_1=max(0,int(coup4_1.split("/")[1])-5)
+            imax4_1=min(24,int(coup4_1.split("/")[1])+5)
+            jmin4_1=max(0,int(coup4_1.split("/")[0])-5)
+            jmax4_1=min(24,int(coup4_1.split("/")[0])+5)
+            GRILLE4_1=[["-"] * 25 for _ in range(25)]
+            for j in range(0,25):
+                for i in range(0,25):
+                    GRILLE4_1[i][j]=GRILLE4_0[i][j]
+            GRILLE4_1=majgrille(coup4_1,marque1,GRILLE4_1)
+            seqdef_1=[]
+            for i in range(imin4_1,imax4_1+1):
+                for j in range(jmin4_1,jmax4_1+1):
+                    testvictoire=False
+                    #recherche du coup entrainat la victoire soit ùùùùù
+                    if GRILLE4_1[i][j]=="-":
+                        coup=str(j)+"/"+str(i)
+                        result=cherche_size(coup,marque,"ùùùùù".replace("ù",marque),5,GRILLE4_1)
+                        res=result[0]
+                        if res!= "Non":
+                            seqdef_1=seqdef_1+[coup]
+                            testvictoire=True
+            if testvictoire==False:
+                break
+        if testvictoire==True:
+            print("coup ordi5-recur :",coup4_0)
+            return(coup4_0)
+        
+        for coup4_1 in seqdef_0:
+            imin4_1=max(0,int(coup4_1.split("/")[1])-5)
+            imax4_1=min(24,int(coup4_1.split("/")[1])+5)
+            jmin4_1=max(0,int(coup4_1.split("/")[0])-5)
+            jmax4_1=min(24,int(coup4_1.split("/")[0])+5)
+            GRILLE4_1=[["-"] * 25 for _ in range(25)]
+            for j in range(0,25):
+                for i in range(0,25):
+                    GRILLE4_1[i][j]=GRILLE4_0[i][j]
+            GRILLE4_1=majgrille(coup4_1,marque1,GRILLE4_1)
+            seqdef_1=[]
+            nbmax=0
+            for i in range(imin4_1,imax4_1+1):
+                for j in range(jmin4_1,jmax4_1+1):
+                    ##recherche des coup  entrainant -ùùùù ou ùùùù- ou ùùù-u ou ù-ùùù ou -ùùù-
+                    nb=0
+                    if GRILLE4_1[i][j]=="-":
+                        coup=str(j)+"/"+str(i)
+                        result=cherche_size(coup,marque,"-ùùùù".replace("ù",marque),5,GRILLE4_1)
+                        res=result[0]
+                        if res!= "Non":
+                            seqdef_1=seqdef_1+[coup]
+                            nb=nb+result[1]
+                        result=cherche_size(coup,marque,"ùùùù-".replace("ù",marque),5,GRILLE4_1)
+                        res=result[0]
+                        if res!= "Non":
+                            seqdef_1=seqdef_1+[coup]
+                            nb=nb+result[1]
+                        result=cherche_size(coup,marque,"ùùù-ù".replace("ù",marque),5,GRILLE4_1)
+                        res=result[0]
+                        if res!= "Non":
+                            seqdef_1=seqdef_1+[coup]
+                            nb=nb+result[1]
+                        result=cherche_size(coup,marque,"ù-ùùù".replace("ù",marque),5,GRILLE4_1)
+                        res=result[0]
+                        if res!= "Non":
+                            seqdef_1=seqdef_1+[coup]
+                            nb=nb+result[1]
+                        result=cherche_size(coup,marque,"-ùùù-".replace("ù",marque),5,GRILLE4_1)
+                        res=result[0]
+                        if res!= "Non":
+                            seqdef_1=seqdef_1+[coup]
+                            nb=nb+result[1]
+                        if nb>nbmax:
+                            nbmax=nb
+                            coupmax=coup
+            if nbmax>1:
+                print("coup ordi5-recur :",coup4_0)
+                return(coup4_0)                
+                    
+    #recherche des coup de  l'adversaire entrainant -ùùùù- et ù-ùùù-u et ùùù-ù-ùùù
+    seqmax=[]
+    nbmax=0
+    for i in range(ibmin,ibmax+1):
+        for j in range(jbmin,jbmax+1):
+            nb=0
+            if GRILLE[i][j]=="-":
+                coup=str(j)+"/"+str(i)
+                result=cherche_size(coup,marque1,"-ùùùù-".replace("ù",marque1),5,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=result[1]
+                result=cherche_size(coup,marque1,"ù-ùùù-ù".replace("ù",marque1),6,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+                result=cherche_size(coup,marque1,"ùùù-ù-ùùù".replace("ù",marque1),6,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+            if nb>0:
+                if nb==nbmax:
+                    seqmax=seqmax+[coup]
+                if nb>nbmax:
+                    seqmax=[coup]
+                    nbmax=nb
+    if seqmax!=[]:
+        random.shuffle(seqmax)
+        coup=seqmax[0]
+        print("coup ordi5-5 :",coup, seqmax)
+        return(coup)
+    
+    ##recherche des coup  entrainant -ùùù- ou -ùùùù ou ùùùù-
+    seqmax=[]
+    nbmax=0
+    for i in range(ibmin,ibmax+1):
+        for j in range(jbmin,jbmax+1):
+            nb=0
+            if GRILLE[i][j]=="-":
+                coup=str(j)+"/"+str(i)
+                result=cherche_size(coup,marque,"-ùùù-".replace("ù",marque),3,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=result[1]
+                result=cherche_size(coup,marque,"ùùùù-".replace("ù",marque),4,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+                result=cherche_size(coup,marque,"ùùùù-".replace("ù",marque),4,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+            if nb>0:
+                if nb==nbmax:
+                    seqmax=seqmax+[coup]
+                if nb>nbmax:
+                    seqmax=[coup]
+                    nbmax=nb
+    if seqmax!=[]:
+        random.shuffle(seqmax)
+        coup=seqmax[0]
+        print("coup ordi5-6 :",coup, seqmax)
+        return(coup)
+    
+    ##recherche des coup  entrainant -ù-ùù- ou -ùù-ù-
+    seqmax=[]
+    nbmax=0
+    for i in range(ibmin,ibmax+1):
+        for j in range(jbmin,jbmax+1):
+            nb=0
+            if GRILLE[i][j]=="-":
+                coup=str(j)+"/"+str(i)
+                result=cherche_size(coup,marque,"-ù-ùù-".replace("ù",marque),4,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=result[1]
+                result=cherche_size(coup,marque,"-ùù-ù-".replace("ù",marque),4,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+            if nb>0:
+                if nb==nbmax:
+                    seqmax=seqmax+[coup]
+                if nb>nbmax:
+                    seqmax=[coup]
+                    nbmax=nb
+    if seqmax!=[]:
+        random.shuffle(seq)
+        coup=seqmax[0]
+        print("coup ordi5-6bis :",coup, seqmax)
+        return(coup)
+    
+    ##recherche des coup  entrainant -ùùùù ou ùùùù-
+    seqmax=[]
+    nbmax=0
+    for i in range(ibmin,ibmax+1):
+        for j in range(jbmin,jbmax+1):
+            nb=0
+            if GRILLE[i][j]=="-":
+                coup=str(j)+"/"+str(i)
+                result=cherche_size(coup,marque,"-ùùùù".replace("ù",marque),4,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=result[1]
+                result=cherche_size(coup,marque,"ùùùù-".replace("ù",marque),4,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+            if nb>0:
+                if nb==nbmax:
+                    seqmax=seqmax+[coup]
+                if nb>nbmax:
+                    seqmax=[coup]
+                    nbmax=nb
+    if seqmax!=[]:
+        random.shuffle(seq)
+        coup=seqmax[0]
+        print("coup ordi5-7 :",coup, seqmax)
+        return(coup)
+    
+    ##recherche des coup  entrainant ùùù-ù ou ù-ùùù ou -ùùù-
+    seqmax=[]
+    nbmax=0
+    for i in range(ibmin,ibmax+1):
+        for j in range(jbmin,jbmax+1):
+            nb=0
+            if GRILLE[i][j]=="-":
+                coup=str(j)+"/"+str(i)
+                result=cherche_size(coup,marque,"ù-ùùù".replace("ù",marque),4,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=result[1]
+                result=cherche_size(coup,marque,"ùùù-ù".replace("ù",marque),4,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+            if nb>0:
+                if nb==nbmax:
+                    seqmax=seqmax+[coup]
+                if nb>nbmax:
+                    seqmax=[coup]
+                    nbmax=nb
+    if seqmax!=[]:
+        random.shuffle(seqmax)
+        coup=seqmax[0]
+        print("coup ordi5-8 :",coup, seqmax)
+        return(coup)
+    
+    ##recherche du coup de l'adversaire entrainant -ùùùù ou uuuu- ou ù-ùùù ou ùùù-ù -ùùù-
+    seqmax=[]
+    nbmax=0
+    for i in range(ibmin,ibmax+1):
+        for j in range(jbmin,jbmax+1):
+            nb=0
+            if GRILLE[i][j]=="-":
+                coup=str(j)+"/"+str(i)
+                result=cherche_size(coup,marque1,"-ùùù-".replace("ù",marque1),3,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=result[1]
+                result=cherche_size(coup,marque1,"-ùùùù".replace("ù",marque1),4,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+                result=cherche_size(coup,marque1,"ùùùù-".replace("ù",marque1),4,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+                result=cherche_size(coup,marque1,"ù-ùùù".replace("ù",marque1),4,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+                result=cherche_size(coup,marque1,"ùùù-ù".replace("ù",marque1),4,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=nb+result[1]
+            if nb>0:
+                if nb==nbmax:
+                    seqmax=seqmax+[coup]
+                if nb>nbmax:
+                    seqmax=[coup]
+                    nbmax=nb
+    if seqmax!=[]:
+        random.shuffle(seqmax)
+        coup=seqmax[0]
+        print("coup ordi5-9:",coup, seqmax)
+        return(coup)
+        
+    ##recherche du coup du joueur entrainant -ùù- -ùùù& &ùùù-
+    seqmax=[]
+    nbmax=0
+    for i in range(ibmin,ibmax+1):
+        for j in range(jbmin,jbmax+1):
+            nb=0
+            if GRILLE[i][j]=="-":
+                coup=str(j)+"/"+str(i)
+                result=cherche_size(coup,marque,"-ùù-".replace("ù",marque),2,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=result[1]
+                result=cherche_size(coup,marque,"-ùùù&".replace("ù",marque).replace("&",marque1),2,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=result[1]
+                result=cherche_size(coup,marque,"&ùùù-".replace("ù",marque).replace("&",marque1),2,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=result[1]
+            if nb>0:
+                if nb==nbmax:
+                    seqmax=seqmax+[coup]
+                if nb>nbmax:
+                    seqmax=[coup]
+                    nbmax=nb
+    if seqmax!=[]:
+        random.shuffle(seqmax)
+        coup=seqmax[0]
+        print("coup ordi5-10:",coup, seqmax)
+        return(coup)
+    
+    ##recherche du coup de l'adversaire entrainant -ùù- -ùùù& &ùùù-
+    seqmax=[]
+    nbmax=0
+    for i in range(ibmin,ibmax+1):
+        for j in range(jbmin,jbmax+1):
+            nb=0
+            if GRILLE[i][j]=="-":
+                coup=str(j)+"/"+str(i)
+                result=cherche_size(coup,marque1,"-ùù-".replace("ù",marque1),2,GRILLE)
+                res=result[0]
+                if res!= "Non":
+                    nb=result[1]
+            if nb>0:
+                if nb==nbmax:
+                    seqmax=seqmax+[coup]
+                if nb>nbmax:
+                    seqmax=[coup]
+                    nbmax=nb
+    if seqmax!=[]:
+        random.shuffle(seqmax)
+        coup=seqmax[0]
+        print("coup ordi5-11:",coup, seqmax)
+        return(coup)
+                    
+
+    
+    #Recherche des coups adjacents au dernier coup de l'adversaire.
+    #Un des coups est choisi aléatoirement. Si pas de coup trouvé on passe au coup précédent.
+    SEQO=[]
+    if marque=="X":
+        for i in range(0,len(SEQUENCE),2):
+            SEQO=SEQO+[SEQUENCE[i]]
+    else:
+        for i in range(0,len(SEQUENCE),2):
+            SEQO=SEQO+[SEQUENCE[i+1]]  
+    for i in range(len(SEQO)-1,-1,-1):
+        i0=int(SEQO[i].split("/")[1])
+        j0=int(SEQO[i].split("/")[0])
+        imin=max(i0-1,0)
+        imax=min(i0+1,24)
+        jmin=max(j0-1,0)
+        jmax=min(j0+1,24)
+        seq=[]
+        for i in range(imin,imax+1):
+            for j in range(jmin,jmax+1):
+                if GRILLE[i][j]=="-":
+                    seq=seq+[str(j)+"/"+str(i)]
+        if seq!=[]:
+            random.shuffle(seq)
+            coup=seq[0]
+            print("coup ordi5-12:",coup, seq)
+            return(coup)
+
 def score(coup,marque,GRILLE):
     if marque=="X":
         marque1="O"
@@ -1060,8 +1581,8 @@ def trouve_5(coup,marque,GRILLE):
 
 def cherche_size(coup,marque,rech,size,GRILLE):
     grid=[["-"] * 25 for _ in range(25)]
-    for i in range(0,24):
-        for j in range(0,24):
+    for j in range(0,25):
+        for i in range(0,25):
             grid[i][j]=GRILLE[i][j]
     j0=int(coup.split("/")[0])
     i0=int(coup.split("/")[1])

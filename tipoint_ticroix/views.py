@@ -1,4 +1,4 @@
-from .models import User, VerifUser, UserConnected
+from .models import User, VerifUser
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from .functions import coupordi,coupmachine,majgrille,trouve_5, estconnecté
@@ -408,6 +408,15 @@ def machines(request):
             request.session['GRILLE']=majgrille(coup,"O",request.session['GRILLE'])
             res = trouve_5(coup,"O",request.session['GRILLE'])
             if res != "Non":
+                nbO=0
+                nbX=0
+                for j in range(0,25):
+                    for i in range(0,25):
+                        if request.session['GRILLE'][i][j]=="O":
+                            nbO=nbO+1
+                        if request.session['GRILLE'][i][j]=="X":
+                            nbX=nbX+1
+                print(nbO,"__",nbX)
                 context['nom1']=nomniveau(request.session['NIVEAU1'])
                 context['nom2']=nomniveau(request.session['NIVEAU2'])
                 context['niveau1']=request.session['NIVEAU1']
@@ -425,6 +434,15 @@ def machines(request):
             request.session['GRILLE']=majgrille(coup,"X",request.session['GRILLE'])
             res = trouve_5(coup,"X",request.session['GRILLE'])
             if res != "Non":
+                nbO=0
+                nbX=0
+                for j in range(0,25):
+                    for i in range(0,25):
+                        if request.session['GRILLE'][i][j]=="O":
+                            nbO=nbO+1
+                        if request.session['GRILLE'][i][j]=="X":
+                            nbX=nbX+1
+                print(nbO,"__",nbX)
                 context['nom1']=nomniveau(request.session['NIVEAU1'])
                 context['nom2']=nomniveau(request.session['NIVEAU2'])
                 context['niveau1']=request.session['NIVEAU1']
