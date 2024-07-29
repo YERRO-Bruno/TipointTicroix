@@ -2,7 +2,7 @@ from .models import User, VerifUser
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from .functions import coupordi,coupmachine,majgrille,trouve_5, estconnecté
-from .functions import nomniveau, nbtour
+from .functions import nomniveau, nbtour, finpartie
 from django.shortcuts import render,redirect
 from django.utils.crypto import get_random_string
 import bcrypt
@@ -81,6 +81,7 @@ def internet(request):
                     request.session['.MATCH']=request.session['MATCH']+1
                     if request.POST['jeton']=="Oui":
                         context['defaite']=res
+                        finpartie(connec[1],"H",False)
                         context['victoire']="Non"
                         if request.session['PREMIER']==request.POST['joueur']:
                             request.session['SCORE2']=request.session['SCORE2']+1
@@ -91,6 +92,7 @@ def internet(request):
                     else:
                         context['defaite']="Non"
                         context['victoire']=res
+                        finpartie(connec[1],"H",True)
                         if request.session['PREMIER']==request.POST['joueur']:
                             request.session['SCORE1']=request.session['SCORE1']+1
                             #context['score1']=request.session['SCORE1']
@@ -99,6 +101,7 @@ def internet(request):
                             #context['score2']=request.session['SCORE2']
                     if request.session['MATCH']==2:
                         context['finpartie']="Oui"
+                
                 context['jeton']=request.POST['jeton']
                 context['joueur']=request.POST['joueur']
                 context['adversaire']=request.POST['adversaire']
@@ -318,6 +321,7 @@ def tipointticroix(request):
             res = trouve_5(request.POST["coupjoueur"],marquejoueur,request.session['GRILLE'])
             if res != "Non":
                 context['victoire']=res
+                finpartie(connec[1],str(request.session['NIVEAU']),True)
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
                 #print(context) 
@@ -332,6 +336,7 @@ def tipointticroix(request):
             res = trouve_5(coupordinateur,marqueordi,request.session['GRILLE'])
             if res != "Non":
                 context['defaite']=res
+                finpartie(connec[1],str(request.session['NIVEAU']),False)
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
                 print(context) 

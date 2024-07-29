@@ -1,4 +1,4 @@
-from .models import User
+from .models import User, Game
 import random
 from django.contrib.auth import authenticate
 
@@ -1796,6 +1796,12 @@ async def estconnecté_async(req):
 def nbtour(SEQUENCE):
     res=len(SEQUENCE)
     return((res//2)+1)
+
+def finpartie(pseudox,typex,result):
+    userx=User.objects.get(pseudo=pseudox)
+    print("mail",userx.email)
+    game = Game.objects.create(user=userx, type=typex, victoire=result)
+    print("finpartie")
 
 
 

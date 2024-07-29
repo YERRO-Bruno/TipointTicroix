@@ -41,3 +41,4 @@ class Game(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games')
     type = models.CharField(max_length=1)
     victoire = models.BooleanField(default=True)
+    
