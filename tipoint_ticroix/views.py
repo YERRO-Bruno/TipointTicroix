@@ -1,4 +1,4 @@
-from .models import User, VerifUser
+from .models import User, VerifUser, Game
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from .functions import coupordi,coupmachine,majgrille,trouve_5, estconnecté
@@ -8,6 +8,8 @@ from django.utils.crypto import get_random_string
 import bcrypt
 from django.core.mail import send_mail
 from django.http import JsonResponse
+from django.db.models import Count, Sum, Case, When, IntegerField, FloatField
+from django.db.models.functions import Cast
 
 #page internet (PvP)
 def internet(request):
@@ -476,6 +478,26 @@ def machines(request):
     request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
     request.session['SEQUENCE']=[] 
     return render(request, "machines.html", context) 
+
+def statistics(request):
+    context = {}
+    connec=estconnecté(request)
+    if connec[0]:
+        context["connexion"]="Oui"
+        context["connec"]=connec[1]
+        print(context)
+        userx=User.objects.get(pseudo=connec[1])
+        results = Game.objects.filter(user_id=userx.id).values('type').annotate(
+            total=Count('id'),
+            victories=Sum(Case(When(victoire=True, then=1), default=0, output_field=IntegerField())),
+            victoire_percentage=Cast(Sum(Case(When(victoire=True, then=1), default=0, output_field=IntegerField())) * 100.0 / Count('id'), FloatField())
+        )
+
+        context['results'] = results
+        return render(request, 'statistics.html', context)
+    else:
+        context["connexion"]="Non"
+        return redirect('/tipointticroix/connect',context)
 
 #page apropos
 def apropos(request):

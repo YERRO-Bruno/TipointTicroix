@@ -15,6 +15,7 @@ urlpatterns = [
     path('tipointticroix/logout/', views.logout_view, name='logout_view'),
     path('tipointticroix/apropos/', views.apropos, name='apropos'),
     path('tipointticroix/mentions/', views.mentions, name='mentions'),
+    path('tipointticroix/statistics/', views.statistics, name='statistics'),
     path('admin/', admin.site.urls),
     path("api/userconnecteds",views.api_userconnecteds,name="api_userconnecteds")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
