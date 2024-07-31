@@ -139,7 +139,8 @@ def accueil(request):
         context['debug']= "True"
     else:
         context['debug']= "False"
-    print("acceuil DEBUG", settings.DEBUG)        
+    print("acceuil DEBUG", settings.DEBUG)  
+    print(context)      
     return render(request, "accueil.html", context)
 
 #déconnexion
