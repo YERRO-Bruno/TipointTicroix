@@ -34,13 +34,11 @@ Ti_Point-Ti_Croix
       </div> 
       <br>
       <br>
-      {% if debug %}
-        <div>
-          <a style="font-family: 'Pacifico', cursive;font-weight: 400;font-style: normal;
-          margin-left:2vw;margin-top: 5vh" href="{% url 'machines' %}">
-          Machine contre machine!</a>
-        </div> 
-      {% endif %}
+      <div id="id-machines">
+        <a style="font-family: 'Pacifico', cursive;font-weight: 400;font-style: normal;
+        margin-left:2vw;margin-top: 5vh" href="{% url 'machines' %}">
+        Machine contre machine!</a>
+      </div> 
       <br>
       <br>
       <div>
@@ -89,8 +87,15 @@ Ti_Point-Ti_Croix
       motifs qui mènent à la victoire, comme les "ponts" (deux pions avec un espace entre eux), les 
       "sauts" (trois pions avec un espace au milieu), et les "fourchettes" (deux alignements de 
       trois qui se rejoignent).</p>
-  </div>  
+  </div>
+  <div id="id-debug" hidden>{{ debug }}</div>  
   {%  endblock %}
   
 {% block script %}
+<script>
+  alert(document.getElementById("id-debug").textContent)
+  if (document.getElementById("id-debug").textContent="False") {
+    document.getElementById("id-machines").style.display="none"
+  }
+</script>
 {% endblock %}

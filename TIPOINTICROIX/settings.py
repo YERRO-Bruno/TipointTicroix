@@ -29,8 +29,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
-print(DEBUG)
+DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1')
+print(f"DEBUG: {DEBUG}")
 
 ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.*",
                  '77.37.125.25',"ti-points-ti-croix.fr","172.18.0.4","172.18.0.7"]
@@ -153,3 +153,4 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+print(DEBUG_EMAIL )
