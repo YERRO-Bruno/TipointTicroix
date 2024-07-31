@@ -135,7 +135,8 @@ def accueil(request):
     else:
         context["connexion"]="Non"
         context["connec"]=connec[1]
-    context['debug']= settings.DEBUG        
+    context['debug']= settings.DEBUG
+    print("acceuil DEBUG", settings.DEBUG)        
     return render(request, "accueil.html", context)
 
 #déconnexion
