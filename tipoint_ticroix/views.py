@@ -10,6 +10,7 @@ from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.db.models import Count, Sum, Case, When, IntegerField, FloatField
 from django.db.models.functions import Cast
+from django.conf import settings
 
 #page internet (PvP)
 def internet(request):
@@ -134,7 +135,7 @@ def accueil(request):
     else:
         context["connexion"]="Non"
         context["connec"]=connec[1]
-            
+    context['debug']= settings.DEBUG        
     return render(request, "accueil.html", context)
 
 #déconnexion
