@@ -13,9 +13,9 @@ def nomniveau(niv):
     if niv==3:
         return("Pro")
     if niv==4:
-        return("expert")
+        return("Expert")
     if niv==5:
-        return("chamion")
+        return("Champion")
 
 #coup ordinateur
 def coupordi(marque,NIVEAU,SEQUENCE,GRILLE):

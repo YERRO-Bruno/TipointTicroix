@@ -54,6 +54,8 @@ function displayGameBoard(){
     document.getElementById("AMACHINE2").style.display="none"
     document.getElementById("x-board").style.display="none"
     document.getElementById("btn-annuler").style.display="none"
+    document.getElementById("btn-save").style.display="none"
+    document.getElementById("btn-load").style.display="none"
     document.getElementById("btn-rejouer").style.display="none"
     // creation lignes du tableau
     var cell, ligne;
@@ -89,6 +91,8 @@ function displayGameBoard(){
             document.getElementById("coupsuivant").style.display="block"
             if (document.getElementById("nb-tour").textContent > "1") {
                 document.getElementById("btn-annuler").style.display="block"
+                document.getElementById("btn-load").style.display="block"
+                document.getElementById("btn-save").style.display="block"
             }
         } else {
             document.getElementById("coupsuivant").style.display="none"
@@ -146,6 +150,8 @@ function displayGameBoard(){
             document.getElementById("AMACHINE2").style.display="none"
             document.getElementById("btn-rejouer").style.display="blocK"
             document.getElementById("btn-annuler").style.display="none"  
+            document.getElementById("btn-save").style.display="none"  
+            document.getElementById("btn-load").style.display="none"  
             win=win.split(",")
             for (let i = 0;i<5;i++) {
                 document.getElementById(win[i]).style.backgroundColor="yellow"

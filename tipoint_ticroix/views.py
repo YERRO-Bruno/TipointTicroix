@@ -138,10 +138,8 @@ def accueil(request):
     if settings.DEBUG:
         context['debug']= "True"
     else:
-        context['debug']= "False"
-    print("acceuil DEBUG", settings.DEBUG)  
+        context['debug']= "False"  
     print(context)      
-    return render(request, "accueil.html", context)
 
 #déconnexion
 def logout_view(request):
