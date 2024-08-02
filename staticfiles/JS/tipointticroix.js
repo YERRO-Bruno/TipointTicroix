@@ -33,11 +33,8 @@ document.getElementById("table").addEventListener('click', function(e) {
 
             e.target.blur()
             document.getElementById("coup-joueur").value=e.target.id
-        
-            // Affichage "JE REFLECHIT"
             document.getElementById("amoi").style.display="block"
             document.getElementById("avous").style.display="none"
-            
             document.forms["grille"].submit();
         } else {
             alert("Case déjà utilisée")
@@ -131,6 +128,7 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
             }
         }
         if (document.getElementById("nb-tour").textContent > "0") {
+            localStorage.setItem("partiencours",document.getElementById("id-sequence").value)
             if (document.getElementById("nb-tour").textContent > "1") {
                 document.getElementById("btn-annuler").style.display="block"
             }
@@ -191,6 +189,18 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
                 win = win.split(',')  
                 for (let i = 0;i<5;i++) {
                     document.getElementById(win[i]).style.backgroundColor="yellow"
+                }
+                localStorage.removeItem("partiencours")
+            }
+        } else {
+            //debut de partie tour=0 - Demande si on veut reprendre une partie interrompue
+            if(localStorage.getItem("partiencours") != null){
+                if (confirm("Voulez-vous reprendre la dernière partie?")==true) {
+                    document.getElementById("id-charger").value="Oui"
+                    document.getElementById("id-sequence").value=localStorage.getItem("partiencours")
+                    document.forms["grille"].submit();
+                } else {
+                    localStorage.removeItem("partiencours")
                 }
             }
         }

@@ -193,8 +193,9 @@ Ti_Point-Ti_Croix
                     <input name="coup1" id="id-coup1" type="text" hidden>
                     <input name="coup2" id="id-coup2" type="text" hidden>
                     <input name="annuler" id="id-annuler" type="text" hidden>
+                    <input name="charger" id="id-charger" type="text" hidden>
                     <label for="id-sequence">Coups joués</label>
-                    <input id="id-sequence" type="text" value="{{ sequence }}">
+                    <input name="sequence" id="id-sequence" type="text" value="{{ sequence }}">
                     <label for="id-victoire1">victoire machine1</label>
                     <input id="id-victoire1" type="text" value="{{ victoire1 }}">
                     <label for="id-victoire2">victoire machine2</label>
@@ -218,4 +219,7 @@ Ti_Point-Ti_Croix
 
 {%  block script %}
         <script src="{% static 'JS/machines.js'%}"></script>
+        <script>
+            //alert("html")
+        </script>
 {%  endblock %}

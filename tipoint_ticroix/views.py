@@ -140,6 +140,7 @@ def accueil(request):
     else:
         context['debug']= "False"  
     print(context)      
+    return render(request, "accueil.html", context)
 
 #déconnexion
 def logout_view(request):
@@ -285,7 +286,34 @@ def tipointticroix(request):
             context['defaite']="Non"
             print(context)
             return render(request, "tipointticroix.html", context)
-            
+
+        if request.POST["charger"]=="Oui":
+            print("charger : " + request.POST["charger"])
+            request.session['SEQUENCE']=request.POST['sequence'].split(",")
+            marque="O"
+            request.session['GRILLE']=[["-"] * 25 for _ in range(25)]
+            for coup in request.session['SEQUENCE']:
+                request.session['GRILLE']=majgrille(coup,marque,request.session['GRILLE'])
+                if marque=="O":
+                    marque="X"
+                else:
+                    marque="O"
+            marqueordi=request.session['MARQUEORDI']
+            marquejoueur=request.session['MARQUEJOUEUR']
+            context['marquevous']=marquejoueur
+            context['marqueordi']=marqueordi
+            context['nom1']=nomniveau(request.session['NIVEAU'])
+            context['niveau']=request.session['NIVEAU']
+            context['begin']=request.session['BEGIN']
+            context['victoire']="Non"
+            context['defaite']="Non" 
+            context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+            request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
+            print(request.session['TOUR'])
+            context['tour']=str(request.session['TOUR'])
+            #print(context)    
+            return render(request, "tipointticroix.html", context)
+
         #MAJ TABLEAU
         if request.session['TOUR']==0 :
             request.session['NIVEAU']=int(request.POST["niveau"])
@@ -403,6 +431,30 @@ def machines(request):
             context['victoire2']="Non" 
             print(context)
             return render(request, "machines.html", context)
+        if request.POST["charger"]=="Oui":
+            print("charger : " + request.POST["charger"])
+            request.session['SEQUENCE']=request.POST['sequence'].split(",")
+            marque="O"
+            request.session['GRILLE']=[["-"] * 25 for _ in range(25)]
+            for coup in request.session['SEQUENCE']:
+                request.session['GRILLE']=majgrille(coup,marque,request.session['GRILLE'])
+                if marque=="O":
+                    marque="X"
+                else:
+                    marque="O"
+            context['victoire1']="Non"
+            context['victoire2']="Non"
+            context['nom1']=nomniveau(request.session['NIVEAU1'])
+            context['nom2']=nomniveau(request.session['NIVEAU2'])    
+            context['niveau1']=request.session['NIVEAU1']
+            context['niveau2']=request.session['NIVEAU2']
+            context['modejeu']=request.session['MODEJEU']
+            context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+            request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
+            print(request.session['TOUR'])
+            context['tour']=str(request.session['TOUR'])
+            #print(context)    
+            return render(request, "machines.html", context) 
         #MAJ TABLEAU
         if request.session['TOUR']==0 :
            request.session['SEQUENCE']=[]

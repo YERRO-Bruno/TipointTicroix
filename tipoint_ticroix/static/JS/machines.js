@@ -39,6 +39,18 @@ document.getElementById("btn-annuler").addEventListener('click', function(e) {
     e.preventDefault()
     document.getElementById("id-annuler").value="Oui"
     document.forms["grille"].submit();
+})
+// Click du joueur sur le bouton enregistrer position
+document.getElementById("btn-save").addEventListener('click', function(e) {
+    e.preventDefault()
+    localStorage.setItem("enreg",document.getElementById("id-sequence").value)
+})
+// Click du joueur sur le bouton charger position
+document.getElementById("btn-load").addEventListener('click', function(e) {
+    e.preventDefault()
+    document.getElementById("id-charger").value="Oui"
+    document.getElementById("id-sequence").value=localStorage.getItem("enreg")
+    document.forms["grille"].submit();
     })
 
 // Click du joueur sur le bouton rejouer
@@ -54,6 +66,8 @@ function displayGameBoard(){
     document.getElementById("AMACHINE2").style.display="none"
     document.getElementById("x-board").style.display="none"
     document.getElementById("btn-annuler").style.display="none"
+    document.getElementById("btn-load").style.display="none"
+    document.getElementById("btn-save").style.display="none"
     document.getElementById("btn-rejouer").style.display="none"
     // creation lignes du tableau
     var cell, ligne;
@@ -87,6 +101,8 @@ function displayGameBoard(){
     if (document.getElementById("nb-tour").textContent > "0") {
         if (document.getElementById("modejeu").textContent=="pas à pas") {
             document.getElementById("coupsuivant").style.display="block"
+            document.getElementById("btn-save").style.display="block"
+            document.getElementById("btn-load").style.display="block"
             if (document.getElementById("nb-tour").textContent > "1") {
                 document.getElementById("btn-annuler").style.display="block"
             }
