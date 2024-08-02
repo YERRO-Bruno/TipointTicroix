@@ -104,7 +104,6 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
         var tableau = document.getElementById("table");
         for (let j = 0; j < 25; j++) {
             ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
-                                           // le paramètre est dans ce cas (-1)
 
         // création et insertion des cellules dans la nouvelle ligne créée
             for (let i = 0; i < 25; i++) {
