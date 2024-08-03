@@ -135,13 +135,21 @@ def accueil(request):
     else:
         context["connexion"]="Non"
         context["connec"]=connec[1]
-    print("setDEBUG",settings.DEBUG)
     if settings.DEBUG=="True":
         context['debug']= "True"
     else:
         context['debug']= "False"  
     print(context)      
     return render(request, "accueil.html", context)
+#desinscription
+def desinscription(request):
+    connec=estconnecté(request)
+    print("desinscription",connec[1])
+    userx=User.objects.get(pseudo=connec[1])
+    print(userx.email)
+    userx.delete()
+    return redirect("/tipointticroix")
+
 
 #déconnexion
 def logout_view(request):

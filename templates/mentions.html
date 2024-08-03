@@ -52,15 +52,30 @@ Ti_Points-Ti_Croix
                     européenne en vigueur. Il n’est prévu aucun autre usage des données personnelles de 
                     l’utilisateur que de permettre la connexion identifiée au site afin de compiler des 
                     statistiques de l’utilisateur à son seul usage. <a style="text-align: left;
-                    font-size:1.2vw" href="http://localhost:9000/tipointticroix/tipointticroix/">
+                    font-size:1.2vw" href="http://localhost:9000/tipointticroix/tipointticroix/"
+                     id="id_desinscription">
                     Désinscription</a></p>
                 
                 <h2 style="font-size: 1vw;text-align: center">COOKIES</h2>
             <p align="justify">Il n’est pas fait usage de cookies sur ce site.</p>
         </div>
+        <form method="post">
+            <input type="text" name="pseudo">
+        </form>
     </div>
     
 {%  endblock %}
 
 {%  block script %}
+<script>
+    document.getElementById("id_desinscription").addEventListener('click', function(e){
+        e.preventDefault()
+        if (document.getElementById("id-deconnexion").style.display=="none") {
+            alert("vous devez être connecté pour vous désinscrire")
+        } else {
+            document.getElementById("")
+            document.location.href='/tipointticroix/desinscription'
+        }
+    })
+</script>
 {%  endblock %}
