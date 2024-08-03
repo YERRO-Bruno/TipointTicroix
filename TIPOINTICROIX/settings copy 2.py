@@ -29,8 +29,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
-print(DEBUG)
+DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1')
+print(f"DEBUG: {DEBUG}")
 
 ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.*",
                  '77.37.125.25',"ti-points-ti-croix.fr","172.18.0.4","172.18.0.7"]
@@ -140,7 +140,8 @@ STATICFILES_DIRS = [
 os.path.join(BASE_DIR, "tipoint_ticroix/static")
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+print("staticfilesdir",STATICFILES_DIRS)
+print("staticroot",STATIC_ROOT)
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -151,8 +152,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
-
-#Websocket server
-WEB_SOCKET_SERVER = os.getenv('WEB_SOCKET_SERVER')
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
