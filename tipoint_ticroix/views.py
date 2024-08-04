@@ -135,7 +135,7 @@ def accueil(request):
     else:
         context["connexion"]="Non"
         context["connec"]=connec[1]
-    if settings.DEBUG=="True":
+    if settings.DEBUG==True:
         context['debug']= "True"
     else:
         context['debug']= "False"  
