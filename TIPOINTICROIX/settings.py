@@ -29,7 +29,7 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 print("DEBUG : ",os.getenv('DEBUG'))
 DEBUG = os.getenv('DEBUG')
-#DEBUG = False
+DEBUG = False
 print(DEBUG)
 
 ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.*",
