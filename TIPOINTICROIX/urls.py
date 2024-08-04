@@ -1,9 +1,13 @@
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from tipoint_ticroix import views
 from django.conf.urls.static import static
 from django.conf import settings
+
+# Custom 404 error view
+handler404 = views.error_404
+
 urlpatterns = [
     path('tipointticroix/', views.accueil, name='accueil'),
     path('tipointticroix/jeu', views.tipointticroix, name='tipointticroix'),

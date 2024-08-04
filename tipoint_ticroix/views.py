@@ -12,6 +12,10 @@ from django.db.models import Count, Sum, Case, When, IntegerField, FloatField
 from django.db.models.functions import Cast
 from django.conf import settings
 
+def error_404(request, exception):
+    print("error404")
+    return render(request, '404.html', status=404)
+
 #page internet (PvP)
 def internet(request):
     context = {}
