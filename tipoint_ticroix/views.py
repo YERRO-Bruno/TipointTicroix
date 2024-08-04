@@ -127,6 +127,7 @@ def internet(request):
 
 #page accueil
 def accueil(request):
+    print(settings.DEBUG)
     context = {}
     connec=estconnecté(request)
     if connec[0]:
