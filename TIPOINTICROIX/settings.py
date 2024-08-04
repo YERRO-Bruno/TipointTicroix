@@ -27,7 +27,8 @@ load_dotenv()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG')
+print("DEBUG : ",os.getenv('DEBUG'))
+DEBUG = False
 print(DEBUG)
 
 ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.*",
