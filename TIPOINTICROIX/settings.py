@@ -12,25 +12,23 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
-
+from dotenv import dotenv_values
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv()
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+config = dotenv_values(".env")
+print("conf :",config)
+if config['DEBUG']=='False':
+  DEBUG=False
+else:
+    DEBUG=True
+print(DEBUG)
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
-print("DEBUG : ",os.getenv('DEBUG'))
-DEBUG = os.getenv('DEBUG')
-DEBUG = False
-print(DEBUG)
+SECRET_KEY = config['SECRET_KEY']
+
 
 ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.*",
                  '77.37.125.25',"ti-points-ti-croix.fr","172.18.0.4","172.18.0.7"]
@@ -89,10 +87,10 @@ import mysql.connector
 DATABASES = {  
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        "NAME": os.getenv('NAME'),
-        "USER": os.getenv('USER'),
-        "PASSWORD": os.getenv('PASSWORD'),
-        "HOST": os.getenv('HOST'),
+        "NAME": config['NAME'],
+        "USER": config['USER'],
+        "PASSWORD": config['PASSWORD'],
+        "HOST": config['HOST'],
         'PORT': 3306,  
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
@@ -145,14 +143,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 # Django Emails
-DEBUG_EMAIL = os.getenv('DEBUG_EMAIL')
-EMAIL_HOST = os.getenv('EMAIL_HOST')
+DEBUG_EMAIL = config['DEBUG_EMAIL']
+EMAIL_HOST = config['EMAIL_HOST']
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = config['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = config['EMAIL_HOST_PASSWORD']
 EMAIL_USE_TLS = True
 
 #Websocket server
-WEB_SOCKET_SERVER = os.getenv('WEB_SOCKET_SERVER')
+WEB_SOCKET_SERVER = config['WEB_SOCKET_SERVER']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
