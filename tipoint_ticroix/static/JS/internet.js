@@ -211,6 +211,7 @@ function displayGameBoard(){
                 marque="O"
             }              
         }
+        const countdownField = document.getElementById("id-bandeau")
         if (document.getElementById("id-pat").textContent=="Oui") {
             document.getElementById("ALUI").style.display="none"
             document.getElementById("victoire").textContent="MATCH NUL"
@@ -235,7 +236,7 @@ function displayGameBoard(){
         if (win != "Non" || document.getElementById("id-pat").textContent=="Oui") { 
             document.getElementById("ALUI").style.display="none"
             document.getElementById("AVOUS").style.display="none"
-            const countdownField = document.getElementById("id-bandeau");
+            ;
             let count = 0;
             let msgfin=""
             if (document.getElementById("id-finpartie").textContent=="Oui") {
@@ -287,6 +288,7 @@ function displayGameBoard(){
                 count = 1;
             }
             countdownField.style.display="block"
+            alert("interval")
             let interval = setInterval(function() {
                 countdownField.textContent =msgfin.concat(10-count," s")
                 if (count >= 10) {
