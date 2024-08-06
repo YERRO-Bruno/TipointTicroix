@@ -25,6 +25,7 @@ def internet(request):
         context["connec"]=connec[1]
         if request.method == 'POST':
             if request.POST['etape'] =="début":
+                print("etape début")
                 #Début
                 request.session['SEQUENCE']=[]
                 request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
