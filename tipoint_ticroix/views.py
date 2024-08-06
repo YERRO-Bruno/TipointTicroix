@@ -137,13 +137,15 @@ def internet(request):
                     context['adversaire']=request.POST['adversaire']
                     context["premier"]=request.session['PREMIER']
                     context["second"]=request.session['SECOND']
-                    context["score1"]=request.session['SCORE1']
-                    context["score2"]=request.session['SCORE2']
+                    context["score1"]=request.session['SCORE1']+0.5
+                    context["score2"]=request.session['SCORE2']+0.5
                     context["match"]=request.session['MATCH']
                     request.session['TOUR']=request.session['TOUR']+1 
                     context['tour']=str(request.session['TOUR'])   
                     context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                     context["etape"]="nouveautour"
+                    if request.session['MATCH']==2:
+                        context['finpartie']="Oui"
                     print(context)
                     return render(request, "internet.html", context)
                 context['jeton']=request.POST['jeton']

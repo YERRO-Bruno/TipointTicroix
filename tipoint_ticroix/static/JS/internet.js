@@ -232,13 +232,35 @@ function displayGameBoard(){
             document.getElementById("defaite").style.display="block"
             document.getElementById("victoire").style.display="none"
         }
-        if (win != "Non") { 
+        if (win != "Non" || document.getElementById("id-pat").textContent=="Oui") { 
             document.getElementById("ALUI").style.display="none"
             document.getElementById("AVOUS").style.display="none"
             const countdownField = document.getElementById("id-bandeau");
             let count = 0;
             let msgfin=""
             if (document.getElementById("id-finpartie").textContent=="Oui") {
+                if (document.getElementById("id-pat").textContent=="Oui") {
+                    if (document.getElementById("lscore1").textContent>
+                        document.getElementById("lscore2").textContent) {
+                            msgfin="Victoire : 1,5-0,5. Retour au lobby dans "
+                        } 
+                    if (document.getElementById("lscore1").textContent<
+                        document.getElementById("lscore2").textContent) {
+                            msgfin="Défaite : 0,5-1,5. Retour au lobby dans "
+                        } 
+                    if (document.getElementById("lscore1").textContent==
+                        document.getElementById("lscore2").textContent) {
+                            msgfin="match nul : 1-1. Retour au lobby dans "
+                        } 
+                }
+                if (document.getElementById("id-defaite").value!="Non") {
+                    if (document.getElementById("lscore1").textContent==
+                        document.getElementById("lscore2").textContent) {
+                            msgfin="match nul : 1-1. Retour au lobby dans "
+                        } else {
+                            msgfin="defaite : 0-2. Retour au lobby dans "
+                        }
+                }
                 if (document.getElementById("id-victoire").value!="Non") {
                     if (document.getElementById("lscore1").textContent==
                         document.getElementById("lscore2").textContent) {
