@@ -158,7 +158,7 @@ def internet(request):
                 context["score1"]=request.session['SCORE1']
                 context["score2"]=request.session['SCORE2']
                 context["etape"]="nouveautour"
-                print(context)
+                #print(context)
                 return render(request, "internet.html", context)
         else:    
             context["etape"]="connexion"
