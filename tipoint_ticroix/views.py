@@ -142,6 +142,7 @@ def internet(request):
                     request.session['TOUR']=request.session['TOUR']+1 
                     context['tour']=str(request.session['TOUR'])   
                     context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                    context["etape"]="nouveautour"
                     print(context)
                     return render(request, "internet.html", context)
                 context['jeton']=request.POST['jeton']
