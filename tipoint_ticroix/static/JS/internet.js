@@ -212,13 +212,12 @@ function displayGameBoard(){
             }              
         }
         if (document.getElementById("id-pat").textContent=="Oui") {
-            alert("Plus de case diponible - Match nul")
+            document.getElementById("ALUI").style.display="none"
             document.getElementById("victoire").textContent="MATCH NUL"
             document.getElementById("victoire").style.display="block"
             document.getElementById("btn-rejouer").style.display="block"
             document.getElementById("btn-annuler").style.display="none"
             document.getElementById("AVOUS").style.display="none"
-            document.getElementById("ALUI").style.display="none"
         }
         win="Non"
         if (document.getElementById("id-victoire").value!="Non") {
