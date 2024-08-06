@@ -139,6 +139,7 @@ def internet(request):
                     context["second"]=request.session['SECOND']
                     context["score1"]=request.session['SCORE1']
                     context["score2"]=request.session['SCORE2']
+                    context["match"]=request.session['MATCH']
                     request.session['TOUR']=request.session['TOUR']+1 
                     context['tour']=str(request.session['TOUR'])   
                     context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
