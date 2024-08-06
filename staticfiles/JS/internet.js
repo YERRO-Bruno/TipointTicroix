@@ -211,6 +211,15 @@ function displayGameBoard(){
                 marque="O"
             }              
         }
+        if (document.getElementById("id-pat").textContent=="Oui") {
+            alert("Plus de case diponible - Match nul")
+            document.getElementById("victoire").textContent="MATCH NUL"
+            document.getElementById("victoire").style.display="block"
+            document.getElementById("btn-rejouer").style.display="block"
+            document.getElementById("btn-annuler").style.display="none"
+            document.getElementById("amoi").style.display="none"
+            document.getElementById("avous").style.display="none"
+        }
         win="Non"
         if (document.getElementById("id-victoire").value!="Non") {
             document.getElementById("ALUI").style.display="none"
