@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    'tipoint_ticroix.apps.TipointTicroixConfig',
+    'tipoint_ticroix',
+    #'tipoint_ticroix.apps.TipointTicroixConfig',
 ]
 
 MIDDLEWARE = [
