@@ -213,6 +213,7 @@ function displayGameBoard(){
         }
         const countdownField = document.getElementById("id-bandeau")
         if (document.getElementById("id-pat").textContent=="Oui") {
+            alert("pat")
             document.getElementById("ALUI").style.display="none"
             document.getElementById("victoire").textContent="MATCH NUL"
             document.getElementById("victoire").style.display="block"
@@ -234,6 +235,7 @@ function displayGameBoard(){
             document.getElementById("victoire").style.display="none"
         }
         if (win != "Non" || document.getElementById("id-pat").textContent=="Oui") { 
+            alert("pat2")
             document.getElementById("ALUI").style.display="none"
             document.getElementById("AVOUS").style.display="none"
             ;
