@@ -143,7 +143,7 @@ def internet(request):
                     context['tour']=str(request.session['TOUR'])   
                     context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                     print(context)
-                    return render(request, "tipointticroix.html", context)
+                    return render(request, "internet.html", context)
                 context['jeton']=request.POST['jeton']
                 context['joueur']=request.POST['joueur']
                 context['adversaire']=request.POST['adversaire']
