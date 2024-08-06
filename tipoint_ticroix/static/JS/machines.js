@@ -148,6 +148,17 @@ function displayGameBoard(){
                 marque="O"
             }              
         }
+        if (document.getElementById("id-pat").textContent=="Oui") {
+            //alert("Plus de case diponible - Match nul")
+            document.getElementById("victoire1").textContent="MATCH NUL"
+            document.getElementById("victoire2").textContent=""
+            document.getElementById("victoire1").style.display="block"
+            document.getElementById("victoire2").style.display="none"
+            document.getElementById("AMACHINE1").style.display="none"
+            document.getElementById("AMACHINE2").style.display="none"
+            document.getElementById("btn-load").style.display="none"
+            document.getElementById("btn-save").style.display="none"
+        }
         win="Non"
         if (document.getElementById("id-victoire1").value!="Non") {
             win=document.getElementById("id-victoire1").value

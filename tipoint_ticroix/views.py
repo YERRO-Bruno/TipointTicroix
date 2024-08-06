@@ -48,6 +48,28 @@ def internet(request):
                     request.session['SCORE1']=int(request.POST['score1'])
                     request.session['SCORE2']=int(request.POST['score2'])
 
+                print("longueur",len(request.session['SEQUENCE']))
+                if len(request.session['SEQUENCE'])==0:
+                    print("debtour")
+                    marque="O"
+                    for i in range(0,25):
+                        for j in range(0,25):
+                            request.session['SEQUENCE']=request.session['SEQUENCE']+[str(j)+"/"+str(i)]
+                            request.session['GRILLE'][i][j]=marque
+                            if marque=="O":
+                                marque="X"
+                            else:
+                                marque="O"
+                    request.session['SEQUENCE'].pop(624)
+                    request.session['SEQUENCE'].pop(623)
+                    request.session['SEQUENCE'].pop(622)
+                    request.session['SEQUENCE'].pop(621)
+                    request.session['GRILLE'][24][24]="-"
+                    request.session['GRILLE'][24][23]="-"
+                    request.session['GRILLE'][24][22]="-"
+                    request.session['GRILLE'][24][21]="-"
+
+
                 request.session['TOUR']=1
                 context["etape"]="nouveautour"
                 context["jeton"]=request.POST['jeton']
@@ -108,7 +130,18 @@ def internet(request):
                             #context['score2']=request.session['SCORE2']
                     if request.session['MATCH']==2:
                         context['finpartie']="Oui"
-                
+                if len(request.session['SEQUENCE'])==625:
+                    context['pat']="Oui"
+                    context['joueur']=request.POST['joueur']
+                    context['adversaire']=request.POST['adversaire']
+                    context["premier"]=request.session['PREMIER']
+                    context["second"]=request.session['SECOND']
+                    context["score1"]=request.session['SCORE1']
+                    context["score2"]=request.session['SCORE2']
+                    request.session['TOUR']=request.session['TOUR']+1 
+                    context['tour']=str(request.session['TOUR'])   
+                    context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                    return render(request, "tipointticroix.html", context)
                 context['jeton']=request.POST['jeton']
                 context['joueur']=request.POST['joueur']
                 context['adversaire']=request.POST['adversaire']
@@ -298,6 +331,7 @@ def tipointticroix(request):
             context['begin']=request.session['BEGIN']
             context['victoire']="Non"
             context['defaite']="Non"
+            context['pat']="Non"
             print(context)
             return render(request, "tipointticroix.html", context)
 
@@ -319,6 +353,7 @@ def tipointticroix(request):
             context['nom1']=nomniveau(request.session['NIVEAU'])
             context['niveau']=request.session['NIVEAU']
             context['begin']=request.session['BEGIN']
+            context['pat']="Non"
             context['victoire']="Non"
             context['defaite']="Non" 
             context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
@@ -330,6 +365,7 @@ def tipointticroix(request):
 
         #MAJ TABLEAU
         if request.session['TOUR']==0 :
+            request.session['SEQUENCE']=[]
             request.session['NIVEAU']=int(request.POST["niveau"])
             if request.POST["check-begin"]=="Non" :
                 marqueordi="O"
@@ -353,7 +389,28 @@ def tipointticroix(request):
             context['tour']=str(request.session['TOUR'])
             context['victoire']="Non"
             context['defaite']="Non"
+            context['pat']="Non"
         else :
+            # print("longueur",len(request.session['SEQUENCE']))
+            # if len(request.session['SEQUENCE'])==0:
+            #     print("debtour")
+            #     marque="O"
+            #     for i in range(0,25):
+            #         for j in range(0,25):
+            #             request.session['SEQUENCE']=request.session['SEQUENCE']+[str(j)+"/"+str(i)]
+            #             request.session['GRILLE'][i][j]=marque
+            #             if marque=="O":
+            #                 marque="X"
+            #             else:
+            #                 marque="O"
+            #     request.session['SEQUENCE'].pop(624)
+            #     request.session['SEQUENCE'].pop(623)
+            #     request.session['SEQUENCE'].pop(622)
+            #     request.session['SEQUENCE'].pop(621)
+            #     request.session['GRILLE'][24][24]="-"
+            #     request.session['GRILLE'][24][23]="-"
+            #     request.session['GRILLE'][24][22]="-"
+            #     request.session['GRILLE'][24][21]="-"
             marqueordi=request.session['MARQUEORDI']
             marquejoueur=request.session['MARQUEJOUEUR']
             context['nom1']=nomniveau(request.session['NIVEAU'])
@@ -361,12 +418,31 @@ def tipointticroix(request):
             context['begin']=request.session['BEGIN']
             context['victoire']="Non"
             context['defaite']="Non"
+            context['pat']="Non"
             #COUP JOUEUR
             request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]
+            
+
             #GRILLE=COUPDUJOUEUR
             request.session['GRILLE']=majgrille(request.POST["coupjoueur"],marquejoueur,request.session['GRILLE'])
+            #easter egg
+            if marquejoueur=="O":
+                if len(request.session['SEQUENCE'])==7:
+                    if request.session['GRILLE'][0][0]=='O': 
+                        if request.session['GRILLE'][24][0]=='O':
+                            if request.session['GRILLE'][0][24]=='O':
+                                if request.session['GRILLE'][24][24]=='O':
+                                    return render(request, "easteregg.html")
+            else:
+                if len(request.session['SEQUENCE'])==8:
+                    if request.session['GRILLE'][0][0]=='X': 
+                        if request.session['GRILLE'][24][0]=='X':
+                            if request.session['GRILLE'][0][24]=='X':
+                                if request.session['GRILLE'][24][24]=='X':
+                                    return render(request, "easteregg.html")
             #victoire joueur
-            res = trouve_5(request.POST["coupjoueur"],marquejoueur,request.session['GRILLE'])
+            #res = trouve_5(request.POST["coupjoueur"],marquejoueur,request.session['GRILLE'])
+            res="Non"
             if res != "Non":
                 context['victoire']=res
                 finpartie(connec[1],str(request.session['NIVEAU']),True)
@@ -374,20 +450,37 @@ def tipointticroix(request):
                 context['tour']=str(request.session['TOUR'])
                 #print(context) 
                 return render(request, "tipointticroix.html", context)
-
+            if len(request.session['SEQUENCE'])==625:
+                context['pat']="Oui"
+                context['marquevous']=marquejoueur
+                context['marqueordi']=marqueordi
+                request.session['TOUR']=request.session['TOUR']+1 
+                context['tour']=str(request.session['TOUR'])   
+                context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                return render(request, "tipointticroix.html", context)
             #COUP ORDINATEUR
             coupordinateur=coupordi(marqueordi,request.session['NIVEAU'],
                 request.session['SEQUENCE'],request.session['GRILLE'])
             request.session['SEQUENCE']=request.session['SEQUENCE']+[coupordinateur]
+            
             #GRILLE=COUPORDINATEUR
             request.session['GRILLE']=majgrille(coupordinateur,marqueordi,request.session['GRILLE'])
-            res = trouve_5(coupordinateur,marqueordi,request.session['GRILLE'])
+            #res = trouve_5(coupordinateur,marqueordi,request.session['GRILLE'])
+            res="Non"
             if res != "Non":
                 context['defaite']=res
                 finpartie(connec[1],str(request.session['NIVEAU']),False)
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
                 print(context) 
+                return render(request, "tipointticroix.html", context)
+            if len(request.session['SEQUENCE'])==625:
+                context['pat']="Oui"
+                context['marquevous']=marquejoueur
+                context['marqueordi']=marqueordi
+                request.session['TOUR']=request.session['TOUR']+1 
+                context['tour']=str(request.session['TOUR'])   
+                context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 return render(request, "tipointticroix.html", context)
         context['marquevous']=marquejoueur
         context['marqueordi']=marqueordi
@@ -478,12 +571,18 @@ def machines(request):
            context['tour']=str(request.session['TOUR'])
            context['sequence']=""
         nbcoup=len(request.session['SEQUENCE'])
+        context['pat']="Non"
+        context['modejeu']=request.session['MODEJEU']
         if nbcoup%2==0:
             coup=coupmachine("O",request.session['NIVEAU1'],
                              request.session['SEQUENCE'],request.session['GRILLE'])
             request.session['SEQUENCE']=request.session['SEQUENCE']+[coup]
             request.session['GRILLE']=majgrille(coup,"O",request.session['GRILLE'])
             res = trouve_5(coup,"O",request.session['GRILLE'])
+            context['nom1']=nomniveau(request.session['NIVEAU1'])
+            context['nom2']=nomniveau(request.session['NIVEAU2'])
+            context['niveau1']=request.session['NIVEAU1']
+            context['niveau2']=request.session['NIVEAU2']
             if res != "Non":
                 nbO=0
                 nbX=0
@@ -504,12 +603,21 @@ def machines(request):
                 context['tour']=str(request.session['TOUR'])
                 #print(context) 
                 return render(request, "machines.html", context)
+            if len(request.session['SEQUENCE'])==625:
+                context['pat']="Oui"
+                context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                context['tour']=str(request.session['TOUR'])
+                return render(request,"machines.html", context)
         else:
             coup=coupmachine("X",request.session['NIVEAU2'],request.session['SEQUENCE'],
                              request.session['GRILLE'])
             request.session['SEQUENCE']=request.session['SEQUENCE']+[coup]
             request.session['GRILLE']=majgrille(coup,"X",request.session['GRILLE'])
             res = trouve_5(coup,"X",request.session['GRILLE'])
+            context['nom1']=nomniveau(request.session['NIVEAU1'])
+            context['nom2']=nomniveau(request.session['NIVEAU2'])
+            context['niveau1']=request.session['NIVEAU1']
+            context['niveau2']=request.session['NIVEAU2']
             if res != "Non":
                 nbO=0
                 nbX=0
@@ -530,6 +638,9 @@ def machines(request):
                 context['tour']=str(request.session['TOUR'])
                 #print(context) 
                 return render(request, "machines.html", context)
+        request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
+        context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+        context['tour']=str(request.session['TOUR'])
         context['victoire1']="Non"
         context['victoire2']="Non"
         context['nom1']=nomniveau(request.session['NIVEAU1'])
@@ -537,11 +648,7 @@ def machines(request):
         context['nom2']=nomniveau(request.session['NIVEAU2'])    
         context['niveau1']=request.session['NIVEAU1']
         context['niveau2']=request.session['NIVEAU2']
-        context['modejeu']=request.session['MODEJEU']
-        request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
         print(request.session['TOUR'])
-        context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
-        context['tour']=str(request.session['TOUR'])
         #print(context)    
         return render(request, "machines.html", context) 
     request.session['TOUR']=0

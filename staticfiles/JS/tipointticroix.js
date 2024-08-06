@@ -20,7 +20,8 @@ document.getElementById("table").addEventListener('click', function(e) {
     }
     //test si la case est déjà occupée
     if (document.getElementById("id-victoire").value=="Non" && 
-        document.getElementById("id-defaite").value=="Non") {
+        document.getElementById("id-defaite").value=="Non" &&
+        (document.getElementById("id-pat").textContent=="Non")) {
         if (document.getElementById(e.target.id).textContent=="") {
             case_clicked = e.target.id.split('/')
             document.getElementById(e.target.id).textContent = marque
@@ -171,6 +172,15 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
                 } else {
                     marque="O"
                 }  
+            }
+            if (document.getElementById("id-pat").textContent=="Oui") {
+                alert("Plus de case diponible - Match nul")
+                document.getElementById("victoire").textContent="MATCH NUL"
+                document.getElementById("victoire").style.display="block"
+                document.getElementById("btn-rejouer").style.display="block"
+                document.getElementById("btn-annuler").style.display="none"
+                document.getElementById("amoi").style.display="none"
+            document.getElementById("avous").style.display="none"
             }
             win="Non"
             if (document.getElementById("id-victoire").value!="Non") {
