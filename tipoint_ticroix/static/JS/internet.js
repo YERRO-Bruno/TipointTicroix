@@ -189,8 +189,8 @@ function displayGameBoard(){
         document.getElementById("AVOUS").style.display="none"
     }
     //document.getElementById("nb-tour").textContent="1"
-    scor1=document.getElementById("id-score1").value
-    scor2=document.getElementById("id-score2").value
+    let scor1=document.getElementById("id-score1").value
+    let scor2=document.getElementById("id-score2").value
     ("aff1")
     if (scor1%2==0) {
         document.getElementById("lscore1").textContent=" : ".concat(scor1.tofixed().tostring())
