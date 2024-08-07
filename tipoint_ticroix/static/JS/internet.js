@@ -191,7 +191,7 @@ function displayGameBoard(){
     //document.getElementById("nb-tour").textContent="1"
     let scor1=document.getElementById("id-score1").value
     let scor2=document.getElementById("id-score2").value
-    if (parseFloat(cor1)-parseInt(scor1)==0) {
+    if (parseFloat(scor1)-parseInt(scor1)==0) {
         document.getElementById("lscore1").textContent=" : ".concat(parseInt(scor1))
     } else {
         document.getElementById("lscore1").textContent=" : ".concat(scor1)
