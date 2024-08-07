@@ -180,6 +180,7 @@ def accueil(request):
         context['debug']= "False"  
     print(context)      
     return render(request, "accueil.html", context)
+
 #desinscription
 def desinscription(request):
     connec=estconnecté(request)
@@ -242,7 +243,6 @@ def preregister(request):
 #Inscription
 def register(request):
     if request.method == 'POST':
-        context = {}
         emailx = request.POST['email']
         passwordx = request.POST['password']
         pseudox = request.POST['pseudo']
@@ -276,7 +276,84 @@ def register(request):
                         {'errorinscription': "Code inexact", 'email': emailx})
     else:
        return render(request, 'register.html',{'email':request.session['EMAIL'],'pseudo':"",'password':""})
+
+#Demande de code pour changement de mot de passe en cas d'oubli
+def prepassword(request):
+    if request.method == 'POST':
+        emailx = request.POST['email']
+        userx=User.objects.filter(email=emailx)
+        if len(userx)>0:
+            verifuser=VerifUser.objects.filter(email=emailx)
+            if len(verifuser)>0:
+                verifuser[0].delete()
+            verifuser=VerifUser.objects.create(email=emailx)
+            original_code = get_random_string(length=8)
+            salt = bcrypt.gensalt()
+            crypted_code = bcrypt.hashpw(original_code.encode('utf-8'), salt)
+            hash_verif = crypted_code.decode('utf-8')
+            verifuser.codeverif = hash_verif
+            verifuser.save()
+            #envoi code verification
+            recipient_email = emailx
+            mail_subject = "Code de verification pour l'inscription à tipointticroix.com"
+            mail_message = "bonjour, \n"
+            mail_message = mail_message + "Veuiller trouvez ci-dessous le code de verification" \
+                                            " pour votre inscription au en tant qu'administrateur du site tipointticroix.com :\n"
+            mail_message = mail_message + "\n"
+            mail_message = mail_message + original_code
+            mail_message = mail_message + "\n"
+            mail_message = mail_message + "\n"
+            mail_message = mail_message + "Cordialement"
+
+            try:
+                send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', {emailx},
+                            fail_silently=False)
+            except Exception as error:
+                print('mail error')
+                print(error)
+                return render(request,'register.html',{'email':emailx,'errorVerif':"error Mailing"})
+            request.session['EMAIL']=emailx
+            return redirect('/tipointticroix/modifpassword')
+        return render(request, 'prepassword.html',
+                      {'errorVerif': "Email inexistant", 'email': emailx})
+    else:
+        return render(request, 'prepassword.html')
     
+#changement mot de passe
+def modifpassword(request):
+    if request.method == 'POST':
+        emailx = request.POST['email']
+        passwordx = request.POST['password']
+        verifx = request.POST['verification']
+        userx=User.objects.filter(email=emailx)
+        
+        if len(userx)>0:
+
+            #récupération et test code verification
+            print("cherche verifuser")
+            verifuser=VerifUser.objects.get(email=emailx)
+            print("cherche verifuser2")
+            if verifuser is not None:
+                    if bcrypt.checkpw(verifx.encode('utf-8'),verifuser.codeverif.encode('utf-8')):
+                        print("code ok",emailx)
+                        try:
+                            userx=User.objects.get(email=emailx)
+                            userx.set_password(passwordx)
+                            userx.save()
+                            verifuser.delete()
+                        except Exception as error:
+                            print(error)
+                        return redirect('/tipointticroix/connect')       
+            else:
+                return render(request, 'register.html',
+                            {'errorinscription': "Code inexact", 'email': emailx})
+        else:
+            return render(request, 'register.html',
+                        {'errorinscription': "Email déjà existant", 'email': emailx})
+
+    else:
+       return render(request, 'modifpassword.html',{'email':request.session['EMAIL'],'pseudo':"",'password':""})
+
 #connexion
 def connect(request):
     if request.method == 'POST':
@@ -669,7 +746,7 @@ def statistics(request):
             total=Count('id'),
             victories=Sum(Case(When(victoire=True, then=1), default=0, output_field=IntegerField())),
             victoire_percentage=Cast(Sum(Case(When(victoire=True, then=1), default=0, output_field=IntegerField())) * 100.0 / Count('id'), FloatField())
-        )
+        ).order_by('type')
 
         context['results'] = results
         return render(request, 'statistics.html', context)
