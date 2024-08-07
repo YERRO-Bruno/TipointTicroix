@@ -192,12 +192,12 @@ function displayGameBoard(){
     let scor1=document.getElementById("id-score1").value
     let scor2=document.getElementById("id-score2").value
     alert("aff1")
-    if (scor1%2==0) {
+    if (parseInt(scor1)%2==0) {
         document.getElementById("lscore1").textContent=" : ".concat(scor1.tofixed().tostring())
     } else {
         document.getElementById("lscore1").textContent=" : ".concat(scor1.tostring())
     }
-    if (scor2%2==0) {
+    if (parseInt(scor2)%2==0) {
         document.getElementById("lscore2").textContent=" : ".concat(scor2.tofixed().tostring())
     } else {
         document.getElementById("lscore2").textContent=" : ".concat(scor2.tostring())
