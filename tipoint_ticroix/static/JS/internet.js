@@ -191,7 +191,7 @@ function displayGameBoard(){
     //document.getElementById("nb-tour").textContent="1"
     let scor1=document.getElementById("id-score1").value
     let scor2=document.getElementById("id-score2").value
-    ("aff1")
+    alert("aff1")
     if (scor1%2==0) {
         document.getElementById("lscore1").textContent=" : ".concat(scor1.tofixed().tostring())
     } else {
@@ -202,7 +202,7 @@ function displayGameBoard(){
     } else {
         document.getElementById("lscore2").textContent=" : ".concat(scor2.tostring())
     }
-    ("aff2")
+    alert("aff2")
     res=document.getElementById("id-sequence").value
     if (res.length > 0) { 
         let sequence=res.split(',')  
