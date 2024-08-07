@@ -48,10 +48,6 @@ def internet(request):
                     request.session['SCORE1']=request.session['SCORE2']
                     request.session['SCORE2']=sc2
                 print("debut2")
-                #else:
-                #    request.session['SCORE1']=int(request.POST['score1'])
-                #    request.session['SCORE2']=int(request.POST['score2'])
-
                 print("longueur",len(request.session['SEQUENCE']))
                 if len(request.session['SEQUENCE'])==0:
                     print("debtour")
@@ -142,8 +138,10 @@ def internet(request):
                     context['adversaire']=request.POST['adversaire']
                     context["premier"]=request.session['PREMIER']
                     context["second"]=request.session['SECOND']
-                    context["score1"]=request.session['SCORE1']+0.5
-                    context["score2"]=request.session['SCORE2']+0.5
+                    request.session['SCORE1']=request.session['SCORE1']+0.5
+                    request.session['SCORE2']=request.session['SCORE2']+0.5
+                    context["score1"]=request.session['SCORE1']
+                    context["score2"]=request.session['SCORE2']
                     context["match"]=request.session['MATCH']
                     request.session['TOUR']=request.session['TOUR']+1 
                     context['tour']=str(request.session['TOUR'])   
