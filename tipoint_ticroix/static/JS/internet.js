@@ -191,10 +191,12 @@ function displayGameBoard(){
     //document.getElementById("nb-tour").textContent="1"
     let scor1=document.getElementById("id-score1").value
     let scor2=document.getElementById("id-score2").value
-    alert("aff1")
+    alert("aff1",scor1,scor2)
     if (parseInt(scor1)%2==0) {
+        alert("aff1.5")
         document.getElementById("lscore1").textContent=" : ".concat(scor1.tofixed().tostring())
     } else {
+        alert("aff1.5")
         document.getElementById("lscore1").textContent=" : ".concat(scor1.tostring())
     }
     if (parseInt(scor2)%2==0) {
