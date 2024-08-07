@@ -140,8 +140,15 @@ def internet(request):
                     context["second"]=request.session['SECOND']
                     request.session['SCORE1']=request.session['SCORE1']+0.5
                     request.session['SCORE2']=request.session['SCORE2']+0.5
-                    context["score1"]=str(request.session['SCORE1'])
-                    context["score2"]=str(request.session['SCORE2'])
+                    if isinstance(request.session['SCORE1'],int):
+                        context["score1"]=str(request.session['SCORE1'])
+                    else:
+                        context["score1"]=request.session['SCORE1']
+                    if isinstance(request.session['SCORE2'],int):
+                        context["score2"]=str(request.session['SCORE2'])
+                    else:
+                        context["score2"]=request.session['SCORE2']
+
                     context["match"]=request.session['MATCH']
                     request.session['TOUR']=request.session['TOUR']+1 
                     context['tour']=str(request.session['TOUR'])   
@@ -159,8 +166,14 @@ def internet(request):
                 context["begin"]=request.session['BEGIN']
                 context["premier"]=request.session['PREMIER']
                 context["second"]=request.session['SECOND']
-                context["score1"]=str(request.session['SCORE1'])
-                context["score2"]=str(request.session['SCORE2'])
+                if isinstance(request.session['SCORE1'],int):
+                        context["score1"]=str(request.session['SCORE1'])
+                else:
+                    context["score1"]=request.session['SCORE1']
+                if isinstance(request.session['SCORE2'],int):
+                    context["score2"]=str(request.session['SCORE2'])
+                else:
+                    context["score2"]=request.session['SCORE2']
                 context["etape"]="nouveautour"
                 #print(context)
                 return render(request, "internet.html", context)
