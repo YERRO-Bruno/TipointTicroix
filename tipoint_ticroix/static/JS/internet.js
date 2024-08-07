@@ -278,8 +278,16 @@ function displayGameBoard(){
                 if (count >= 10) {
                     clearInterval(interval);
                     if (document.getElementById("id-finpartie").textContent=="Oui") {
-                        document.getElementById("lscore1").textContent=scor1
-                        document.getElementById("lscore2").textContent=scor2
+                        if (scor1%2==0) {
+                            document.getElementById("lscore1").textContent=scor1.tofixed()
+                        } else {
+                            document.getElementById("lscore1").textContent=scor1
+                        }
+                        if (scor2%2==0) {
+                            document.getElementById("lscore2").textContent=scor2.tofixed()
+                        } else {
+                            document.getElementById("lscore2").textContent=scor2
+                        }
                         document.location.href='/tipointticroix/internet'
                     } else {
                         document.getElementById("id-etape").value="début"
