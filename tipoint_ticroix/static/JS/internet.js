@@ -189,6 +189,18 @@ function displayGameBoard(){
         document.getElementById("AVOUS").style.display="none"
     }
     //document.getElementById("nb-tour").textContent="1"
+    scor1=document.getElementById("id-score1").value
+    scor2=document.getElementById("id-score2").value
+    if (scor1%2==0) {
+        document.getElementById("lscore1").textContent=" : ".concat(scor1.tofixed())
+    } else {
+        document.getElementById("lscore1").textContent=" : ".concat(scor1)
+    }
+    if (scor2%2==0) {
+        document.getElementById("lscore2").textContent=" : ".concat(scor2.tofixed())
+    } else {
+        document.getElementById("lscore2").textContent=" : ".concat(scor2)
+    }
     res=document.getElementById("id-sequence").value
     if (res.length > 0) { 
         let sequence=res.split(',')  
@@ -241,8 +253,6 @@ function displayGameBoard(){
                 document.getElementById(win[i]).style.backgroundColor="yellow"
             }
         }
-        scor1=document.getElementById("id-score1").value
-        scor2=document.getElementById("id-score2").value
         if (document.getElementById("id-finmanche").textContent=="Oui") {
             msgfin="La manche 2 demarre dans "
         }
@@ -278,16 +288,6 @@ function displayGameBoard(){
                 if (count >= 10) {
                     clearInterval(interval);
                     if (document.getElementById("id-finpartie").textContent=="Oui") {
-                        if (scor1%2==0) {
-                            document.getElementById("lscore1").textContent=scor1.tofixed()
-                        } else {
-                            document.getElementById("lscore1").textContent=scor1
-                        }
-                        if (scor2%2==0) {
-                            document.getElementById("lscore2").textContent=scor2.tofixed()
-                        } else {
-                            document.getElementById("lscore2").textContent=scor2
-                        }
                         document.location.href='/tipointticroix/internet'
                     } else {
                         document.getElementById("id-etape").value="début"
