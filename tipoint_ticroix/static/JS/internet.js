@@ -247,7 +247,7 @@ function displayGameBoard(){
             msgfin="La manche 2 demarre dans "
         }
         if (document.getElementById("id-finpartie").textContent=="Oui") {
-            if (document.getElementById("id-joueur").value==document.getElementById("premier").value) {
+            if (document.getElementById("id-joueur").value==document.getElementById("id-premier").value) {
                 if (scor1==scor2) {
                         msgfin="Nul : 1-1. Retour au lobby dans "
                 }
@@ -268,7 +268,7 @@ function displayGameBoard(){
                 }
                 if (scor1<scor2) {
                     msgfin="Victoire : ".concat(scor1,"-",scor2,". Retour au lobby dans ")
-            }
+                }
             }
         }
         if (msgfin.length>0) {
