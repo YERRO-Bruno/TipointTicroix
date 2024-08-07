@@ -141,11 +141,11 @@ def internet(request):
                     request.session['SCORE1']=request.session['SCORE1']+0.5
                     request.session['SCORE2']=request.session['SCORE2']+0.5
                     if request.session['SCORE1']%2==0:
-                        context["score1"]= "{:.0f}".format(request.session['SCORE1'])
+                        context["score1"]= round(request.session['SCORE1'])
                     else:
                         context["score1"]="{:.1f}".format(request.session['SCORE1'])
                     if request.session['SCORE2']%2==0:
-                        context["score2"]= "{:.0f}".format(request.session['SCORE2'])
+                        context["score2"]= round(request.session['SCORE2'])
                     else:
                         context["score2"]="{:.1f}".format(request.session['SCORE2'])
                     context["match"]=request.session['MATCH']
@@ -166,11 +166,11 @@ def internet(request):
                 context["premier"]=request.session['PREMIER']
                 context["second"]=request.session['SECOND']
                 if isinstance(request.session['SCORE1'],int):
-                    context["score1"]= "{:.0f}".format(request.session['SCORE1'])
+                    context["score1"]= round(request.session['SCORE1'])
                 else:
                     context["score1"]="{:.1f}".format(request.session['SCORE1'])
                 if isinstance(request.session['SCORE1'],int):
-                    context["score2"]= "{:.0f}".format(request.session['SCORE2'])
+                    context["score2"]= round(request.session['SCORE2'])
                 else:
                     context["score2"]="{:.1f}".format(request.session['SCORE2'])
                 context["etape"]="nouveautour"
