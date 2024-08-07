@@ -215,7 +215,6 @@ function displayGameBoard(){
         let count = 0;
         let msgfin=""
         if (document.getElementById("id-pat").textContent=="Oui") {
-            alert("pat")
             document.getElementById("ALUI").style.display="none"
             document.getElementById("victoire").textContent="MATCH NUL"
             document.getElementById("victoire").style.display="block"
@@ -236,18 +235,15 @@ function displayGameBoard(){
             document.getElementById("ALUI").style.display="none"
             document.getElementById("AVOUS").style.display="none"
         }
-        alert("suite1")
         if (win != "Non") {
             win=win.split(",")
             for (let i = 0;i<5;i++) {
                 document.getElementById(win[i]).style.backgroundColor="yellow"
             }
         }
-        alert("suite2")
         scor1=document.getElementById("id-score1").value
         scor2=document.getElementById("id-score2").value
         if (document.getElementById("id-finmanche").textContent=="Oui") {
-            alert('finmanche')
             msgfin="La manche 2 demarre dans "
         }
         if (document.getElementById("id-finpartie").textContent=="Oui") {
