@@ -129,10 +129,9 @@ def internet(request):
                         else:
                             request.session['SCORE2']=request.session['SCORE2']+1
                             context['score2']=request.session['SCORE2']
+                    context['finmanche']="Oui"
                     if request.session['MATCH']==2:
                         context['finpartie']="Oui"
-                    else:
-                        context['finmanche']="Non"
                 if len(request.session['SEQUENCE'])==625:
                     context['pat']="Oui"
                     context['joueur']=request.POST['joueur']
@@ -146,10 +145,9 @@ def internet(request):
                     context['tour']=str(request.session['TOUR'])   
                     context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                     context["etape"]="nouveautour"
+                    context['finmanche']="Oui"
                     if request.session['MATCH']==2:
                         context['finpartie']="Oui"
-                    else:
-                        context['finmanche']="Non"
                     print(context)
                     return render(request, "internet.html", context)
                 context['jeton']=request.POST['jeton']

@@ -247,6 +247,7 @@ function displayGameBoard(){
         scor1=document.getElementById("id-score1").value
         scor2=document.getElementById("id-score2").value
         if (document.getElementById("id-finmanche").textContent=="Oui") {
+            alert('finmanche')
             msgfin="La manche 2 demarre dans "
         }
         if (document.getElementById("id-finpartie").textContent=="Oui") {
