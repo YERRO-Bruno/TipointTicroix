@@ -272,7 +272,6 @@ function displayGameBoard(){
             }
         }
         if (msgfin.length>0) {
-            alert ("countdown")
             countdownField.style.display="block"
             let interval = setInterval(function() {
                 countdownField.textContent =msgfin.concat(10-count," s")
