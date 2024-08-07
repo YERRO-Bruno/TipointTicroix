@@ -192,14 +192,14 @@ function displayGameBoard(){
     scor1=document.getElementById("id-score1").value
     scor2=document.getElementById("id-score2").value
     if (scor1%2==0) {
-        document.getElementById("lscore1").textContent=" : ".concat(scor1.tofixed())
+        document.getElementById("lscore1").textContent=" : ".concat(scor1.tofixed().tostring())
     } else {
-        document.getElementById("lscore1").textContent=" : ".concat(scor1)
+        document.getElementById("lscore1").textContent=" : ".concat(scor1.tostring())
     }
     if (scor2%2==0) {
-        document.getElementById("lscore2").textContent=" : ".concat(scor2.tofixed())
+        document.getElementById("lscore2").textContent=" : ".concat(scor2.tofixed().tostring())
     } else {
-        document.getElementById("lscore2").textContent=" : ".concat(scor2)
+        document.getElementById("lscore2").textContent=" : ".concat(scor2.tostring())
     }
     res=document.getElementById("id-sequence").value
     if (res.length > 0) { 
