@@ -212,6 +212,8 @@ function displayGameBoard(){
             }              
         }
         const countdownField = document.getElementById("id-bandeau")
+        let count = 0;
+        let msgfin=""
         if (document.getElementById("id-pat").textContent=="Oui") {
             alert("pat")
             document.getElementById("ALUI").style.display="none"
@@ -233,64 +235,48 @@ function displayGameBoard(){
             win=document.getElementById("id-defaite").value
             document.getElementById("defaite").style.display="block"
             document.getElementById("victoire").style.display="none"
-        }
-        if (win != "Non" || document.getElementById("id-pat").textContent=="Oui") { 
-            alert("pat2")
             document.getElementById("ALUI").style.display="none"
             document.getElementById("AVOUS").style.display="none"
-            ;
-            let count = 0;
-            let msgfin=""
-            if (document.getElementById("id-finpartie").textContent=="Oui") {
-                if (document.getElementById("id-pat").textContent=="Oui") {
-                    if (document.getElementById("lscore1").textContent>
-                        document.getElementById("lscore2").textContent) {
-                            msgfin="Victoire : 1,5-0,5. Retour au lobby dans "
-                        } 
-                    if (document.getElementById("lscore1").textContent<
-                        document.getElementById("lscore2").textContent) {
-                            msgfin="Défaite : 0,5-1,5. Retour au lobby dans "
-                        } 
-                    if (document.getElementById("lscore1").textContent==
-                        document.getElementById("lscore2").textContent) {
-                            msgfin="match nul : 1-1. Retour au lobby dans "
-                        } 
-                }
-                if (document.getElementById("id-defaite").value!="Non") {
-                    if (document.getElementById("lscore1").textContent==
-                        document.getElementById("lscore2").textContent) {
-                            msgfin="match nul : 1-1. Retour au lobby dans "
-                        } else {
-                            msgfin="defaite : 0-2. Retour au lobby dans "
-                        }
-                }
-                if (document.getElementById("id-victoire").value!="Non") {
-                    if (document.getElementById("lscore1").textContent==
-                        document.getElementById("lscore2").textContent) {
-                            msgfin="match nul : 1-1. Retour au lobby dans "
-                        } else {
-                            msgfin="victoire : 2-0. Retour au lobby dans "
-                        }
-                }
-                if (document.getElementById("id-defaite").value!="Non") {
-                    if (document.getElementById("lscore1").textContent==
-                        document.getElementById("lscore2").textContent) {
-                            msgfin="match nul : 1-1. Retour au lobby dans "
-                        } else {
-                            msgfin="defaite : 0-2. Retour au lobby dans "
-                        }
-                }                
-            } else {
-                win=win.split(",")
+        }
+        if (win != "Non") {
+            win=win.split(",")
                 for (let i = 0;i<5;i++) {
                     document.getElementById(win[i]).style.backgroundColor="yellow"
                 }
-                document.getElementById("id-bandeau").style.display="block"
-                msgfin="La manche 2 demarre dans "
-                count = 1;
+        }
+        scor1=document.getElementById("id-score1").value
+        scor2=document.getElementById("id-score2").value
+        if (document.getElementById("id-finmanche").textContent=="Oui") {
+            msgfin="La manche 2 demarre dans "
+        }
+        if (document.getElementById("id-finpartie").textContent=="Oui") {
+            if (document.getElementById("id-joueur").value==document.getElementById("premier").value) {
+                if (scor1==scor2) {
+                        msgfin="Nul : 1-1. Retour au lobby dans "
+                }
+                if (scor1>scor2) {
+                        msgfin="Victoire : ".concat(scor1,"-",scor2,". Retour au lobby dans ")
+                }
+                if (scor1<scor2) {
+                        msgfin="Défaite : ".concat(scor1,"-",scor2,". Retour au lobby dans ")
+                }
+
             }
+            else {
+                if (scor1==scor2) {
+                        msgfin="Nul : 1-1. Retour au lobby dans "
+                }
+                if (scor1>scor2) {
+                        msgfin="Défaite : ".concat(scor1,"-",scor2,". Retour au lobby dans ")
+                }
+                if (scor1<scor2) {
+                    msgfin="Victoire : ".concat(scor1,"-",scor2,". Retour au lobby dans ")
+            }
+            }
+        }
+        if (msgfin.length>0) {
+            alert ("countdown")
             countdownField.style.display="block"
-            alert("interval")
             let interval = setInterval(function() {
                 countdownField.textContent =msgfin.concat(10-count," s")
                 if (count >= 10) {
@@ -315,7 +301,7 @@ function displayGameBoard(){
                     }
                 }
                 count++;
-            }, 1000);       
+            }, 1000);  
         }
     }
 }

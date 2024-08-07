@@ -115,22 +115,24 @@ def internet(request):
                         context['victoire']="Non"
                         if request.session['PREMIER']==request.POST['joueur']:
                             request.session['SCORE2']=request.session['SCORE2']+1
-                            #context['score2']=request.session['SCORE2']
+                            context['score2']=request.session['SCORE2']
                         else:
                             request.session['SCORE1']=request.session['SCORE1']+1
-                            #context['score1']=request.session['SCORE1']
+                            context['score1']=request.session['SCORE1']
                     else:
                         context['defaite']="Non"
                         context['victoire']=res
                         finpartie(connec[1],"H",True)
                         if request.session['PREMIER']==request.POST['joueur']:
                             request.session['SCORE1']=request.session['SCORE1']+1
-                            #context['score1']=request.session['SCORE1']
+                            context['score1']=request.session['SCORE1']
                         else:
                             request.session['SCORE2']=request.session['SCORE2']+1
-                            #context['score2']=request.session['SCORE2']
+                            context['score2']=request.session['SCORE2']
                     if request.session['MATCH']==2:
                         context['finpartie']="Oui"
+                    else:
+                        context['finmanche']="Non"
                 if len(request.session['SEQUENCE'])==625:
                     context['pat']="Oui"
                     context['joueur']=request.POST['joueur']
@@ -146,6 +148,8 @@ def internet(request):
                     context["etape"]="nouveautour"
                     if request.session['MATCH']==2:
                         context['finpartie']="Oui"
+                    else:
+                        context['finmanche']="Non"
                     print(context)
                     return render(request, "internet.html", context)
                 context['jeton']=request.POST['jeton']
