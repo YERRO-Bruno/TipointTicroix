@@ -134,6 +134,7 @@ def internet(request):
                         context['finpartie']="Oui"
                 if len(request.session['SEQUENCE'])==625:
                     context['pat']="Oui"
+                    context["begin"]=request.session['BEGIN']
                     context['joueur']=request.POST['joueur']
                     context['adversaire']=request.POST['adversaire']
                     context["premier"]=request.session['PREMIER']
