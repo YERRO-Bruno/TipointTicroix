@@ -219,7 +219,6 @@ function displayGameBoard(){
             document.getElementById("ALUI").style.display="none"
             document.getElementById("victoire").textContent="MATCH NUL"
             document.getElementById("victoire").style.display="block"
-            document.getElementById("btn-annuler").style.display="none"
             document.getElementById("AVOUS").style.display="none"
         }
         win="Non"
