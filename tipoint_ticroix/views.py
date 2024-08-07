@@ -140,11 +140,11 @@ def internet(request):
                     context["second"]=request.session['SECOND']
                     request.session['SCORE1']=request.session['SCORE1']+0.5
                     request.session['SCORE2']=request.session['SCORE2']+0.5
-                    if isinstance(request.session['SCORE1'],int):
+                    if request.session['SCORE1']%2==0:
                         context["score1"]= "{:.0f}".format(request.session['SCORE1'])
                     else:
                         context["score1"]="{:.1f}".format(request.session['SCORE1'])
-                    if isinstance(request.session['SCORE1'],int):
+                    if request.session['SCORE2']%2==0:
                         context["score2"]= "{:.0f}".format(request.session['SCORE2'])
                     else:
                         context["score2"]="{:.1f}".format(request.session['SCORE2'])
