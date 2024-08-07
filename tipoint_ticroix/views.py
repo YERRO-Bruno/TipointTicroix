@@ -49,27 +49,6 @@ def internet(request):
                     sc2=request.session['SCORE1']
                     request.session['SCORE1']=request.session['SCORE2']
                     request.session['SCORE2']=sc2
-                if len(request.session['SEQUENCE'])==0:
-                    print("debtour")
-                    marque="O"
-                    for i in range(0,25):
-                        for j in range(0,25):
-                            request.session['SEQUENCE']=request.session['SEQUENCE']+[str(j)+"/"+str(i)]
-                            request.session['GRILLE'][i][j]=marque
-                            if marque=="O":
-                                marque="X"
-                            else:
-                                marque="O"
-                    request.session['SEQUENCE'].pop(624)
-                    request.session['SEQUENCE'].pop(623)
-                    request.session['SEQUENCE'].pop(622)
-                    request.session['SEQUENCE'].pop(621)
-                    request.session['GRILLE'][24][24]="-"
-                    request.session['GRILLE'][24][23]="-"
-                    request.session['GRILLE'][24][22]="-"
-                    request.session['GRILLE'][24][21]="-"
-
-
                 request.session['TOUR']=1
                 context["etape"]="nouveautour"
                 context["jeton"]=request.POST['jeton']
