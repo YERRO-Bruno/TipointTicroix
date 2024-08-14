@@ -26,7 +26,7 @@ jobs:
     # - name: Build the project
     #   run: npm run build  # ou la commande nécessaire pour construire votre projet
     - name: List files
-      run: pwd && sudo ls -la /
+      run: pwd && sudo ls -la /home/runner/work/TipointTicroix/TipointTicroix
 
     # - name: find file
     #   run: find /workspace -name "tptcinit.sh"
