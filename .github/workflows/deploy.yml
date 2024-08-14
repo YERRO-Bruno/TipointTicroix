@@ -28,6 +28,9 @@ jobs:
     - name: List files
       run: ls -la /etc
 
+    - name: find file
+      run: find /etc -name "tptcinit.sh"
+      
     - name: Deploy to server
       run: |
         # Copier les fichiers si nécessaire
