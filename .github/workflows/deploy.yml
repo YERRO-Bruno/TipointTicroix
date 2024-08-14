@@ -26,10 +26,10 @@ jobs:
     # - name: Build the project
     #   run: npm run build  # ou la commande nécessaire pour construire votre projet
     - name: List files
-      run: ls -la /workspace
+      run: sudo ls -la /
 
-    - name: find file
-      run: find /workspace -name "tptcinit.sh"
+    # - name: find file
+    #   run: find /workspace -name "tptcinit.sh"
 
     - name: Deploy to server
       run: |
