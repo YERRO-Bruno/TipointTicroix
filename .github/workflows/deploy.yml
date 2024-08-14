@@ -1,0 +1,38 @@
+name: Deploy Application
+
+on:
+  push:
+    branches:
+      - main
+      - test
+      - sprint8
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # - name: Checkout repository
+    #   uses: actions/checkout@v2
+
+    # - name: Set up Node.js (ou toute autre technologie si nécessaire)
+    #   uses: actions/setup-node@v2
+    #   with:
+    #     node-version: '14'
+
+    # - name: Install dependencies
+    #   run: npm install  # ou toute autre commande nécessaire pour installer les dépendances
+
+    # - name: Build the project
+    #   run: npm run build  # ou la commande nécessaire pour construire votre projet
+
+    - name: Deploy to server
+      run: |
+        # Copier les fichiers si nécessaire
+        #cp -r ./build /path/to/destination
+
+        # Donner toutes les permissions à un fichier
+        chmod 777 tptcinit.sh
+
+        # Ou à un répertoire entier
+        #chmod -R 777 /path/to/destination
