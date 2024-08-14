@@ -35,7 +35,7 @@ jobs:
       run: |
 
         # Donner toutes les permissions à un fichier
-        chmod 777 tptcinit.sh
+        chmod 755 tptcinit.sh
 
     - name: Configure Git
       run: |
@@ -45,11 +45,15 @@ jobs:
     - name: Commit changes
       run: |
         git add tptcinit.sh
-        git commit -m "Update permissions for tptcinit.sh" || echo "No changes to commit"
+        if git commit -m "Update permissions for tptcinit.sh"; then
+          echo "Changes committed."
+        else
+          echo "No changes to commit."
+        fi
 
-        - name: Push changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Utilisez le token d'accès
-        run: |
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/YERRO-Bruno/TipointTicroix.git
-          git push origin HEAD:sprint8
+    - name: Push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Utilisez le token d'accès
+      run: |
+        git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/YERRO-Bruno/TipointTicroix.git
+        git push origin HEAD:sprint8
