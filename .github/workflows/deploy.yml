@@ -27,21 +27,12 @@ jobs:
     #   run: npm run build  # ou la commande nécessaire pour construire votre projet
     - name: Checkout code
       uses: actions/checkout@v2
-
-    # - name: List files
-    #   run: pwd && sudo ls -la /home/runner/work/TipointTicroix/TipointTicroix
-
     - name: Deploy to server
-      run: |
-
-        # Donner toutes les permissions à un fichier
-        chmod 755 tptcinit.sh
-
+      run: chmod 755 tptcinit.sh
     - name: Configure Git
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
-
     - name: Commit changes
       run: |
         git add tptcinit.sh
@@ -50,7 +41,6 @@ jobs:
         else
           echo "No changes to commit."
         fi
-
     - name: Push changes
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Utilisez le token d'accès
