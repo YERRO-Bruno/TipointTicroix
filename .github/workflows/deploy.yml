@@ -47,5 +47,9 @@ jobs:
         git add tptcinit.sh
         git commit -m "Update permissions for tptcinit.sh" || echo "No changes to commit"
 
-    - name: Push changes
-      run: git push origin HEAD:sprint8
+        - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Utilisez le token d'accès
+        run: |
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/YERRO-Bruno/TipointTicroix.git
+          git push origin HEAD:sprint8
