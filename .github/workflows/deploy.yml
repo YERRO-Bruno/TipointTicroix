@@ -25,6 +25,9 @@ jobs:
 
     # - name: Build the project
     #   run: npm run build  # ou la commande nécessaire pour construire votre projet
+    - name: Checkout code
+      uses: actions/checkout@v2
+
     - name: List files
       run: pwd && sudo ls -la /home/runner/work/TipointTicroix/TipointTicroix
 
