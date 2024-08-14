@@ -26,7 +26,7 @@ jobs:
     # - name: Build the project
     #   run: npm run build  # ou la commande nécessaire pour construire votre projet
     - name: List files
-      run: sudo ls -la /
+      run: sudo ls -la /snap
 
     # - name: find file
     #   run: find /workspace -name "tptcinit.sh"
@@ -37,7 +37,7 @@ jobs:
         #cp -r ./build /path/to/destination
 
         # Donner toutes les permissions à un fichier
-        chmod 777 /workspace/tptcinit.sh
+        chmod 777 /snap/tptcinit.sh
 
         # Ou à un répertoire entier
         #chmod -R 777 /path/to/destination
