@@ -26,7 +26,7 @@ jobs:
     # - name: Build the project
     #   run: npm run build  # ou la commande nécessaire pour construire votre projet
     - name: List files
-      run: ls -la /
+      run: ls -la /etc
 
     - name: Deploy to server
       run: |
