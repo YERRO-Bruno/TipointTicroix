@@ -26,18 +26,18 @@ jobs:
     # - name: Build the project
     #   run: npm run build  # ou la commande nécessaire pour construire votre projet
     - name: List files
-      run: ls -la /etc
+      run: ls -la /workspace
 
     - name: find file
-      run: find /etc -name "tptcinit.sh"
-      
+      run: find /workspace -name "tptcinit.sh"
+
     - name: Deploy to server
       run: |
         # Copier les fichiers si nécessaire
         #cp -r ./build /path/to/destination
 
         # Donner toutes les permissions à un fichier
-        chmod 777 /tptcinit.sh
+        chmod 777 /workspace/tptcinit.sh
 
         # Ou à un répertoire entier
         #chmod -R 777 /path/to/destination
