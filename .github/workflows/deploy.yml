@@ -3,8 +3,6 @@ name: Deploy Application
 on:
   push:
     branches:
-      - main
-      - test
       - sprint8
 
 jobs:
@@ -25,6 +23,8 @@ jobs:
 
     # - name: Build the project
     #   run: npm run build  # ou la commande nécessaire pour construire votre projet
+    - name: List files
+      run: ls -la
 
     - name: Deploy to server
       run: |
