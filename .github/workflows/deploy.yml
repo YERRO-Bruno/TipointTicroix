@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # - name: Checkout repository
-    #   uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
     # - name: Set up Node.js (ou toute autre technologie si nécessaire)
     #   uses: actions/setup-node@v2
@@ -24,8 +24,7 @@ jobs:
 
     # - name: Build the project
     #   run: npm run build  # ou la commande nécessaire pour construire votre projet
-    - name: Checkout code
-      uses: actions/checkout@v2
+  
     - name: Deploy to server
       run: chmod 755 tptcinit.sh
     - name: Configure Git
