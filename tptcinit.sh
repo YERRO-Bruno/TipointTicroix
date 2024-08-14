@@ -1,6 +1,6 @@
-sudo npm cache clean --force
-sudo rm -rf node_modules
-sudo npm install
-sudo systemctl daemon-reload
-sudo systemctl enable monservice.service
-sudo systemctl restart monservice.service
+npm cache clean --force
+rm -rf node_modules
+npm install
+systemctl daemon-reload
+systemctl enable monservice.service
+systemctl restart monservice.service
