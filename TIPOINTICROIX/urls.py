@@ -24,5 +24,5 @@ urlpatterns = [
     path('tipointticroix/prepassword/', views.prepassword, name='prepassword'),
     path('tipointticroix/modifpassword/', views.modifpassword, name='modifpassword'),
     path('admin/', admin.site.urls),
-    path("api/userconnecteds",views.api_userconnecteds,name="api_userconnecteds")
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+#] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

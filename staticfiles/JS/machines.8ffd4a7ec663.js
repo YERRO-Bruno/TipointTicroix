@@ -13,53 +13,101 @@ document.getElementById("btn-jouer").addEventListener('click', function(e){
 document.getElementById("table").addEventListener('click', function(e) {
     e.preventDefault()
     alert("Action impossible. partie entre machines")
-    })
+})
 
-// Click du joueur sur le bouton quitter
+// Click du joueur sur le bouton quitter en debut de jeu
 document.getElementById("btn-quitter").addEventListener('click', function(e) {
     e.preventDefault()
-    if (confirm("Voulez vous revenir à l'accueil?")==true) {
-        document.location.href='http://localhost:8000/'
+    document.location.href='/tipointticroix'
+})
+
+// Click du joueur sur le bouton quitter en cours de jeu
+document.getElementById("btn-quitter2").addEventListener('click', function(e) {
+    e.preventDefault()
+    if (document.getElementById("id-victoire1").value!="Non"||
+        document.getElementById("id-victoire2").value!="Non") {
+            document.location.href='/tipointticroix'
+        } else {
+            if (confirm("Voulez vous revenir à l'accueil?")==true) {
+                document.location.href='/tipointticroix'
+            }
     }
-    })
+})
 
 // Click du joueur sur le bouton annuler le tour
 document.getElementById("btn-annuler").addEventListener('click', function(e) {
     e.preventDefault()
     document.getElementById("id-annuler").value="Oui"
     document.forms["grille"].submit();
+})
+// Click du joueur sur le bouton enregistrer position
+document.getElementById("btn-save").addEventListener('click', function(e) {
+    e.preventDefault()
+    localStorage.setItem("enreg",document.getElementById("id-sequence").value)
+})
+// Click du joueur sur le bouton charger position
+document.getElementById("btn-load").addEventListener('click', function(e) {
+    e.preventDefault()
+    document.getElementById("id-charger").value="Oui"
+    document.getElementById("id-sequence").value=localStorage.getItem("enreg")
+    document.forms["grille"].submit();
     })
 
 // Click du joueur sur le bouton rejouer
 document.getElementById("btn-rejouer").addEventListener('click', function(e) {
     e.preventDefault()
-    document.location.href='http://localhost:8000/tipointticroix/machines'
+    document.location.href='/tipointticroix/machines'
     })
 
 //Functions
 //Affichage de la grille
 function displayGameBoard(){
-    //document.getElementById("id-beginer").textContent="Je joue en premier"
-    //if (document.getElementById("begin-id").textContent == "Oui") {
-    //    document.getElementById("id-beginer").textContent="Vous jouez en premier"
-    //}
     document.getElementById("AMACHINE1").style.display="none"
     document.getElementById("AMACHINE2").style.display="none"
     document.getElementById("x-board").style.display="none"
     document.getElementById("btn-annuler").style.display="none"
+    document.getElementById("btn-load").style.display="none"
+    document.getElementById("btn-save").style.display="none"
     document.getElementById("btn-rejouer").style.display="none"
+    // creation lignes du tableau
+    var cell, ligne;
+    var tableau = document.getElementById("table");
+    const nbt = document.getElementById("nb-tour").textContent
+    for (let j = 0; j < 25; j++) {
+        ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
+                                        // le paramètre est dans ce cas (-1)
+
+    // création et insertion des cellules dans la nouvelle ligne créée
+        for (let i = 0; i < 25; i++) {
+            var idx= j+"/"+i
+            var imghtml=`
+                <input class="textcenter" id=${idx} type="text"
+                    style="margin: 0; margin-left: 4; border-spacing: 0">
+                </input>
+            `
+            cell = ligne.insertCell(i);
+            cell.id = idx
+            cell.innerHTML = imghtml
+            cell.style.color = "black"
+            cell.textContent = ""
+            cell.style.height = "3vh"
+            cell.style.width = "3vh"
+            cell.style.background = "white"
+            cell.style.border = "1px solid"
+            cell.borderSpacing ="0"
+            cell.style.textAlign = "center"
+        }
+    }
     if (document.getElementById("nb-tour").textContent > "0") {
         if (document.getElementById("modejeu").textContent=="pas à pas") {
             document.getElementById("coupsuivant").style.display="block"
-            document.getElementById("modeauto").style.display="block"
-            document.getElementById("modepasapas").style.display="none"
+            document.getElementById("btn-save").style.display="block"
+            document.getElementById("btn-load").style.display="block"
             if (document.getElementById("nb-tour").textContent > "1") {
                 document.getElementById("btn-annuler").style.display="block"
             }
         } else {
-            document.getElementById("modepasapas").style.display="block"
             document.getElementById("coupsuivant").style.display="none"
-            document.getElementById("modeauto").style.display="none"
         }
         res=document.getElementById("id-sequence").value
         res=res.split(',')
@@ -73,40 +121,10 @@ function displayGameBoard(){
         }
         document.getElementById("victoire1").style.display="none"
         document.getElementById("victoire2").style.display="none"
-        //Affichage "A .... DE JOUER"
         
         //Effacement JOUER - Apparition BOARD
         document.getElementById("x-jouer").style.display="none"
         document.getElementById("x-board").style.display="block"
-        // creation lignes du tableau
-        var cell, ligne;
-        var tableau = document.getElementById("table");
-        const nbt = document.getElementById("nb-tour").textContent
-        for (let j = 0; j < 25; j++) {
-            ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
-                                            // le paramètre est dans ce cas (-1)
-
-        // création et insertion des cellules dans la nouvelle ligne créée
-            for (let i = 0; i < 25; i++) {
-                var idx= j+"/"+i
-                var imghtml=`
-                    <input class="textcenter" id=${idx} type="text"
-                        style="margin: 0; margin-left: 4; border-spacing: 0">
-                    </input>
-                `
-                cell = ligne.insertCell(i);
-                cell.id = idx
-                cell.innerHTML = imghtml
-                cell.style.color = "black"
-                cell.textContent = ""
-                cell.style.height = "3vh"
-                cell.style.width = "3vh"
-                cell.style.background = "white"
-                cell.style.border = "1px solid"
-                cell.borderSpacing ="0"
-                cell.style.textAlign = "center"
-            }
-        }
         //Affichage des coups joués
         let tour=parseInt(document.getElementById("nb-tour").textContent)
         let sequence=document.getElementById("id-sequence").value
@@ -115,6 +133,7 @@ function displayGameBoard(){
         var marque="O"
         for (let i = 0;i<nbcoup;i++) {
             document.getElementById(sequence[i]).textContent=marque
+            document.getElementById(sequence[i]).style.fontSize="0.8vw"
             if (marque=="X") {
                 document.getElementById(sequence[i]).style.color="red"
             } else {
@@ -129,6 +148,17 @@ function displayGameBoard(){
                 marque="O"
             }              
         }
+        if (document.getElementById("id-pat").textContent=="Oui") {
+            //alert("Plus de case diponible - Match nul")
+            document.getElementById("victoire1").textContent="MATCH NUL"
+            document.getElementById("victoire2").textContent=""
+            document.getElementById("victoire1").style.display="block"
+            document.getElementById("victoire2").style.display="none"
+            document.getElementById("AMACHINE1").style.display="none"
+            document.getElementById("AMACHINE2").style.display="none"
+            document.getElementById("btn-load").style.display="none"
+            document.getElementById("btn-save").style.display="none"
+        }
         win="Non"
         if (document.getElementById("id-victoire1").value!="Non") {
             win=document.getElementById("id-victoire1").value
@@ -142,7 +172,7 @@ function displayGameBoard(){
             document.getElementById("AMACHINE1").style.display="none"
             document.getElementById("AMACHINE2").style.display="none"
             document.getElementById("btn-rejouer").style.display="blocK"
-            document.getElementById("btn-annuler").style.display="none"  
+            document.getElementById("btn-annuler").style.display="block"  
             win=win.split(",")
             for (let i = 0;i<5;i++) {
                 document.getElementById(win[i]).style.backgroundColor="yellow"
@@ -161,16 +191,6 @@ function espace_pressé(evt) {
         if(window.event) evt = window.event;
             if (evt.type == "keypress" & evt.keyCode > 0) {
                 if (evt.keyCode==32) {
-                    if (document.getElementById("modejeu").textContent=="auto") {
-                        alert("Mode de jeu au pas à pas")
-                    }
-                    document.getElementById("pas").checked=true
-                    document.forms["grille"].submit();
-                }
-                if (evt.keyCode==43) {
-                    if (document.getElementById("modejeu").textContent=="pas à pas") {
-                        alert("Mode de jeu en auto")
-                    }
                     document.forms["grille"].submit();
                 }
             }

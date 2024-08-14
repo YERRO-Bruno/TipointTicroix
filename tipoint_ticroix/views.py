@@ -13,7 +13,6 @@ from django.db.models.functions import Cast
 from django.conf import settings
 
 def error_404(request, exception):
-    print("error404")
     return render(request, '404.html', status=404)
 
 #page internet (PvP)
@@ -62,7 +61,6 @@ def internet(request):
                 context["finpartie"]="Non"
                 context["victoire"]="Non"
                 context["defaite"]="Non"
-                print(context)
                 return render(request, "internet.html", context)
             if request.POST['etape'] =="tourjeu":
                 #tour de jeu
@@ -135,7 +133,6 @@ def internet(request):
                     context['finmanche']="Oui"
                     if request.session['MATCH']==2:
                         context['finpartie']="Oui"
-                    print(context)
                     return render(request, "internet.html", context)
                 context['jeton']=request.POST['jeton']
                 context['joueur']=request.POST['joueur']
@@ -153,7 +150,6 @@ def internet(request):
                 else:
                     context["score2"]="{:.1f}".format(request.session['SCORE2'])
                 context["etape"]="nouveautour"
-                print(context)
                 return render(request, "internet.html", context)
         else:    
             context["etape"]="connexion"
@@ -165,7 +161,6 @@ def internet(request):
 
 #page accueil
 def accueil(request):
-    print(settings.DEBUG)
     context = {}
     connec=estconnecté(request)
     if connec[0]:
@@ -177,16 +172,13 @@ def accueil(request):
     if settings.DEBUG==True:
         context['debug']= "True"
     else:
-        context['debug']= "False"  
-    print(context)      
+        context['debug']= "False"       
     return render(request, "accueil.html", context)
 
 #desinscription
 def desinscription(request):
     connec=estconnecté(request)
-    print("desinscription",connec[1])
     userx=User.objects.get(pseudo=connec[1])
-    print(userx.email)
     userx.delete()
     return redirect("/tipointticroix")
 
@@ -194,7 +186,6 @@ def desinscription(request):
 #déconnexion
 def logout_view(request):
     logout(request)
-    #messages.add_message(request, messages.INFO, "Vous êtes déconnecté")
     return redirect("/tipointticroix")
 
 def preregister(request):
@@ -229,8 +220,7 @@ def preregister(request):
                 send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', {emailx},
                             fail_silently=False)
             except Exception as error:
-                print('mail error')
-                print(error)
+                print('mail error',error)
                 return render(request,'register.html',{'email':emailx,'errorVerif':"error Mailing"})
             request.session['EMAIL']=emailx
             return redirect('/tipointticroix/register')
@@ -257,12 +247,9 @@ def register(request):
             return render(request, 'register.html',
                         {'errorinscription': "pseudo déjà existant", 'email': emailx})   
         #récupération et test code verification
-        print("cherche verifuser")
         verifuser=VerifUser.objects.get(email=emailx)
-        print("cherche verifuser2")
         if verifuser is not None:
                 if bcrypt.checkpw(verifx.encode('utf-8'),verifuser.codeverif.encode('utf-8')):
-                    print("code ok",emailx)
                     try:
                         userx = User.objects.create_user(email=emailx, password=passwordx)
                         userx.pseudo=pseudox
@@ -309,8 +296,7 @@ def prepassword(request):
                 send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', {emailx},
                             fail_silently=False)
             except Exception as error:
-                print('mail error')
-                print(error)
+                print('mail error',error)
                 return render(request,'register.html',{'email':emailx,'errorVerif':"error Mailing"})
             request.session['EMAIL']=emailx
             return redirect('/tipointticroix/modifpassword')
@@ -325,14 +311,10 @@ def modifpassword(request):
         emailx = request.POST['email']
         passwordx = request.POST['password']
         verifx = request.POST['verification']
-        userx=User.objects.filter(email=emailx)
-        
+        userx=User.objects.filter(email=emailx)        
         if len(userx)>0:
-
             #récupération et test code verification
-            print("cherche verifuser")
             verifuser=VerifUser.objects.get(email=emailx)
-            print("cherche verifuser2")
             if verifuser is not None:
                     if bcrypt.checkpw(verifx.encode('utf-8'),verifuser.codeverif.encode('utf-8')):
                         print("code ok",emailx)
@@ -364,10 +346,8 @@ def connect(request):
             request.session['email'] = emailx
             request.session['password'] = passwordx
             login(request, userConnected )
-            #messages.add_message(request, messages.INFO, "Vous êtes connecté.")
             return redirect('/tipointticroix')
         else:
-            #messages.add_message(request, messages.INFO, "Vous n' avez pas été authentifié")
             return render(request, 'connect.html', {'errorLogin': "Email et/ou mot de passe erroné"})
     else:
         return render(request, 'connect.html')
@@ -382,12 +362,10 @@ def tipointticroix(request):
     else:
         context["connexion"]="Non"
         context["connec"]="Vous"
-    print(context)
     if request.method == 'POST':
         print("tour : " + str(request.session['TOUR']))
         print("joueur : " + request.POST["coupjoueur"])
         if request.POST["annuler"]=="Oui":
-            print("annuler : " + request.POST["annuler"])
             request.session['TOUR']=request.session['TOUR']-1 
             context['tour']=str(request.session['TOUR'])
             seq=request.session['SEQUENCE']
@@ -410,9 +388,7 @@ def tipointticroix(request):
             context['victoire']="Non"
             context['defaite']="Non"
             context['pat']="Non"
-            print(context)
             return render(request, "tipointticroix.html", context)
-
         if request.POST["charger"]=="Oui":
             print("charger : " + request.POST["charger"])
             request.session['SEQUENCE']=request.POST['sequence'].split(",")
@@ -436,11 +412,8 @@ def tipointticroix(request):
             context['defaite']="Non" 
             context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
             request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
-            print(request.session['TOUR'])
-            context['tour']=str(request.session['TOUR'])
-            #print(context)    
+            context['tour']=str(request.session['TOUR'])    
             return render(request, "tipointticroix.html", context)
-
         #MAJ TABLEAU
         if request.session['TOUR']==0 :
             request.session['SEQUENCE']=[]
@@ -449,9 +422,7 @@ def tipointticroix(request):
                 marqueordi="O"
                 marquejoueur="X"
                 #le joueur ne commence pas - 1er COUP ORDINATEUR
-                #request.session['GRILLE[12][12]="X"
                 request.session['GRILLE']=majgrille("12/12",marqueordi,request.session['GRILLE'])
-                print("ordi : " + "12/12")
                 request.session['SEQUENCE']=request.session['SEQUENCE']+["12/12"]
                 context['begin']="Non"
                 request.session['BEGIN']="Non"
@@ -469,26 +440,6 @@ def tipointticroix(request):
             context['defaite']="Non"
             context['pat']="Non"
         else :
-            # print("longueur",len(request.session['SEQUENCE']))
-            # if len(request.session['SEQUENCE'])==0:
-            #     print("debtour")
-            #     marque="O"
-            #     for i in range(0,25):
-            #         for j in range(0,25):
-            #             request.session['SEQUENCE']=request.session['SEQUENCE']+[str(j)+"/"+str(i)]
-            #             request.session['GRILLE'][i][j]=marque
-            #             if marque=="O":
-            #                 marque="X"
-            #             else:
-            #                 marque="O"
-            #     request.session['SEQUENCE'].pop(624)
-            #     request.session['SEQUENCE'].pop(623)
-            #     request.session['SEQUENCE'].pop(622)
-            #     request.session['SEQUENCE'].pop(621)
-            #     request.session['GRILLE'][24][24]="-"
-            #     request.session['GRILLE'][24][23]="-"
-            #     request.session['GRILLE'][24][22]="-"
-            #     request.session['GRILLE'][24][21]="-"
             marqueordi=request.session['MARQUEORDI']
             marquejoueur=request.session['MARQUEJOUEUR']
             context['nom1']=nomniveau(request.session['NIVEAU'])
@@ -498,10 +449,7 @@ def tipointticroix(request):
             context['defaite']="Non"
             context['pat']="Non"
             #COUP JOUEUR
-            request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]
-            
-
-            #GRILLE=COUPDUJOUEUR
+            request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]        
             request.session['GRILLE']=majgrille(request.POST["coupjoueur"],marquejoueur,request.session['GRILLE'])
             #easter egg
             if marquejoueur=="O":
@@ -519,11 +467,11 @@ def tipointticroix(request):
                                 if request.session['GRILLE'][24][24]=='X':
                                     return render(request, "easteregg.html")
             #victoire joueur
-            #res = trouve_5(request.POST["coupjoueur"],marquejoueur,request.session['GRILLE'])
-            res="Non"
+            res = trouve_5(request.POST["coupjoueur"],marquejoueur,request.session['GRILLE'])
             if res != "Non":
                 context['victoire']=res
-                finpartie(connec[1],str(request.session['NIVEAU']),True)
+                if connec[0]:
+                    finpartie(connec[1],str(request.session['NIVEAU']),True)
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
                 #print(context) 
@@ -543,14 +491,12 @@ def tipointticroix(request):
             
             #GRILLE=COUPORDINATEUR
             request.session['GRILLE']=majgrille(coupordinateur,marqueordi,request.session['GRILLE'])
-            #res = trouve_5(coupordinateur,marqueordi,request.session['GRILLE'])
-            res="Non"
+            res = trouve_5(coupordinateur,marqueordi,request.session['GRILLE'])
             if res != "Non":
                 context['defaite']=res
                 finpartie(connec[1],str(request.session['NIVEAU']),False)
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
-                print(context) 
                 return render(request, "tipointticroix.html", context)
             if len(request.session['SEQUENCE'])==625:
                 context['pat']="Oui"
@@ -582,7 +528,6 @@ def machines(request):
     else:
         context["connexion"]="Non"
         context["connec"]=connec[1]
-    print(context)
     if request.method == 'POST':
         if request.POST["annuler"]=="Oui":
             print("annuler : " + request.POST["annuler"])
@@ -614,7 +559,6 @@ def machines(request):
             context['modejeu']=request.session['MODEJEU']
             context['victoire1']="Non"
             context['victoire2']="Non" 
-            print(context)
             return render(request, "machines.html", context)
         if request.POST["charger"]=="Oui":
             print("charger : " + request.POST["charger"])
@@ -637,8 +581,7 @@ def machines(request):
             context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
             request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
             print(request.session['TOUR'])
-            context['tour']=str(request.session['TOUR'])
-            #print(context)    
+            context['tour']=str(request.session['TOUR'])   
             return render(request, "machines.html", context) 
         #MAJ TABLEAU
         if request.session['TOUR']==0 :
@@ -670,7 +613,6 @@ def machines(request):
                             nbO=nbO+1
                         if request.session['GRILLE'][i][j]=="X":
                             nbX=nbX+1
-                print(nbO,"__",nbX)
                 context['nom1']=nomniveau(request.session['NIVEAU1'])
                 context['nom2']=nomniveau(request.session['NIVEAU2'])
                 context['niveau1']=request.session['NIVEAU1']
@@ -679,7 +621,6 @@ def machines(request):
                 context['victoire2']="Non"
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
-                #print(context) 
                 return render(request, "machines.html", context)
             if len(request.session['SEQUENCE'])==625:
                 context['pat']="Oui"
@@ -705,7 +646,6 @@ def machines(request):
                             nbO=nbO+1
                         if request.session['GRILLE'][i][j]=="X":
                             nbX=nbX+1
-                print(nbO,"__",nbX)
                 context['nom1']=nomniveau(request.session['NIVEAU1'])
                 context['nom2']=nomniveau(request.session['NIVEAU2'])
                 context['niveau1']=request.session['NIVEAU1']
@@ -714,7 +654,6 @@ def machines(request):
                 context['victoire1']="Non"
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
-                #print(context) 
                 return render(request, "machines.html", context)
         request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
         context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
@@ -722,12 +661,10 @@ def machines(request):
         context['victoire1']="Non"
         context['victoire2']="Non"
         context['nom1']=nomniveau(request.session['NIVEAU1'])
-        print(nomniveau(request.session['NIVEAU1']))
         context['nom2']=nomniveau(request.session['NIVEAU2'])    
         context['niveau1']=request.session['NIVEAU1']
         context['niveau2']=request.session['NIVEAU2']
-        print(request.session['TOUR'])
-        #print(context)    
+        print(request.session['TOUR'])    
         return render(request, "machines.html", context) 
     request.session['TOUR']=0
     request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
@@ -740,7 +677,6 @@ def statistics(request):
     if connec[0]:
         context["connexion"]="Oui"
         context["connec"]=connec[1]
-        print(context)
         userx=User.objects.get(pseudo=connec[1])
         results = Game.objects.filter(user_id=userx.id).values('type').annotate(
             total=Count('id'),
@@ -777,9 +713,3 @@ def mentions(request):
         context["connexion"]="Non"
         context["connec"]=connec[1]
     return render(request, "mentions.html", context)
-
-#liste des usersconnected
-def api_userconnecteds(request):
-    userconnecteds=UserConnected.objects.all()
-    userconnecteds_json=[{'pseudo':userconnected.pseudo} for userconnected in userconnecteds]
-    return JsonResponse(userconnecteds_json,safe=False)

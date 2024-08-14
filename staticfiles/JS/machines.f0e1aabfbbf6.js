@@ -172,7 +172,7 @@ function displayGameBoard(){
             document.getElementById("AMACHINE1").style.display="none"
             document.getElementById("AMACHINE2").style.display="none"
             document.getElementById("btn-rejouer").style.display="blocK"
-            document.getElementById("btn-annuler").style.display="block"  
+            //document.getElementById("btn-annuler").style.display="none"  
             win=win.split(",")
             for (let i = 0;i<5;i++) {
                 document.getElementById(win[i]).style.backgroundColor="yellow"
