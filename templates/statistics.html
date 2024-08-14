@@ -1,0 +1,67 @@
+{%  extends "base.html" %}
+
+{% block title %}
+Ti_Points-Ti_Croix
+{%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Jouez au jeu Ti-point_Ti-croix contre des algorithmes de
+ différents niveaux.">
+{%  endblock %}
+{%  load static %}
+{% block style %}
+    
+{%  endblock %}
+
+{%  block content %}
+    <div class="col-2 border border-dark " style="font-family: 'Pacifico', cursive;
+        font-weight: 400;font-style: normal">
+        <p class="text-center" style="font-size: 1vw">Statistiques</p>
+        <form id="grille" method="post" action="{% url 'tipointticroix' %}">
+            {% csrf_token %}
+            <div id="x-board">
+                <div>
+                    <button  id="btn-quitter" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                            margin-left: 2vw;background-color: rgb(0, 208, 255);
+                            margin-top: 20vh">Retour à l'accueil</button>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+    <div class="col-8" id="id_table">
+            <div align-center>
+                <h1 style="text-align: center">
+                    Pourcentage de victoires par niveau de jeu - {{ connec }}</h1>
+            </div>
+            <div>
+                <center>
+                    <table border="2" style="margin-top:5vh;font-size:3vh">
+                        <thead>
+                            <tr >
+                                <th  style="border: 2px solid black;">Niveau de jeu (H:humain)</th>
+                                <th  style="border: 2px solid black;">Pourcentage de victoires</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in results %}
+                                <tr style="border: 2px black;">
+                                    <td style="border: 2px solid black;text-align:center">{{ result.type }}</td>
+                                    <td style="border: 2px solid black;text-align:center">{{ result.victoire_percentage|floatformat:2 }}%</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </center>
+            </div>
+    </div>    
+{%  endblock %}
+
+{%  block script %}
+        <script>
+            // Click du joueur sur le bouton quitter
+            document.getElementById("btn-quitter").addEventListener('click', function(e) {
+                e.preventDefault()
+                document.location.href="/tipointticroix"
+})
+        </script>
+{%  endblock %}

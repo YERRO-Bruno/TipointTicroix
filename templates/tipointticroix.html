@@ -1,7 +1,7 @@
 {%  extends "base.html" %}
 
 {% block title %}
-Ti_Point-Ti_Croix
+Ti_Points-Ti_Croix
 {%  endblock %}
 {% block meta %}
 <meta name="Ti-point_Ti-croix" content="Jouez au jeu Ti-point_Ti-croix contre des algorithmes de
@@ -46,6 +46,12 @@ Ti_Point-Ti_Croix
                                         margin-left: 1vw"><input type="radio" id="niveau4" 
                                         name="niveau" checked style="width: 1vw;height: 1vw" 
                                         value="4" />expert</label>
+                                </div>
+                                <div>
+                                    <label for="niveau5" style="font-size: 1vw;
+                                        margin-left: 1vw"><input type="radio" id="niveau5" 
+                                        name="niveau" checked style="width: 1vw;height: 1vw" 
+                                        value="5" />champion</label>
                                 </div>
                         </fieldset>
                         <fieldset>
@@ -135,8 +141,10 @@ Ti_Point-Ti_Croix
                     <br>
                     <input name="coupjoueur" id="coup-joueur" type="text" hidden>
                     <input name="annuler" id="id-annuler" type="text" hidden>
+                    <input name="charger" id="id-charger" type="text">
                     <label for="id-sequence">Coups joués</label>
-                    <input id="id-sequence" type="text" value="{{ sequence }}">
+                    <input name="sequence" id="id-sequence" type="text" value="{{ sequence }}">
+                    <label id="id-pat">{{ pat }}</label>
                     <label for="id-victoire">victoire joueur</label>
                     <input id="id-victoire" type="text" value="{{ victoire }}">
                     <label for="id-defaite">défaite joueur</label>

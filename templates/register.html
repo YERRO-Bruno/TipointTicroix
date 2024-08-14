@@ -1,7 +1,7 @@
 {%  extends "base.html" %}
 
 {% block title %}
-Ti_Point-Ti_Croix
+Ti_Points-Ti_Croix
 {%  endblock %}
 {% block meta %}
 <meta name="Ti-point_Ti-croix" content="Enregistrez-vous sur le site de jeu Ti-point_Ti-croix.">
@@ -23,45 +23,45 @@ Ti_Point-Ti_Croix
             <form  class="justify-content-center" method="post" autocomplete="off">            
                 {% csrf_token %}
                 <div class="row" style="font-size: larger;margin-right:14vw">
-                    <div class="col-4"></div>
-                    <p class="col-4 row">
-                        <label class="col-5" for="id_email">Email:</label>
-                        <input class="col-7" type="email" name="email" maxlength="64" required 
+                    <div class="col-3"></div>
+                    <p class="col-6 row">
+                        <label class="col-4" for="id_email">Email:</label>
+                        <input class="col-8" type="email" name="email" maxlength="64" required 
                             value="{{ email }}" id="id_email" readonly>
                     </p>
-                    <div class="col-4"></div>
-                    <div class="col-4"></div>
-                    <p class="col-4 row">
-                        <label class="col-5" for="id_verification">Verification:</label>
-                        <input class="col-7" type="text" name="verification" maxlength="64" 
+                    <div class="col-3"></div>
+                    <div class="col-3"></div>
+                    <p class="col-6 row">
+                        <label class="col-4" for="id_verification">Verification:</label>
+                        <input class="col-8" type="text" name="verification" maxlength="64" 
                         required="" id="id_verification">
                     </p>
-                    <div class="col-4">
+                    <div class="col-3">
                         <span> code de vérification qui vous  été envoyé par email</span>
                     </div>
-                    <div class="col-4"></div>
-                    <p class="col-4 row">
-                        <label class="col-5" for="id_pseudo">Pseudo:</label>
-                        <input class="col-7" type="text" name="pseudo" maxlength="24" required 
+                    <div class="col-3"></div>
+                    <p class="col-6 row">
+                        <label class="col-4" for="id_pseudo">Pseudo:</label>
+                        <input class="col-8" type="text" name="pseudo" maxlength="24" required 
                             value="{{ pseudo }}" id="id_pseudo">
                     </p>
-                    <div class="col-4"></div>
-                    <div class="col-4"></div>
-                    <p class="col-4 row">
-                        <label class="col-5" for="id_password">Password:</label>
-                        <input class="col-7" type="password" name="password" maxlength="64" 
+                    <div class="col-3"></div>
+                    <div class="col-3"></div>
+                    <p class="col-6 row">
+                        <label class="col-4" for="id_password">Password:</label>
+                        <input class="col-8" type="password" name="password" maxlength="64" 
                             id="id_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                             title="Must contain at least one number and one uppercase and lowercase 
                             letter, and at least 8 or more characters" value="{{ password }}" required>
                     </p>
-                    <div class="col-4"></div>
-                    <div class="col-4"></div>
-                    <p class="col-4 row">
-                        <label class="col-5" for="id_confirm_password">Confirmer Password:</label>
-                        <input class="col-7" type="password" name="confirm_password" maxlength="64" 
+                    <div class="col-3"></div>
+                    <div class="col-3"></div>
+                    <p class="col-6 row">
+                        <label class="col-4" for="id_confirm_password">Confirmer Password:</label>
+                        <input class="col-" type="password" name="confirm_password" maxlength="64" 
                         required="" id="id_confirm_password" style="height:4vh;margin-top:2vh">
                     </p>
-                    <div class="col-4"></div>
+                    <div class="col-3"></div>
                     <div class="col-4"></div>
                     <div class="col-8">
                         <div style="height: 4vh"></div>

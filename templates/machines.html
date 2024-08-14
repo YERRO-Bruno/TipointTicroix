@@ -1,7 +1,7 @@
 {%  extends "base.html" %}
 
 {% block title %}
-Ti_Point-Ti_Croix
+Ti_Points-Ti_Croix
 {%  endblock %}
 {% block meta %}
 <meta name="Ti-point_Ti-croix" content="Faires jouer l'une contre l'autre des algorithmes du jeu
@@ -28,7 +28,7 @@ Ti_Point-Ti_Croix
                                     <label for="niveau1-1" style="font-size: 1vw;
                                         margin-left: 1vw"><input type="radio" id="niveau1-1" 
                                         name="niveau1"  checked
-                                        style="width: 1vw;height: 1vw" value="1" />Novice</label>
+                                        style="width: 1vw;height: 1vw" value="1" />novice</label>
                                 </div>
                                 <div>
                                     <label for="niveau1-2" style="font-size: 1vw;
@@ -48,6 +48,12 @@ Ti_Point-Ti_Croix
                                         name="niveau1" style="width: 1vw;height: 1vw" 
                                         value="4" />expert</label>
                                 </div>
+                                <div>
+                                    <label for="niveau1-5" style="font-size: 1vw;
+                                        margin-left: 1vw"><input type="radio" id="niveau1-5" 
+                                        name="niveau1" style="width: 1vw;height: 1vw" 
+                                        value="5" />champion</label>
+                                </div>
                         </fieldset>
                         <fieldset>
                             <legend style="font-size: 1vw">Choisissez le niveau de la machine2</legend>
@@ -55,7 +61,7 @@ Ti_Point-Ti_Croix
                                     <label for="niveau2-1" style="font-size: 1vw;
                                         margin-left: 1vw"><input type="radio" id="niveau2-1" 
                                         name="niveau2" 
-                                        style="width: 1vw;height: 1vw" value="1" />Novice</label>
+                                        style="width: 1vw;height: 1vw" value="1" />novice</label>
                                 </div>
                                 <div>
                                     <label for="niveau2-2" style="font-size: 1vw;
@@ -74,6 +80,12 @@ Ti_Point-Ti_Croix
                                         margin-left: 1vw"><input type="radio" id="niveau2-4" 
                                         name="niveau2" checked style="width: 1vw;height: 1vw" 
                                         value="4" />expert</label>
+                                </div>
+                                <div>
+                                    <label for="niveau2-5" style="font-size: 1vw;
+                                        margin-left: 1vw"><input type="radio" id="niveau2-5" 
+                                        name="niveau2" checked style="width: 1vw;height: 1vw" 
+                                        value="5" />champion</label>
                                 </div>
                         </fieldset>
                         <fieldset>
@@ -141,17 +153,28 @@ Ti_Point-Ti_Croix
                     <p id="coupsuivant" style="font-size: 0.9vw">Espace pour le coup suivant</p>
                 </div>
                 <div>
-                    <button  id="btn-annuler" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                    <button  id="btn-annuler" class="btn btn-0" type="button" style="width: 22vh;font-size: 1.2vw;
                             margin-left: 2vw;background-color: rgb(0, 208, 255);
                             margin-top: 1vh">Annuler tour</button>
                 </div>
                 <div>
-                    <button  id="btn-rejouer" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                    <button  id="btn-save" class="btn btn-0" type="button" style="width: 22vh;font-size: 1.2vw;
+                            margin-left: 2vw;background-color: rgb(0, 208, 255);
+                            margin-top: 1vh">Enregistrer position</button>
+                </div>
+                <div>
+                    <button  id="btn-load" class="btn btn-0" type="button" style="width: 22vh;font-size: 1.2vw;
+                            margin-left: 2vw;background-color: rgb(0, 208, 255);
+                            margin-top: 1vh">Charger position</button>
+                </div>
+                <br>
+                <div>
+                    <button  id="btn-rejouer" class="btn btn-0" type="button" style="width: 22vh;font-size: 1.2vw;
                             margin-left: 2vw;background-color: rgb(0, 208, 255);
                             margin-top: 1vh">Rejouer</button>
                 </div>
                 <div>
-                    <button  id="btn-quitter2" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                    <button  id="btn-quitter2" class="btn btn-0" type="button" style="width: 22vh;font-size: 1.2vw;
                             margin-left: 2vw;background-color: rgb(0, 208, 255);
                             margin-top: 1vh">Retour à l'accueil</button>
                 </div>
@@ -165,13 +188,14 @@ Ti_Point-Ti_Croix
                     <br>
                     <label>Niveau machine2 : </label>
                     <label id="niveau2-id" type="text">{{ niveau2 }}</label>
-                    <br>
-                    
+                    <br>                    
                     <input name="coup1" id="id-coup1" type="text" hidden>
                     <input name="coup2" id="id-coup2" type="text" hidden>
                     <input name="annuler" id="id-annuler" type="text" hidden>
+                    <input name="charger" id="id-charger" type="text" hidden>
                     <label for="id-sequence">Coups joués</label>
-                    <input id="id-sequence" type="text" value="{{ sequence }}">
+                    <input name="sequence" id="id-sequence" type="text" value="{{ sequence }}">
+                    <label id="id-pat">{{ pat }}</label>
                     <label for="id-victoire1">victoire machine1</label>
                     <input id="id-victoire1" type="text" value="{{ victoire1 }}">
                     <label for="id-victoire2">victoire machine2</label>
@@ -195,4 +219,7 @@ Ti_Point-Ti_Croix
 
 {%  block script %}
         <script src="{% static 'JS/machines.js'%}"></script>
+        <script>
+            //alert("html")
+        </script>
 {%  endblock %}

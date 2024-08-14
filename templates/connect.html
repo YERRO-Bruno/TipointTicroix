@@ -1,7 +1,7 @@
 {%  extends "base.html" %}
 
 {% block title %}
-Ti_Point-Ti_Croix
+Ti_Points-Ti_Croix
 {%  endblock %}
 {% block meta %}
 <meta name="Ti-point_Ti-croix" content="Connectez-vous sur le site du jeu Ti-point_Ti-croix.">
@@ -38,7 +38,12 @@ Ti_Point-Ti_Croix
                         id="id_password" 
                     title="Must contain at least one number and one uppercase and lowercase letter, and at least
                     8 or more characters" required>
+                    <a class="col-8"></a>
+                    <a class="col-4" style="font-size:0.8vw" href="{% url 'prepassword' %}">
+                            <span text-center>Mot de passe oublié</span></a>
+                    
                 </p>
+                <br>
             <div class="col-4"></div>
             
             <div class="col-5"></div>

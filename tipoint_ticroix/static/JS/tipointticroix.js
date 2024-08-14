@@ -20,7 +20,8 @@ document.getElementById("table").addEventListener('click', function(e) {
     }
     //test si la case est déjà occupée
     if (document.getElementById("id-victoire").value=="Non" && 
-        document.getElementById("id-defaite").value=="Non") {
+        document.getElementById("id-defaite").value=="Non" &&
+        (document.getElementById("id-pat").textContent=="Non")) {
         if (document.getElementById(e.target.id).textContent=="") {
             case_clicked = e.target.id.split('/')
             document.getElementById(e.target.id).textContent = marque
@@ -33,11 +34,8 @@ document.getElementById("table").addEventListener('click', function(e) {
 
             e.target.blur()
             document.getElementById("coup-joueur").value=e.target.id
-        
-            // Affichage "JE REFLECHIT"
             document.getElementById("amoi").style.display="block"
             document.getElementById("avous").style.display="none"
-            
             document.forms["grille"].submit();
         } else {
             alert("Case déjà utilisée")
@@ -107,7 +105,6 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
         var tableau = document.getElementById("table");
         for (let j = 0; j < 25; j++) {
             ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
-                                           // le paramètre est dans ce cas (-1)
 
         // création et insertion des cellules dans la nouvelle ligne créée
             for (let i = 0; i < 25; i++) {
@@ -131,6 +128,7 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
             }
         }
         if (document.getElementById("nb-tour").textContent > "0") {
+            localStorage.setItem("partiencours",document.getElementById("id-sequence").value)
             if (document.getElementById("nb-tour").textContent > "1") {
                 document.getElementById("btn-annuler").style.display="block"
             }
@@ -175,6 +173,15 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
                     marque="O"
                 }  
             }
+            if (document.getElementById("id-pat").textContent=="Oui") {
+                alert("Plus de case diponible - Match nul")
+                document.getElementById("victoire").textContent="MATCH NUL"
+                document.getElementById("victoire").style.display="block"
+                document.getElementById("btn-rejouer").style.display="block"
+                document.getElementById("btn-annuler").style.display="none"
+                document.getElementById("amoi").style.display="none"
+            document.getElementById("avous").style.display="none"
+            }
             win="Non"
             if (document.getElementById("id-victoire").value!="Non") {
                 win=document.getElementById("id-victoire").value
@@ -191,6 +198,18 @@ document.getElementById("btn-rejouer").addEventListener('click', function(e) {
                 win = win.split(',')  
                 for (let i = 0;i<5;i++) {
                     document.getElementById(win[i]).style.backgroundColor="yellow"
+                }
+                localStorage.removeItem("partiencours")
+            }
+        } else {
+            //debut de partie tour=0 - Demande si on veut reprendre une partie interrompue
+            if(localStorage.getItem("partiencours") != null){
+                if (confirm("Voulez-vous reprendre la dernière partie?")==true) {
+                    document.getElementById("id-charger").value="Oui"
+                    document.getElementById("id-sequence").value=localStorage.getItem("partiencours")
+                    document.forms["grille"].submit();
+                } else {
+                    localStorage.removeItem("partiencours")
                 }
             }
         }

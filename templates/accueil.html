@@ -1,7 +1,7 @@
 {%  extends "base.html" %}
 
 {% block title %}
-Ti_Point-Ti_Croix
+Ti_Points-Ti_Croix
 {%  endblock %}
 
 {% block meta %}
@@ -32,12 +32,19 @@ Ti_Point-Ti_Croix
         margin-left:2vw;margin-top: 5vh" href="{% url 'internet' %}">
         Jouez sur internet!</a>
       </div> 
+      <div id="id-machines">
+        <br>
+        <br>
+        <a style="font-family: 'Pacifico', cursive;font-weight: 400;font-style: normal;
+        margin-left:2vw;margin-top: 5vh" href="{% url 'machines' %}">
+        Machine contre machine!</a>
+      </div> 
       <br>
       <br>
       <div>
         <a style="font-family: 'Pacifico', cursive;font-weight: 400;font-style: normal;
-        margin-left:2vw;margin-top: 5vh" href="{% url 'machines' %}">
-        Machine contre machine!</a>
+        margin-left:2vw;margin-top: 5vh" href="{% url 'statistics' %}">
+        Statistiques</a>
       </div> 
     </div>
   </div>
@@ -80,8 +87,14 @@ Ti_Point-Ti_Croix
       motifs qui mènent à la victoire, comme les "ponts" (deux pions avec un espace entre eux), les 
       "sauts" (trois pions avec un espace au milieu), et les "fourchettes" (deux alignements de 
       trois qui se rejoignent).</p>
-  </div>  
+  </div>
+  <div id="id-debug" hidden>{{ debug }}</div>  
   {%  endblock %}
   
 {% block script %}
+<script>
+  if (document.getElementById("id-debug").textContent=="False") {
+    document.getElementById("id-machines").style.display="none"
+  }
+</script>
 {% endblock %}
