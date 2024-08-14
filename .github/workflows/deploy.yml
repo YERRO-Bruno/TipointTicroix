@@ -5,6 +5,8 @@ on:
     branches:
       - sprint8
 
+     
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -32,7 +34,7 @@ jobs:
         #cp -r ./build /path/to/destination
 
         # Donner toutes les permissions à un fichier
-        chmod 777 ./tptcinit.sh
+        chmod 777 /tptcinit.sh
 
         # Ou à un répertoire entier
         #chmod -R 777 /path/to/destination
