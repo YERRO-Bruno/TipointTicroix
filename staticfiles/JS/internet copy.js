@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault()
     if (document.getElementById("nb-tour").textContent > "0") {
       if (confirm("Voulez vous revenir à l'accueil?")==true) {
-        document.location.href='/tipointticroix'
+        document.location.href='/'
       }
     }
   })

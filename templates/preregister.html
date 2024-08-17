@@ -37,7 +37,7 @@ Ti_Points-Ti_Croix
                 <br>
                 <br>
                 <button class="btn btn-5 mx-4" style="width: 8vw;background: rgb(0, 208, 255);
-                    font-size:1vw;" href="/tipointticroix" type="button" id="cancel">
+                    font-size:1vw;" href="/" type="button" id="cancel">
                     Annuler</button>
                 <button class="btn btn-8 mx-4" style="width: 8vw;background: rgb(0, 208, 255);
                     font-size: 1vw;width: 8vw" type="submit">Demander code</button>
@@ -52,7 +52,7 @@ Ti_Points-Ti_Croix
     <script>
         document.getElementById("cancel").addEventListener('click', function(e) {
             e.preventDefault()
-            document.location.href="{% url 'tipointticroix' %}"
+            document.location.href="{% url '' %}"
         })  
     </script>    
 {%  endblock %}

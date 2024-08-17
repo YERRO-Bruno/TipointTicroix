@@ -16,7 +16,7 @@ Ti_Points-Ti_Croix
     <div class="col-2 border border-dark ml-3" style="font-family: 'Pacifico', cursive;
         font-weight: 400;font-style: normal">
         <p class="text-center" style="font-size: 1vw">JOUER CONTRE L'ORDINATEUR</p>
-        <form id="grille" method="post" action="{% url 'tipointticroix' %}">
+        <form id="grille" method="post" action="{% url 'jeu' %}">
             {% csrf_token %}
             <div id="x-jouer">
                 <table>

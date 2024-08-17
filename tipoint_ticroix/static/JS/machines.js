@@ -18,7 +18,7 @@ document.getElementById("table").addEventListener('click', function(e) {
 // Click du joueur sur le bouton quitter en debut de jeu
 document.getElementById("btn-quitter").addEventListener('click', function(e) {
     e.preventDefault()
-    document.location.href='/tipointticroix'
+    document.location.href='/'
 })
 
 // Click du joueur sur le bouton quitter en cours de jeu
@@ -26,10 +26,10 @@ document.getElementById("btn-quitter2").addEventListener('click', function(e) {
     e.preventDefault()
     if (document.getElementById("id-victoire1").value!="Non"||
         document.getElementById("id-victoire2").value!="Non") {
-            document.location.href='/tipointticroix'
+            document.location.href='/'
         } else {
             if (confirm("Voulez vous revenir à l'accueil?")==true) {
-                document.location.href='/tipointticroix'
+                document.location.href='/'
             }
     }
 })
@@ -56,7 +56,7 @@ document.getElementById("btn-load").addEventListener('click', function(e) {
 // Click du joueur sur le bouton rejouer
 document.getElementById("btn-rejouer").addEventListener('click', function(e) {
     e.preventDefault()
-    document.location.href='/tipointticroix/machines'
+    document.location.href='/machines'
     })
 
 //Functions

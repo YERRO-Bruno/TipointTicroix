@@ -157,7 +157,7 @@ def internet(request):
             return render(request, "internet.html", context)
     else:
         context["connexion"]="Non"
-        return redirect('/tipointticroix/connect',context)
+        return redirect('/connect',context)
 
 #page accueil
 def accueil(request):
@@ -180,13 +180,13 @@ def desinscription(request):
     connec=estconnecté(request)
     userx=User.objects.get(pseudo=connec[1])
     userx.delete()
-    return redirect("/tipointticroix")
+    return redirect("/")
 
 
 #déconnexion
 def logout_view(request):
     logout(request)
-    return redirect("/tipointticroix")
+    return redirect("/")
 
 def preregister(request):
     if request.method == 'POST':
@@ -223,7 +223,7 @@ def preregister(request):
                 print('mail error',error)
                 return render(request,'register.html',{'email':emailx,'errorVerif':"error Mailing"})
             request.session['EMAIL']=emailx
-            return redirect('/tipointticroix/register')
+            return redirect('/register')
         return render(request, 'preregister.html',
                       {'errorVerif': "Email déjà existant", 'email': emailx})
 
@@ -257,7 +257,7 @@ def register(request):
                         verifuser.delete()
                     except Exception as error:
                         print(error)
-                    return redirect('/tipointticroix/connect')       
+                    return redirect('/connect')       
         else:
             return render(request, 'register.html',
                         {'errorinscription': "Code inexact", 'email': emailx})
@@ -299,7 +299,7 @@ def prepassword(request):
                 print('mail error',error)
                 return render(request,'register.html',{'email':emailx,'errorVerif':"error Mailing"})
             request.session['EMAIL']=emailx
-            return redirect('/tipointticroix/modifpassword')
+            return redirect('/modifpassword')
         return render(request, 'prepassword.html',
                       {'errorVerif': "Email inexistant", 'email': emailx})
     else:
@@ -325,7 +325,7 @@ def modifpassword(request):
                             verifuser.delete()
                         except Exception as error:
                             print(error)
-                        return redirect('/tipointticroix/connect')       
+                        return redirect('/connect')       
             else:
                 return render(request, 'register.html',
                             {'errorinscription': "Code inexact", 'email': emailx})
@@ -346,7 +346,7 @@ def connect(request):
             request.session['email'] = emailx
             request.session['password'] = passwordx
             login(request, userConnected )
-            return redirect('/tipointticroix')
+            return redirect('/')
         else:
             return render(request, 'connect.html', {'errorLogin': "Email et/ou mot de passe erroné"})
     else:
@@ -688,7 +688,7 @@ def statistics(request):
         return render(request, 'statistics.html', context)
     else:
         context["connexion"]="Non"
-        return redirect('/tipointticroix/connect',context)
+        return redirect('/connect',context)
 
 #page apropos
 def apropos(request):

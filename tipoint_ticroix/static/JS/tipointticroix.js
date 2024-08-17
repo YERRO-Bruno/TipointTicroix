@@ -49,7 +49,7 @@ document.getElementById("table").addEventListener('click', function(e) {
 // Click du joueur sur le bouton quitter en debut de jeu
 document.getElementById("btn-quitter").addEventListener('click', function(e) {
     e.preventDefault()
-    document.location.href="/tipointticroix"
+    document.location.href="/"
 })
 
 // Click du joueur sur le bouton quitter en cours de jeu
@@ -57,7 +57,7 @@ document.getElementById("btn-quitter2").addEventListener('click', function(e) {
     e.preventDefault()
     if (document.getElementById("nb-tour").textContent > "0") {
         if (confirm("Voulez vous revenir à l'accueil?")==true) {
-            document.location.href="/tipointticroix"
+            document.location.href="/"
         }
     }
 })
@@ -72,7 +72,7 @@ document.getElementById("btn-annuler").addEventListener('click', function(e) {
 // Click du joueur sur le bouton rejouer
 document.getElementById("btn-rejouer").addEventListener('click', function(e) {
     e.preventDefault()
-    document.location.href='/tipointticroix/jeu'
+    document.location.href='/jeu'
     })
 
     //var tablx = document.getElementById("table")

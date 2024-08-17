@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("btn-quitter").addEventListener('click', function(e) {
         e.preventDefault()
-        document.location.href='/tipointticroix'        
+        document.location.href='/'        
     })
 
     // Click du joueur sur une des cases
@@ -288,7 +288,7 @@ function displayGameBoard(){
                 if (count >= 10) {
                     clearInterval(interval);
                     if (document.getElementById("id-finpartie").textContent=="Oui") {
-                        document.location.href='/tipointticroix/internet'
+                        document.location.href='//internet'
                     } else {
                         document.getElementById("id-etape").value="début"
                         if (document.getElementById("id-begin").textContent==

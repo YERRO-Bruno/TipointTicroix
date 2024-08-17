@@ -1,6 +1,6 @@
 document.getElementById("cancel").addEventListener('click', function(e) {
   e.preventDefault()
-  document.location.href='/tipointticroix'
+  document.location.href='/'
 })  
 //document.getElementById("message").style.display = "none";
 var password = document.getElementById("id_password")
