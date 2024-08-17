@@ -3,9 +3,7 @@ name: Deploy Application
 on:
   push:
     branches:
-      - sprint9
-
-     
+      - test 
 
 jobs:
   deploy:
@@ -44,4 +42,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Utilisez le token d'accès
       run: |
         git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/YERRO-Bruno/TipointTicroix.git
-        git push origin HEAD:sprint9
+        git push origin HEAD:test
