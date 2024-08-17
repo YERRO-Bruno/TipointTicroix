@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
+<url>
+  <loc>http://ti-points-ti-croix.fr/tipointticroix/logout/</loc>
+</url>
+<url>
+  <loc>http://ti-points-ti-croix.fr/tipointticroix/connect/</loc>
+</url>
+<url>
+  <loc>http://ti-points-ti-croix.fr/tipointticroix/jeu</loc>
+</url>
+<url>
+  <loc>http://ti-points-ti-croix.fr/tipointticroix/internet/</loc>
+</url>
+<url>
+  <loc>http://ti-points-ti-croix.fr/tipointticroix/machines/</loc>
+</url>
+<url>
+  <loc>http://ti-points-ti-croix.fr/tipointticroix/statistics/</loc>
+</url>
+<url>
+  <loc>http://ti-points-ti-croix.fr/tipointticroix/mentions/</loc>
+</url>
+<url>
+  <loc>http://ti-points-ti-croix.fr/tipointticroix/apropos/</loc>
+</url>
+<url>
+  <loc>http://ti-points-ti-croix.fr/tipointticroix/preregister/</loc>
+</url>
+<url>
+  <loc>http://ti-points-ti-croix.fr/tipointticroix/prepassword/</loc>
+</url>
+<url>
+  <loc>http://ti-points-ti-croix.fr/tipointticroix/</loc>
+</url>
+</urlset>
