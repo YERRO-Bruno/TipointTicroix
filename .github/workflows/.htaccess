@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^ti-points-ti-croix\.fr$ [NC]
+RewriteRule ^$ /tipointticroix/ [L,R=301]
