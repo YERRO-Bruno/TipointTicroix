@@ -10,6 +10,7 @@ handler404 = views.error_404
 
 urlpatterns = [
     path('', views.accueil, name='home_redirect'),
+    path('tipointticroix/', views.accueil, name='accueil'),
     path('jeu/', views.tipointticroix, name='jeu'),
     path('machines/', views.machines, name='machines'),
     path('internet/', views.internet, name='internet'),
@@ -20,7 +21,7 @@ urlpatterns = [
     path('apropos/', views.apropos, name='apropos'),
     path('mentions/', views.mentions, name='mentions'),
     path('statistics/', views.statistics, name='statistics'),
-    path('desinscription/', views.desinscription, name='desinscriptionn'),
+    path('desinscription/', views.desinscription, name='desinscription'),
     path('prepassword/', views.prepassword, name='prepassword'),
     path('modifpassword/', views.modifpassword, name='modifpassword'),
     path('admin/', admin.site.urls),
