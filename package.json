@@ -1,0 +1,21 @@
+{
+  "name": "projet_tipointticroix",
+  "version": "1.0.0",
+  "description": "Projet d'étudiant d'un site de jeu TipointTicroix (Jeu de morpoin 5 allignés).",
+  "main": "server.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "https": "^1.0.0",
+    "mysql2": "^3.10.2",
+    "ws": "^8.18.0"
+  }
+}

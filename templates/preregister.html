@@ -1,7 +1,10 @@
 {%  extends "base.html" %}
 
 {% block title %}
-Ti_Point-Ti_Croix
+Ti_Points-Ti_Croix
+{%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Préenregistrez-vous sur le site de jeu Ti-point_Ti-croix.">
 {%  endblock %}
 {%  load static %}
 
@@ -49,7 +52,7 @@ Ti_Point-Ti_Croix
     <script>
         document.getElementById("cancel").addEventListener('click', function(e) {
             e.preventDefault()
-            document.location.href='http://localhost:8000/'
+            document.location.href="{% url 'tipointticroix' %}"
         })  
     </script>    
 {%  endblock %}

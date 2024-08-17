@@ -1,7 +1,11 @@
 {%  extends "base.html" %}
 
 {% block title %}
-Ti_Point-Ti_Croix
+Ti_Points-Ti_Croix
+{%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Jouez au jeu Ti-point_Ti-croix contre des algorithmes de
+ différents niveaux.">
 {%  endblock %}
 {%  load static %}
 {% block style %}
@@ -11,14 +15,14 @@ Ti_Point-Ti_Croix
 {%  block content %}
     <div class="col-2 border border-dark ml-3" style="font-family: 'Pacifico', cursive;
         font-weight: 400;font-style: normal">
-        <p class="text-center" style="font-size: 2vw">PARTIE</p>
-        <form id="grille" method="post" action="http://localhost:8000/tipointticroix/">
+        <p class="text-center" style="font-size: 1vw">JOUER CONTRE L'ORDINATEUR</p>
+        <form id="grille" method="post" action="{% url 'tipointticroix' %}">
             {% csrf_token %}
             <div id="x-jouer">
                 <table>
                     <tr>
                         <fieldset>
-                            <legend style="font-size: 1.4vw">Choisissez le niveau de la machine</legend>
+                            <legend style="font-size: 1.2vw">Choisissez le niveau de la machine</legend>
                                 <div>
                                     <label for="niveau1" style="font-size: 1vw;
                                         margin-left: 1vw"><input type="radio" id="niveau1" 
@@ -43,9 +47,15 @@ Ti_Point-Ti_Croix
                                         name="niveau" checked style="width: 1vw;height: 1vw" 
                                         value="4" />expert</label>
                                 </div>
+                                <div>
+                                    <label for="niveau5" style="font-size: 1vw;
+                                        margin-left: 1vw"><input type="radio" id="niveau5" 
+                                        name="niveau" checked style="width: 1vw;height: 1vw" 
+                                        value="5" />champion</label>
+                                </div>
                         </fieldset>
                         <fieldset>
-                            <legend style="font-size: 1.4vw">Voulez-vous commencer?</legend>
+                            <legend style="font-size: 1.2vw">Voulez-vous commencer?</legend>
                                 <div>
                                     <label for="begin-yes" style="font-size: 1vw;
                                         margin-left: 1vw"><input type="radio" id="begin-yes" 
@@ -62,13 +72,13 @@ Ti_Point-Ti_Croix
                     </tr>
                 </table>
                 <div>
-                    <button  id="btn-quitter" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                    <button  id="btn-quitter" class="btn btn-0" type="button" style="width: 10vw;font-size: 1.2vw;
                             margin-left: 2vw;background-color: rgb(0, 208, 255);
                             margin-top: 1vh">Retour à l'accueil</button>
                 </div>
                 <br>
                 <div>
-                    <button  id="btn-jouer" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                    <button  id="btn-jouer" class="btn btn-0" type="button" style="width: 10vw;font-size: 1.2vw;
                         margin-left: 2vw;background-color: rgb(0, 208, 255)">Jouer</button>
                 </div>
             </div>
@@ -77,12 +87,12 @@ Ti_Point-Ti_Croix
                     <label id="id-beginer" style="font-size: 1vw"></label>
                 </div>
                 <div>
-                    <label  style="font-size: 1vw;font-weight: bolder">{{ connec }} : </label>
+                    <label id="vous" style="font-size: 1vw;font-weight: bolder">{{ connec }} </label>
                     <label  id="id-vous" style="font-size: 1vw;
                         font-weight: bolder">{{ marquevous }}</label>
                 </div>
                 <div>
-                    <label style="font-size: 1vw;font-weight: bolder">Ordinateur :</label>
+                    <label id="ordi" style="font-size: 1vw;font-weight: bolder">{{ nom1 }} </label>
                     <label id="id-ordi" style="font-size: 1vw;
                         font-weight: bolder">{{ marqueordi }}</label>
                 </div>
@@ -131,8 +141,10 @@ Ti_Point-Ti_Croix
                     <br>
                     <input name="coupjoueur" id="coup-joueur" type="text" hidden>
                     <input name="annuler" id="id-annuler" type="text" hidden>
+                    <input name="charger" id="id-charger" type="text">
                     <label for="id-sequence">Coups joués</label>
-                    <input id="id-sequence" type="text" value="{{ sequence }}">
+                    <input name="sequence" id="id-sequence" type="text" value="{{ sequence }}">
+                    <label id="id-pat">{{ pat }}</label>
                     <label for="id-victoire">victoire joueur</label>
                     <input id="id-victoire" type="text" value="{{ victoire }}">
                     <label for="id-defaite">défaite joueur</label>
@@ -157,5 +169,4 @@ Ti_Point-Ti_Croix
 
 {%  block script %}
         <script src="{% static 'JS/tipointticroix.js'%}"></script>
-        <script src="/static/JS/registerform.js"></script>
 {%  endblock %}

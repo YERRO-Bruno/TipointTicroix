@@ -1,0 +1,38 @@
+{%  extends "base.html" %}
+
+{% block title %}
+Ti_Points-Ti_Croix
+{%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Jouez au jeu Ti-point_Ti-croix.">
+{%  endblock %}
+{%  load static %}
+{% block style %}
+    
+{%  endblock %}
+
+{%  block content %}
+    <div class="col-2 border border-dark ml-3" style="font-family: 'Pacifico', cursive;
+        font-weight: 400;font-style: normal">
+        <p class="text-center" style="font-size: 1vw">ti_point-ti_croix</p>
+        <div>
+            <button  id="btn-quitter" class="btn btn-0" type="button" style="width: 10vw;font-size: 1.2vw;
+                    margin-left: 2vw;background-color: rgb(0, 208, 255);
+                    margin-top: 1vh">Retour à l'accueil</button>
+        </div>
+    </div>
+    <div class="col-8 row justify-content-center" id="id_table">
+        <img style="height: 50vh;width: 20vw;margin-top:5vw" src="/static/images/easteregg.jpg">
+    </div>
+    
+{%  endblock %}
+
+{%  block script %}
+    <script>
+        // Click du joueur sur le bouton quitter en debut de jeu
+        document.getElementById("btn-quitter").addEventListener('click', function(e) {
+            e.preventDefault()
+            document.location.href="/tipointticroix"
+})
+    </script>
+{%  endblock %}
