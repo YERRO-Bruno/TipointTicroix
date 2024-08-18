@@ -288,7 +288,7 @@ function displayGameBoard(){
                 if (count >= 10) {
                     clearInterval(interval);
                     if (document.getElementById("id-finpartie").textContent=="Oui") {
-                        document.location.href='//internet'
+                        document.location.href='/internet'
                     } else {
                         document.getElementById("id-etape").value="début"
                         if (document.getElementById("id-begin").textContent==
