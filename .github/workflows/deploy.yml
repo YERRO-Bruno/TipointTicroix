@@ -18,10 +18,10 @@ jobs:
     #   with:
     #     node-version: '14'
     - name: Install dependencies
-      run: npm install  # ou toute autre commande nécessaire pour installer les dépendances
+      run: npm install  
 
-    # - name: Build the project
-    #   run: npm run build  # ou la commande nécessaire pour construire votre projet
+    - name: install foever
+      run: npm install -g forever
   
     - name: Deploy to server
       run: chmod 755 tptcinit.sh
