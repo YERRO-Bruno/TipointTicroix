@@ -56,7 +56,12 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("btn-quitter2").addEventListener('click', function(e) {
         e.preventDefault()
         if (document.getElementById("nb-tour").textContent > "0") {
-            if (confirm("Voulez vous revenir à l'accueil?")==true) {
+            if (document.getElementById("id-victoire").value=="Non" &&
+                document.getElementById("id-defaite").value=="Non") {
+                if (confirm("Voulez vous revenir à l'accueil?")==true) {
+                    document.location.href="/"
+                }
+            } else {
                 document.location.href="/"
             }
         }
@@ -74,9 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault()
         document.location.href='/jeu'
     })
-
-    //var tablx = document.getElementById("table")
-    //cellx=document.getElementById("1/1").textContent="X"
     
 })
 //Functions
