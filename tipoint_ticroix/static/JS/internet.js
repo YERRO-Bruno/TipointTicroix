@@ -216,6 +216,11 @@ function displayGameBoard(){
             }
             if (i>sequence.length -3) {
                 document.getElementById(sequence[i]).style.fontWeight="1000"
+                if (document.getElementById(sequence[i]).textContent=="O") {
+                    document.getElementById(sequence[i]).style.backgroundColor="DeepSkyBlue"
+                } else {
+                    document.getElementById(sequence[i]).style.backgroundColor="Pink"
+                }
             }
             if (marque=="O") {
                 marque="X"
@@ -297,12 +302,7 @@ function displayGameBoard(){
                         } else {
                             document.getElementById("id-jeton").value="Oui"
                         }
-                        //document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
-                        //document.getElementById("id-adversaire").value=document.getElementById("id-adversaire").value
                         document.getElementById("id-match").value="2"
-                        //let scorx1=document.getElementById("id-score1").value
-                        //document.getElementById("id-score1").value=document.getElementById("id-score2").value
-                        //document.getElementById("id-score2").value=scorx1
                         document.forms["internet"].submit();
                     }
                 }
