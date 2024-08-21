@@ -36,10 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("coup-joueur").value=e.target.id
                 document.getElementById("amoi").style.display="block"
                 document.getElementById("avous").style.display="none"
-                //document.forms["grille"].submit();
-                setTimeout(() => {
-                    document.forms["grille"].submit()
-                  }, 1000);
+                document.forms["grille"].submit();
             } else {
                 alert("Case déjà utilisée")
             }
@@ -85,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function () {
 //Functions
 //Affichage de la grille
 function displayGameBoard(){
-    document.getElementById("x-board").style.display="none"
     document.getElementById("id-beginer").textContent="Je joue en premier"
     if (document.getElementById("begin-id").textContent == "Oui") {
         document.getElementById("id-beginer").textContent="Vous jouez en premier"
@@ -209,6 +205,7 @@ function displayGameBoard(){
     } else {
         //debut de partie tour=0 - Demande si on veut reprendre une partie interrompue
         if(localStorage.getItem("partiencours") != null){
+            document.getElementById("x-board").style.display="none"
             if (confirm("Voulez-vous reprendre la dernière partie?")==true) {
                 document.getElementById("id-charger").value="Oui"
                 document.getElementById("id-sequence").value=localStorage.getItem("partiencours")

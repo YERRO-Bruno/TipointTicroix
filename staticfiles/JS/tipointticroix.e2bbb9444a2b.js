@@ -36,10 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("coup-joueur").value=e.target.id
                 document.getElementById("amoi").style.display="block"
                 document.getElementById("avous").style.display="none"
-                //document.forms["grille"].submit();
-                setTimeout(() => {
-                    document.forms["grille"].submit()
-                  }, 1000);
+                document.forms["grille"].submit();
             } else {
                 alert("Case déjà utilisée")
             }
@@ -166,11 +163,14 @@ function displayGameBoard(){
             document.getElementById(sequence[i]).style.fontSize="0.8vw"
             if (marque=="X") {
                 document.getElementById(sequence[i]).style.color="red"
+                document.getElementById(sequence[i]).style.border="red"
             } else {
                 document.getElementById(sequence[i]).style.color="blue"
+                document.getElementById(sequence[i]).style.border="blue"
             }
             if (i>sequence_size -3) {
                 document.getElementById(sequence[i]).style.fontWeight="1000"
+                //document.getElementById(sequence[i]).style.border="3px"
             }
             if (marque=="O") {
                 marque="X"

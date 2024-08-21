@@ -36,10 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("coup-joueur").value=e.target.id
                 document.getElementById("amoi").style.display="block"
                 document.getElementById("avous").style.display="none"
-                //document.forms["grille"].submit();
-                setTimeout(() => {
-                    document.forms["grille"].submit()
-                  }, 1000);
+                document.forms["grille"].submit();
             } else {
                 alert("Case déjà utilisée")
             }
@@ -132,6 +129,7 @@ function displayGameBoard(){
             cell.style.textAlign = "center"
         }
     }
+    //document.getElementById("x-board").hidden=true
     if (document.getElementById("nb-tour").textContent > "0") {
         localStorage.setItem("partiencours",document.getElementById("id-sequence").value)
         if (document.getElementById("nb-tour").textContent > "1") {
@@ -208,7 +206,10 @@ function displayGameBoard(){
         }
     } else {
         //debut de partie tour=0 - Demande si on veut reprendre une partie interrompue
+        document.getElementById("x-board").hidden=true
+        //window.location.reload()
         if(localStorage.getItem("partiencours") != null){
+            document.getElementById("x-board").hidden=true
             if (confirm("Voulez-vous reprendre la dernière partie?")==true) {
                 document.getElementById("id-charger").value="Oui"
                 document.getElementById("id-sequence").value=localStorage.getItem("partiencours")

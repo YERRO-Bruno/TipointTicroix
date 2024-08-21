@@ -36,10 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("coup-joueur").value=e.target.id
                 document.getElementById("amoi").style.display="block"
                 document.getElementById("avous").style.display="none"
-                //document.forms["grille"].submit();
-                setTimeout(() => {
-                    document.forms["grille"].submit()
-                  }, 1000);
+                document.forms["grille"].submit();
             } else {
                 alert("Case déjà utilisée")
             }
