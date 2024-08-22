@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Case déjà utilisée!")
             }
         } else {
-            if (document.getElementById("x-board").style.display=="none") {
+            if (document.getElementById("x-jouer").style.display=="block") {
                 alert("Lancez d'abord la partie!")
             } else{
                 alert("La partie est terminée!")

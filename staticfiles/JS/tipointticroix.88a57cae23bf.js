@@ -38,14 +38,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("avous").style.display="none"
                 document.forms["grille"].submit();                
             } else {
-                alert("Case déjà utilisée!")
+                if (document.getElementById("x-jouer").style.display=="block") {
+                    alert("Lancez d'abord la partie!")
+                } else{
+                    alert("Case déjà utilisée!")
+                }
             }
         } else {
-            if (document.getElementById("x-board").style.display=="none") {
-                alert("Lancez d'abord la partie!")
-            } else{
-                alert("La partie est terminée!")
-            }
+            alert("La partie est terminée!")
         }
         
     })
