@@ -172,8 +172,17 @@ def accueil(request):
     if settings.DEBUG==True:
         context['debug']= "True"
     else:
-        context['debug']= "False"       
-    return render(request, "accueil.html", context)
+        context['debug']= "False"  
+    if request.method == 'POST':
+        request.session['mobile']=request.POST['mobile']
+        request.session['orientation']=request.POST['orientation']
+        context["orientation"]=request.session['orientation']
+        if request.session['orientation']=="portait":
+            return render(request, "accueilh.html", context)
+        else:
+            return render(request, "accueilv.html", context)
+    else:     
+        return render(request, "accueil.html", context)
 
 #desinscription
 def desinscription(request):
