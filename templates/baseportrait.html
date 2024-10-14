@@ -38,7 +38,7 @@
             <div class="col-8" style="font-size:5vw">
                 <div>
                     <p align="center" style="font-family: 'Pacifico', cursive;
-                    font-weight: 400;margin: 0%;font-style: normal">Ti_Point-Ti_CroixH</p>
+                    font-weight: 400;margin: 0%;font-style: normal">Ti_Point-Ti_Croixv</p>
                     
                 </div>   
                 <div>
@@ -100,26 +100,6 @@
         let alea=Math.floor(Math.random()*14)+1
         let photo="https://ik.imagekit.io/kpvotazbj/photo".concat(alea,".avif")
         document.getElementById("id_imagekit").src=photo
-    </script>
-    <script>
-        document.getElementById("pleinecran").addEventListener("click", function() {
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
-                document.documentElement.msRequestFullscreen();
-            }
-            document.getElementById("pleinecran").style.display="none"
-            document.getElementById("sortiepleinecran").style.display="block"
-        });
-            document.getElementById("sortiepleinecran").addEventListener("click", function() {
-            document.exitFullscreen()
-            document.getElementById("pleinecran").style.display="block"
-            document.getElementById("sortiepleinecran").style.display="none"
-        })
     </script>
     {% block script %}{% endblock %}
 </body>
