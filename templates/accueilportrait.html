@@ -17,6 +17,9 @@ Ti_Points-Ti_Croix
 
 
 {%  block content %}
+  <div hidden>
+    <input id="orientation" name="orientation" type="text">
+  </div>
   <div class="col-12">
     <div style="display:flex;justify-content: space-between;font-size:1.8vh">
 
@@ -83,6 +86,11 @@ Ti_Points-Ti_Croix
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     window.screen.orientation.addEventListener("change", function() {
+      if (window.innerWidth > window.innerHeight) {
+        document.getElementById("orientation").value="paysage"
+      } else {
+        document.getElementById("orientation").value="portrait"
+      }
       alert("Orientation change detected");
       document.location.href='/'
     });
