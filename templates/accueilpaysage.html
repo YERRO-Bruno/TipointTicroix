@@ -16,7 +16,7 @@ Ti_Points-Ti_Croix
 {% block lateralgauche %}
 <div style="margin:auto">
   <p align="center" style="font-family: 'Pacifico', cursive;font-size:5vh;
-  font-weight:400;font-style: normal">Ti_Point-Ti_Croix</p>                   
+  font-weight:400;font-style: normal">Ti_Point-Ti_CroixH</p>                   
 </div>    
 <div style="font-size:2vw">
   <br>
@@ -84,6 +84,14 @@ Ti_Points-Ti_Croix
   </div>   
 {%  endblock %}
 {% block script %}
+  <script>
+    if (window.innerWidth > window.innerHeight) {
+      document.getElementById("orientation").value="paysage"
+    } else {
+      document.getElementById("orientation").value="portrait"
+    }
+    document.forms["accueil"].submit()
+  </script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       window.screen.orientation.addEventListener("change", function() {
