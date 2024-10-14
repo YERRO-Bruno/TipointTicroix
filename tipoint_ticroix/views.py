@@ -175,12 +175,14 @@ def accueil(request):
         context['debug']= "False"  
     if request.method == 'POST':
         request.session['orientation']=request.POST['orientation']
+        print(request.session['orientation'])
         context["orientation"]=request.session['orientation']
         if request.session['orientation']=="portrait":
             return render(request, "accueilportrait.html", context)
         else:
             return render(request, "accueilpaysage.html", context)
-    else:     
+    else: 
+        print("render initial")    
         return render(request, "accueil.html", context)
 
 #desinscription
