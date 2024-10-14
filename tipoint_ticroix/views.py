@@ -180,7 +180,8 @@ def accueil(request):
             return render(request, "accueilportrait.html", context)
         else:
             return render(request, "accueilpaysage.html", context)
-    else:     
+    else: 
+        print("render initial")    
         return render(request, "accueilpaysage.html", context)
 
 #desinscription
