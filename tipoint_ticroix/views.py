@@ -559,7 +559,10 @@ def tipointticroix(request):
     request.session['TOUR']=0
     request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
     request.session['SEQUENCE']=[]
-    return render(request, "tipointticroix.html", context)
+    if request.session['orientation']=="paysage":
+        return render(request, "tipointticroixpaysage.html", context)
+    else:
+        return render(request, "tipointticroixportrait.html", context)
 
 #page machines
 def machines(request):
