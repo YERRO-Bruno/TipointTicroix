@@ -559,7 +559,7 @@ def tipointticroix(request):
     request.session['TOUR']=0
     request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
     request.session['SEQUENCE']=[]
-    if request.session['orientation']=="paysage":
+    if request.POST['orientation']=="paysage":
         return render(request, "tipointticroixpaysage.html", context)
     else:
         return render(request, "tipointticroixportrait.html", context)
