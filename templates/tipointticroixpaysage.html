@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+{%  extends "basepaysage.html" %}
+
+{% block title %}
+Ti_Points-Ti_Croix
+{%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Jouez au jeu Ti-point_Ti-croix contre des algorithmes de
+ différents niveaux.">
+{%  endblock %}
+
+{% block style %}
+{%  endblock %}
+
+{%  block lateralgauche %}
+    <div class="border border-dark ml-3" style="font-family: 'Pacifico', cursive;
+        font-weight:400;font-style:normal;width:100%;height:100%">        
+        <div align="center" style="font-family: 'Pacifico', cursive;font-size:4vh;
+            font-weight:400;font-style: normal;margin-top:0">Ti_Point-Ti_Croix</div>                   
+        <div class="text-center mt-0" style="font-size:1vw">JOUER CONTRE L'ORDINATEUR</div>
+        <form id="grille" method="post" action="{% url 'jeu' %}">
+            {% csrf_token %}
+            <div hidden>
+                <input id="orientation" name="orientation" type="text">
+                <input id="debut" name="debut" type="text" value="Non">
+              </div>
+            <div id="x-jouer" style="display:none;">
+                <legend style="font-size: 3vh;margin:0">Choix du niveau?</legend>
+                    <div>
+                        <label for="niveau1" style="font-size: 1.4vw;margin-top:0;margin-bottom:0;
+                            margin-left: 1vh"><input type="radio" id="niveau1" 
+                            name="niveau" 
+                            style="width: 3vh;height: 3vh" value="1" />Novice</label>
+                    </div>
+                    <div>
+                        <label for="niveau2" style="font-size: 1.4vw;margin-top:0;margin-bottom:0;
+                            margin-left: 1vh"><input type="radio" id="niveau2" 
+                            name="niveau" style="width: 3vh;height: 3vh" 
+                            value="2" />amateur</label>
+                    </div>
+                    <div>
+                        <label for="niveau3" style="font-size: 1.4vw;margin-top:0;margin-bottom:0;
+                            margin-left: 1vh"><input type="radio" id="niveau3" 
+                            name="niveau" checked style="width: 3vh;height: 3vh" 
+                            value="3" />pro</label>
+                    </div>
+                    <div>
+                        <label for="niveau4" style="font-size: 1.4vw;margin-top:0;margin-bottom:0;
+                            margin-left: 1vh"><input type="radio" id="niveau4" 
+                            name="niveau" checked style="width: 3vh;height: 2vh" 
+                            value="4" />expert</label>
+                    </div>
+                    <div class="m-0">
+                        <label for="niveau5" style="font-size: 1.4vw;margin-top:0;margin-bottom:0;
+                            margin-left: 1vh"><input type="radio" id="niveau5" 
+                            name="niveau" checked style="width: 3vh;height: 3vh" 
+                            value="5" />champion</label>
+                    </div>
+            
+                <legend style="font-size: 3vh;margin-top:0">Voulez-vous jouer en premier?</legend>
+                    <div>
+                        <label for="begin-yes" style="font-size: 2.5vh;margin-top:0;margin-bottom:0;
+                            margin-left: 1vh"><input type="radio" id="begin-yes" 
+                            name="check-begin" checked 
+                            style="width: 3vh;height: 3vh" value="Oui" />Oui</label>
+                        <label for="begin-no" style="font-size: 2.5vh;margin-top:0;margin-bottom:0;
+                            margin-left: 1vh"><input type="radio" id="begin-no" 
+                            name="check-begin" style="width: 3vh;height: 3vh" 
+                            value="Non" />Non</label>
+                    </div>
+            
+                <div class="flex" style="justify-content:center;margin-top:1vh">
+                    <button  id="btn-quitter" class="btn btn-0" type="button" 
+                    style="width: 100%;font-size:1.5vw;;height:7vh;
+                    background-color:rgb(0, 208, 255)">Retour à l'accueil</button>
+                </div>
+                <div>
+                    <button  id="btn-jouer" class="btn btn-0" type="button" style="width:100%;
+                    font-size:1.5vw;background-color:rgb(0, 208, 255);margin-top:1vh;height:7vh">
+                    Lancer le jeu</button>
+                </div>
+                <br>
+                <br>
+            </div>
+            <div id="x-board" style="display:none;">
+                <div>
+                    <label id="vous" style="font-size: 1.5vw;font-weight: bolder">{{ connec }} </label>
+                    <label  id="id-vous" style="font-size: 1.5vw;
+                        font-weight: bolder">{{ marquevous }}</label>
+                </div>
+                <div>
+                    <label id="ordi" style="font-size: 1.5vw;font-weight: bolder">{{ nom1 }} </label>
+                    <label id="id-ordi" style="font-size: 1.5vw;
+                        font-weight: bolder">{{ marqueordi }}</label>
+                </div>
+                <div>
+                    <label style="font-size: 1.5vw" for="nb-tour">Tour :</label>
+                    <label style="font-size: 2vw;width: 2vw" id="nb-tour" 
+                    type="number">{{ tour }}</label>
+                </div>
+                <div class="text-center" id="avous" style="font-size:1.2vw">A VOUS DE JOUER</div>
+                <div class="text-center" id="amoi" style="font-size:1.2vw">JE REFLECHIT</div>
+                <div class="text-center" id="victoire" style="font-size:1.2vw">VOUS AVEZ GAGNE</div>
+                <div class="text-center" id="defaite" style="font-size:1.2vw">VOUS AVEZ PERDU</div>
+                <div>
+                    <button  id="btn-annuler" class="btn btn-0" type="button" style="width:100%;
+                        font-size: 1.5vw;background-color: rgb(0, 208, 255);margin-top:1vh">
+                        Annuler tour</button>
+                </div>
+                <div>
+                    <button  id="btn-rejouer" class="btn btn-0" type="button" style="width:100%;
+                    font-size: 1.5vw;background-color: rgb(0, 208, 255);margin-top:1vh">
+                    Rejouer</button>
+                </div>
+                <div>
+                    <button  id="btn-quitter2" class="btn btn-0" type="button" style="width: 100%;
+                    font-size:1.5vw;;height:7vh;background-color:rgb(0, 208, 255);margin-top:1vh"
+                    >Retour à l'accueil</button>
+                </div>
+                
+            </div>
+            <div>
+                <div hidden>
+                    <br>
+                    <label>Niveau : </label>
+                    <label id="niveau-id" type="text">{{ niveau }}</label>
+                    <br>
+                    <label>Joueur commence : </label>
+                    <label id="begin-id" type="text">{{ begin }}</label>
+                    <br>
+                    <input name="coupjoueur" id="coup-joueur" type="text" hidden>
+                    <input name="annuler" id="id-annuler" type="text" hidden>
+                    <input name="charger" id="id-charger" type="text">
+                    <label for="id-sequence">Coups joués</label>
+                    <input name="sequence" id="id-sequence" type="text" value="{{ sequence }}">
+                    <label id="id-pat">{{ pat }}</label>
+                    <label for="id-victoire">victoire joueur</label>
+                    <input id="id-victoire" type="text" value="{{ victoire }}">
+                    <label for="id-defaite">défaite joueur</label>
+                    <input id="id-defaite" type="array" value="{{ defaite }}">
+                </div>
+                
+            </div>
+        </form>
+    </div>
+{%  endblock %}
+{% block content %}
+    <div  id="id_table">
+
+        <div class="cadre">
+            <table  id="table" style="font-size: 10vh;margin-top:1vh;width:100vh">
+            </table>
+        </div>
+
+    </div>    
+{%  endblock %}
+{%  load static %}
+{%  block script %}
+        <script src="{% static 'JS/tipointticroix.js'%}"></script>
+{%  endblock %}

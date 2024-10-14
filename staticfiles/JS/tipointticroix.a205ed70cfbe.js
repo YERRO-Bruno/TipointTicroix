@@ -113,35 +113,53 @@ document.addEventListener("DOMContentLoaded", function () {
         document.forms["grille"].submit();
     });
 
-//fullscreen 
+//fullscreen    
     document.getElementById("pleinecran").addEventListener("click", function() {
-        if (document.fullscreenElement) {
-            document.exitFullscreen()
-            document.getElementById("pleinecran").src=window.pleinecran
-            
-        } else {
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
-                document.documentElement.msRequestFullscreen();
-            }
-            document.getElementById("pleinecran").src=window.exitecran
-        }  
+        // if (document.documentElement.requestFullscreen) {
+        //     document.documentElement.requestFullscreen();
+        // } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+        //     document.documentElement.mozRequestFullScreen();
+        // } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        //     document.documentElement.webkitRequestFullscreen();
+        // } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+        //     document.documentElement.msRequestFullscreen();
+        // }
+        // document.getElementById("pleinecran").style.display="none"
+        // document.getElementById("sortiepleinecran").style.display="block"
+        //alert(window.innerHeight)
+        var table = document.getElementById("table")
+        const tabTr = document.querySelector( '#table' ).querySelector( 'tbody' ).
+        querySelectorAll( 'tr' ).querySelectorAll( 'td' );
+        for ( let i = 0; i < tabTr.length; i++ ) {
+            tabTr[i].height="100px"
+        }
+        //alert(table.offsetHeight)
+        // alert(document.getElementById("0/0").id)
+        //alert(document.getElementById("L0").offsetHeight)
+        // document.getElementById("0/0").height="40px"
+        // for (let j = 0; j < 25; j++) {
+        //     document.getElementById("L"+j).offsetHeight="30vh"
+        //     }
+        //alert("test")
     });
+
+//exitfullscreen
+    document.getElementById("sortiepleinecran").addEventListener("click", function() {
+        document.exitFullscreen()
+        document.getElementById("pleinecran").style.display="block"
+        document.getElementById("sortiepleinecran").style.display="none"
+        //alert(window.innerHeight)
+    })
+
 })
 //Functions
 //Affichage de la grille
 function displayGameBoard(){
-    document.getElementById("x-jouer").style.display="block"
     document.getElementById("x-board").style.display="none"
-    // document.getElementById("id-beginer").textContent="Je joue en premier"
-    //if (document.getElementById("begin-id").textContent == "Oui") {
-        //document.getElementById("id-beginer").textContent="Vous jouez en premier"
-    //}
+    document.getElementById("id-beginer").textContent="Je joue en premier"
+    if (document.getElementById("begin-id").textContent == "Oui") {
+        document.getElementById("id-beginer").textContent="Vous jouez en premier"
+    }
     if (document.getElementById("id-vous").textContent=="O") {
         document.getElementById("vous").style.color = "blue"
         document.getElementById("id-vous").style.color = "blue"
@@ -159,7 +177,7 @@ function displayGameBoard(){
     document.getElementById("btn-annuler").style.display="none"
     document.getElementById("btn-rejouer").style.display="none"
     var cell, ligne;
-    //alert(window.innerHeight)
+    alert(window.innerHeight)
     h=(window.innerHeight-20)/25
     var tableau = document.getElementById("table");
     for (let j = 0; j < 25; j++) {
@@ -179,8 +197,7 @@ function displayGameBoard(){
             cell.style.color = "black"
             cell.textContent = ""
             cell.style.height = h+"px"
-            cell.style.fontWeight="1000"
-            cell.style.width = "4vh"
+            cell.style.width = h+"px"
             cell.style.background = "white"
             cell.style.border = "1px solid"
             cell.borderSpacing ="0"
@@ -188,9 +205,7 @@ function displayGameBoard(){
         }
     }
     if (document.getElementById("nb-tour").textContent > "0") {
-        if (document.getElementById("id-sequence").value!="") {
-            localStorage.setItem("partiencours",document.getElementById("id-sequence").value)
-        }
+        localStorage.setItem("partiencours",document.getElementById("id-sequence").value)
         if (document.getElementById("nb-tour").textContent > "1") {
             document.getElementById("btn-annuler").style.display="block"
         }
@@ -222,7 +237,7 @@ function displayGameBoard(){
             setTimeout(() => {
               }, 1000);
             document.getElementById(sequence[i]).textContent=marque
-            document.getElementById(sequence[i]).style.fontSize="1vw"
+            document.getElementById(sequence[i]).style.fontSize="0.8vw"
             if (marque=="X") {
                 document.getElementById(sequence[i]).style.color="red"
             } else {
