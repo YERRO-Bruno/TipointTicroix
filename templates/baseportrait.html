@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {%  load static %}
+    <title>{% block title %}{% endblock %}</title>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    {% block meta %}{% endblock %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    {% block style %}{% endblock %}
+
+</head>
+<body>
+    {%  load static %}
+    <div  class="mp-0" style="width: 100vw;background:rgb(223, 221, 221)">
+        <div class="row" style="height:5%;width:100%">
+            <div class="col-2">
+                <div>
+                    <img id="pleinecran" style="height: 6vw;width: 6vw" 
+                    src="{% static 'images/plein-ecran.png' %}">
+                </div>
+                <div>
+                    <img id="sortiepleinecran" style="height: 6vw;width: 6vw;display:none" 
+                    src="{% static 'images/quitter-le-mode-plein-ecran.png' %}">
+                </div>
+            </div>
+            <div class="col-8" style="font-size:5vw">
+                <div>
+                    <p align="center" style="font-family: 'Pacifico', cursive;
+                    font-weight: 400;margin: 0%;font-style: normal">Ti_Point-Ti_CroixH</p>
+                    
+                </div>   
+                <div>
+                </div>
+            </div>
+            <div class="col-2" align="center" style="margin-top: 1vh;font-size:2vw"
+                id="id-deconnexion">
+                <p id="id-connec" style="font-family: 'Pacifico', cursive;font-weight: 400;
+                font-style: normal;">{{ connec }}</p>
+                <a style="font-family: 'Pacifico', cursive;font-weight: 400;
+                font-style: normal;" href="{% url 'logout_view' %}">DECONNEXION</a>
+            </div>
+            <div class="col-2" align="center" style="margin-top: 1vh;font-size:2vw"
+                id="id-connexion">
+                <a style="font-family: 'Pacifico', cursive;font-weight: 400;
+                font-style: normal;" href="{% url 'connect' %}">CONNEXION</a>
+            </div>
+            
+            {% block content %}{% endblock %}
+            <div class="col-12 border border-dark text-center" style="font-family: 'Pacifico', cursive;
+            font-weight: 400;font-style: normal;font-size: 3vw">
+                <div>
+                    VISITEZ LA MARTINIQUE
+                </div>
+                <img class="imgagekit" id="id_imagekit" 
+                src="{% static 'images/logoOX.jpg' %}" style="height: 10vh;width:100%">
+            </div>    
+            
+        </div>
+    </div>
+    <div class="row" style="height: 7vh;width: 100vw;background-color:black">
+        <center class="col-6 mt-3" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        font-style: normal;font-size:1.8vh">
+            <a href="{% url 'mentions' %}">Mentions légales</a>
+        </center>
+        <center class="col-6 mt-3" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        font-style: normal;font-size:1.8vh">
+            <a href="{% url 'apropos' %}">A propos</a>
+        </center>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {%  load static %}
+        
+    <script>
+        //suppression lien Déconnexion si utilisateur pas connecté
+        var login="{{ connexion }}";
+        if (login =="Oui") {
+            document.getElementById("id-connexion").style.display="none"
+            
+        } else {
+            document.getElementById("id-deconnexion").style.display="none"
+            
+        }
+    </script>
+    <script>
+        let alea=Math.floor(Math.random()*14)+1
+        let photo="https://ik.imagekit.io/kpvotazbj/photo".concat(alea,".avif")
+        document.getElementById("id_imagekit").src=photo
+    </script>
+    <script>
+        document.getElementById("pleinecran").addEventListener("click", function() {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+                document.documentElement.msRequestFullscreen();
+            }
+            document.getElementById("pleinecran").style.display="none"
+            document.getElementById("sortiepleinecran").style.display="block"
+        });
+            document.getElementById("sortiepleinecran").addEventListener("click", function() {
+            document.exitFullscreen()
+            document.getElementById("pleinecran").style.display="block"
+            document.getElementById("sortiepleinecran").style.display="none"
+        })
+    </script>
+    {% block script %}{% endblock %}
+</body>
+</html>
