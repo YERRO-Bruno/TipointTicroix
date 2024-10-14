@@ -6,11 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Click sur le bouton jouer
     document.getElementById("btn-jouer").addEventListener('click', function(e){
         e.preventDefault()
-        if (window.innerWidth > window.innerHeight) {
-            document.getElementById("orientation").value="paysage"
-          } else {
-            document.getElementById("orientation").value="portrait"
-          }
+        
         document.forms["grille"].submit();
     })
 
@@ -40,11 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("coup-joueur").value=e.target.id
                 document.getElementById("amoi").style.display="block"
                 document.getElementById("avous").style.display="none"
-                if (window.innerWidth > window.innerHeight) {
-                    document.getElementById("orientation").value="paysage"
-                  } else {
-                    document.getElementById("orientation").value="portrait"
-                  }
                 document.forms["grille"].submit();                
             } else {
                 alert("Case déjà utilisée!")
@@ -82,16 +73,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Click du joueur sur le bouton annuler le tour
     document.getElementById("btn-annuler").addEventListener('click', function(e) {
-        if (confirm("En cas d'annulation cette partie ne comptera pas dans les statistiques?")) {
-            e.preventDefault()
-            document.getElementById("id-annuler").value="Oui"
-            if (window.innerWidth > window.innerHeight) {
-                document.getElementById("orientation").value="paysage"
-              } else {
-                document.getElementById("orientation").value="portrait"
-              }
-            document.forms["grille"].submit();
-        }
+        e.preventDefault()
+        document.getElementById("id-annuler").value="Oui"
+        document.forms["grille"].submit();
     })
 
 // Click du joueur sur le bouton rejouer
@@ -99,31 +83,16 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault()
         document.location.href='/jeu'
     })
-
-//changement de l'orientation de l'ecran
-    window.screen.orientation.addEventListener("change", function() {
-        if (document.getElementById("nb-tour").textContent > "0") {
-            document.getElementById("id-charger").value="Oui"
-        } else {
-            document.getElementById("debut").value="Oui"
-        }     
-        if (window.innerWidth > window.innerHeight) {
-            document.getElementById("orientation").value="paysage"
-          } else {
-            document.getElementById("orientation").value="portrait"
-          }
-        document.forms["grille"].submit();
-    });
+    
 })
 //Functions
 //Affichage de la grille
 function displayGameBoard(){
-    document.getElementById("x-jouer").style.display="block"
     document.getElementById("x-board").style.display="none"
-    // document.getElementById("id-beginer").textContent="Je joue en premier"
-    //if (document.getElementById("begin-id").textContent == "Oui") {
-        //document.getElementById("id-beginer").textContent="Vous jouez en premier"
-    //}
+    document.getElementById("id-beginer").textContent="Je joue en premier"
+    if (document.getElementById("begin-id").textContent == "Oui") {
+        document.getElementById("id-beginer").textContent="Vous jouez en premier"
+    }
     if (document.getElementById("id-vous").textContent=="O") {
         document.getElementById("vous").style.color = "blue"
         document.getElementById("id-vous").style.color = "blue"
@@ -141,18 +110,16 @@ function displayGameBoard(){
     document.getElementById("btn-annuler").style.display="none"
     document.getElementById("btn-rejouer").style.display="none"
     var cell, ligne;
-    //alert(window.innerHeight)
-    h=(window.innerHeight-20)/25
     var tableau = document.getElementById("table");
     for (let j = 0; j < 25; j++) {
         ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
-        ligne.id="L"+j
+
     // création et insertion des cellules dans la nouvelle ligne créée
         for (let i = 0; i < 25; i++) {
             var idx= j+"/"+i
             var imghtml=`
                 <input class="textcenter" id=${idx} type="text"
-                    style="margin: 0; margin-left: 4; border-spacing: 0;width=10vh">
+                    style="margin: 0; margin-left: 4; border-spacing: 0">
                 </input>
             `
             cell = ligne.insertCell(i);
@@ -160,9 +127,8 @@ function displayGameBoard(){
             cell.innerHTML = imghtml
             cell.style.color = "black"
             cell.textContent = ""
-            cell.style.height = h+"px"
-            cell.style.fontWeight="1000"
-            cell.style.width = "4vh"
+            cell.style.height = "2.9vh"
+            cell.style.width = "2.9vh"
             cell.style.background = "white"
             cell.style.border = "1px solid"
             cell.borderSpacing ="0"
@@ -170,9 +136,7 @@ function displayGameBoard(){
         }
     }
     if (document.getElementById("nb-tour").textContent > "0") {
-        if (document.getElementById("id-sequence").value!="") {
-            localStorage.setItem("partiencours",document.getElementById("id-sequence").value)
-        }
+        localStorage.setItem("partiencours",document.getElementById("id-sequence").value)
         if (document.getElementById("nb-tour").textContent > "1") {
             document.getElementById("btn-annuler").style.display="block"
         }
@@ -204,7 +168,7 @@ function displayGameBoard(){
             setTimeout(() => {
               }, 1000);
             document.getElementById(sequence[i]).textContent=marque
-            document.getElementById(sequence[i]).style.fontSize="1vw"
+            document.getElementById(sequence[i]).style.fontSize="0.8vw"
             if (marque=="X") {
                 document.getElementById(sequence[i]).style.color="red"
             } else {
@@ -258,11 +222,6 @@ function displayGameBoard(){
             if (confirm("Voulez-vous reprendre la dernière partie?")==true) {
                 document.getElementById("id-charger").value="Oui"
                 document.getElementById("id-sequence").value=localStorage.getItem("partiencours")
-                if (window.innerWidth > window.innerHeight) {
-                    document.getElementById("orientation").value="paysage"
-                  } else {
-                    document.getElementById("orientation").value="portrait"
-                  }
                 document.forms["grille"].submit();
             } else {
                 localStorage.removeItem("partiencours")
