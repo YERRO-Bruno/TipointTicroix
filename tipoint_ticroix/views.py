@@ -181,7 +181,7 @@ def accueil(request):
         else:
             return render(request, "accueilpaysage.html", context)
     else:     
-        return render(request, "accueilpaysage.html", context)
+        return render(request, "accueil.html", context)
 
 #desinscription
 def desinscription(request):
