@@ -174,7 +174,6 @@ def accueil(request):
     else:
         context['debug']= "False"  
     if request.method == 'POST':
-        if request
         request.session['orientation']=request.POST['orientation']
         print(request.session['orientation'])
         context["orientation"]=request.session['orientation']
