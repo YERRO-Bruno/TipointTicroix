@@ -13,6 +13,7 @@ Ti_Points-Ti_Croix
 {%  endblock %}
 
 {%  block lateralgauche %}
+    {%  load static %}
     <div class="border border-dark ml-3" style="font-family: 'Pacifico', cursive;
         font-weight:400;font-style:normal;width:100%;height:100%">        
         <div align="center" style="font-family: 'Pacifico', cursive;font-size:4vh;
@@ -47,7 +48,7 @@ Ti_Points-Ti_Croix
                     <div>
                         <label for="niveau4" style="font-size: 1.4vw;margin-top:0;margin-bottom:0;
                             margin-left: 1vh"><input type="radio" id="niveau4" 
-                            name="niveau" checked style="width: 3vh;height: 2vh" 
+                            name="niveau" checked style="width: 3vh;height: 3vh" 
                             value="4" />expert</label>
                     </div>
                     <div class="m-0">
@@ -117,7 +118,27 @@ Ti_Points-Ti_Croix
                     font-size:1.5vw;;height:7vh;background-color:rgb(0, 208, 255);margin-top:1vh"
                     >Retour à l'accueil</button>
                 </div>
-                
+                <div id="joystick"  style="width:100%;margin-top:2vh">
+                    <p style="text-align: center;">Position et validation du coup</p>
+                    <div style="height:6vh;width:100%;display:flex;justify-content:center;margin:1vh">
+                        <img id="id-haut" src="{% static 'images/haut.png' %}"
+                        style="height:6vh;width:6vh;margin: 1vh;">
+                    </div>
+                    <div style="height:6vh;width:100%;display:flex;justify-content:center;margin: 1vh;">
+                        
+                            <img id="id-gauche" src="{% static 'images/gauche.png' %}"
+                            style="height:6vh;width:6vh;margin:0.5vh">
+                            <img id="id-validation" src="{% static 'images/validation.png' %}"
+                            style="height:6vh;width:6vh;margin:0.5vh">
+                            <img id="id-droite" src="{% static 'images/droite.png' %}"
+                            style="height:6vh;width:6vh;margin:0.5vh">
+                        
+                    </div>
+                    <div style="height:6vh;width:100%;display:flex;justify-content:center;margin: 1vh;">
+                        <img id="id-bas" src="{% static 'images/bas.png' %}"
+                        style="height:6vh;width:6vh">
+                    </div>
+                </div>
             </div>
             <div>
                 <div hidden>
