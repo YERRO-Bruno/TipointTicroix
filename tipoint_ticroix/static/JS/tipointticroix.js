@@ -1,5 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
 //alert("initialisation")
+let précédenteposition=""
+let précédentecolor=""
+let nouvelleposition=""
+let nouvellecolor=""
+précédentecolor=""
+if (window.innerWidth > window.innerHeight) {    
+    h=((window.innerHeight-20)/25)+"px"
+    fontsz="1vw"
+} else {
+    h="4vw"
+    fontsz="1vh"
+}
 
 // mise en place plateau de jeu HTLM
     displayGameBoard()
@@ -29,17 +41,24 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("id-defaite").value=="Non" &&
         (document.getElementById("id-pat").textContent=="Non")) {
             if (ismobile()) {
-                alert("mobile")
+                if (précédenteposition !="") {
+                    document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+                }
+                précédenteposition=e.target.id
+                précédentecolor=document.getElementById(e.target.id).style.backgroundColor
+                document.getElementById(e.target.id).style.backgroundColor="green"
+                document.getElementById(e.target.id).style.fontSize=fontsz
             } else {
-                alert("notmobile")
                 if (document.getElementById(e.target.id).textContent=="") {
-                    case_clicked = e.target.id.split('/')
+                    // case_clicked = e.target.id.split('/')
                     document.getElementById(e.target.id).textContent = marque
-                    document.getElementById(e.target.id).style.fontSize="0.9vw"
+                    document.getElementById(e.target.id).style.fontSize=fontsz
                     if (marque=="X") {
                         document.getElementById(e.target.id).style.color="red"
+                        document.getElementById(e.target.id).style.backgroundColor="bisque"
                     } else {
                         document.getElementById(e.target.id).style.color="blue"
+                        document.getElementById(e.target.id).style.backgroundColor="lightcyan"
                     }
     
                     e.target.blur()
@@ -65,6 +84,156 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         
     })
+//click du joueur sur haut
+document.getElementById("id-haut").addEventListener('click', function(e) {
+    if (précédenteposition !="") {        
+        document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+        let iprec=parseInt(précédenteposition.split("/")[0])
+        if (iprec >0) {
+            iprec=iprec-1
+        } else {
+            alert("bord atteint")
+        }            
+        let yprec=précédenteposition.split("/")[1]
+        nouvelleposition=iprec+"/"+yprec
+        précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+        document.getElementById(nouvelleposition).style.backgroundColor="green"
+        précédenteposition=nouvelleposition
+    } else {
+        sequence=document.getElementById("id-sequence").value
+        sequence = sequence.split(',')
+        if (sequence=="") {
+            précédenteposition ="12/12"
+            précédentecolor=document.getElementById("12/12").style.backgroundColor
+            document.getElementById("12/12").style.backgroundColor="green"
+        } else {
+            précédenteposition=sequence[sequence.length-1]
+            précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+            document.getElementById(précédenteposition).style.backgroundColor="green"
+        }
+    }
+})
+
+//click du joueur sur bas
+document.getElementById("id-bas").addEventListener('click', function(e) {
+    if (précédenteposition !="") {        
+        document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+        let iprec=parseInt(précédenteposition.split("/")[0])
+        if (iprec <24) {
+            iprec=iprec+1
+        } else {
+            alert("bord atteint")
+        }            
+        let yprec=précédenteposition.split("/")[1]
+        nouvelleposition=iprec+"/"+yprec
+        précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+        document.getElementById(nouvelleposition).style.backgroundColor="green"
+        précédenteposition=nouvelleposition
+    } else {
+        sequence=document.getElementById("id-sequence").value
+        sequence = sequence.split(',')
+        if (sequence=="") {
+            précédenteposition ="12/12"
+            précédentecolor=document.getElementById("12/12".style.backgroundColor)
+            document.getElementById("12/12".style.backgroundColor)="green"
+        } else {
+            précédenteposition=sequence[sequence.length-1]
+            précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+            document.getElementById(précédenteposition).style.backgroundColor="green"
+        }
+    }
+})
+//click du joueur sur droite
+document.getElementById("id-droite").addEventListener('click', function(e) {
+    if (précédenteposition !="") {        
+        document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+        let yprec=parseInt(précédenteposition.split("/")[1])
+        if (yprec <24) {
+            yprec=yprec+1
+        } else {
+            alert("bord atteint")
+        }            
+        let iprec=précédenteposition.split("/")[0]
+        nouvelleposition=iprec+"/"+yprec
+        précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+        document.getElementById(nouvelleposition).style.backgroundColor="green"
+        précédenteposition=nouvelleposition
+    } else {
+        sequence=document.getElementById("id-sequence").value
+        sequence = sequence.split(',')
+        if (sequence=="") {
+            précédenteposition ="12/12"
+            précédentecolor=document.getElementById("12/12".style.backgroundColor)
+            document.getElementById("12/12".style.backgroundColor)="green"
+        } else {
+            précédenteposition=sequence[sequence.length-1]
+            précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+            document.getElementById(précédenteposition).style.backgroundColor="green"
+        }
+    }
+})
+
+//click du joueur sur gauche
+document.getElementById("id-gauche").addEventListener('click', function(e) {
+    if (précédenteposition !="") {        
+        document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+        let yprec=parseInt(précédenteposition.split("/")[1])
+        if (yprec >0) {
+            yprec=yprec-1
+        } else {
+            alert("bord atteint")
+        }            
+        let iprec=précédenteposition.split("/")[0]
+        nouvelleposition=iprec+"/"+yprec
+        précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+        document.getElementById(nouvelleposition).style.backgroundColor="green"
+        précédenteposition=nouvelleposition
+    } else {
+        sequence=document.getElementById("id-sequence").value
+        sequence = sequence.split(',')
+        if (sequence=="") {
+            précédenteposition ="12/12"
+            précédentecolor=document.getElementById("12/12".style.backgroundColor)
+            document.getElementById("12/12".style.backgroundColor)="green"
+        } else {
+            précédenteposition=sequence[sequence.length-1]
+            précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+            document.getElementById(précédenteposition).style.backgroundColor="green"
+        }
+    }
+})
+
+//click sur validation
+document.getElementById("id-validation").addEventListener('click', function(e) {
+    if (document.getElementById("begin-id").textContent=="Oui") {
+        marque="O"
+    } else {
+        marque="X"
+    }
+    if (document.getElementById(précédenteposition).textContent=="") {
+        // case_clicked = précédenteposition.split('/')
+        document.getElementById(précédenteposition).textContent = marque
+        document.getElementById(précédenteposition).style.fontSize=fontsz
+        if (marque=="X") {
+            document.getElementById(précédenteposition).style.color="red"
+            document.getElementById(précédenteposition).style.backgroundColor="bisque"
+        } else {
+            document.getElementById(précédenteposition).style.color="blue"
+            document.getElementById(précédenteposition).style.backgroundColor="lightcyan"
+        }
+        document.getElementById("coup-joueur").value=précédenteposition
+        document.getElementById("amoi").style.display="block"
+        document.getElementById("avous").style.display="none"
+        if (window.innerWidth > window.innerHeight) {
+            document.getElementById("orientation").value="paysage"
+          } else {
+            document.getElementById("orientation").value="portrait"
+          }
+        document.forms["grille"].submit();                
+    } else {
+        alert("Case déjà utilisée!")
+    }
+})
 
 // Click du joueur sur le bouton quitter en debut de jeu
     document.getElementById("btn-quitter").addEventListener('click', function(e) {
@@ -124,6 +293,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
         document.getElementById("orientation").value="portrait"
         }
+
         document.forms["grille"].submit();
     });
 })
@@ -148,11 +318,12 @@ function displayGameBoard(){
     document.getElementById("btn-annuler").style.display="none"
     document.getElementById("btn-rejouer").style.display="none"
     var cell, ligne;
-    if (window.innerWidth > window.innerHeight) {
-        
+    if (window.innerWidth > window.innerHeight) {    
         h=((window.innerHeight-20)/25)+"px"
+        fontsz="0.9vw"
     } else {
         h="4vw"
+        fontsz="0.9vh"
     }
     var tableau = document.getElementById("table");
     for (let j = 0; j < 25; j++) {
@@ -178,6 +349,7 @@ function displayGameBoard(){
             cell.style.background = "white"
             cell.style.border = "0.1vh solid"
             cell.borderSpacing ="0"
+            cell.borderPadding ="0"
             cell.style.textAlign = "center"
         }
     }
@@ -220,18 +392,21 @@ function displayGameBoard(){
             setTimeout(() => {
               }, 1000);
             document.getElementById(sequence[i]).textContent=marque
-            document.getElementById(sequence[i]).style.fontSize="1vw"
+            document.getElementById(sequence[i]).style.fontSize=fontsz
+            document.getElementById(sequence[i]).style.color="black"
             if (marque=="X") {
-                document.getElementById(sequence[i]).style.color="red"
+                // document.getElementById(sequence[i]).style.color="red"
+                document.getElementById(sequence[i]).style.backgroundColor="lightpink"
             } else {
-                document.getElementById(sequence[i]).style.color="blue"
+                //document.getElementById(sequence[i]).style.color="blue"
+                document.getElementById(sequence[i]).style.backgroundColor="cyan"
             }
             if (i>sequence_size -3) {
                 document.getElementById(sequence[i]).style.fontWeight="1000"
                 if (document.getElementById(sequence[i]).textContent=="O") {
-                    document.getElementById(sequence[i]).style.backgroundColor="DeepSkyBlue"
+                    document.getElementById(sequence[i]).style.backgroundColor="dodgerblue"
                 } else {
-                    document.getElementById(sequence[i]).style.backgroundColor="Pink"
+                    document.getElementById(sequence[i]).style.backgroundColor="red"
                 }
             }
             if (marque=="O") {
