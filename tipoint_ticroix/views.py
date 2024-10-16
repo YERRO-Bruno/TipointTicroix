@@ -377,6 +377,8 @@ def tipointticroix(request):
             request.session['TOUR']=0
             request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
             request.session['SEQUENCE']=[]
+            context["orientation"]=request.POST['orientation']
+            request.session['orientation']=request.POST['orientation']
             if request.POST['orientation']=="paysage":
                 return render(request, "tipointticroixpaysage.html", context)
             else:
@@ -408,6 +410,8 @@ def tipointticroix(request):
             context['victoire']="Non"
             context['defaite']="Non"
             context['pat']="Non"
+            context["orientation"]=request.POST['orientation']
+            request.session['orientation']=request.POST['orientation']
             if request.POST['orientation']=="paysage":
                 return render(request, "tipointticroixpaysage.html", context)
             else:
@@ -435,13 +439,17 @@ def tipointticroix(request):
             context['defaite']="Non" 
             context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
             request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
-            context['tour']=str(request.session['TOUR'])    
+            context['tour']=str(request.session['TOUR'])
+            context["orientation"]=request.POST['orientation']
+            request.session['orientation']=request.POST['orientation']    
             if request.POST['orientation']=="paysage":
+                request.session['orientation']="paysage"
                 return render(request, "tipointticroixpaysage.html", context)
             else:
+                request.session['orientation']="portrait"
                 return render(request, "tipointticroixportrait.html", context)
         #MAJ TABLEAU
-        if (request.session['TOUR']==0 or request.POST["coupjoueur"]=="") :
+        if (request.session['TOUR']==0 or request.POST["coupjpoueur"]=="") :
             request.session['TOUR']=0
             request.session['SEQUENCE']=[]
             request.session['NIVEAU']=int(request.POST["niveau"])
@@ -502,7 +510,8 @@ def tipointticroix(request):
                         finpartie(connec[1],str(request.session['NIVEAU']),True)
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
-                #print(context) 
+                context["orientation"]=request.POST['orientation']
+                request.session['orientation']=request.POST['orientation']
                 if request.POST['orientation']=="paysage":
                     return render(request, "tipointticroixpaysage.html", context)
                 else:
@@ -514,6 +523,8 @@ def tipointticroix(request):
                 request.session['TOUR']=request.session['TOUR']+1 
                 context['tour']=str(request.session['TOUR'])   
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                context["orientation"]=request.POST['orientation']
+                request.session['orientation']=request.POST['orientation']
                 if request.POST['orientation']=="paysage":
                     return render(request, "tipointticroixpaysage.html", context)
                 else:
@@ -532,6 +543,8 @@ def tipointticroix(request):
                     finpartie(connec[1],str(request.session['NIVEAU']),False)
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
+                context["orientation"]=request.POST['orientation']
+                request.session['orientation']=request.POST['orientation']
                 if request.POST['orientation']=="paysage":
                     return render(request, "tipointticroixpaysage.html", context)
                 else:
@@ -543,6 +556,8 @@ def tipointticroix(request):
                 request.session['TOUR']=request.session['TOUR']+1 
                 context['tour']=str(request.session['TOUR'])   
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                context["orientation"]=request.POST['orientation']
+                request.session['orientation']=request.POST['orientation']
                 if request.POST['orientation']=="paysage":
                     return render(request, "tipointticroixpaysage.html", context)
                 else:
@@ -552,14 +567,19 @@ def tipointticroix(request):
         request.session['TOUR']=request.session['TOUR']+1 
         context['tour']=str(request.session['TOUR'])   
         context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+        context["orientation"]=request.POST['orientation']
+        request.session['orientation']=request.POST['orientation']
         if request.POST['orientation']=="paysage":
+            request.session['orientation']="paysage"
             return render(request, "tipointticroixpaysage.html", context)
         else:
+            request.session['orientation']="portrait"
             return render(request, "tipointticroixportrait.html", context)
     #Appel initial
     request.session['TOUR']=0
     request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
     request.session['SEQUENCE']=[]
+    
     if request.session['orientation']=="paysage":
         return render(request, "tipointticroixpaysage.html", context)
     else:

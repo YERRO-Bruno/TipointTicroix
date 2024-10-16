@@ -109,7 +109,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //changement de l'orientation de l'ecran
     window.screen.orientation.addEventListener("change", function() {
-        let sequence=document.getElementById("id-sequence").value
         if (document.getElementById("nb-tour").textContent > "0") {
             if (sequence.split(',')!="") {
                 document.getElementById("id-charger").value="Oui"
@@ -148,6 +147,7 @@ function displayGameBoard(){
     document.getElementById("btn-rejouer").style.display="none"
     var cell, ligne;
     if (window.innerWidth > window.innerHeight) {
+        
         h=((window.innerHeight-20)/25)+"px"
     } else {
         h="4vw"
@@ -174,7 +174,7 @@ function displayGameBoard(){
             cell.style.fontWeight="1000"
             cell.style.width = "4vh"
             cell.style.background = "white"
-            cell.style.border = "1px solid"
+            cell.style.border = "0.1vh solid"
             cell.borderSpacing ="0"
             cell.style.textAlign = "center"
         }

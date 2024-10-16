@@ -174,7 +174,7 @@ function displayGameBoard(){
             cell.style.fontWeight="1000"
             cell.style.width = "4vh"
             cell.style.background = "white"
-            cell.style.border = "px solid"
+            cell.style.border = "0.2vh solid"
             cell.borderSpacing ="0"
             cell.style.textAlign = "center"
         }

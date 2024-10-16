@@ -13,9 +13,6 @@
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     {# <link rel="manifest" href="{% static 'manifest/manifest.json' %}"> #}
     {% block meta %}{% endblock %}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,21 +62,16 @@
             
         </div>
     </div>
-    <div class="row" style="height: 5vh;width: 98vw;background-color:black">
-        <center class="col-6 mt-3" style="font-family: 'Pacifico', cursive;font-weight: 400;
-        font-style: normal;font-size:1.8vh">
+    <div class="row" style="height:8vh;width: 98vw;background-color:black">
+        <center class="col-6 mt-1" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        font-style: normal;font-size:3.5vh">
             <a href="{% url 'mentions' %}">Mentions légales</a>
         </center>
-        <center class="col-6 mt-3" style="font-family: 'Pacifico', cursive;font-weight: 400;
-        font-style: normal;font-size:1.8vh">
+        <center class="col-6 mt-1" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        font-style: normal;font-size:3.5vh">
             <a href="{% url 'apropos' %}">A propos</a>
         </center>
     </div>
-    <script>
-        window.pleinecran = "{% static 'images/plein-ecran.png' %}";
-        window.exitecran = "{% static 'images/quitter-le-mode-plein-ecran.png' %}";
-        window.serviceworker="{% static 'js/service-worker.js' %}"
-    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

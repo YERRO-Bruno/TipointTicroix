@@ -22,7 +22,7 @@ Ti_Points-Ti_Croix
         <form id="grille" method="post" action="{% url 'jeu' %}">
             {% csrf_token %}
             <div hidden>
-                <input id="orientation" name="orientation" type="text">
+                <input id="orientation" name="orientation" type="text" value="{{ orientation }}">
                 <input id="debut" name="debut" type="text" value="Non">
               </div>
             <div id="x-jouer" style="display:none;">
@@ -80,8 +80,6 @@ Ti_Points-Ti_Croix
                     font-size:1.5vw;background-color:rgb(0, 208, 255);margin-top:1vh;height:7vh">
                     Lancer le jeu</button>
                 </div>
-                <br>
-                <br>
             </div>
             <div id="x-board" style="display:none;">
                 <div style="margin:0;">
