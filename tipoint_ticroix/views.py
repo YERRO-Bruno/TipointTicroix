@@ -378,6 +378,7 @@ def tipointticroix(request):
             request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
             request.session['SEQUENCE']=[]
             context["orientation"]=request.POST['orientation']
+            context["tour"]="0"
             request.session['orientation']=request.POST['orientation']
             if request.POST['orientation']=="paysage":
                 return render(request, "tipointticroixpaysage.html", context)
@@ -421,12 +422,14 @@ def tipointticroix(request):
             request.session['SEQUENCE']=request.POST['sequence'].split(",")
             marque="O"
             request.session['GRILLE']=[["-"] * 25 for _ in range(25)]
-            for coup in request.session['SEQUENCE']:
-                request.session['GRILLE']=majgrille(coup,marque,request.session['GRILLE'])
-                if marque=="O":
-                    marque="X"
-                else:
-                    marque="O"
+            print(len(request.POST['sequence']))
+            if len(request.POST['sequence'])>0:
+                for coup in request.session['SEQUENCE']:
+                    request.session['GRILLE']=majgrille(coup,marque,request.session['GRILLE'])
+                    if marque=="O":
+                        marque="X"
+                    else:
+                        marque="O"
             marqueordi=request.session['MARQUEORDI']
             marquejoueur=request.session['MARQUEJOUEUR']
             context['marquevous']=marquejoueur
@@ -449,7 +452,8 @@ def tipointticroix(request):
                 request.session['orientation']="portrait"
                 return render(request, "tipointticroixportrait.html", context)
         #MAJ TABLEAU
-        if (request.session['TOUR']==0 or request.POST["coupjpoueur"]=="") :
+        if request.session['TOUR']==0:
+            request.session['orientation']=request.POST['orientation']
             request.session['TOUR']=0
             request.session['SEQUENCE']=[]
             request.session['NIVEAU']=int(request.POST["niveau"])

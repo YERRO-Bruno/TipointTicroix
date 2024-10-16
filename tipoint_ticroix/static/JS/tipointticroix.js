@@ -110,18 +110,20 @@ document.addEventListener("DOMContentLoaded", function () {
 //changement de l'orientation de l'ecran
     window.screen.orientation.addEventListener("change", function() {
         if (document.getElementById("nb-tour").textContent > "0") {
-            if (sequence.split(',')!="") {
+            let sequence=document.getElementById("id-sequence").value
+            if (sequence!="") {
                 document.getElementById("id-charger").value="Oui"
+            } else {
+                document.getElementById("id-charger").value="Oui"    
             }
         } else {
             document.getElementById("debut").value="Oui"
-        }
-             
+        }             
         if (window.innerWidth > window.innerHeight) {
             document.getElementById("orientation").value="paysage"
-          } else {
-            document.getElementById("orientation").value="portrait"
-          }
+        } else {
+        document.getElementById("orientation").value="portrait"
+        }
         document.forms["grille"].submit();
     });
 })
