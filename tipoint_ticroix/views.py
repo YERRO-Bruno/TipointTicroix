@@ -441,7 +441,7 @@ def tipointticroix(request):
             else:
                 return render(request, "tipointticroixportrait.html", context)
         #MAJ TABLEAU
-        if (request.session['TOUR']==0 or request.POST["sequence"]=="") :
+        if (request.session['TOUR']==0 or request.POST["coupjoueur"]=="") :
             request.session['TOUR']=0
             request.session['SEQUENCE']=[]
             request.session['NIVEAU']=int(request.POST["niveau"])

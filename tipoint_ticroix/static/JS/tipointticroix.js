@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
 //alert("initialisation")
+
 // mise en place plateau de jeu HTLM
     displayGameBoard()
+    
 
 // Click sur le bouton jouer
     document.getElementById("btn-jouer").addEventListener('click', function(e){
@@ -24,30 +26,35 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         //test si la case est déjà occupée
         if (document.getElementById("id-victoire").value=="Non" && 
-            document.getElementById("id-defaite").value=="Non" &&
-            (document.getElementById("id-pat").textContent=="Non")) {
-            if (document.getElementById(e.target.id).textContent=="") {
-                case_clicked = e.target.id.split('/')
-                document.getElementById(e.target.id).textContent = marque
-                document.getElementById(e.target.id).style.fontSize="0.9vw"
-                if (marque=="X") {
-                    document.getElementById(e.target.id).style.color="red"
-                } else {
-                    document.getElementById(e.target.id).style.color="blue"
-                }
-
-                e.target.blur()
-                document.getElementById("coup-joueur").value=e.target.id
-                document.getElementById("amoi").style.display="block"
-                document.getElementById("avous").style.display="none"
-                if (window.innerWidth > window.innerHeight) {
-                    document.getElementById("orientation").value="paysage"
-                  } else {
-                    document.getElementById("orientation").value="portrait"
-                  }
-                document.forms["grille"].submit();                
+        document.getElementById("id-defaite").value=="Non" &&
+        (document.getElementById("id-pat").textContent=="Non")) {
+            if (ismobile()) {
+                alert("mobile")
             } else {
-                alert("Case déjà utilisée!")
+                alert("notmobile")
+                if (document.getElementById(e.target.id).textContent=="") {
+                    case_clicked = e.target.id.split('/')
+                    document.getElementById(e.target.id).textContent = marque
+                    document.getElementById(e.target.id).style.fontSize="0.9vw"
+                    if (marque=="X") {
+                        document.getElementById(e.target.id).style.color="red"
+                    } else {
+                        document.getElementById(e.target.id).style.color="blue"
+                    }
+    
+                    e.target.blur()
+                    document.getElementById("coup-joueur").value=e.target.id
+                    document.getElementById("amoi").style.display="block"
+                    document.getElementById("avous").style.display="none"
+                    if (window.innerWidth > window.innerHeight) {
+                        document.getElementById("orientation").value="paysage"
+                      } else {
+                        document.getElementById("orientation").value="portrait"
+                      }
+                    document.forms["grille"].submit();                
+                } else {
+                    alert("Case déjà utilisée!")
+                }
             }
         } else {
             if (document.getElementById("x-board").style.display=="none") {
@@ -187,7 +194,9 @@ function displayGameBoard(){
         //Effacement JOUER - Apparition BOARD
         document.getElementById("x-jouer").style.display="none"
         document.getElementById("x-board").style.display="block"
-        document.getElementById("joystick").style.display="block"
+        if (ismobile()) {
+            document.getElementById("joystick").style.display="block"
+        }
 
         // creation lignes du tableau
         
@@ -274,4 +283,15 @@ function displayGameBoard(){
             }
         }
     }
+}
+
+//fonction ismobile
+function ismobile() {
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        // true for mobile device
+        return true
+      }else{
+        // false for not mobile device
+        return false
+      }
 }
