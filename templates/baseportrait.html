@@ -25,26 +25,17 @@
     {%  load static %}
     <div  class="mp-0" style="width: 100vw;background:rgb(223, 221, 221)">
         <div class="row" style="height:5%;width:100%">
-            <div class="col-2">
-                <div>
-                    <img id="pleinecran" style="height: 6vw;width: 6vw" 
-                    src="{% static 'images/plein-ecran.png' %}">
-                </div>
-                <div>
-                    <img id="sortiepleinecran" style="height: 6vw;width: 6vw;display:none" 
-                    src="{% static 'images/quitter-le-mode-plein-ecran.png' %}">
-                </div>
+            <div class="col-3">
+                {% block page %}{% endblock %}
             </div>
-            <div class="col-8" style="font-size:5vw">
+            <div class="col-6" style="font-size:5vw">
                 <div>
                     <p align="center" style="font-family: 'Pacifico', cursive;
                     font-weight: 400;margin: 0%;font-style: normal">Ti_Point-Ti_Croixv</p>
                     
                 </div>   
-                <div>
-                </div>
             </div>
-            <div class="col-2" align="center" style="margin-top: 1vh;font-size:2vw"
+            <div class="col-3" align="center" style="margin-top: 1vh;font-size:2vw"
                 id="id-deconnexion">
                 <p id="id-connec" style="font-family: 'Pacifico', cursive;font-weight: 400;
                 font-style: normal;">{{ connec }}</p>
@@ -56,18 +47,18 @@
                 <a style="font-family: 'Pacifico', cursive;font-weight: 400;
                 font-style: normal;" href="{% url 'connect' %}">CONNEXION</a>
             </div>
-            
-            {% block content %}{% endblock %}
-            <div class="col-12 border border-dark text-center" style="font-family: 'Pacifico', cursive;
-            font-weight: 400;font-style: normal;font-size: 3vw">
-                <div>
-                    VISITEZ LA MARTINIQUE
-                </div>
-                <img class="imgagekit" id="id_imagekit" 
-                src="{% static 'images/logoOX.jpg' %}" style="height: 10vh;width:100%">
-            </div>    
-            
         </div>
+            
+        {% block content %}{% endblock %}
+        <div class="col-12 border border-dark text-center" style="font-family: 'Pacifico', cursive;
+        font-weight: 400;font-style: normal;font-size: 3vw">
+            <div>
+                VISITEZ LA MARTINIQUE
+            </div>
+            <img class="imgagekit" id="id_imagekit" 
+            src="{% static 'images/logoOX.jpg' %}" style="height: 12vh;width:100%">
+        </div>    
+            
     </div>
     <div class="row" style="height: 7vh;width: 100vw;background-color:black">
         <center class="col-6 mt-3" style="font-family: 'Pacifico', cursive;font-weight: 400;

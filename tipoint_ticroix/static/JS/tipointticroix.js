@@ -102,11 +102,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //changement de l'orientation de l'ecran
     window.screen.orientation.addEventListener("change", function() {
+        let sequence=document.getElementById("id-sequence").value
         if (document.getElementById("nb-tour").textContent > "0") {
-            document.getElementById("id-charger").value="Oui"
+            if (sequence.split(',')!="") {
+                document.getElementById("id-charger").value="Oui"
+            }
         } else {
             document.getElementById("debut").value="Oui"
-        }     
+        }
+             
         if (window.innerWidth > window.innerHeight) {
             document.getElementById("orientation").value="paysage"
           } else {
@@ -120,10 +124,6 @@ document.addEventListener("DOMContentLoaded", function () {
 function displayGameBoard(){
     document.getElementById("x-jouer").style.display="block"
     document.getElementById("x-board").style.display="none"
-    // document.getElementById("id-beginer").textContent="Je joue en premier"
-    //if (document.getElementById("begin-id").textContent == "Oui") {
-        //document.getElementById("id-beginer").textContent="Vous jouez en premier"
-    //}
     if (document.getElementById("id-vous").textContent=="O") {
         document.getElementById("vous").style.color = "blue"
         document.getElementById("id-vous").style.color = "blue"
@@ -137,12 +137,14 @@ function displayGameBoard(){
     }
     document.getElementById("amoi").style.display="none"
     document.getElementById("avous").style.display="none"
-    document.getElementById("x-board").style.display="none"
     document.getElementById("btn-annuler").style.display="none"
     document.getElementById("btn-rejouer").style.display="none"
     var cell, ligne;
-    //alert(window.innerHeight)
-    h=(window.innerHeight-20)/25
+    if (window.innerWidth > window.innerHeight) {
+        h=((window.innerHeight-20)/25)+"px"
+    } else {
+        h="4vw"
+    }
     var tableau = document.getElementById("table");
     for (let j = 0; j < 25; j++) {
         ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
@@ -160,7 +162,8 @@ function displayGameBoard(){
             cell.innerHTML = imghtml
             cell.style.color = "black"
             cell.textContent = ""
-            cell.style.height = h+"px"
+            cell.style.height = h
+            // cell.style.height = h+"px"
             cell.style.fontWeight="1000"
             cell.style.width = "4vh"
             cell.style.background = "white"
@@ -184,6 +187,8 @@ function displayGameBoard(){
         //Effacement JOUER - Apparition BOARD
         document.getElementById("x-jouer").style.display="none"
         document.getElementById("x-board").style.display="block"
+        document.getElementById("joystick").style.display="block"
+
         // creation lignes du tableau
         
         const nbt = document.getElementById("nb-tour").textContent

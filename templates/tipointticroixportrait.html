@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 {%  extends "baseportrait.html" %}
 
 {% block title %}
@@ -11,11 +12,14 @@ Ti_Points-Ti_Croix
 {% block style %}
     
 {%  endblock %}
-
+{% block page %}
+    <p class="text-center" style="margin-top:1vh;font-family: 'Pacifico', cursive;
+        font-weight: 400;font-style: normal;font-size: 1.8vw">JOUER CONTRE L'ORDINATEUR</p>
+{%  endblock %}
 {%  block content %}
-    <div class="col-2 border border-dark ml-3" style="font-family: 'Pacifico', cursive;
+    <div class="border border-dark ml-3" style="font-family: 'Pacifico', cursive;
         font-weight: 400;font-style: normal">
-        <p class="text-center" style="font-size: 1vw">JOUER CONTRE L'ORDINATEUR</p>
+        
         <form id="grille" method="post" action="{% url 'jeu' %}">
             {% csrf_token %}
             <div hidden>
@@ -24,123 +28,97 @@ Ti_Points-Ti_Croix
               </div>
             <div id="x-jouer" style="display:none;">
                 <table>
-                    <tr>
-                        <fieldset>
-                            <legend style="font-size: 1.1vw">Choix du niveau?</legend>
-                                <div>
-                                    <label for="niveau1" style="font-size: 1vw;
-                                        margin-left: 1vw"><input type="radio" id="niveau1" 
-                                        name="niveau" 
-                                        style="width: 1vw;height: 1vw" value="1" />Novice</label>
-                                </div>
-                                <div>
-                                    <label for="niveau2" style="font-size: 1vw;
-                                        margin-left: 1vw"><input type="radio" id="niveau2" 
-                                        name="niveau" style="width: 1vw;height: 1vw" 
-                                        value="2" />amateur</label>
-                                </div>
-                                <div>
-                                    <label for="niveau3" style="font-size: 1vw;
-                                        margin-left: 1vw"><input type="radio" id="niveau3" 
-                                        name="niveau" checked style="width: 1vw;height: 1vw" 
-                                        value="3" />pro</label>
-                                </div>
-                                <div>
-                                    <label for="niveau4" style="font-size: 1vw;
-                                        margin-left: 1vw"><input type="radio" id="niveau4" 
-                                        name="niveau" checked style="width: 1vw;height: 1vw" 
-                                        value="4" />expert</label>
-                                </div>
-                                <div>
-                                    <label for="niveau5" style="font-size: 1vw;
-                                        margin-left: 1vw"><input type="radio" id="niveau5" 
-                                        name="niveau" checked style="width: 1vw;height: 1vw" 
-                                        value="5" />champion</label>
-                                </div>
-                        </fieldset>
-                        <fieldset>
-                            <legend style="font-size: 1.1vw">Voulez-vous jouer en premier?</legend>
-                                <div>
-                                    <label for="begin-yes" style="font-size: 1vw;
-                                        margin-left: 1vw"><input type="radio" id="begin-yes" 
-                                        name="check-begin" checked 
-                                        style="width: 1vw;height: 1vw" value="Oui" />Oui</label>
-                                </div>
-                                <div>
-                                    <label for="begin-no" style="font-size: 1vw;
-                                        margin-left: 1vw"><input type="radio" id="begin-no" 
-                                        name="check-begin" style="width: 1vw;height: 1vw" 
-                                        value="Non" />Non</label>
-                                </div>
-                        </fieldset>
+                    <tr>              
+                        <legend style="font-size: 3vw;margin-top:1vh">Choix du niveau?</legend>
+                            
+                            <label for="niveau1" style="font-size: 3vw;
+                                margin-left: 3vw"><input type="radio" id="niveau1" 
+                                name="niveau" 
+                                style="width: 3vw;height: 3vw" value="1" />Novice</label>                                
+                            <label for="niveau2" style="font-size: 3vw;
+                                margin-left: 3vw"><input type="radio" id="niveau2" 
+                                name="niveau" style="width: 3vw;height: 3vw" 
+                                value="2" />amateur</label>
+                            <label for="niveau3" style="font-size: 3vw;
+                                margin-left: 3vw"><input type="radio" id="niveau3" 
+                                name="niveau" checked style="width: 3vw;height: 3vw" 
+                                value="3" />pro</label>
+                            <label for="niveau4" style="font-size: 3vw;
+                                margin-left: 3vw"><input type="radio" id="niveau4" 
+                                name="niveau" checked style="width: 3vw;height: 3vw" 
+                                value="4" />expert</label>
+                            <label for="niveau5" style="font-size: 3vw;
+                                margin-left: 3vw"><input type="radio" id="niveau5" 
+                                name="niveau" checked style="width: 3vw;height: 3vw" 
+                                value="5" />champion</label>                                                        
+                        <legend style="font-size: 3vw;margin-top:1vh">Voulez-vous jouer en premier?</legend>
+                            <label for="begin-yes" style="font-size: 3vw;
+                                margin-left: 3vw"><input type="radio" id="begin-yes" 
+                                name="check-begin" checked 
+                                style="width: 3vw;height: 3vw" value="Oui" />Oui</label>
+                            <label for="begin-no" style="font-size: 3vw;
+                                margin-left: 3vw"><input type="radio" id="begin-no" 
+                                name="check-begin" style="width: 3vw;height: 3vw" 
+                                value="Non" />Non</label>                       
                     </tr>
                 </table>
-                <div>
-                    <button  id="btn-quitter" class="btn btn-0" type="button" style="width: 10vw;font-size: 1.2vw;
-                            margin-left: 2vw;background-color: rgb(0, 208, 255);
-                            margin-top: 1vh">Retour à l'accueil</button>
+                <div style="display:flex;justify-content:center;width:100%;margin-bottom:2vh">
+                    <div style="display:flex;justify-content:space-around;margin-top:3vw">
+                        <button  id="btn-quitter" class="btn btn-0" type="button" 
+                            style="width:30vw;font-size:3vw;background-color: rgb(0, 208, 255);">
+                            Retour à l'accueil</button>
+                        <button  id="btn-jouer" class="btn btn-0" type="button" 
+                            style="width:30vw;font-size: 3vw;background-color: rgb(0, 208, 255);
+                            margin-left:2vw">Lancer le jeu</button>                
+                    </div>
                 </div>
-                <br>
-                <div>
-                    <button  id="btn-jouer" class="btn btn-0" type="button" style="width: 10vw;font-size: 1.2vw;
-                        margin-left: 2vw;background-color: rgb(0, 208, 255)">Lancer le jeu</button>
-                </div>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
                 <br>
             </div>
             <div id="x-board" style="display:none;">
-                <div>
-                    <label id="id-beginer" style="font-size: 1vw"></label>
+                <div style="display:flex;justify-content:space-between">
+                    <div>
+                        <label id="vous" style="font-size: 3vw;font-weight: bolder">{{ connec }} </label>
+                        <label  id="id-vous" style="font-size: 3vw;
+                            font-weight: bolder">{{ marquevous }}</label>
+                    </div>
+                    <div>
+                        <label style="font-size: 3vw" for="nb-tour">Tour :</label>
+                        <label style="font-size: 3vw;width: 4vw" id="nb-tour" 
+                        type="number">{{ tour }}</label>
+                    </div>
+                    <div>
+                        <label id="ordi" style="font-size: 3vw;font-weight: bolder">{{ nom1 }} </label>
+                        <label id="id-ordi" style="font-size: 3vw;
+                            font-weight: bolder">{{ marqueordi }}</label>
+                    </div>
                 </div>
-                <div>
-                    <label id="vous" style="font-size: 1vw;font-weight: bolder">{{ connec }} </label>
-                    <label  id="id-vous" style="font-size: 1vw;
-                        font-weight: bolder">{{ marquevous }}</label>
+                <div style="display:flex;justify-content:center">
+                    <div style="margin-top:0">
+                        <label id="avous" style="font-size: 3vw">A VOUS DE JOUER</label>
+                    </div>
+                    <div>
+                        <label id="amoi" style="font-size: 3vw">JE REFLECHIT</label>
+                    </div>
+                    <div>
+                        <label id="victoire" style="font-size: 3vw">VOUS AVEZ GAGNE</label>
+                    </div>
+                    <div>
+                        <label id="defaite" style="font-size: 3vw">VOUS AVEZ PERDU</label>
+                    </div>
                 </div>
-                <div>
-                    <label id="ordi" style="font-size: 1vw;font-weight: bolder">{{ nom1 }} </label>
-                    <label id="id-ordi" style="font-size: 1vw;
-                        font-weight: bolder">{{ marqueordi }}</label>
-                </div>
-                <div>
-                    <label style="font-size: 1.5vw" for="nb-tour">Tour :</label>
-                    <label style="font-size: 1.5vw;width: 3vw" id="nb-tour" 
-                    type="number">{{ tour }}</label>
-                </div>
-                <div style="margin-top: 1.5vh">
-                    <label id="avous" style="font-size: 1.4vw">A VOUS DE JOUER</label>
-                </div>
-                <div>
-                    <label id="amoi" style="font-size: 1.4vw">JE REFLECHIT</label>
-                </div>
-                <div>
-                    <label id="victoire" style="font-size: 1.4vw">VOUS AVEZ GAGNE</label>
-                </div>
-                <div>
-                    <label id="defaite" style="font-size: 1.4vw">VOUS AVEZ PERDU</label>
-                </div>
-                <div>
-                    <button  id="btn-annuler" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
-                            margin-left: 2vw;background-color: rgb(0, 208, 255);
-                            margin-top: 1vh">Annuler tour</button>
-                </div>
-                <div>
-                    <button  id="btn-rejouer" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
-                            margin-left: 2vw;background-color: rgb(0, 208, 255);
-                            margin-top: 1vh">Rejouer</button>
-                </div>
-                <div>
-                    <button  id="btn-quitter2" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
-                            margin-left: 2vw;background-color: rgb(0, 208, 255);
-                            margin-top: 1vh">Retour à l'accueil</button>
-                </div>
-                
+                <div style="display:flex;justify-content:center;width:100%">
+                    <div style="display:flex;justify-content:space-around;margin-top:1vw;margin-bottom:1vh">
+                        <button  id="btn-annuler" class="btn btn-0 ml-1" type="button" 
+                            style="width:30vw;font-size:3vw;background-color: rgb(0, 208, 255);">
+                            Annuler tour</button>
+                        <button  id="btn-rejouer" class="btn btn-0 ml-1" type="button" 
+                            style="width:30vw;font-size:3vw;background-color: rgb(0, 208, 255);">
+                            Rejouer</button>
+                        <button  id="btn-quitter2" class="btn btn-0 ml-1" type="button" 
+                            style="width:30vw;font-size:3vw;background-color: rgb(0, 208, 255);">
+                            Retour à l'accueil</button>
+                    </div>                
+                </div>                
             </div>
             <div>
                 <div hidden>
@@ -166,16 +144,35 @@ Ti_Points-Ti_Croix
             </div>
         </form>
     </div>
-    <div class="col-8 row justify-content-center" id="id_table">
-        <div class="col-1">
-        </div>
-        <div class="cadre align-self-midle col-10">
-            <table class="m-auto" id="table" style="font-size: 1.8vh;margin-top:0vh">
+    <div id="id_table">
+        <div class="cadre align-self-midle">
+            <table class="m-auto" id="table" style="font-size: 1.8vh;margin-top:0vh;width:100%">
             </table>
         </div>
-        <div class="col-1">
+    </div>
+    <div id="joystick"  style="width:100%;display:none;font-family: 'Pacifico', cursive;
+        font-weight:400;font-style:normal">
+        <div style="text-align: center;font-size:3vw;margin:0;height:1vw">Position et validation du coup</div>
+        <div style="height:8vw;width:100%;display:flex;justify-content:center;
+            margin:1vh">
+            <img id="id-haut" src="{% static 'images/haut.png' %}"
+            style="height:8vw;width:8vw;margin: 1vh;">
+        </div>
+        <div style="height:8vw;width:100%;display:flex;justify-content:center;margin: 1vh;">            
+                <img id="id-gauche" src="{% static 'images/gauche.png' %}"
+                style="height:8vw;width:8vw;margin:0.5vh">
+                <img id="id-validation" src="{% static 'images/validation.png' %}"
+                style="height:8vw;width:8vw;margin:0.5vh">
+                <img id="id-droite" src="{% static 'images/droite.png' %}"
+                style="height:8vw;width:8vw;margin:0.5vh">
+            
+        </div>
+        <div style="height:8vw;width:100%;display:flex;justify-content:center;margin: 1vh;">
+            <img id="id-bas" src="{% static 'images/bas.png' %}"
+            style="height:8vw;width:8vw">
         </div>
     </div>
+    
     
 {%  endblock %}
 
