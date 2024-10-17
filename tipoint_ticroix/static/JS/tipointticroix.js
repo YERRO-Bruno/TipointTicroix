@@ -39,7 +39,7 @@ if (window.innerWidth > window.innerHeight) {
         //test si la case est déjà occupée
         if (document.getElementById("id-victoire").value=="Non" && 
         document.getElementById("id-defaite").value=="Non" &&
-        (document.getElementById("id-pat").textContent=="Non")) {
+        (document.getElementById("id-pat").value=="Non")) {
             if (ismobile()) {
                 if (précédenteposition !="") {
                     document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
@@ -279,12 +279,7 @@ document.getElementById("id-validation").addEventListener('click', function(e) {
 //changement de l'orientation de l'ecran
     window.screen.orientation.addEventListener("change", function() {
         if (document.getElementById("nb-tour").textContent > "0") {
-            let sequence=document.getElementById("id-sequence").value
-            if (sequence!="") {
                 document.getElementById("id-charger").value="Oui"
-            } else {
-                document.getElementById("id-charger").value="Oui"    
-            }
         } else {
             document.getElementById("debut").value="Oui"
         }             
@@ -293,7 +288,6 @@ document.getElementById("id-validation").addEventListener('click', function(e) {
         } else {
         document.getElementById("orientation").value="portrait"
         }
-
         document.forms["grille"].submit();
     });
 })
@@ -415,7 +409,7 @@ function displayGameBoard(){
                 marque="O"
             }  
         }
-        if (document.getElementById("id-pat").textContent=="Oui") {
+        if (document.getElementById("id-pat").value=="Oui") {
             alert("Plus de case diponible - Match nul")
             document.getElementById("victoire").textContent="MATCH NUL"
             document.getElementById("victoire").style.display="block"

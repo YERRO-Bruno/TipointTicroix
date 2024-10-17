@@ -422,7 +422,6 @@ def tipointticroix(request):
             request.session['SEQUENCE']=request.POST['sequence'].split(",")
             marque="O"
             request.session['GRILLE']=[["-"] * 25 for _ in range(25)]
-            print(len(request.POST['sequence']))
             if len(request.POST['sequence'])>0:
                 for coup in request.session['SEQUENCE']:
                     request.session['GRILLE']=majgrille(coup,marque,request.session['GRILLE'])
@@ -437,9 +436,9 @@ def tipointticroix(request):
             context['nom1']=nomniveau(request.session['NIVEAU'])
             context['niveau']=request.session['NIVEAU']
             context['begin']=request.session['BEGIN']
-            context['pat']="Non"
-            context['victoire']="Non"
-            context['defaite']="Non" 
+            context['pat']=request.POST["pat"]
+            context['victoire']=request.POST["victoire"]
+            context['defaite']=request.POST["defaite"]
             context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
             request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
             context['tour']=str(request.session['TOUR'])

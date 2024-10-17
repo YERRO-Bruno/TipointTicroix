@@ -122,23 +122,18 @@ Ti_Points-Ti_Croix
             </div>
             <div>
                 <div hidden>
-                    <br>
                     <label>Niveau : </label>
                     <label id="niveau-id" type="text">{{ niveau }}</label>
-                    <br>
                     <label>Joueur commence : </label>
                     <label id="begin-id" type="text">{{ begin }}</label>
-                    <br>
                     <input name="coupjoueur" id="coup-joueur" type="text" hidden>
                     <input name="annuler" id="id-annuler" type="text" hidden>
                     <input name="charger" id="id-charger" type="text">
                     <label for="id-sequence">Coups joués</label>
                     <input name="sequence" id="id-sequence" type="text" value="{{ sequence }}">
-                    <label id="id-pat">{{ pat }}</label>
-                    <label for="id-victoire">victoire joueur</label>
-                    <input id="id-victoire" type="text" value="{{ victoire }}">
-                    <label for="id-defaite">défaite joueur</label>
-                    <input id="id-defaite" type="array" value="{{ defaite }}">
+                    <input id="id-pat" name="pat" value="{{ pat }}">
+                    <input id="id-victoire" name="victoire" type="text" value="{{ victoire }}">
+                    <input id="id-defaite" name="defaite" type="text" value="{{ defaite }}">
                 </div>
                 
             </div>
