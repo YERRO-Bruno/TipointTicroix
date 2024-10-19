@@ -142,17 +142,16 @@ document.addEventListener("DOMContentLoaded", function () {
     //changement de l'orientation de l'ecran
     window.screen.orientation.addEventListener("change", function() {
         if (document.getElementById("nb-tour").textContent > "0") {
-            alert("nbtour")
-            document.getElementById("id-etape").value="charger"
+                document.getElementById("id-charger").value="Oui"
         } else {
-            document.getElementById("id-etape").value="rotatdébut"
+            document.getElementById("debut").value="Oui"
         }             
         if (window.innerWidth > window.innerHeight) {
             document.getElementById("orientation").value="paysage"
         } else {
-            document.getElementById("orientation").value="portrait"
+        document.getElementById("orientation").value="portrait"
         }
-        //
+        alert("rotat")
         document.forms["internet"].submit();
     });
 

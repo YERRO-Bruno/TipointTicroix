@@ -23,7 +23,7 @@ def internet(request):
         context["connexion"]="Oui"
         context["connec"]=connec[1]
         if request.method == 'POST':
-            if request.POST['etape'] =="début":
+            if request.POST["etape"] =="début":
                 print("etape début")
                 #Début
                 request.session['SEQUENCE']=[]
@@ -61,7 +61,63 @@ def internet(request):
                 context["finpartie"]="Non"
                 context["victoire"]="Non"
                 context["defaite"]="Non"
-                return render(request, "internet.html", context)
+                context["orientation"]=request.POST['orientation']
+                request.session['orientation']=request.POST['orientation']
+                if request.POST['orientation']=="paysage":
+                    return render(request, "internetpaysage.html", context)
+                else:
+                    return render(request, "internetportrait.html", context)
+            
+            if request.POST["etape"]=="rotatdébut":
+                context["orientation"]=request.POST['orientation']
+                request.session['orientation']=request.POST['orientation']
+                context["etape"]="connexion"
+                if request.POST['orientation']=="paysage":
+                    return render(request, "internetpaysage.html", context)
+                else:
+                    return render(request, "internetportrait.html", context)
+
+
+            if request.POST["etape"]=="charger":
+                print("charger : " + request.POST["charger"])
+                request.session['SEQUENCE']=request.POST['sequence'].split(",")
+                marque="O"
+                request.session['GRILLE']=[["-"] * 25 for _ in range(25)]
+                if len(request.POST['sequence'])>0:
+                    for coup in request.session['SEQUENCE']:
+                        request.session['GRILLE']=majgrille(coup,marque,request.session['GRILLE'])
+                        if marque=="O":
+                            marque="X"
+                        else:
+                            marque="O"
+                marqueordi=request.session['MARQUEORDI']
+                marquejoueur=request.session['MARQUEJOUEUR']
+                # context['marquevous']=marquejoueur
+                # context['marqueordi']=marqueordi
+                # context['nom1']=nomniveau(request.session['NIVEAU'])
+                # context['niveau']=request.session['NIVEAU']
+                context['joueur']=request.POST['joueur']
+                context['adversaire']=request.POST['adversaire']
+                context["match"]=request.session['MATCH']
+                context["begin"]=request.session['BEGIN']
+                context["premier"]=request.session['PREMIER']
+                context["second"]=request.session['SECOND']
+                context['pat']=request.POST["pat"]
+                context['victoire']=request.POST["victoire"]
+                context['defaite']=request.POST["defaite"]
+                context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
+                context['tour']=str(request.session['TOUR'])
+                context["orientation"]=request.POST['orientation']
+                request.session['orientation']=request.POST['orientation']    
+                if request.POST['orientation']=="paysage":
+                    request.session['orientation']="paysage"
+                    return render(request, "internetpaysage.html", context)
+                else:
+                    request.session['orientation']="portrait"
+                    return render(request, "internetportrait.html", context)
+
+
             if request.POST['etape'] =="tourjeu":
                 #tour de jeu
                 print("tourjeu")
@@ -132,8 +188,13 @@ def internet(request):
                     context["etape"]="nouveautour"
                     context['finmanche']="Oui"
                     if request.session['MATCH']==2:
-                        context['finpartie']="Oui"
-                    return render(request, "internet.html", context)
+                        context['finpartie']="Oui"                    
+                    context["orientation"]=request.POST['orientation']
+                    request.session['orientation']=request.POST['orientation']
+                    if request.POST['orientation']=="paysage":
+                        return render(request, "internetpaysage.html", context)
+                    else:
+                        return render(request, "internetportrait.html", context)
                 context['jeton']=request.POST['jeton']
                 context['joueur']=request.POST['joueur']
                 context['adversaire']=request.POST['adversaire']
@@ -150,11 +211,22 @@ def internet(request):
                 else:
                     context["score2"]="{:.1f}".format(request.session['SCORE2'])
                 context["etape"]="nouveautour"
-                return render(request, "internet.html", context)
+                context["orientation"]=request.POST['orientation']
+                request.session['orientation']=request.POST['orientation']
+                if request.POST['orientation']=="paysage":
+                    return render(request, "internetpaysage.html", context)
+                else:
+                    return render(request, "internetportrait.html", context)
         else:    
             context["etape"]="connexion"
             request.session['MATCH']=0
-            return render(request, "internet.html", context)
+            request.session['TOUR']=0
+            request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
+            request.session['SEQUENCE']=[]            
+            if request.session['orientation']=="paysage":
+                return render(request, "internetpaysage.html", context)
+            else:
+                return render(request, "internetportrait.html", context)
     else:
         context["connexion"]="Non"
         return redirect('/connect',context)

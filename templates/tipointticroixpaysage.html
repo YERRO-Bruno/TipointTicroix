@@ -21,7 +21,7 @@ Ti_Points-Ti_Croix
         <div class="text-center mt-0" style="font-size:1vw">JOUER CONTRE L'ORDINATEUR</div>
         <form id="grille" method="post" action="{% url 'jeu' %}">
             {% csrf_token %}
-            <div hidden>
+            <div>
                 <input id="orientation" name="orientation" type="text" value="{{ orientation }}">
                 <input id="debut" name="debut" type="text" value="Non">
               </div>
