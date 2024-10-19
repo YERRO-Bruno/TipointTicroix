@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     socket.addEventListener('open', (event) => {
-        alert("open")
+        alert(document.getElementById("id-etape").value)
         if (document.getElementById("id-etape").value=="connexion") {
             socket.send('connexion,'.concat(document.getElementById("id-connec").textContent));
         }
