@@ -70,12 +70,12 @@ Ti_Points-Ti_Croix
             <label id="defaite" style="font-size: 1.4vw;color: red">VOUS AVEZ PERDU</label>
           </div>            
     </div>
-    <div hidden >
+    <div >
         <form id="internet" method="post">
             {% csrf_token %}
             <input id="orientation" name="orientation" type="text" value="{{ orientation }}">
             <input id="debut" name="debut" type="text" value="Non">
-            <input type="text" name="etape" id="id-etape" >
+            <input type="text" name="etape" id="id-etape" value="connexion">
             <input type="text" name="jeton" id="id-jeton" value="{{ jeton }}">            
             <input type="text" name="joueur" id="id-joueur" value="{{ joueur }}">            
             <input type="text" name="premier" id="id-premier" value="{{ premier }}">            
