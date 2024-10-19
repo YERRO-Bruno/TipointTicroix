@@ -78,9 +78,9 @@ document.addEventListener("DOMContentLoaded", function () {
         msg=event.data.split(",")
         if (msg[0]=="connected") {
             if (window.innerWidth > window.innerHeight) { 
-                fontsz="2vw"
+                fontsz="1.5vw"
             } else {
-                fontsz="2vh"
+                fontsz="1.5vh"
             }
             while (userconnecteds.firstChild) {
                 userconnecteds.removeChild(userconnecteds.lastChild);
