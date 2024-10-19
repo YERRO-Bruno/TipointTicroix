@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     socket.addEventListener('open', (event) => {
+        alert("open")
         if (document.getElementById("id-etape").value=="connexion") {
             socket.send('connexion,'.concat(document.getElementById("id-connec").textContent));
         }
@@ -74,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     socket.addEventListener('message', (event) => {
-        //alert('Message from server: ' + event.data);
+        alert('Message from server: ' + event.data);
         msg=event.data.split(",")
         if (msg[0]=="connected") {
 
