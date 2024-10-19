@@ -70,7 +70,7 @@ Ti_Points-Ti_Croix
             <label id="defaite" style="font-size: 1.4vw;color: red">VOUS AVEZ PERDU</label>
           </div>            
     </div>
-    <div >
+    <div hidden>
         <form id="internet" method="post">
             {% csrf_token %}
             <input id="orientation" name="orientation" type="text" value="{{ orientation }}">
