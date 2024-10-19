@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const joueur=document.getElementById("id-joueur")
     var socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
     userconnecteds.addEventListener("click", function(e) {
+        alert("click")
         e.preventDefault()
         invite=e.target.id
         message="invite,"+document.getElementById("id-connec").textContent+","+e.target.id
@@ -177,7 +178,9 @@ function displayGameBoard(){
     // creation lignes du tableau
     var cell, ligne;
     if (window.innerWidth > window.innerHeight) {    
+        w=(window.innerHeight-30)+"px"
         h=((window.innerHeight-30)/25)+"px"
+        document.getElementById("table").style.width=w
         fontsz="0.9vw"
     } else {
         h="4vw"
