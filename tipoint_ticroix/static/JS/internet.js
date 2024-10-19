@@ -65,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     socket.addEventListener('open', (event) => {
-        alert(document.getElementById("id-etape").value)
         if (document.getElementById("id-etape").value=="connexion") {
             socket.send('connexion,'.concat(document.getElementById("id-connec").textContent));
         }
@@ -75,10 +74,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     socket.addEventListener('message', (event) => {
-        alert('Message from server: ' + event.data);
+
         msg=event.data.split(",")
         if (msg[0]=="connected") {
-
+            if (window.innerWidth > window.innerHeight) { 
+                fontsz="2vw"
+            } else {
+                fontsz="2vh"
+            }
             while (userconnecteds.firstChild) {
                 userconnecteds.removeChild(userconnecteds.lastChild);
             }
@@ -90,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     li.class="joueur"
                     li.href='action'
                     li.style.color='blue'
+                    li.style.fontSize=fontsz
                     li.style.fontWeight='1000'
                     userconnecteds.appendChild(li)
                 }
