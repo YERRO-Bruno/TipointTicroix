@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
+    if (window.innerWidth > window.innerHeight) {    
+        h=((window.innerHeight-20)/25)+"px"
+        fontsz="1vw"
+    } else {
+        h="4vw"
+        fontsz="1vh"
+    }
     document.getElementById("x-board").style.display="none"
     document.getElementById("id-bandeau").style.display="none"
     //pseudox=document.getElementById("id-connec").textContent
@@ -33,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             if (document.getElementById(e.target.id).textContent=="") {
             document.getElementById(e.target.id).textContent = marque
-            document.getElementById(e.target.id).style.fontSize="0.9vw"
+            document.getElementById(e.target.id).style.fontSize=fontsz
             if (marque=="X") {
                 document.getElementById(e.target.id).style.color="red"
             } else {
@@ -82,11 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         msg=event.data.split(",")
         if (msg[0]=="connected") {
-            if (window.innerWidth > window.innerHeight) { 
-                fontsz="1.5vw"
-            } else {
-                fontsz="1.5vh"
-            }
             while (userconnecteds.firstChild) {
                 userconnecteds.removeChild(userconnecteds.lastChild);
             }
@@ -167,7 +169,6 @@ document.addEventListener("DOMContentLoaded", function () {
     //changement de l'orientation de l'ecran
     window.screen.orientation.addEventListener("change", function() {
         if (document.getElementById("nb-tour").textContent > "0") {
-            alert("nbtour")
             document.getElementById("id-etape").value="charger"
         } else {
             document.getElementById("id-etape").value="rotatdébut"
@@ -189,6 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //Functions
 //Affichage de la grille
 function displayGameBoard(){
+    // alert(document.getElementById("id-etape").value)
     if (document.getElementById("id-etape").value=="nouveautour") {
         document.getElementById("x-jouer").style.display="none"
         document.getElementById("x-board").style.display="block"
@@ -219,7 +221,7 @@ function displayGameBoard(){
           var idx= j+"/"+i
           var imghtml=`
               <input class="textcenter" id=${idx} type="text"
-                  style="margin: 0; margin-left: 4; border-spacing: 0">
+                  style="margin: 0; margin-left: 4; border-spacing: 0;width=10vh">
               </input>
           `
           cell = ligne.insertCell(i);
@@ -228,7 +230,7 @@ function displayGameBoard(){
           cell.style.color = "black"
           cell.textContent = ""
           cell.style.height = h
-        //   cell.style.width = "4vh"
+          cell.style.width = "4vh"
           cell.style.background = "white"
           cell.style.border = "1px solid"
           cell.borderSpacing ="0"
@@ -263,6 +265,8 @@ function displayGameBoard(){
         var marque="O"
         for (let i = 0;i<nbcoup;i++) {
             document.getElementById(sequence[i]).textContent=marque
+            document.getElementById(sequence[i]).style.fontSize=fontsz
+            document.getElementById(sequence[i]).style.color="black"
             if (marque=="X") {
                 document.getElementById(sequence[i]).style.color="red"
             } else {

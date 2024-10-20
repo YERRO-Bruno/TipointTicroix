@@ -38,10 +38,10 @@ Ti_Points-Ti_Croix
           </div>
           <div class="row" style="margin:0">
             <div class="col-9" style="margin:0">
-                <label  style="font-size: 1.2vw;color: blue;">{{ premier }} O </label>
+                <label  style="font-size: 2vw;color: blue;">{{ premier }} O </label>
             </div>
             <div class="col-3">
-                <label id="lscore1" style="font-size: 1.2vw;font-weight: bolder">: {{ score1 }}</label>
+                <label id="lscore1" style="font-size: 2vw;font-weight: bolder">: {{ score1 }}</label>
             </div>
         </div>
         <div class="row" style="margin:0">
@@ -49,25 +49,21 @@ Ti_Points-Ti_Croix
                 <label style="font-size: 1.2vw;color: red;">{{ second }} X </label>
             </div>
             <div class="col-3">
-                <label id="lscore2" style="font-size: 1.2vw;font-weight: bolder"> : {{ score2 }}</label>
+                <label id="lscore2" style="font-size: 1.6vw;font-weight: bolder"> : {{ score2 }}</label>
             </div>
           </div>
-          <div style="margin:0">
-            <label style="font-size: 1.2vw">Tour :</label>
-            <label style="font-size:1.2vw;width:3vw" id="nb-tour" type="number">{{ nbtour }}</label>
-          </div>
-          <div style="margin:0">
-            <label id="AVOUS" style=" font-size: 1.2vw;color: blue">A VOUS DE JOUER</label>
-          </div>
-          <div style="margin:0">
-            <label id="ALUI" style="font-size: 1.2vw;color: red">A LUI DE JOUER</label>
-          </div>
-          <div style="margin:0">
-            <label id="victoire" style="font-size: 1.2vw;color: blue">VOUS AVEZ GAGNE</label>
-          </div>
-          <div style="margin:0">
-            <label id="defaite" style="font-size: 1.2vw;color: red">VOUS AVEZ PERDU</label>
-          </div>            
+          <div class="row">
+            <div class="col-5" style="margin:0">
+                <label style="font-size: 1.2vw;margin:0">Tour :</label>
+                <label style="font-size:2vw;margin:0" id="nb-tour" type="number">{{ nbtour }}</label>
+            </div>
+                <div class="col-7" style="margin:0">
+                    <label id="AVOUS" style=" font-size: 1vw;color: blue">A VOUS DE JOUER</label>
+                    <label id="ALUI" style="font-size: 1vw;color: red;margin:0">A LUI DE JOUER</label>
+                    <label id="victoire" style="font-size: 1vw;color: blue">VOUS AVEZ GAGNE</label>
+                    <label id="defaite" style="font-size: 1vw;color: red">VOUS AVEZ PERDU</label>
+                </div>
+          </div>         
     </div>
     <div id="joystick"  style="width:100%;display:none;font-family: 'Pacifico', cursive;
         font-weight:400;font-style:normal">
@@ -109,7 +105,7 @@ Ti_Points-Ti_Croix
             <input name="coupjoueur" id="coup-joueur" type="text">
             <input name="charger" id="id-charger" type="text">
             <label for="id-sequence">Coups joués</label>
-            <input id="id-sequence" type="text" value="{{ sequence }}">        
+            <input name="sequence" id="id-sequence" type="text" value="{{ sequence }}">        
             <input id="id-pat" name="pat" value="{{ pat }}">                        
             <label id="id-finpartie" type="text">{{ finpartie }}</label>                        
             <label id="id-finmanche" type="text">{{ finmanche }}</label>                        

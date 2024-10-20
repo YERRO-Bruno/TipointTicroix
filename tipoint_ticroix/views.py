@@ -80,22 +80,19 @@ def internet(request):
 
             if request.POST["etape"]=="charger":
                 print("charger : " + request.POST["charger"])
-                request.session['SEQUENCE']=request.POST['sequence'].split(",")
+                # request.session['SEQUENCE']=request.POST['sequence'].split(",")
                 marque="O"
                 request.session['GRILLE']=[["-"] * 25 for _ in range(25)]
-                if len(request.POST['sequence'])>0:
+                if len(request.session['SEQUENCE'])>0:
+                    context['nbtour']=str(request.session['TOUR'])
                     for coup in request.session['SEQUENCE']:
                         request.session['GRILLE']=majgrille(coup,marque,request.session['GRILLE'])
                         if marque=="O":
                             marque="X"
                         else:
                             marque="O"
-                marqueordi=request.session['MARQUEORDI']
-                marquejoueur=request.session['MARQUEJOUEUR']
-                # context['marquevous']=marquejoueur
-                # context['marqueordi']=marqueordi
-                # context['nom1']=nomniveau(request.session['NIVEAU'])
-                # context['niveau']=request.session['NIVEAU']
+                else:
+                    context['nbtour']="1"
                 context['joueur']=request.POST['joueur']
                 context['adversaire']=request.POST['adversaire']
                 context["match"]=request.session['MATCH']
@@ -107,7 +104,9 @@ def internet(request):
                 context['defaite']=request.POST["defaite"]
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
-                context['tour']=str(request.session['TOUR'])
+                
+                context["etape"]="nouveautour"
+                context["jeton"]=request.POST['jeton']
                 context["orientation"]=request.POST['orientation']
                 request.session['orientation']=request.POST['orientation']    
                 if request.POST['orientation']=="paysage":
