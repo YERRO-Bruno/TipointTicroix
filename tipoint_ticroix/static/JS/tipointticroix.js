@@ -22,9 +22,9 @@ if (window.innerWidth > window.innerHeight) {
         e.preventDefault()
         if (window.innerWidth > window.innerHeight) {
             document.getElementById("orientation").value="paysage"
-          } else {
+        } else {
             document.getElementById("orientation").value="portrait"
-          }
+        }
         document.forms["grille"].submit();
     })
 

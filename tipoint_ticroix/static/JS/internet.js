@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const joueur=document.getElementById("id-joueur")
     var socket = new WebSocket('wss://ti-points-ti-croix.fr:8765/ws/chat/');
     userconnecteds.addEventListener("click", function(e) {
-        alert("click")
         e.preventDefault()
         invite=e.target.id
         message="invite,"+document.getElementById("id-connec").textContent+","+e.target.id
@@ -51,6 +50,11 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("id-etape").value="tourjeu"
             document.getElementById("id-jeton").value="Non"
             document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+            if (window.innerWidth > window.innerHeight) {
+                document.getElementById("orientation").value="paysage"
+            } else {
+                document.getElementById("orientation").value="portrait"
+            }
             document.forms["internet"].submit();
             } else {
                 alert("Case déjà utilisée")
@@ -110,6 +114,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id-match").value=1
                 document.getElementById("id-score1").value=0
                 document.getElementById("id-score2").value=0
+                if (window.innerWidth > window.innerHeight) {
+                    document.getElementById("orientation").value="paysage"
+                } else {
+                    document.getElementById("orientation").value="portrait"
+                }
                 document.forms["internet"].submit();
             } 
         }
@@ -121,6 +130,11 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("id-match").value=1
             document.getElementById("id-score1").value=0
             document.getElementById("id-score2").value=0
+            if (window.innerWidth > window.innerHeight) {
+                document.getElementById("orientation").value="paysage"
+            } else {
+                document.getElementById("orientation").value="portrait"
+            }
             document.forms["internet"].submit();
         } 
         if (msg[0]=="tourjeu") {
@@ -129,6 +143,11 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("id-jeton").value="Oui"
             document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
             document.getElementById("id-adversaire").value=msg[1]
+            if (window.innerWidth > window.innerHeight) {
+                document.getElementById("orientation").value="paysage"
+            } else {
+                document.getElementById("orientation").value="portrait"
+            }
             document.forms["internet"].submit();
         } 
     });
@@ -173,7 +192,10 @@ function displayGameBoard(){
     if (document.getElementById("id-etape").value=="nouveautour") {
         document.getElementById("x-jouer").style.display="none"
         document.getElementById("x-board").style.display="block"
-        document.getElementById("btn-quitter").style.display="none"
+        if (ismobile()) {
+            document.getElementById("joystick").style.display="block"
+        }
+        // document.getElementById("btn-quitter").style.display="none"
     }
     // creation lignes du tableau
     var cell, ligne;
@@ -335,6 +357,11 @@ function displayGameBoard(){
                             document.getElementById("id-jeton").value="Oui"
                         }
                         document.getElementById("id-match").value="2"
+                        if (window.innerWidth > window.innerHeight) {
+                            document.getElementById("orientation").value="paysage"
+                        } else {
+                            document.getElementById("orientation").value="portrait"
+                        }
                         document.forms["internet"].submit();
                     }
                 }
@@ -342,4 +369,14 @@ function displayGameBoard(){
             }, 1000);  
         }
     }
+}
+//fonction ismobile
+function ismobile() {
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        // true for mobile device
+        return true
+      }else{
+        // false for not mobile device
+        return false
+      }
 }
