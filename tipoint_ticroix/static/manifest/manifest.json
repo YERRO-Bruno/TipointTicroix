@@ -2,7 +2,7 @@
   "name": "Ti-points_Ti-croix",
   "short_name": "TPTC",
   "description": "Jouez au jeu Ti-point_Ti-croix",
-  "start_url": "/",
+  "start_url": "tipointticroix/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
