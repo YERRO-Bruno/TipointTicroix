@@ -25,6 +25,10 @@ jobs:
   
     - name: Deploy to server
       run: chmod 755 tptcinit.sh
+    - name: Deploy2 to server
+      run: |
+        chmod 755 /tipoint_ticroix/static/manifest
+        chmod 755 /tipoint_ticroix/static/manifest/manifest.json
     - name: Configure Git
       run: |
         git config --global user.name "GitHub Actions"
