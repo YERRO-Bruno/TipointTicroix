@@ -102,12 +102,15 @@ def internet(request):
                 context['pat']=request.POST["pat"]
                 context['victoire']=request.POST["victoire"]
                 context['defaite']=request.POST["defaite"]
+                context['score1']=request.POST['score1']
+                context['score2']=request.POST['score2']
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
-                request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
-                
+                request.session['TOUR']=len(request.session['SEQUENCE'])//2+1                
                 context["etape"]="nouveautour"
                 context["jeton"]=request.POST['jeton']
                 context["orientation"]=request.POST['orientation']
+                context['finmanche']=request.POST['finmanche']
+                context['finpartie']=request.POST['finpartie']
                 request.session['orientation']=request.POST['orientation']    
                 if request.POST['orientation']=="paysage":
                     request.session['orientation']="paysage"

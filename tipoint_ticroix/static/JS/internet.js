@@ -247,16 +247,6 @@ function displayGameBoard(){
     //document.getElementById("nb-tour").textContent="1"
     let scor1=document.getElementById("id-score1").value
     let scor2=document.getElementById("id-score2").value
-    if (parseFloat(scor1)-parseInt(scor1)==0) {
-        document.getElementById("lscore1").textContent=" : ".concat(parseInt(scor1))
-    } else {
-        document.getElementById("lscore1").textContent=" : ".concat(scor1)
-    }
-    if (parseFloat(scor2)-parseInt(scor2)==0) {
-        document.getElementById("lscore2").textContent=" : ".concat(parseInt(scor2))
-    } else {
-        document.getElementById("lscore2").textContent=" : ".concat(scor2)
-    }
     res=document.getElementById("id-sequence").value
     if (res.length > 0) { 
         let sequence=res.split(',')  
@@ -268,16 +258,16 @@ function displayGameBoard(){
             document.getElementById(sequence[i]).style.fontSize=fontsz
             document.getElementById(sequence[i]).style.color="black"
             if (marque=="X") {
-                document.getElementById(sequence[i]).style.color="red"
+                document.getElementById(sequence[i]).style.backgroundColor="lightpink"
             } else {
-                document.getElementById(sequence[i]).style.color="blue"
+                document.getElementById(sequence[i]).style.backgroundColor="cyan"
             }
             if (i>sequence.length -3) {
                 document.getElementById(sequence[i]).style.fontWeight="1000"
                 if (document.getElementById(sequence[i]).textContent=="O") {
-                    document.getElementById(sequence[i]).style.backgroundColor="DeepSkyBlue"
+                    document.getElementById(sequence[i]).style.backgroundColor="dodgerblue"
                 } else {
-                    document.getElementById(sequence[i]).style.backgroundColor="Pink"
+                    document.getElementById(sequence[i]).style.backgroundColor="red"
                 }
             }
             if (marque=="O") {
@@ -316,10 +306,10 @@ function displayGameBoard(){
                 document.getElementById(win[i]).style.backgroundColor="yellow"
             }
         }
-        if (document.getElementById("id-finmanche").textContent=="Oui") {
+        if (document.getElementById("id-finmanche").value=="Oui") {
             msgfin="La manche 2 demarre dans "
         }
-        if (document.getElementById("id-finpartie").textContent=="Oui") {
+        if (document.getElementById("id-finpartie").value=="Oui") {
             if (document.getElementById("id-joueur").value==document.getElementById("id-premier").value) {
                 if (scor1==scor2) {
                         msgfin="Nul : 1-1. Retour au lobby dans "
@@ -350,7 +340,7 @@ function displayGameBoard(){
                 countdownField.textContent =msgfin.concat(10-count," s")
                 if (count >= 10) {
                     clearInterval(interval);
-                    if (document.getElementById("id-finpartie").textContent=="Oui") {
+                    if (document.getElementById("id-finpartie").value=="Oui") {
                         document.location.href='/internet'
                     } else {
                         document.getElementById("id-etape").value="début"

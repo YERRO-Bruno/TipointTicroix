@@ -34,35 +34,29 @@ Ti_Points-Ti_Croix
     </div>
     <div id="x-board">
         <div style="margin:0;">
-            <label style="font-size: 1.2vw;">Match : {{ match }}/2</label>
+            <label style="font-size: 2vw;">Match : {{ match }}/2</label>
+          </div>
+          <div style="margin:0">
+              <label  style="font-size:1.5vw;color:blue;margin:0">{{ premier }} O : 
+                  <span style="font-size:2vw">{{ score1 }}</span>
+              </label>
+        </div>
+        <div style="margin:0">
+            <label style="font-size:1.5vw;color:red;margin:0">{{ second }} X :
+                <span style="font-size:2vw">{{ score2 }}</span>
+            </label>
           </div>
           <div class="row" style="margin:0">
-            <div class="col-9" style="margin:0">
-                <label  style="font-size: 2vw;color: blue;">{{ premier }} O </label>
-            </div>
-            <div class="col-3">
-                <label id="lscore1" style="font-size: 2vw;font-weight: bolder">: {{ score1 }}</label>
-            </div>
-        </div>
-        <div class="row" style="margin:0">
-            <div class="col-9" style="margin:0">
-                <label style="font-size: 1.2vw;color: red;">{{ second }} X </label>
-            </div>
-            <div class="col-3">
-                <label id="lscore2" style="font-size: 1.6vw;font-weight: bolder"> : {{ score2 }}</label>
-            </div>
-          </div>
-          <div class="row">
             <div class="col-5" style="margin:0">
                 <label style="font-size: 1.2vw;margin:0">Tour :</label>
                 <label style="font-size:2vw;margin:0" id="nb-tour" type="number">{{ nbtour }}</label>
             </div>
-                <div class="col-7" style="margin:0">
-                    <label id="AVOUS" style=" font-size: 1vw;color: blue">A VOUS DE JOUER</label>
-                    <label id="ALUI" style="font-size: 1vw;color: red;margin:0">A LUI DE JOUER</label>
-                    <label id="victoire" style="font-size: 1vw;color: blue">VOUS AVEZ GAGNE</label>
-                    <label id="defaite" style="font-size: 1vw;color: red">VOUS AVEZ PERDU</label>
-                </div>
+            <div class="col-7" style="margin:0">
+                <label id="AVOUS" style=" font-size:1vw;color:blue;;margin:0">A VOUS DE JOUER</label>
+                <label id="ALUI" style="font-size:1vw;color:red;margin:0">A LUI DE JOUER</label>
+                <label id="victoire" style="font-size:1vw;color:blue;;margin:0">VOUS AVEZ GAGNE</label>
+                <label id="defaite" style="font-size:1vw;color:red;;margin:0">VOUS AVEZ PERDU</label>
+            </div>
           </div>         
     </div>
     <div id="joystick"  style="width:100%;display:none;font-family: 'Pacifico', cursive;
@@ -107,46 +101,27 @@ Ti_Points-Ti_Croix
             <label for="id-sequence">Coups joués</label>
             <input name="sequence" id="id-sequence" type="text" value="{{ sequence }}">        
             <input id="id-pat" name="pat" value="{{ pat }}">                        
-            <label id="id-finpartie" type="text">{{ finpartie }}</label>                        
-            <label id="id-finmanche" type="text">{{ finmanche }}</label>                        
+            <input id="id-finpartie" name="finpartie" type="text" value="{{ finpartie }}">                        
+            <input id="id-finmanche" name="finmanche" type="text" value="{{ finmanche }}">                        
             <input id="id-victoire" name="victoire" type="text" value="{{ victoire }}">                        
             <input id="id-defaite" name="defaite" type="text" value="{{ defaite }}">
         </form>
+    </div>
+    <div>
+        <p align="center" style="margin-top:1vh"><span id="id-bandeau" align="center"
+            style="font-size:1.6vw;color:red;font-weight:bolder;margin:0%;background-color:blue;"
+            ></span></p>
     </div>
     <button class="btn btn-0" id="btn-quitter" type="button" style="width: 100%;
             font-size:1.2vw;;height:7vh;background-color:rgb(0, 208, 255)">
             Retour à l'accueil
     </button>
-    <div id="joystick"  style="width:100%;margin-top:2vh;display:none">
-        <p style="text-align: center;font-size:1.2vw;margin:0">Position et validation du coup</p>
-        <div style="height:8vh;width:100%;display:flex;justify-content:center;
-            margin:1vh">
-            <img id="id-haut" src="{% static 'images/haut.png' %}"
-            style="height:8vh;width:8vh;margin: 1vh;">
-        </div>
-        <div style="height:8vh;width:100%;display:flex;justify-content:center;margin: 1vh;">
-            
-                <img id="id-gauche" src="{% static 'images/gauche.png' %}"
-                style="height:8vh;width:8vh;margin:0.5vh">
-                <img id="id-validation" src="{% static 'images/validation.png' %}"
-                style="height:8vh;width:8vh;margin:0.5vh">
-                <img id="id-droite" src="{% static 'images/droite.png' %}"
-                style="height:8vh;width:8vh;margin:0.5vh">
-            
-        </div>
-        <div style="height:8vh;width:100%;display:flex;justify-content:center;margin: 1vh;">
-            <img id="id-bas" src="{% static 'images/bas.png' %}"
-            style="height:8vh;width:8vh">
-        </div>
-    </div>
 </div>
 {%  endblock %}
 {%  block content %}
 
     <div class="cadre" style="display:flex;justify-content:center;width:100%">
-        <p align="center" style="margin-top:1vh"><span id="id-bandeau" align="center"
-            style="font-size:1vw;color:red;font-weight:bolder;margin:0%;background-color:blue;"
-            ></span></p>     
+             
         <table class="mt-1" id="table" >
         </table>
     </div>
