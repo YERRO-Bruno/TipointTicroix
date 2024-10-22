@@ -317,7 +317,6 @@ function displayGameBoard(){
       } else {
         h=window.innerWidth/25
       }   
-    h=window.innerHeight/25
     h=h+"px"
     fontsz="0.9vw"
     var tableau = document.getElementById("table");
@@ -338,7 +337,6 @@ function displayGameBoard(){
             cell.style.color = "black"
             cell.textContent = ""
             cell.style.height = h
-            // cell.style.height = h+"px"
             cell.style.fontWeight="1000"
             cell.style.width = "4vh"
             cell.style.background = "white"
