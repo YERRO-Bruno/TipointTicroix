@@ -201,15 +201,14 @@ function displayGameBoard(){
     }
     // creation lignes du tableau
     var cell, ligne;
-    if (window.innerWidth > window.innerHeight) {    
-        w=(window.innerHeight-30)+"px"
-        h=((window.innerHeight-30)/25)+"px"
-        document.getElementById("table").style.width=w
+    if (window.innerWidth > window.innerHeight) {
+        h=window.innerHeight/25        
         fontsz="0.9vw"
-    } else {
-        h="4vw"
+      } else {
+        h=window.innerWidth/25
         fontsz="0.9vh"
-    }
+      }   
+    h=h+"px"
     var tableau = document.getElementById("table");
     for (let j = 0; j < 25; j++) {
       

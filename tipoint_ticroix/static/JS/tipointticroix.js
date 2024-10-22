@@ -314,11 +314,12 @@ function displayGameBoard(){
     var cell, ligne;
     if (window.innerWidth > window.innerHeight) {
         h=window.innerHeight/25        
+        fontsz="0.9vw"
       } else {
         h=window.innerWidth/25
+        fontsz="0.9vh"
       }   
     h=h+"px"
-    fontsz="0.9vw"
     var tableau = document.getElementById("table");
     for (let j = 0; j < 25; j++) {
         ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
