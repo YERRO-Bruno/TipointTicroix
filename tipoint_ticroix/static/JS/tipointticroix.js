@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-//alert("initialisation")
 let précédenteposition=""
 let précédentecolor=""
 let nouvelleposition=""
@@ -294,7 +293,7 @@ document.getElementById("id-validation").addEventListener('click', function(e) {
 //Functions
 //Affichage de la grille
 function displayGameBoard(){
-    document.getElementById("mp-0").style.Height="140%"
+    document.getElementById("mp-0").style.Height="100%"
     document.getElementById("x-jouer").style.display="block"
     document.getElementById("x-board").style.display="none"
     if (document.getElementById("id-vous").textContent=="O") {
@@ -316,21 +315,21 @@ function displayGameBoard(){
     if (window.innerWidth > window.innerHeight) {
         h=window.innerHeight/25        
         fontsz="0.9vw"
-      } else {
+    } else {
         h=window.innerWidth/25
         fontsz="0.9vh"
-      }   
+    }   
     var tableau = document.getElementById("table");
     for (let j = 0; j < 25; j++) {
         ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
         ligne.id="L"+j
-    // création et insertion des cellules dans la nouvelle ligne créée
+        // création et insertion des cellules dans la nouvelle ligne créée
         for (let i = 0; i < 25; i++) {
             var idx= j+"/"+i
             var imghtml=`
-                <input class="textcenter" id=${idx} type="text"
-                    style="margin: 0; margin-left: 4; border-spacing: 0;width=10vh">
-                </input>
+            <input class="textcenter" id=${idx} type="text"
+            style="margin: 0; margin-left: 4; border-spacing: 0;width=10vh">
+            </input>
             `
             cell = ligne.insertCell(i);
             cell.id = idx
@@ -347,17 +346,20 @@ function displayGameBoard(){
             cell.style.textAlign = "center"
         }
     }
-    let diftaille=document.documentElement.scrollHeight - window.innerHeight
-    if (diftaille>0) {
-        h=h-(diftaille/25)
-        document.getElementById("table").width=diftaille
-        for (let j = 0; j < 25; j++) {
-            for (let i = 0; i < 25; i++) {
-                var idx= j+"/"+i
-                document.getElementById(idx).style.height=h+"px"
-            }
-        }
-    }
+    // if (window.innerWidth < window.innerHeight) {
+    //     let diftaille=document.documentElement.scrollHeight - window.innerHeight
+    //     if (diftaille>0) {
+    //         h=h-(diftaille/25)
+    //         alert(h)
+    //         document.getElementById("table").width=diftaille
+    //         for (let j = 0; j < 25; j++) {
+    //             for (let i = 0; i < 25; i++) {
+    //                 var idx= j+"/"+i
+    //                 document.getElementById(idx).style.height=h+"px"
+    //             }
+    //         }
+    //     }
+    // }
     if (document.getElementById("nb-tour").textContent > "0") {
         if (document.getElementById("id-sequence").value!="") {
             localStorage.setItem("partiencours",document.getElementById("id-sequence").value)
