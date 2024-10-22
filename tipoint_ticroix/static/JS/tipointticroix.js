@@ -311,15 +311,10 @@ function displayGameBoard(){
     document.getElementById("avous").style.display="none"
     document.getElementById("btn-annuler").style.display="none"
     document.getElementById("btn-rejouer").style.display="none"
-    var cell, ligne;
-    if (window.innerWidth > window.innerHeight) {    
-        h=document.getElementById("table").style.width/25
-        h=h+"px"
-        fontsz="0.9vw"
-    } else {
-        h="4vw"
-        fontsz="0.9vh"
-    }
+    var cell, ligne;   
+    h=window.innerHeight/25
+    h=h+"px"
+    fontsz="0.9vw"
     var tableau = document.getElementById("table");
     for (let j = 0; j < 25; j++) {
         ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
