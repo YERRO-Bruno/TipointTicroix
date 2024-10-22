@@ -311,7 +311,12 @@ function displayGameBoard(){
     document.getElementById("avous").style.display="none"
     document.getElementById("btn-annuler").style.display="none"
     document.getElementById("btn-rejouer").style.display="none"
-    var cell, ligne;   
+    var cell, ligne;
+    if (window.innerWidth > window.innerHeight) {
+        h=window.innerHeight/25        
+      } else {
+        h=window.innerWidth/25
+      }   
     h=window.innerHeight/25
     h=h+"px"
     fontsz="0.9vw"
