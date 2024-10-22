@@ -13,6 +13,8 @@ if (window.innerWidth > window.innerHeight) {
 }
 
 // mise en place plateau de jeu HTLM
+    let d1=0
+    let d2=0
     displayGameBoard()
     
 
@@ -318,6 +320,9 @@ function displayGameBoard(){
     } else {
         h=window.innerWidth/25
         fontsz="0.9vh"
+        let h1=document.documentElement.scrollHeight
+        let h3=window.innerHeight
+        d1=(h1-h3)
     }   
     var tableau = document.getElementById("table");
     for (let j = 0; j < 25; j++) {
@@ -346,20 +351,22 @@ function displayGameBoard(){
             cell.style.textAlign = "center"
         }
     }
-    // if (window.innerWidth < window.innerHeight) {
-    //     let diftaille=document.documentElement.scrollHeight - window.innerHeight
-    //     if (diftaille>0) {
-    //         h=h-(diftaille/25)
-    //         alert(h)
-    //         document.getElementById("table").width=diftaille
-    //         for (let j = 0; j < 25; j++) {
-    //             for (let i = 0; i < 25; i++) {
-    //                 var idx= j+"/"+i
-    //                 document.getElementById(idx).style.height=h+"px"
-    //             }
-    //         }
-    //     }
-    // }
+    if (window.innerWidth < window.innerHeight) {
+        let h1=document.documentElement.scrollHeight
+        let h3=window.innerHeight
+        d2=(h1-h3)
+        let diftaille=d2-d1
+        if (diftaille>0) {
+            h=h-(diftaille/25)
+            document.getElementById("table").width=diftaille
+            for (let j = 0; j < 25; j++) {
+                for (let i = 0; i < 25; i++) {
+                    var idx= j+"/"+i
+                    document.getElementById(idx).style.height=h+"px"
+                }
+            }
+        }
+    }
     if (document.getElementById("nb-tour").textContent > "0") {
         if (document.getElementById("id-sequence").value!="") {
             localStorage.setItem("partiencours",document.getElementById("id-sequence").value)

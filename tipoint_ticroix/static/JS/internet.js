@@ -183,8 +183,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     //AFFICHAGE
+    let d1=0
+    let d2=0
     displayGameBoard()
-
 })
 
 //Functions
@@ -207,6 +208,9 @@ function displayGameBoard(){
       } else {
         h=window.innerWidth/25
         fontsz="0.9vh"
+        let h1=document.documentElement.scrollHeight
+        let h3=window.innerHeight
+        d1=(h1-h3)
       }   
     h=h
     var tableau = document.getElementById("table");
@@ -235,15 +239,20 @@ function displayGameBoard(){
           cell.borderSpacing ="0"
           cell.style.textAlign = "center"
       }
-    }
-    let diftaille=document.documentElement.scrollHeight - window.innerHeight
-    if (diftaille>0) {
-        h=h-(diftaille/25)
-        document.getElementById("table").width=diftaille
-        for (let j = 0; j < 25; j++) {
-            for (let i = 0; i < 25; i++) {
-                var idx= j+"/"+i
-                document.getElementById(idx).style.height=h+"px"
+    }    
+    if (window.innerWidth < window.innerHeight) {
+        let h1=document.documentElement.scrollHeight
+        let h3=window.innerHeight
+        d2=(h1-h3)
+        let diftaille=d2-d1
+        if (diftaille>0) {
+            h=h-(diftaille/25)
+            document.getElementById("table").width=diftaille
+            for (let j = 0; j < 25; j++) {
+                for (let i = 0; i < 25; i++) {
+                    var idx= j+"/"+i
+                    document.getElementById(idx).style.height=h+"px"
+                }
             }
         }
     }
@@ -286,6 +295,9 @@ function displayGameBoard(){
                 marque="O"
             }              
         }
+
+        
+
         const countdownField = document.getElementById("id-bandeau")
         let count = 0;
         let msgfin=""
