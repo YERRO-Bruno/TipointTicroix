@@ -313,7 +313,7 @@ function displayGameBoard(){
     document.getElementById("btn-rejouer").style.display="none"
     var cell, ligne;
     if (window.innerWidth > window.innerHeight) {    
-        h=((window.innerHeight-20)/25)+"px"
+        h="4vh"
         fontsz="0.9vw"
     } else {
         h="4vw"
