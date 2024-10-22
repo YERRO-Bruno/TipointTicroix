@@ -294,6 +294,7 @@ document.getElementById("id-validation").addEventListener('click', function(e) {
 //Functions
 //Affichage de la grille
 function displayGameBoard(){
+    document.getElementById("mp-0").style.Height="140%"
     document.getElementById("x-jouer").style.display="block"
     document.getElementById("x-board").style.display="none"
     if (document.getElementById("id-vous").textContent=="O") {
@@ -319,7 +320,6 @@ function displayGameBoard(){
         h=window.innerWidth/25
         fontsz="0.9vh"
       }   
-    h=h+"px"
     var tableau = document.getElementById("table");
     for (let j = 0; j < 25; j++) {
         ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
@@ -337,7 +337,7 @@ function displayGameBoard(){
             cell.innerHTML = imghtml
             cell.style.color = "black"
             cell.textContent = ""
-            cell.style.height = h
+            cell.style.height = h+"px"
             cell.style.fontWeight="1000"
             cell.style.width = "4vh"
             cell.style.background = "white"
@@ -345,6 +345,17 @@ function displayGameBoard(){
             cell.borderSpacing ="0"
             cell.borderPadding ="0"
             cell.style.textAlign = "center"
+        }
+    }
+    let diftaille=document.documentElement.scrollHeight - window.innerHeight
+    if (diftaille>0) {
+        h=h-(diftaille/25)
+        document.getElementById("table").width=diftaille
+        for (let j = 0; j < 25; j++) {
+            for (let i = 0; i < 25; i++) {
+                var idx= j+"/"+i
+                document.getElementById(idx).style.height=h+"px"
+            }
         }
     }
     if (document.getElementById("nb-tour").textContent > "0") {

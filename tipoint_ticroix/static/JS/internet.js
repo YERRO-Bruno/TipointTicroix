@@ -208,7 +208,7 @@ function displayGameBoard(){
         h=window.innerWidth/25
         fontsz="0.9vh"
       }   
-    h=h+"px"
+    h=h
     var tableau = document.getElementById("table");
     for (let j = 0; j < 25; j++) {
       
@@ -228,13 +228,24 @@ function displayGameBoard(){
           cell.innerHTML = imghtml
           cell.style.color = "black"
           cell.textContent = ""
-          cell.style.height = h
+          cell.style.height = h+"px"
           cell.style.width = "4vh"
           cell.style.background = "white"
           cell.style.border = "1px solid"
           cell.borderSpacing ="0"
           cell.style.textAlign = "center"
       }
+    }
+    let diftaille=document.documentElement.scrollHeight - window.innerHeight
+    if (diftaille>0) {
+        h=h-(diftaille/25)
+        document.getElementById("table").width=diftaille
+        for (let j = 0; j < 25; j++) {
+            for (let i = 0; i < 25; i++) {
+                var idx= j+"/"+i
+                document.getElementById(idx).style.height=h+"px"
+            }
+        }
     }
     document.getElementById("victoire").style.display="none"
     document.getElementById("defaite").style.display="none"

@@ -23,8 +23,9 @@
 </head>
 <body>
     {%  load static %}
-    <div  class="mp-0" style="width: 100vw;background:rgb(223, 221, 221)">
-        <div class="row" style="height:5%;width:100%">
+    <div  id="mp-0" class="mp-0" style="width: 100vw;min-height:100vh;background:rgb(223, 221, 221);
+            display: flex;flex-direction: column;justify-content: space-between;">
+        <div class="row" style="height:5vh;width:100%" id="entete">
             <div class="col-3">
                 {% block page %}{% endblock %}
             </div>
@@ -51,18 +52,18 @@
             
         {% block content %}{% endblock %}
         <div class="col-12 border border-dark text-center" style="font-family: 'Pacifico', cursive;
-        font-weight: 400;font-style: normal;font-size: 3vw">
-            <div>
+        font-weight: 400;font-style: normal;font-size:3vw;margin-left:2vw;width:96%" id="pub">
+            <div style="height:3vh;">
                 VISITEZ LA MARTINIQUE
             </div>
             <img class="imgagekit" id="id_imagekit" 
-            src="{% static 'images/logoOX.jpg' %}" style="height: 13vh;width:100%">
+            src="{% static 'images/logoOX.jpg' %}" style="height: 13vh;width:100%;margin:0">
         </div>    
             
     </div>
-    <div class="row" style="height: 4vh;width: 100vw;background-color:black">
+    <div class="row" style="height: 4vh;margin-left:2vw;width: 96%;background-color:black">
         <center class="col-6 mt-3" style="font-family: 'Pacifico', cursive;font-weight: 400;
-        font-style: normal;font-size:1.8vh">
+        font-style: normal;font-size:1.8vh" id="pied">
             <a href="{% url 'mentions' %}">Mentions légales</a>
         </center>
         <center class="col-6 mt-3" style="font-family: 'Pacifico', cursive;font-weight: 400;
