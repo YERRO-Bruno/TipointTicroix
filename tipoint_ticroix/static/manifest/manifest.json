@@ -1,6 +1,6 @@
 {
-  "name": "2TipointsTicroix2",
-  "short_name": "TTTTTT",
+  "name": "TipointsTicroix",
+  "short_name": "TPTC",
   "description": "Jouez au jeu Ti-point_Ti-croix",
   "start_url": "/",
   "display": "fullscreen",
@@ -10,7 +10,7 @@
     {
       "src": "/static/icons/morpion.png",
       "sizes": "512x512",
-      "type": "image/svg"
+      "type": "image/png"
     }
   ]
 }
