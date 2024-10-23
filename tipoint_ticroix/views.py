@@ -420,19 +420,34 @@ def modifpassword(request):
 
 #connexion
 def connect(request):
+    context = {}
     if request.method == 'POST':
-        emailx = request.POST['email']
-        passwordx = request.POST['password']
-        userConnected = authenticate(email=emailx, password=passwordx)
-        if userConnected is not None:
-            request.session['email'] = emailx
-            request.session['password'] = passwordx
-            login(request, userConnected )
-            return redirect('/')
+        if request.POST["rotation"]=="Oui":
+            request.session['orientation']=request.POST['orientation']
+            context["email"]=request.POST["email"]
+            context["password"]=request.POST["password"]
+            if request.POST['orientation']=="paysage":
+                print("connect paysage")
+                return render(request, "connectpaysage.html", context)
+            else:
+                print("connect portrait")
+                return render(request, "connectportrait.html", context)
         else:
-            return render(request, 'connect.html', {'errorLogin': "Email et/ou mot de passe erroné"})
+            emailx = request.POST['email']
+            passwordx = request.POST['password']
+            userConnected = authenticate(email=emailx, password=passwordx)
+            if userConnected is not None:
+                request.session['email'] = emailx
+                request.session['password'] = passwordx
+                login(request, userConnected )
+                return redirect('/')
+            else:
+                return render(request, 'connect.html', {'errorLogin': "Email et/ou mot de passe erroné"})
     else:
-        return render(request, 'connect.html')
+        if request.session['orientation']=="paysage":
+            return render(request, "connectpaysage.html", context)
+        else:
+            return render(request, "connectportrait.html", context)
 
 #page tipointticroix
 def tipointticroix(request):

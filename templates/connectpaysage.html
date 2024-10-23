@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{%  extends "basepaysage.html" %}
+{% block title %}
+Ti_Points-Ti_Croix
+{%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Connectez-vous sur le site du jeu Ti-point_Ti-croix.">
+{%  endblock %}
+{% block style %}
+{%  endblock %}
+
+{% block lateralgauche %}
+<div style="font-family:'Pacifico', cursive;font-weight:400;font-style:normal">
+    <div style="margin:auto">
+        <p align="center" style="font-size:5vh">Ti_Point-Ti_CroixH</p>                   
+    </div> 
+    <div style="width:100%;display:flex;flex-direction:column;align-items:center;margin-top:20vh">
+        <a  align="center" id="btn-quitter2" class="btn btn-0" type="button" style="width:30vh;
+                    font-size:3vh;background-color:rgb(0, 208, 255)" href="{% url 'accueil' %}"
+                    >Retour à l'accueil</a>
+    </div>
+</div>
+{%  endblock %}
+{%  block content %}
+<div class="col-10 border border-dark" style="font-family: 'Pacifico', cursive;
+    font-weight: 400;font-style: normal;font-size:3vw;height:100%">
+    
+    <h4 style="text-align:center;font-size:1.4vw;margin-top:2vh">Vous n'avez pas encore de compte,
+        <a href="{% url 'preregister' %}">
+            <span text-center>Inscrivez-vous!</span></a>
+    </h4>
+    <h1 style="text-align: center;font-size:2vw;margin-top:5vh">Connexion</h1>
+    <h6 class="texterror text-center" style="color: red">{{ errorLogin }}</h6>
+    <div style="height: 5vh;"></div>
+    <form  id="grille" class="justify-content-center" method="post">
+        {% csrf_token %}
+        <div hidden>
+            <input id="orientation" name="orientation" type="text" value="{{ orientation }}">
+            <input id="rotation" name="rotation" type="text" value="Non">
+          </div>
+        <div class="row" style="font-size: 2vw;display:flex;justify-content:center">
+            <br>
+            <div class="col-2"></div>
+            <p class="col-8 row">
+                <label class="col-5" for="id_email" style="font-size:1.4vw">Email:</label>
+                <input class="col-7" type="text" name="email" maxlength="150" id="id_email"
+                style="font-size:1.4vw" required value="{{ email }}">
+            </p>
+            <div class="col-2"></div>
+            <br>
+            <div class="col-2"></div>
+            <p class="col-8 row">
+                <label class="col-5" for="id_password" style="font-size:1.4vw">Password:</label>
+                <input class="col-7" type="password" name="password" maxlength="64" id="id_password" 
+                title="Must contain at least one number and one uppercase and lowercase letter,
+                 and at least 8 or more characters" style="font-size:1.4vw" required
+                 value="{{ password }}">
+                <a class="col-5"></a>
+                <a class="col-7" style="font-size:1vw" href="{% url 'prepassword' %}">
+                    <span >Mot de passe oublié</span></a>                   
+            </p>
+            <div class="col-2"></div>
+            <br>
+            <div class="col-12" style="height: 4vh"></div>
+            <div class="col-2"></div>         
+            <div class="col-10" style="font-size: 2vw;display:flex;justify-content:center">
+                <button class="btn btn-5" style="width:12vw;background: rgb(0, 208, 255);
+                margin-right:1vw"
+                type="button" id="cancel">Annuler</button>
+                <button class="btn btn-5" style="width:12vw;background: rgb(0, 208, 255);
+                margin-right:5vw" 
+                type="submit">Se connecter</button>
+            </div>            
+            <div class="col-2"></div>             
+        </div>
+    </form>
+    <br>
+</div>
+{%  endblock %}
+{%  block script %}
+<script>
+    document.getElementById("cancel").addEventListener('click', function(e) {
+        e.preventDefault()
+        document.location.href="{% url 'accueil' %}"
+    })  
+    window.screen.orientation.addEventListener("change", function() {
+        document.getElementById("rotation").value="Oui"
+        if (window.innerWidth > window.innerHeight) {
+        document.getElementById("orientation").value="paysage"
+        } else {
+        document.getElementById("orientation").value="portrait"
+        }
+        document.forms["grille"].submit();
+    }); 
+</script>    
+{%  endblock %}

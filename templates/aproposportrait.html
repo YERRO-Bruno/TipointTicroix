@@ -12,7 +12,7 @@ Ti_Points-Ti_Croix
 {%  endblock %}
 
 {%  block content %}
-<form form id="grille" method="post">
+<form id="grille" method="post">
     {% csrf_token %}
     <div hidden>
         <input id="orientation" name="orientation" type="text">
