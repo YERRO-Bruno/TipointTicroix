@@ -1,5 +1,5 @@
-{%  extends "base.html" %}
-
+<!DOCTYPE html>
+{%  extends "basepaysage.html" %}
 {% block title %}
 Ti_Points-Ti_Croix
 {%  endblock %}
@@ -8,37 +8,42 @@ Ti_Points-Ti_Croix
 {%  endblock %}
 {%  load static %}
 {% block style %}
-    
 {%  endblock %}
 
-{%  block content %}
-    <div class="col-2 border border-dark ml-3" style="font-family: 'Pacifico', cursive;
-        font-weight: 400;font-style: normal">
-        <div id="x-board">
-            <div>
-                <a  id="btn-quitter2" class="btn btn-0" type="button" style="width: 20vh;
-                    font-size: 1.2vw;margin-left: 2vw;background-color: rgb(0, 208, 255);
-                    margin-top: 10vh" href="{% url 'accueil' %}">Retour à l'accueil</a>
-            </div>
-            
-        </div>
+{% block lateralgauche %}
+<div style="font-family:'Pacifico', cursive;font-weight:400;font-style:normal">
+    <div style="margin:auto">
+        <p align="center" style="font-size:5vh">Ti_Point-Ti_CroixH</p>                   
+    </div> 
+    <div style="width:100%;display:flex;flex-direction:column;align-items:center;margin-top:20vh">
+        <a  align="center" id="btn-quitter2" class="btn btn-0" type="button" style="width:30vh;
+                    font-size:3vh;background-color:rgb(0, 208, 255)" href="{% url 'accueil' %}"
+                    >Retour à l'accueil</a>
     </div>
-    <div class="col-8 row text-center" id="id-propos" style="font-family: 'Pacifico', cursive;font-weight: 400;
-        font-style: normal;font-size:2vh m-0">
-        <div style="font-size: 0.9vw;">
-            <h1 style="font-size: 1.6vw;text-align: center">MENTIONS LEGALES</h1>
-            <h2 style="font-size: 1vw;text-align: center">ĖDITEUR</h2>
+</div>
+{%  endblock %}
+{%  block content %}
+<form form id="grille" method="post">
+    {% csrf_token %}
+    <div hidden>
+        <input id="orientation" name="orientation" type="text">
+    </div>
+    <div class="col-12 border border-dark" style="font-family:'Pacifico', cursive;font-weight:400;
+        font-style:normal;font-size:1.6vw;margin-left:2vw;height:100vh;width:96%;overflow-y:auto;">
+        <div >
+            <h1 style="text-align: center;font-size:1.6vw" align="center">MENTIONS LEGALES</h1> 
+            <h2 style="font-size: 1.4vw;text-align: center"><b><u>ĖDITEUR</u></b></h2>
             <p align="justify">Le site ti_points-ti_croix.fr est édité à titre non professionnel au
                 sens de l’article 6.III.2 de la loi 2004-575 du 21 juin 2004 par :</p>
             <p align="justify">Bruno YERRO, Directeur de publication</p>
             <p align="justify">Adresse : 128 chemin Colombo, Belle-Ėtoile 97212 Saint-Joseph</p>
             <p align="justify">E-mail : brunoyerro@gmail.com</p>
-            <h2 style="font-size: 1vw;text-align: center">HĖBERGEUR</h2>
+            <h2 style="font-size: 1.4vw;text-align: center"><b><u>HĖBERGEUR</u></b></h2>
             <p align="justify">L’hébergement du site est assuré par : HOSTINGER opérations, UAB</p>
             <p align="justify">Siège social : Švitrigailos str. 34, Vilnius 03230 Lithuania</p>
             <p align="justify">Téléphone : +37064503378</p>
             <p align="justify">E-mail : domains@hostinger.com</p>
-            <h2 style="font-size: 1vw;text-align: center">PROPRIĖTĖ INTELLECTUELLE</h2>
+            <h2 style="font-size: 1.4vw;text-align: center"><b><u>PROPRIĖTĖ INTELLECTUELLE</u></b></h2>
             <p align="justify">L’éditeur est seul titulaire des droits de propriété intellectuelle
                 ou droits d’exploitation sur l’ensemble du site, sa structure et son contenu y
                 compris notamment les textes, images, photographies, illustrations, logos, vidéos,
@@ -46,21 +51,21 @@ Ti_Points-Ti_Croix
                 exploitation non autorisée est interdite et susceptible de constituer une 
                 contrefaçon au sens des articles L.335-2 et suivants du code de la propriété 
                 intellectuelle.</p>
-                <h2 style="font-size: 1vw;text-align: center">DONNĖES PERSONNELLES</h2>
+                <h2 style="font-size:1.4vw;text-align:center"><b><u>DONNĖES PERSONNELLES</u></b></h2>
                 <p align="justify">L’éditeur du site s’engage à mettre en œuvre un traitement de données
                     personnelles respectueux de la vie privée et conforme à la législation française et
                     européenne en vigueur. Il n’est prévu aucun autre usage des données personnelles de 
                     l’utilisateur que de permettre la connexion identifiée au site afin de compiler des 
                     statistiques de l’utilisateur à son seul usage. <a style="text-align: left;
-                    font-size:1.2vw" href="{% url 'desinscription' %}"
+                    font-size:1.6vw" href="{% url 'desinscription' %}"
                      id="id_desinscription">
                     Désinscription</a></p>
                 
-                <h2 style="font-size: 1vw;text-align: center">COOKIES</h2>
+                <h2 style="font-size: 1.4vw;text-align: center"><b><u>COOKIES</u></b></h2>
             <p align="justify">Il n’est pas fait usage de cookies sur ce site.</p>
         </div>
     </div>
-    
+</form>    
 {%  endblock %}
 
 {%  block script %}
@@ -74,5 +79,13 @@ Ti_Points-Ti_Croix
             document.location.href='/desinscription'
         }
     })
+    window.screen.orientation.addEventListener("change", function() {
+        if (window.innerWidth > window.innerHeight) {
+            document.getElementById("orientation").value="paysage"
+        } else {
+        document.getElementById("orientation").value="portrait"
+        }
+        document.forms["grille"].submit();
+    });
 </script>
 {%  endblock %}

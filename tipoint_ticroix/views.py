@@ -844,7 +844,14 @@ def apropos(request):
     else:
         context["connexion"]="Non"
         context["connec"]=connec[1]
-    return render(request, "apropos.html", context)
+    if request.method == 'POST':
+        request.session['orientation']=request.POST['orientation']
+    if request.session['orientation']=="paysage":
+        return render(request, "apropospaysage.html", context)
+    else:
+        return render(request, "aproposportrait.html", context)
+
+    
 
 #page mentions
 def mentions(request):
@@ -856,4 +863,9 @@ def mentions(request):
     else:
         context["connexion"]="Non"
         context["connec"]=connec[1]
-    return render(request, "mentions.html", context)
+    if request.method == 'POST':
+        request.session['orientation']=request.POST['orientation']
+    if request.session['orientation']=="paysage":
+        return render(request, "mentionspaysage.html", context)
+    else:
+        return render(request, "mentionsportrait.html", context)

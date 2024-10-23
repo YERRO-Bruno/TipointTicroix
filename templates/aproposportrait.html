@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{%  extends "baseportrait.html" %}
+{% block title %}
+Ti_Points-Ti_Croix
+{%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Motivations du développeur du jeu Ti-point_Ti-croix.">
+{%  endblock %}
+{%  load static %}
+{% block style %}
+    
+{%  endblock %}
+
+{%  block content %}
+<form form id="grille" method="post">
+    {% csrf_token %}
+    <div hidden>
+        <input id="orientation" name="orientation" type="text">
+    </div>
+    <div class="col-12" style="font-family:'Pacifico', cursive;font-weight: 400;font-style: normal;
+        height:3vh;width:100%;display:flex;flex-direction:column;align-items:center">
+        <a  align="center" id="btn-quitter2" class="btn btn-0" type="button" style="width:30vw;
+            font-size:3vw;background-color:rgb(0, 208, 255)" href="{% url 'accueil' %}"
+            >Retour à l'accueil</a>
+    </div>
+    <div class="col-12 border border-dark" style="font-size:1.6vh;margin-left:2vw;margin-top:1vh;
+        height:74vh;width:96%;overflow-y: auto;font-family:'Pacifico', cursive;font-weight: 400;
+        font-style: normal;">
+        <h1 style="text-align: center" align="center">A PROPOS</h1> 
+        <p align="justify">Je suis développeur depuis mes jeunes années. J’ai pratiqué 
+            l’informatique de gestion jusqu’à mon depart à la retraite en avril 2023. Je n’avais
+            alors abordé le monde d’internet qu’a travers des outils comme lotus notes ou 
+            l’atelier de génie logiciel windev/windev mobile/webdev. Cela m’a frustré quelque 
+            part de ne pas avoir utilisé es nouvelles technologie d’internet (HTML, CSS, 
+            JAVASCRIPT, etc ...) directement. Frustration qui m’a mené à me lancer dans une
+                formation en ligne de Développeur d'application Python. Formation qui m'a permis 
+            d'assimiler :</p>
+            <p align="justify">- la conception de solution digitale</p>
+            <p align="justify">- la gestion et le testing de solution digitale</p>
+            <p align="justify">- le développement de solution digitale </p>
+            <br>
+        <p align="justify">À la suite de l’obtention de mon diplôme de Bachelor Développeur 
+            d'application Python (diplôme d'état de niveau licence), il m’a été conseillé de 
+            développer un site à l’attention de futurs employeurs comme un démonstrateur des 
+            différentes compétences acquises au cours de ma formation.</p>
+        <p align="justify">ti_points-ti_croix.fr est donc l’expression de mes connaissances en 
+            matière de conception/développement de solutions digitales.</p>
+        <p align="justify">Voici la liste des principales compétences utilisées à l’élaboration 
+            du site.</p>
+        <p align="justify">Pour le front-end :</p>
+        <p align="justify">- HTML, CSS, JAVASCRIPT</p>
+        <p align="justify">Pour le back-end :</p>
+        <p align="justify">Python/Django, Node.js (serveur de websocket)</p>
+        <p align="justify">Pour les bases de données :</p>
+        <p align="justify">- Mysql</p>
+        <br>
+        <p align="justify">Je suis disponible pour toute collaboration tant pour la conception 
+            de site applicatif tel que https://ti-points-ti-croix.fr/ que pour des sites 
+            marchands ou des sites vitrines.</p>
+    </div>
+</form>
+    
+{%  endblock %}
+{%  block script %}
+    <script>
+        window.screen.orientation.addEventListener("change", function() {
+            if (window.innerWidth > window.innerHeight) {
+            document.getElementById("orientation").value="paysage"
+            } else {
+            document.getElementById("orientation").value="portrait"
+            }
+            document.forms["grille"].submit();
+        }); 
+    </script>
+{%  endblock %}
