@@ -1,8 +1,3 @@
-document.getElementById("cancel").addEventListener('click', function(e) {
-  e.preventDefault()
-  document.location.href='/'
-})  
-//document.getElementById("message").style.display = "none";
 var password = document.getElementById("id_password")
   , confirm_password = document.getElementById("id_confirm_password");
 

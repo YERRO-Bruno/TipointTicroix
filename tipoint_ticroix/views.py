@@ -348,75 +348,117 @@ def register(request):
 
 #Demande de code pour changement de mot de passe en cas d'oubli
 def prepassword(request):
+    context = {}
     if request.method == 'POST':
-        emailx = request.POST['email']
-        userx=User.objects.filter(email=emailx)
-        if len(userx)>0:
-            verifuser=VerifUser.objects.filter(email=emailx)
-            if len(verifuser)>0:
-                verifuser[0].delete()
-            verifuser=VerifUser.objects.create(email=emailx)
-            original_code = get_random_string(length=8)
-            salt = bcrypt.gensalt()
-            crypted_code = bcrypt.hashpw(original_code.encode('utf-8'), salt)
-            hash_verif = crypted_code.decode('utf-8')
-            verifuser.codeverif = hash_verif
-            verifuser.save()
-            #envoi code verification
-            recipient_email = emailx
-            mail_subject = "Code de verification pour l'inscription à tipointticroix.com"
-            mail_message = "bonjour, \n"
-            mail_message = mail_message + "Veuiller trouvez ci-dessous le code de verification" \
-                                            " pour votre inscription au en tant qu'administrateur du site tipointticroix.com :\n"
-            mail_message = mail_message + "\n"
-            mail_message = mail_message + original_code
-            mail_message = mail_message + "\n"
-            mail_message = mail_message + "\n"
-            mail_message = mail_message + "Cordialement"
+        if request.POST["rotation"]=="Oui":
+            request.session['orientation']=request.POST['orientation']
+            context["email"]=request.POST["email"]
+            if request.POST['orientation']=="paysage":
+                return render(request, "prepasswordpaysage.html", context)
+            else:
+                return render(request, "prepasswordportrait.html", context)
+        else:
+            emailx = request.POST['email']
+            userx=User.objects.filter(email=emailx)
+            if len(userx)>0:
+                verifuser=VerifUser.objects.filter(email=emailx)
+                if len(verifuser)>0:
+                    verifuser[0].delete()
+                verifuser=VerifUser.objects.create(email=emailx)
+                original_code = get_random_string(length=8)
+                salt = bcrypt.gensalt()
+                crypted_code = bcrypt.hashpw(original_code.encode('utf-8'), salt)
+                hash_verif = crypted_code.decode('utf-8')
+                verifuser.codeverif = hash_verif
+                verifuser.save()
+                #envoi code verification
+                recipient_email = emailx
+                mail_subject = "Code de verification pour l'inscription à tipointticroix.com"
+                mail_message = "bonjour, \n"
+                mail_message = mail_message + "Veuiller trouvez ci-dessous le code de verification" \
+                                                " pour votre inscription au en tant qu'administrateur du site tipointticroix.com :\n"
+                mail_message = mail_message + "\n"
+                mail_message = mail_message + original_code
+                mail_message = mail_message + "\n"
+                mail_message = mail_message + "\n"
+                mail_message = mail_message + "Cordialement"
 
-            try:
-                send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', {emailx},
-                            fail_silently=False)
-            except Exception as error:
-                print('mail error',error)
-                return render(request,'register.html',{'email':emailx,'errorVerif':"error Mailing"})
-            request.session['EMAIL']=emailx
-            return redirect('/modifpassword')
-        return render(request, 'prepassword.html',
-                      {'errorVerif': "Email inexistant", 'email': emailx})
+                try:
+                    send_mail(mail_subject, mail_message, 'brunoyerro@gmail.com', {emailx},
+                                fail_silently=False)
+                except Exception as error:
+                    print('mail error',error)
+                    if request.session['orientation']=="paysage":
+                        return render(request, 'registerpaysage.html',
+                            {'email':emailx,'errorVerif':"error Mailing"})
+                    else:
+                        return render(request, 'registerportrait.html',
+                            {'email':emailx,'errorVerif':"error Mailing"})
+                request.session['EMAIL']=emailx
+                return redirect('/modifpassword')
+            if request.session['orientation']=="paysage":
+                return render(request, "prepasswordpaysage.html",
+                    {'errorVerif': "Email inexistant", 'email': emailx})
+            else:
+                return render(request, "prepasswordportrait.html",
+                    {'errorVerif': "Email inexistant", 'email': emailx})
     else:
-        return render(request, 'prepassword.html')
+        if request.session['orientation']=="paysage":
+            return render(request, "prepasswordpaysage.html", context)
+        else:
+            return render(request, "prepasswordportrait.html", context)
     
 #changement mot de passe
 def modifpassword(request):
+    context = {}
     if request.method == 'POST':
-        emailx = request.POST['email']
-        passwordx = request.POST['password']
-        verifx = request.POST['verification']
-        userx=User.objects.filter(email=emailx)        
-        if len(userx)>0:
-            #récupération et test code verification
-            verifuser=VerifUser.objects.get(email=emailx)
-            if verifuser is not None:
-                    if bcrypt.checkpw(verifx.encode('utf-8'),verifuser.codeverif.encode('utf-8')):
-                        print("code ok",emailx)
-                        try:
-                            userx=User.objects.get(email=emailx)
-                            userx.set_password(passwordx)
-                            userx.save()
-                            verifuser.delete()
-                        except Exception as error:
-                            print(error)
-                        return redirect('/connect')       
+        if request.POST["rotation"]=="Oui":
+            request.session['orientation']=request.POST['orientation']
+            context["email"]=request.POST["email"]
+            if request.POST['orientation']=="paysage":
+                return render(request, "modifpasswordpaysage.html", context)
             else:
-                return render(request, 'register.html',
-                            {'errorinscription': "Code inexact", 'email': emailx})
+                return render(request, "modifpasswordportrait.html", context)
         else:
-            return render(request, 'register.html',
-                        {'errorinscription': "Email déjà existant", 'email': emailx})
-
+            emailx = request.POST['email']
+            passwordx = request.POST['password']
+            verifx = request.POST['verification']
+            userx=User.objects.filter(email=emailx)        
+            if len(userx)>0:
+                #récupération et test code verification
+                verifuser=VerifUser.objects.get(email=emailx)
+                if verifuser is not None:
+                        if bcrypt.checkpw(verifx.encode('utf-8'),verifuser.codeverif.encode('utf-8')):
+                            print("code ok",emailx)
+                            try:
+                                userx=User.objects.get(email=emailx)
+                                userx.set_password(passwordx)
+                                userx.save()
+                                verifuser.delete()
+                            except Exception as error:
+                                print(error)
+                            return redirect('/connect')       
+                else:
+                    if request.session['orientation']=="paysage":
+                        return render(request, 'registerpaysage.html',
+                                {'errorinscription': "Code inexact", 'email': emailx})
+                    else:
+                        return render(request, 'registerportrait.html',
+                                {'errorinscription': "Code inexact", 'email': emailx})
+            else:
+                if request.session['orientation']=="paysage":
+                    return render(request, 'registerpaysage.html',
+                            {'errorinscription': "Email déjà existant", 'email': emailx})
+                else:
+                    return render(request, 'registerportrait.html',
+                            {'errorinscription': "Email déjà existant", 'email': emailx})
     else:
-       return render(request, 'modifpassword.html',{'email':request.session['EMAIL'],'pseudo':"",'password':""})
+        if request.session['orientation']=="paysage":
+            return render(request, "modifpasswordpaysage.html",
+                {'email':request.session['EMAIL'],'pseudo':"",'password':""})
+        else:
+            return render(request, "modifpasswordportrait.html",
+                {'email':request.session['EMAIL'],'pseudo':"",'password':""})
 
 #connexion
 def connect(request):
