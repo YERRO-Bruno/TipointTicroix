@@ -1,5 +1,5 @@
 var password = document.getElementById("id_password")
-  , confirm_password = document.getElementById("id_confirm_password");
+, confirm_password = document.getElementById("id_confirm_password");
 
 function validatePassword(){
   if(password.value != confirm_password.value) {
@@ -8,7 +8,6 @@ function validatePassword(){
     confirm_password.setCustomValidity('');
   }
 }
-
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
 

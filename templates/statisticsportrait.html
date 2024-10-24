@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{%  extends "baseportrait.html" %}
+{% block title %}
+Ti_Points-Ti_Croix
+{%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Vos statistiques au jeu Ti-point_Ti-croix contre des
+ algorithmes de  différents niveaux. Vue portrait">
+{%  endblock %}
+{%  load static %}
+{% block style %}   
+{%  endblock %}
+{%  block content %}
+    <form form id="grille" method="post">
+        {% csrf_token %}
+        <div hidden>
+            <input id="orientation" name="orientation" type="text">
+        </div>
+        <div class="col-12" style="font-family:'Pacifico', cursive;font-weight: 400;font-style: normal;
+        height:3vh;width:100%;display:flex;flex-direction:column;align-items:center">
+        <a  align="center" id="btn-quitter2" class="btn btn-0" type="button" style="width:30vw;
+        font-size:3vw;background-color:rgb(0, 208, 255)" href="{% url 'accueil' %}"
+        >Retour à l'accueil</a>
+    </div>
+    <div class="col-12 border border-dark" style="font-size:1.6vh;margin-left:2vw;margin-top:1vh;
+    height:74vh;width:96%;font-family:'Pacifico', cursive;font-weight: 400;
+    font-style: normal;">
+    <p class="text-center" style="font-size: 2vh">Statistiques</p>
+    
+    <div  id="id_table">
+        <div align-center>
+            <h1 style="text-align: center">
+                Pourcentage de victoires par niveau de jeu - {{ connec }}</h1>
+            </div>
+            <div>
+                <center>
+                    <table border="2" style="margin-top:5vh;font-size:2vh">
+                        <thead>
+                            <tr >
+                                <th  style="border: 2px solid black;">Niveau de jeu (H:humain)</th>
+                                <th  style="border: 2px solid black;">Pourcentage de victoires</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in results %}
+                            <tr style="border: 2px black;">
+                                <td style="border: 2px solid black;text-align:center">{{ result.type }}</td>
+                                <td style="border: 2px solid black;text-align:center">{{ result.victoire_percentage|floatformat:2 }}%</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </center>
+            </div>
+        </div>
+    </div>
+</form>
+{%  endblock %}
+
+{%  block script %}
+<script>
+    // Click du joueur sur le bouton quitter
+    window.screen.orientation.addEventListener("change", function() {
+        if (window.innerWidth > window.innerHeight) {
+            document.getElementById("orientation").value="paysage"
+        } else {
+        document.getElementById("orientation").value="portrait"
+        }
+        document.forms["grille"].submit();
+    });
+</script>
+{%  endblock %}

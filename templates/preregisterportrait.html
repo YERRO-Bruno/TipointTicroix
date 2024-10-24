@@ -4,8 +4,7 @@
 Ti_Points-Ti_Croix
 {%  endblock %}
 {% block meta %}
-<meta name="Ti-point_Ti-croix" content="Demandez un code pour modifiez votre mot de passe sur le
-     site de jeu Ti-point_Ti-croix.">
+<meta name="Ti-point_Ti-croix" content="Préenregistrez-vous sur le site de jeu Ti-point_Ti-croix.">
 {%  endblock %}
 {%  load static %}
 {% block style %}    
@@ -14,12 +13,12 @@ Ti_Points-Ti_Croix
 <div class="border border-dark" style="font-family: 'Pacifico', cursive;font-weight: 400;
     font-style: normal;font-size: 1.6vh;margin-left:2vw;height:74vh;width:96%;">
     <div style="height: 1vh;"></div>
-    <h1 class="text-center">Oubli de mot de passe</h1>
+    <h1 class="text-center">PréInscription</h1>
     <div style="height: 5vh;"></div>
     <h4 class="text-center" style="font-size:2vh">Il vous faut un code de verification que vous
          recevrez dans votre boite email</h4>
     <h4 class="texterror text-center" style="color: red">{{ errorVerif }}</h4>
-    <form  id="grille" class="justify-content-center" method="post">
+    <form id="grille" class="justify-content-center" method="post">
         {% csrf_token %}
         <div hidden>
             <input id="orientation" name="orientation" type="text" value="{{ orientation }}">

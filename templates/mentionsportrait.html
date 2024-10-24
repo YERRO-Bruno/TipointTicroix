@@ -1,5 +1,5 @@
+<!DOCTYPE html>
 {%  extends "baseportrait.html" %}
-
 {% block title %}
 Ti_Points-Ti_Croix
 {%  endblock %}
@@ -7,10 +7,8 @@ Ti_Points-Ti_Croix
 <meta name="Ti-point_Ti-croix" content="mentions légales du site de jeu Ti-point_Ti-croix.">
 {%  endblock %}
 {%  load static %}
-{% block style %}
-    
+{% block style %}   
 {%  endblock %}
-
 {%  block content %}
 <form form id="grille" method="post">
     {% csrf_token %}

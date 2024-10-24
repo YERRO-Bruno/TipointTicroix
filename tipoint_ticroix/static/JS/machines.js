@@ -71,6 +71,8 @@ function displayGameBoard(){
     document.getElementById("btn-rejouer").style.display="none"
     // creation lignes du tableau
     var cell, ligne;
+    h=window.innerHeight/25        
+    fontsz="0.9vw"
     var tableau = document.getElementById("table");
     const nbt = document.getElementById("nb-tour").textContent
     for (let j = 0; j < 25; j++) {
@@ -90,10 +92,11 @@ function displayGameBoard(){
             cell.innerHTML = imghtml
             cell.style.color = "black"
             cell.textContent = ""
-            cell.style.height = "3vh"
-            cell.style.width = "3vh"
+            cell.style.height = h+"px"
+            cell.style.fontWeight="1000"
+            cell.style.width = "4vh"
             cell.style.background = "white"
-            cell.style.border = "1px solid"
+            cell.style.border = "0.1vh solid"
             cell.borderSpacing ="0"
             cell.style.textAlign = "center"
         }
@@ -134,13 +137,19 @@ function displayGameBoard(){
         for (let i = 0;i<nbcoup;i++) {
             document.getElementById(sequence[i]).textContent=marque
             document.getElementById(sequence[i]).style.fontSize="0.8vw"
+            document.getElementById(sequence[i]).style.color="black"
             if (marque=="X") {
-                document.getElementById(sequence[i]).style.color="red"
+                document.getElementById(sequence[i]).style.backgroundColor="lightpink"
             } else {
-                document.getElementById(sequence[i]).style.color="blue"
+                document.getElementById(sequence[i]).style.backgroundColor="cyan"
             }
             if (i>sequence.length -3) {
                 document.getElementById(sequence[i]).style.fontWeight="1000"
+                if (document.getElementById(sequence[i]).textContent=="O") {
+                    document.getElementById(sequence[i]).style.backgroundColor="dodgerblue"
+                } else {
+                    document.getElementById(sequence[i]).style.backgroundColor="red"
+                }
             }
             if (marque=="O") {
                 marque="X"
@@ -149,7 +158,7 @@ function displayGameBoard(){
             }              
         }
         if (document.getElementById("id-pat").textContent=="Oui") {
-            //alert("Plus de case diponible - Match nul")
+            alert("Plus de case diponible - Match nul")
             document.getElementById("victoire1").textContent="MATCH NUL"
             document.getElementById("victoire2").textContent=""
             document.getElementById("victoire1").style.display="block"

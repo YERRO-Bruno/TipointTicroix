@@ -4,7 +4,7 @@
 Ti_Points-Ti_Croix
 {%  endblock %}
 {% block meta %}
-<meta name="Ti-point_Ti-croix" content="Modifier votre mot de passe sur le site de jeu Ti-point_Ti-croix.">
+<meta name="Ti-point_Ti-croix" content="Enregistrez-vous sur le site de jeu Ti-point_Ti-croix.">
 {%  endblock %}
 {%  load static %}
 {% block style %}
@@ -24,12 +24,12 @@ Ti_Points-Ti_Croix
 {%  endblock %}
 {%  block content %}
     <div class="col-12 border border-dark" style="font-family: 'Pacifico', cursive;
-        font-weight: 400;font-style: normal;font-size:2vw;height:100%;width:100%">
-        <h1 class="text-center" style="text-align: center;font-size:2vw;margin-top:4vh"
-        >Modification du mot de passe</h1>
-        <h4 class="texterror text-center" style="color: red">{{ errorinscription }}</h4>
+        font-weight: 400;font-style: normal;font-size:2vw;height:100%">
+        <div style="height: 2vh;"></div>
+        <h1 class="text-center" style="font-size:2vw">Inscription</h1>
         <div style="height: 1vh;"></div>
-        <form  id="grille" class="justify-content-center" method="post" autocomplete="off">            
+        <h4 class="texterror text-center" style="color: red">{{ errorinscription }}</h4>
+        <form id="grille" class="justify-content-center" method="post" autocomplete="off">            
             {% csrf_token %}
             <div hidden>
                 <input id="orientation" name="orientation" type="text" value="{{ orientation }}">
@@ -53,6 +53,12 @@ Ti_Points-Ti_Croix
                     <span> code de vérification qui vous  été envoyé par email</span>
                 </div>
                 <p class="col-8 row">
+                    <label class="col-6" for="id_pseudo" style="font-size:1.4vw">Pseudo:</label>
+                    <input class="col-6" type="text" name="pseudo" maxlength="24" required 
+                        value="{{ pseudo }}" id="id_pseudo" style="font-size:1.4vw">
+                </p>
+                <div class="col-4"></div>
+                <p class="col-8 row">
                     <label class="col-6" for="id_password" style="font-size:1.4vw">Password:</label>
                     <input class="col-6" type="password" name="password" maxlength="64" 
                         id="id_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
@@ -69,9 +75,10 @@ Ti_Points-Ti_Croix
                 </p>
                 <div class="col-4"></div>
                 <div class="col-4"></div>
-                <div class="col-8">    
+                <div class="col-8">
+                    <div style="height: 1vh"></div>
                     <button class="btn btn-5 mx-3" type="submit" style="width: 12vw;
-                    background: rgb(0, 208, 255)">Enregistrer</button>
+                    background: rgb(0, 208, 255)">S'inscrire</button>
                 </div>    
             </div>
         </form>
@@ -87,18 +94,18 @@ Ti_Points-Ti_Croix
     </div>
 
 {%  endblock %}
-{%  load static %}
 {%  block script %}    
     <script src="/static/JS/registerform.js"></script>
     <script>
+
         window.screen.orientation.addEventListener("change", function() {
-        document.getElementById("rotation").value="Oui"
-        if (window.innerWidth > window.innerHeight) {
-            document.getElementById("orientation").value="paysage"
-        } else {
-            document.getElementById("orientation").value="portrait"
-        }
-        document.forms["grille"].submit();
-    }); 
+            document.getElementById("rotation").value="Oui"
+            if (window.innerWidth > window.innerHeight) {
+                document.getElementById("orientation").value="paysage"
+            } else {
+                document.getElementById("orientation").value="portrait"
+            }
+            document.forms["grille"].submit();
+        }); 
     </script>
 {%  endblock %}

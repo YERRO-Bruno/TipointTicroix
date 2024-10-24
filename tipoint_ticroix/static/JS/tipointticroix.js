@@ -347,7 +347,6 @@ function displayGameBoard(){
             cell.style.background = "white"
             cell.style.border = "0.1vh solid"
             cell.borderSpacing ="0"
-            cell.borderPadding ="0"
             cell.style.textAlign = "center"
         }
     }
