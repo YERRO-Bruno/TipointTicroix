@@ -1,31 +1,42 @@
-{%  extends "base.html" %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    {%  load static %}
+    <title>Ti_Points-Ti_Croix</title>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <meta name="Ti-point_Ti-croix" content="Easteregg du jeu Ti-point_Ti-croix.">
+    <link rel="manifest" href="{% static 'manifest/manifest.json' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
-{% block title %}
-Ti_Points-Ti_Croix
-{%  endblock %}
-{% block meta %}
-<meta name="Ti-point_Ti-croix" content="Jouez au jeu Ti-point_Ti-croix.">
-{%  endblock %}
-{%  load static %}
-{% block style %}
-    
-{%  endblock %}
-
-{%  block content %}
-    <div class="col-2 border border-dark ml-3" style="font-family: 'Pacifico', cursive;
-        font-weight: 400;font-style: normal">
-        <p class="text-center" style="font-size: 1vw">ti_point-ti_croix</p>
+</head>
+<body>
+    <div style="display:flex;flex-direction:column;align-items:center;
+        background:rgb(223, 221, 221);width:100vw">
+        <div style="height:10vh;margin:0">
+            <p class="text-center" style="font-size: 3vw">ti_point-ti_croix</p>
+        </div>       
         <div>
-            <button  id="btn-quitter" class="btn btn-0" type="button" style="width: 10vw;font-size: 1.2vw;
-                    margin-left: 2vw;background-color: rgb(0, 208, 255);
-                    margin-top: 1vh">Retour à l'accueil</button>
-        </div>
-    </div>
-    <div class="col-8 row justify-content-center" id="id_table">
-        <img style="height: 50vh;width: 20vw;margin-top:5vw" src="/static/images/easteregg.jpg">
-    </div>
-    
-{%  endblock %}
+            <img class="mp-0" src="{% static 'images/easteregg.jpg' %}" style="height:70vh;">            
+        </div>       
+        <p class="text-center" style="font-size: 1.5vw">Bruno 'Amon' YERRO</p>
+        <div style="height:10vh;margin:0">
+            <button  id="btn-quitter" class="btn btn-0" type="button" style="width: 16vw;
+            font-size:1.2vw;background-color:rgb(0, 208, 255);margin-top: 1vh">
+            Retour à l'accueil</button>    
+       </div>        
+    </div>   
+</body>
 
 {%  block script %}
     <script>

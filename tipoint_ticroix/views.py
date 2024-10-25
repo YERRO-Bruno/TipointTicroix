@@ -231,10 +231,12 @@ def internet(request):
                 return render(request, "internetportrait.html", context)
     else:
         context["connexion"]="Non"
+        request.session["precedent"]="internet"
         return redirect('/connect',context)
 
 #page accueil
 def accueil(request):
+    request.session["precedent"]=""
     context = {}
     connec=estconnecté(request)
     if connec[0]:
@@ -516,7 +518,12 @@ def connect(request):
                 request.session['email'] = emailx
                 request.session['password'] = passwordx
                 login(request, userConnected )
-                return redirect('/')
+                if request.session['precedent'] !="":
+                    prec='/'+request.session['precedent']
+                    request.session['precedent']=""
+                    return redirect(prec)
+                else:
+                    return redirect("/")
             else:
                 return render(request, 'connect.html', {'errorLogin': "Email et/ou mot de passe erroné"})
     else:
@@ -536,6 +543,8 @@ def tipointticroix(request):
         context["connexion"]="Non"
         context["connec"]="Vous"
     if request.method == 'POST':
+        # print(request.POST["joyst"])
+        # context["joyst"]=request.POST["joyst"]
         if request.POST["debut"]=="Oui":
             #Appel initial
             request.session["stat"]="Oui"
@@ -608,7 +617,7 @@ def tipointticroix(request):
             request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
             context['tour']=str(request.session['TOUR'])
             context["orientation"]=request.POST['orientation']
-            request.session['orientation']=request.POST['orientation']    
+            request.session['orientation']=request.POST['orientation']   
             if request.POST['orientation']=="paysage":
                 request.session['orientation']="paysage"
                 return render(request, "tipointticroixpaysage.html", context)
@@ -617,6 +626,7 @@ def tipointticroix(request):
                 return render(request, "tipointticroixportrait.html", context)
         #MAJ TABLEAU
         if request.session['TOUR']==0:
+            print(request.POST)
             request.session['orientation']=request.POST['orientation']
             request.session['TOUR']=0
             request.session['SEQUENCE']=[]
@@ -730,12 +740,14 @@ def tipointticroix(request):
                     return render(request, "tipointticroixpaysage.html", context)
                 else:
                     return render(request, "tipointticroixportrait.html", context)
+        context['joystchecked']=request.POST['joystchecked']
         context['marquevous']=marquejoueur
         context['marqueordi']=marqueordi
         request.session['TOUR']=request.session['TOUR']+1 
         context['tour']=str(request.session['TOUR'])   
         context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
         context["orientation"]=request.POST['orientation']
+        print(context)
         request.session['orientation']=request.POST['orientation']
         if request.POST['orientation']=="paysage":
             request.session['orientation']="paysage"
@@ -929,6 +941,7 @@ def statistics(request):
             return render(request, "statisticspaysage.html", context)
     else:
         context["connexion"]="Non"
+        request.session["precedent"]="statistics"
         return redirect('/connect',context)
 
 #page apropos

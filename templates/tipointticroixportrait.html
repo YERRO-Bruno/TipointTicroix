@@ -139,37 +139,45 @@ Ti_Points-Ti_Croix
                 </div>
                 
             </div>
-        </form>
-    </div>
-    <div id="id_table">
-        <div class="cadre align-self-midle">
-            <table class="m-auto" id="table" style="font-size: 1.8vh;margin-top:0vh;width:100%">
-            </table>
+        
+        <div id="id_table">
+            <div class="cadre align-self-midle">
+                <table class="m-auto" id="table" style="font-size: 1.8vh;margin-top:0vh;width:100%">
+                </table>
+            </div>
         </div>
-    </div>
-    <div id="joystick"  style="width:100%;display:none;font-family: 'Pacifico', cursive;
-        font-weight:400;font-style:normal">
-        <div style="text-align: center;font-size:3vw;margin:0;height:1vw">Position et validation du coup</div>
-        <div id="id-haut" style="height:8vw;width:100%;display:flex;justify-content:center;
-            margin:1vh">
-            <img  src="{% static 'images/haut.png' %}"
-            style="height:8vw;width:8vw;margin: 1vh;">
+        <div id="cadrej" style="display:none">
+            <div style="display:flex;justify-content:center">
+                <p style="text-align: center;font-size:1.2vh;margin-right:2vw">
+                    Positionnement et validation du coup</p>
+                <input type="checkbox" id="joyst" name="joyst" checked 
+                    style="margin-bottom:2vh"/>
+                <input hidden id="joystchecked" name="joystchecked" value="{{ joystchecked }}">
+            </div>
+            <div id="joystick"  style="width:100%;margin-top:2vh;display:block">
+                <div style="height:8vh;width:100%;display:flex;justify-content:center;
+                    margin:1vh">
+                    <img id="id-haut" src="{% static 'images/haut.png' %}"
+                    style="height:8vh;width:8vh;margin: 1vh;">
+                </div>
+                <div style="height:8vh;width:100%;display:flex;justify-content:center;margin: 1vh;">
+                    
+                        <img id="id-gauche" src="{% static 'images/gauche.png' %}"
+                        style="height:8vh;width:8vh;margin:0.5vh">
+                        <img id="id-validation" src="{% static 'images/validation.png' %}"
+                        style="height:8vh;width:8vh;margin:0.5vh">
+                        <img id="id-droite" src="{% static 'images/droite.png' %}"
+                        style="height:8vh;width:8vh;margin:0.5vh">
+                    
+                </div>
+                <div style="height:8vh;width:100%;display:flex;justify-content:center;margin: 1vh;">
+                    <img id="id-bas" src="{% static 'images/bas.png' %}"
+                    style="height:8vh;width:8vh">
+                </div>
+            </div>
         </div>
-        <div style="height:8vw;width:100%;display:flex;justify-content:center;margin: 1vh;">            
-                <img id="id-gauche" src="{% static 'images/gauche.png' %}"
-                style="height:8vw;width:8vw;margin:0.5vh">
-                <img id="id-validation" src="{% static 'images/validation.png' %}"
-                style="height:8vw;width:8vw;margin:0.5vh">
-                <img id="id-droite" src="{% static 'images/droite.png' %}"
-                style="height:8vw;width:8vw;margin:0.5vh">
-            
-        </div>
-        <div style="height:8vw;width:100%;display:flex;justify-content:center;margin: 1vh;">
-            <img id="id-bas" src="{% static 'images/bas.png' %}"
-            style="height:8vw;width:8vw">
-        </div>
-    </div>
-    
+    </form>
+</div>
     
 {%  endblock %}
 

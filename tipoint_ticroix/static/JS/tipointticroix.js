@@ -1,22 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
-let précédenteposition=""
-let précédentecolor=""
-let nouvelleposition=""
-let nouvellecolor=""
-précédentecolor=""
-if (window.innerWidth > window.innerHeight) {    
-    h=((window.innerHeight-20)/25)+"px"
-    fontsz="1vw"
-} else {
-    h="4vw"
-    fontsz="1vh"
-}
+    let précédenteposition=""
+    let précédentecolor=""
+    let nouvelleposition=""
+    let nouvellecolor=""
+    précédentecolor=""
+    if (window.innerWidth > window.innerHeight) {    
+        h=((window.innerHeight-20)/25)+"px"
+        fontsz="1vw"
+    } else {
+        h="4vw"
+        fontsz="1vh"
+    }
 
 // mise en place plateau de jeu HTLM
     let d1=0
     let d2=0
-    displayGameBoard()
-    
+    displayGameBoard()  
 
 // Click sur le bouton jouer
     document.getElementById("btn-jouer").addEventListener('click', function(e){
@@ -26,7 +25,27 @@ if (window.innerWidth > window.innerHeight) {
         } else {
             document.getElementById("orientation").value="portrait"
         }
+        if (ismobile()) {
+            document.getElementById("joyst").checked=true
+            document.getElementById("joystchecked").value="Oui"
+            document.getElementById("joystick").style.display="block"
+        } else {
+            document.getElementById("joyst").checked=false
+            document.getElementById("joystchecked").value="Non"
+            document.getElementById("joystick").style.display="none"
+        }
         document.forms["grille"].submit();
+    })
+
+//click sur la  checkbox Positionnement et validation du coup
+    document.getElementById("joyst").addEventListener('click', () => {
+        if (document.getElementById("joyst").checked==true) {
+            document.getElementById("joystchecked").value="Oui"
+            document.getElementById("joystick").style.display="block"
+        } else {
+            document.getElementById("joystchecked").value="Non"
+            document.getElementById("joystick").style.display="none"
+        }
     })
 
 // Click du joueur sur une des cases
@@ -41,7 +60,7 @@ if (window.innerWidth > window.innerHeight) {
         if (document.getElementById("id-victoire").value=="Non" && 
         document.getElementById("id-defaite").value=="Non" &&
         (document.getElementById("id-pat").value=="Non")) {
-            if (ismobile()) {
+            if (document.getElementById("joyst").checked==true) {
                 if (précédenteposition !="") {
                     document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
                 }
@@ -367,9 +386,7 @@ function displayGameBoard(){
         }
     }
     if (document.getElementById("nb-tour").textContent > "0") {
-        if (document.getElementById("id-sequence").value!="") {
-            localStorage.setItem("partiencours",document.getElementById("id-sequence").value)
-        }
+        document.getElementById("cadrej").style.display="block"
         if (document.getElementById("nb-tour").textContent > "1") {
             document.getElementById("btn-annuler").style.display="block"
         }
@@ -381,12 +398,18 @@ function displayGameBoard(){
         //Effacement JOUER - Apparition BOARD
         document.getElementById("x-jouer").style.display="none"
         document.getElementById("x-board").style.display="block"
-        if (ismobile()) {
+        if (document.getElementById("joystchecked").value=="Oui") {
+            document.getElementById("joyst").checked=true
+        } else {
+            document.getElementById("joyst").checked=false
+        }
+        if (document.getElementById("joyst").checked==true) {
             document.getElementById("joystick").style.display="block"
+        } else {
+            document.getElementById("joystick").style.display="none"
         }
 
-        // creation lignes du tableau
-        
+        // creation lignes du tableau        
         const nbt = document.getElementById("nb-tour").textContent
         //Affichage des coups joués
         let tour=parseInt(document.getElementById("nb-tour").textContent)
@@ -403,7 +426,7 @@ function displayGameBoard(){
         marque="O"
         for (let i = 0;i<sequence_size;i++) {
             setTimeout(() => {
-              }, 1000);
+            }, 1000);
             document.getElementById(sequence[i]).textContent=marque
             document.getElementById(sequence[i]).style.fontSize=fontsz
             document.getElementById(sequence[i]).style.color="black"
@@ -428,6 +451,13 @@ function displayGameBoard(){
                 marque="O"
             }  
         }
+        if (document.getElementById("id-sequence").value!="") {
+            if (document.getElementById("id-pat").value=="Non" &&
+                document.getElementById("id-victoire").value=="Non" &&
+                document.getElementById("id-defaite").value=="Non") {
+                localStorage.setItem("partiencours",document.getElementById("id-sequence").value)
+            }
+        }
         if (document.getElementById("id-pat").value=="Oui") {
             alert("Plus de case diponible - Match nul")
             document.getElementById("victoire").textContent="MATCH NUL"
@@ -435,7 +465,7 @@ function displayGameBoard(){
             document.getElementById("btn-rejouer").style.display="block"
             document.getElementById("btn-annuler").style.display="none"
             document.getElementById("amoi").style.display="none"
-        document.getElementById("avous").style.display="none"
+            document.getElementById("avous").style.display="none"
         }
         win="Non"
         if (document.getElementById("id-victoire").value!="Non") {
@@ -460,13 +490,16 @@ function displayGameBoard(){
         //debut de partie tour=0 - Demande si on veut reprendre une partie interrompue
         if(localStorage.getItem("partiencours") != null){
             if (confirm("Voulez-vous reprendre la dernière partie?")==true) {
+                document.getElementById("id-pat").value="Non"
+                document.getElementById("id-victoire").value="Non"
+                document.getElementById("id-defaite").value="Non"
                 document.getElementById("id-charger").value="Oui"
                 document.getElementById("id-sequence").value=localStorage.getItem("partiencours")
                 if (window.innerWidth > window.innerHeight) {
                     document.getElementById("orientation").value="paysage"
-                  } else {
+                } else {
                     document.getElementById("orientation").value="portrait"
-                  }
+                }
                 document.forms["grille"].submit();
             } else {
                 localStorage.removeItem("partiencours")

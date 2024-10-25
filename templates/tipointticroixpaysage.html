@@ -116,26 +116,34 @@ Ti_Points-Ti_Croix
                     font-size:1.5vw;;height:7vh;background-color:rgb(0, 208, 255);margin-top:1vh"
                     >Retour à l'accueil</button>
                 </div>
-                <div id="joystick"  style="width:100%;margin-top:2vh;display:none">
-                    <p style="text-align: center;font-size:1.2vw;margin:0">Position et validation du coup</p>
-                    <div style="height:8vh;width:100%;display:flex;justify-content:center;
-                        margin:1vh">
-                        <img id="id-haut" src="{% static 'images/haut.png' %}"
-                        style="height:8vh;width:8vh;margin: 1vh;">
+                <div id="cadrej" style="display:none">
+                    <div style="display:flex;justify-content:center">
+                        <p style="text-align: center;font-size:1.2vw;margin-right:2vw">
+                            Positionnement et validation du coup</p>
+                        <input type="checkbox" id="joyst" name="joyst" checked 
+                            style="margin-bottom:2vh"/>
+                        <input hidden id="joystchecked" name="joystchecked" value="{{ joystchecked }}">
                     </div>
-                    <div style="height:8vh;width:100%;display:flex;justify-content:center;margin: 1vh;">
-                        
-                            <img id="id-gauche" src="{% static 'images/gauche.png' %}"
-                            style="height:8vh;width:8vh;margin:0.5vh">
-                            <img id="id-validation" src="{% static 'images/validation.png' %}"
-                            style="height:8vh;width:8vh;margin:0.5vh">
-                            <img id="id-droite" src="{% static 'images/droite.png' %}"
-                            style="height:8vh;width:8vh;margin:0.5vh">
-                        
-                    </div>
-                    <div style="height:8vh;width:100%;display:flex;justify-content:center;margin: 1vh;">
-                        <img id="id-bas" src="{% static 'images/bas.png' %}"
-                        style="height:8vh;width:8vh">
+                    <div id="joystick"  style="width:100%;margin-top:2vh;display:block">
+                        <div style="height:8vh;width:100%;display:flex;justify-content:center;
+                            margin:1vh">
+                            <img id="id-haut" src="{% static 'images/haut.png' %}"
+                            style="height:8vh;width:8vh;margin: 1vh;">
+                        </div>
+                        <div style="height:8vh;width:100%;display:flex;justify-content:center;margin: 1vh;">
+                            
+                                <img id="id-gauche" src="{% static 'images/gauche.png' %}"
+                                style="height:8vh;width:8vh;margin:0.5vh">
+                                <img id="id-validation" src="{% static 'images/validation.png' %}"
+                                style="height:8vh;width:8vh;margin:0.5vh">
+                                <img id="id-droite" src="{% static 'images/droite.png' %}"
+                                style="height:8vh;width:8vh;margin:0.5vh">
+                            
+                        </div>
+                        <div style="height:8vh;width:100%;display:flex;justify-content:center;margin: 1vh;">
+                            <img id="id-bas" src="{% static 'images/bas.png' %}"
+                            style="height:8vh;width:8vh">
+                        </div>
                     </div>
                 </div>
             </div>
