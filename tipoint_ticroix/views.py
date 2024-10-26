@@ -543,8 +543,6 @@ def tipointticroix(request):
         context["connexion"]="Non"
         context["connec"]="Vous"
     if request.method == 'POST':
-        # print(request.POST["joyst"])
-        # context["joyst"]=request.POST["joyst"]
         if request.POST["debut"]=="Oui":
             #Appel initial
             request.session["stat"]="Oui"
@@ -605,6 +603,7 @@ def tipointticroix(request):
                         marque="O"
             marqueordi=request.session['MARQUEORDI']
             marquejoueur=request.session['MARQUEJOUEUR']
+            context['joystchecked']=request.POST['joystchecked']
             context['marquevous']=marquejoueur
             context['marqueordi']=marqueordi
             context['nom1']=nomniveau(request.session['NIVEAU'])
@@ -626,7 +625,6 @@ def tipointticroix(request):
                 return render(request, "tipointticroixportrait.html", context)
         #MAJ TABLEAU
         if request.session['TOUR']==0:
-            print(request.POST)
             request.session['orientation']=request.POST['orientation']
             request.session['TOUR']=0
             request.session['SEQUENCE']=[]
@@ -747,7 +745,6 @@ def tipointticroix(request):
         context['tour']=str(request.session['TOUR'])   
         context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
         context["orientation"]=request.POST['orientation']
-        print(context)
         request.session['orientation']=request.POST['orientation']
         if request.POST['orientation']=="paysage":
             request.session['orientation']="paysage"

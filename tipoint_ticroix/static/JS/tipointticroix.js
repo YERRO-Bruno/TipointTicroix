@@ -26,25 +26,23 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("orientation").value="portrait"
         }
         if (ismobile()) {
-            document.getElementById("joyst").checked=true
-            document.getElementById("joystchecked").value="Oui"
-            document.getElementById("joystick").style.display="block"
+            document.getElementById("joyst").value="Oui"
         } else {
-            document.getElementById("joyst").checked=false
-            document.getElementById("joystchecked").value="Non"
-            document.getElementById("joystick").style.display="none"
+            document.getElementById("joyst").value="Non"
         }
         document.forms["grille"].submit();
     })
 
 //click sur la  checkbox Positionnement et validation du coup
     document.getElementById("joyst").addEventListener('click', () => {
-        if (document.getElementById("joyst").checked==true) {
-            document.getElementById("joystchecked").value="Oui"
-            document.getElementById("joystick").style.display="block"
-        } else {
-            document.getElementById("joystchecked").value="Non"
+        if (document.getElementById("joyst").value=="Oui") {
+            alert("true0")
+            document.getElementById("joyst").value="Non"
             document.getElementById("joystick").style.display="none"
+        } else {
+            alert("false0")
+            document.getElementById("joyst").value="Oui"
+            document.getElementById("joystick").style.display="block"
         }
     })
 
@@ -60,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (document.getElementById("id-victoire").value=="Non" && 
         document.getElementById("id-defaite").value=="Non" &&
         (document.getElementById("id-pat").value=="Non")) {
-            if (document.getElementById("joyst").checked==true) {
+            if (document.getElementById("joyst").value=="oui") {
                 if (précédenteposition !="") {
                     document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
                 }
@@ -398,14 +396,11 @@ function displayGameBoard(){
         //Effacement JOUER - Apparition BOARD
         document.getElementById("x-jouer").style.display="none"
         document.getElementById("x-board").style.display="block"
-        if (document.getElementById("joystchecked").value=="Oui") {
+        if (document.getElementById("joyst").value=="Oui") {
             document.getElementById("joyst").checked=true
-        } else {
-            document.getElementById("joyst").checked=false
-        }
-        if (document.getElementById("joyst").checked==true) {
             document.getElementById("joystick").style.display="block"
         } else {
+            document.getElementById("joyst").checked=false
             document.getElementById("joystick").style.display="none"
         }
 
