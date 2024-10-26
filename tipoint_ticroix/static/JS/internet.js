@@ -111,6 +111,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         }
+
+        if (msg[0]=="PB") {
+            alert("perte de connexion")
+        }
+
         if (msg[0]=="invite") {
             if (confirm("Acceptez-vous de jouer avec "+msg[1])) {
                 socket.send('accept,'.concat(document.getElementById("id-connec").textContent,',',msg[1]))
@@ -191,6 +196,18 @@ document.addEventListener("DOMContentLoaded", function () {
     let d1=0
     let d2=0
     displayGameBoard()
+    // import.meta.url
+    const myWorker = new Worker("../static/JS/worker.js", { type: `module` });
+    // const myWorker = new Worker("../static/JS/worker.js")
+    alert("init worker4")
+    if (window.Worker) {
+        
+        myWorker.postMessage(["test worker"]);
+        myWorker.onmessage = (e) => {
+            alert(e.data)
+        }
+
+    }
 })
 
 //Functions

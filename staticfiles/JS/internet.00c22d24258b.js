@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
     displayGameBoard()
     import.meta.url
     alert("init worker")
-    new Worker(new URL("./static/JS/worker.js"))
+    new Worker(new URL("worker.js"))
     if (window.Worker) {
         alert("init worker3")
         myWorker.postMessage(["test worker"]);

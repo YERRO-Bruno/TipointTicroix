@@ -196,17 +196,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let d1=0
     let d2=0
     displayGameBoard()
-    import.meta.url
-    alert("init worker")
-    new Worker(new URL("./static/JS/worker.js"))
-    if (window.Worker) {
-        alert("init worker3")
-        myWorker.postMessage(["test worker"]);
-        myWorker.onmessage = (e) => {
-            alert(e.data[0])
-        }
+    // import.meta.url
+    // alert("init worker")
+    // new Worker(new URL("worker.js"))
+    // if (window.Worker) {
+    //     alert("init worker3")
+    //     myWorker.postMessage(["test worker"]);
+    //     myWorker.onmessage = (e) => {
+    //         alert(e.data[0])
+    //     }
 
-    }
+    // }
 })
 
 //Functions
