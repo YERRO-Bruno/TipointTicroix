@@ -196,18 +196,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let d1=0
     let d2=0
     displayGameBoard()
-    // import.meta.url
-    const myWorker = new Worker("../static/JS/worker.js", { type: `module` });
-    // const myWorker = new Worker("../static/JS/worker.js")
-    alert("init worker4")
-    if (window.Worker) {
-        
-        myWorker.postMessage(["test worker"]);
-        myWorker.onmessage = (e) => {
-            alert(e.data)
-        }
 
-    }
+    // const myWorker = new Worker("../static/JS/worker.js", { type: `module` });
+    // alert("init worker4")
+    // if (window.Worker) {
+        
+    //     myWorker.postMessage(["test worker"]);
+    //     myWorker.onmessage = (e) => {
+    //         alert(e.data)
+    //     }
+
+    // }
 })
 
 //Functions
