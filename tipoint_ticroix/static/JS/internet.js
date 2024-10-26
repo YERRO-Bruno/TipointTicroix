@@ -88,6 +88,11 @@ document.addEventListener("DOMContentLoaded", function () {
     socket.addEventListener('message', (event) => {
 
         msg=event.data.split(",")
+        if (msg[0]=="PB") {
+            alert("perte de connection")
+        }
+
+
         if (msg[0]=="connected") {
             while (userconnecteds.firstChild) {
                 userconnecteds.removeChild(userconnecteds.lastChild);

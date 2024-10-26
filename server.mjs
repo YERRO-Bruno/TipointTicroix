@@ -58,11 +58,11 @@ wss.on('connection', (socket) => {
             });
             let socketinvite=global.connectedUsers[msg[2]]
             try {
-
                 socketinvite.send("invite,"+msg[1]+","+msg[2])
             }
             catch (e) {
                 console.log("error invite",e.message,msg[1],msg[2])
+                socket.send("PB")
             }
         }
         if (msg[0]=='accept') {
@@ -72,6 +72,7 @@ wss.on('connection', (socket) => {
             }
             catch (e) {
                 console.log("error accept",e.message,msg[1],msg[2])
+                socket.send("PB")
             }
         }
         if (msg[0]=="tourjeu") {
