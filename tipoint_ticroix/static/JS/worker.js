@@ -1,4 +1,4 @@
 
 onmessage = (e) => {
-    postMessage("1")
+    postMessage("111111")
 }

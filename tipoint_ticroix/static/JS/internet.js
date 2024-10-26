@@ -198,13 +198,15 @@ document.addEventListener("DOMContentLoaded", function () {
     displayGameBoard()
 
     // const myWorker = new Worker("../static/JS/worker.js", { type: `module` });
-    // alert("init worker4")
-    // if (window.Worker) {
-        
+    // if (window.Worker) {  
+        // setInterval(() => {
+        //     myWorker.postMessage("Déclenchement du Worker"); // Envoie un message au Worker
+        // }, 10000);
+    
     //     myWorker.postMessage(["test worker"]);
-    //     myWorker.onmessage = (e) => {
-    //         alert(e.data)
-    //     }
+        // myWorker.onmessage = (e) => {
+        //     alert(e.data)
+        // }
 
     // }
 })
