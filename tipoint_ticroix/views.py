@@ -61,6 +61,8 @@ def internet(request):
                 context["finpartie"]="Non"
                 context["victoire"]="Non"
                 context["defaite"]="Non"
+                context["pat"]="Non"
+                context['joystchecked']=request.POST['joystchecked']
                 context["orientation"]=request.POST['orientation']
                 request.session['orientation']=request.POST['orientation']
                 if request.POST['orientation']=="paysage":
@@ -111,6 +113,7 @@ def internet(request):
                 context["orientation"]=request.POST['orientation']
                 context['finmanche']=request.POST['finmanche']
                 context['finpartie']=request.POST['finpartie']
+                context['joystchecked']=request.POST['joystchecked']
                 request.session['orientation']=request.POST['orientation']    
                 if request.POST['orientation']=="paysage":
                     request.session['orientation']="paysage"
@@ -126,6 +129,7 @@ def internet(request):
                 context["finpartie"]="Non"
                 context["victoire"]="Non"
                 context["defaite"]="Non"
+                context["pat"]="Non"
                 if request.session['BEGIN']==request.POST['joueur']:
                     if request.POST['jeton']=="Oui":
                         marque="O"
@@ -213,6 +217,7 @@ def internet(request):
                 else:
                     context["score2"]="{:.1f}".format(request.session['SCORE2'])
                 context["etape"]="nouveautour"
+                context['joystchecked']=request.POST['joystchecked']
                 context["orientation"]=request.POST['orientation']
                 request.session['orientation']=request.POST['orientation']
                 if request.POST['orientation']=="paysage":
@@ -615,6 +620,7 @@ def tipointticroix(request):
             context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
             request.session['TOUR']=len(request.session['SEQUENCE'])//2+1
             context['tour']=str(request.session['TOUR'])
+            context['joystchecked']=request.POST['joystchecked']
             context["orientation"]=request.POST['orientation']
             request.session['orientation']=request.POST['orientation']   
             if request.POST['orientation']=="paysage":

@@ -75,6 +75,17 @@ wss.on('connection', (socket) => {
                 socket.send("PB")
             }
         }
+        if (msg[0]=='refus') {
+            let sockethote=global.connectedUsers[msg[2]]
+            try {
+                sockethote.send("refus,"+msg[1]+","+msg[2])
+            }
+            catch (e) {
+                console.log("error accept",e.message,msg[1],msg[2])
+                socket.send("PB")
+            }
+        }
+
         if (msg[0]=="tourjeu") {
             let socketadversaire=global.connectedUsers[msg[2]]
             socketadversaire.send("tourjeu,"+msg[1]+","+msg[2]+","+msg[3])

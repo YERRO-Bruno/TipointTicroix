@@ -71,9 +71,9 @@ Ti_Points-Ti_Croix
             </div>
         </div>            
     </div>
-    <div hidden>
-        <form id="internet" method="post">
-            {% csrf_token %}
+    <form id="internet" method="post">
+        {% csrf_token %}
+        <div hidden>
             <input id="orientation" name="orientation" type="text" value="{{ orientation }}">
             <input id="debut" name="debut" type="text" value="Non">
             <input type="text" name="etape" id="id-etape" value="{{ etape }}">
@@ -95,44 +95,52 @@ Ti_Points-Ti_Croix
             <input id="id-finmanche" name="finmanche" type="text" value="{{ finmanche }}">                        
             <input id="id-victoire" name="victoire" type="text" value="{{ victoire }}">                        
             <input id="id-defaite" name="defaite" type="text" value="{{ defaite }}">
-        </form>
-    </div>
-    <div style="margin:0;text-align: center;width:100%">
-        <button class="btn btn-0" id="btn-quitter" type="button" style="width:20vh;font-size:1.6vh;
-                    margin:0;background-color:rgb(0, 208, 255)">Retour à l'accueil
+        </div>
+        <div style="margin:0;text-align: center;width:100%">
+            <button class="btn btn-0" id="btn-quitter" type="button" style="width:20vh;font-size:1.6vh;
+            margin:0;background-color:rgb(0, 208, 255)">Retour à l'accueil
         </button>
+        </div>
         <div style="width:100%;text-align: center">
             <p><span id="id-bandeau"
                 style="font-size:4vw;color:red;text-align: center;font-weight:bolder;margin:0%;background-color:blue;"
                 ></span></p>
+            <div class="cadre" style="display:flex;justify-content:center;width:100%">
+                <table class="mt-1" id="table" style="width:100%">
+                </table>
+            </div>
         </div>
-        <div class="cadre" style="display:flex;justify-content:center;width:100%">
-            <table class="mt-1" id="table" style="width:100%">
-            </table>
+        <div id="cadrej" style="display:none">
+            <div style="display:flex;justify-content:center">
+                <p style="text-align: center;font-size:2vh;margin-right:2vw">
+                    Positionnement et validation du coup</p>
+                    <input type="radio" id="joyst" style="height:2vh;width:2vh;margin-top:2vw">
+                    <input id="joystchecked" value="{{ joystchecked }}" name="joystchecked"
+                    hidden>
+                </div>
+                <div id="joystick"  style="width:100%;margin-top:0;display:block">
+                    <div style="height:8vw;width:100%;display:flex;justify-content:center;
+                    margin:1vh;margin-top:0">
+                    <img id="id-haut" src="{% static 'images/haut.png' %}"
+                    style="height:8vw;width:8vw;margin: 1vh;margin-top:0">
+                </div>
+                <div style="height:8vw;width:100%;display:flex;justify-content:center;margin: 1vh;">
+                    
+                    <img id="id-gauche" src="{% static 'images/gauche.png' %}"
+                    style="height:8vw;width:8vw;margin:0.5vh">
+                    <img id="id-validation" src="{% static 'images/validation.png' %}"
+                    style="height:8vw;width:8vw;margin:0.5vh">
+                    <img id="id-droite" src="{% static 'images/droite.png' %}"
+                    style="height:8vw;width:8vw;margin:0.5vh">
+                    
+                </div>
+                <div style="height:8vw;width:100%;display:flex;justify-content:center;margin: 1vh;">
+                    <img id="id-bas" src="{% static 'images/bas.png' %}"
+                    style="height:8vw;width:8vw">
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<div id="joystick"  style="width:100%;display:none;font-family: 'Pacifico', cursive;
-    font-weight:400;font-style:normal">
-    <div style="text-align: center;font-size:3vw;margin:0;height:1vw">Position et validation du coup</div>
-    <div id="id-haut" style="height:8vw;width:100%;display:flex;justify-content:center;
-        margin:1vh">
-        <img  src="{% static 'images/haut.png' %}"
-        style="height:8vw;width:8vw;margin: 1vh;">
-    </div>
-    <div style="height:8vw;width:100%;display:flex;justify-content:center;margin: 1vh;">            
-            <img id="id-gauche" src="{% static 'images/gauche.png' %}"
-            style="height:8vw;width:8vw;margin:0.5vh">
-            <img id="id-validation" src="{% static 'images/validation.png' %}"
-            style="height:8vw;width:8vw;margin:0.5vh">
-            <img id="id-droite" src="{% static 'images/droite.png' %}"
-            style="height:8vw;width:8vw;margin:0.5vh">
-        
-    </div>
-    <div style="height:8vw;width:100%;display:flex;justify-content:center;margin: 1vh;">
-        <img id="id-bas" src="{% static 'images/bas.png' %}"
-        style="height:8vw;width:8vw">
-    </div>
+    </form>
 </div>
 {%  endblock %}
 {%  block script %}

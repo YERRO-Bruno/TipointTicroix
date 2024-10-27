@@ -1,1 +1,1 @@
-web: gunicorn TIPOINTICROIX.wsgi --timeout 120 --workers=3 --threads=3 --worker-connections=1000
+web: gunicorn TIPOINTICROIX.wsgi --timeout 120 --workers=6 --threads=6 --worker-connections=1000

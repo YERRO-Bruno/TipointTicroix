@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+    let précédenteposition=""
+    let précédentecolor=""
+    let nouvelleposition=""
+    let nouvellecolor=""
+    précédentecolor=""
     if (window.innerWidth > window.innerHeight) {    
         h=((window.innerHeight-20)/25)+"px"
         fontsz="1vw"
@@ -26,46 +31,73 @@ document.addEventListener("DOMContentLoaded", function () {
         document.location.href='/'        
     })
 
+    //click sur la  checkbox Positionnement et validation du coup
+    document.getElementById("joyst").addEventListener('click', () => {
+        if (document.getElementById("joystchecked").value=="Oui") {
+            document.getElementById("joystchecked").value="Non"
+            document.getElementById("joyst").checked=false
+            document.getElementById("joystick").style.display="none"
+        } else {
+            document.getElementById("joystchecked").value="Oui"
+            document.getElementById("joyst").checked=true
+            document.getElementById("joystick").style.display="block"
+        }
+    })
+
     // Click du joueur sur une des cases
     document.getElementById("table").addEventListener('click', function(e) {
         if ((document.getElementById("id-victoire").value=="Non" &&
-        document.getElementById("id-defaite").value=="Non")) {
+        document.getElementById("id-defaite").value=="Non" &&
+        document.getElementById("id-pat").value=="Non")) {
+
             if (document.getElementById("id-jeton").value=="Non") {
                 alert("Ce n'est pas à vous de jouer")
             } else {
-            if (document.getElementById("id-begin").textContent==document.getElementById("id-joueur").value) {
-            marque="O"
-            } else {
-                marque="X"
-            }
-            if (document.getElementById(e.target.id).textContent=="") {
-            document.getElementById(e.target.id).textContent = marque
-            document.getElementById(e.target.id).style.fontSize=fontsz
-            if (marque=="X") {
-                document.getElementById(e.target.id).style.color="red"
-            } else {
-                document.getElementById(e.target.id).style.color="blue"
-            }   
-            e.target.blur()
-            document.getElementById("coup-joueur").value=e.target.id
-            document.getElementById("id-etape").value="tourjeu"
-            document.getElementById("id-jeton").value="Non"
-              
-            //alert("jeu")
-            socket.send('tourjeu,'.concat(document.getElementById("id-connec").textContent,
-            ",",document.getElementById("id-adversaire").value,",",e.target.id))
-            document.getElementById("id-etape").value="tourjeu"
-            document.getElementById("id-jeton").value="Non"
-            document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
-            if (window.innerWidth > window.innerHeight) {
-                document.getElementById("orientation").value="paysage"
-            } else {
-                document.getElementById("orientation").value="portrait"
-            }
-            document.forms["internet"].submit();
-            } else {
-                alert("Case déjà utilisée")
-            }
+                if (document.getElementById("joystchecked").value=="Oui") {
+                    if (précédenteposition !="") {
+                        document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+                    }
+                    précédenteposition=e.target.id
+                    précédentecolor=document.getElementById(e.target.id).style.backgroundColor
+                    document.getElementById(e.target.id).style.backgroundColor="green"
+                    document.getElementById(e.target.id).style.fontSize=fontsz
+                } else {
+                    if (document.getElementById("id-begin").textContent==document.getElementById("id-joueur").value) {
+                        marque="O"
+                    } else {
+                        marque="X"
+                    }
+                    if (document.getElementById(e.target.id).textContent=="") {
+                        document.getElementById(e.target.id).textContent = marque
+                        document.getElementById(e.target.id).style.fontSize=fontsz
+                        if (marque=="X") {
+                            document.getElementById(e.target.id).style.color="red"
+                            document.getElementById(e.target.id).style.backgroundColor="bisque"
+                        } else {
+                            document.getElementById(e.target.id).style.color="blue"
+                            document.getElementById(e.target.id).style.backgroundColor="lightcyan"
+                        }   
+                        e.target.blur()
+                        document.getElementById("coup-joueur").value=e.target.id
+                        document.getElementById("id-etape").value="tourjeu"
+                        document.getElementById("id-jeton").value="Non"
+                        
+                        //alert("jeu")
+                        socket.send('tourjeu,'.concat(document.getElementById("id-connec").textContent,
+                        ",",document.getElementById("id-adversaire").value,",",e.target.id))
+                        document.getElementById("id-etape").value="tourjeu"
+                        document.getElementById("id-jeton").value="Non"
+                        document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+                        if (window.innerWidth > window.innerHeight) {
+                            document.getElementById("orientation").value="paysage"
+                        } else {
+                            document.getElementById("orientation").value="portrait"
+                        }
+                        document.forms["internet"].submit();
+                    } else {
+                        alert("Case déjà utilisée")
+                    }
+                }
             }
         } else {
             if (document.getElementById("nb-tour").textContent="0") {
@@ -75,6 +107,164 @@ document.addEventListener("DOMContentLoaded", function () {
               }
         }
     })
+
+    //click du joueur sur haut
+    document.getElementById("id-haut").addEventListener('click', function(e) {
+        if (précédenteposition !="") {        
+            document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+            let iprec=parseInt(précédenteposition.split("/")[0])
+            if (iprec >0) {
+                iprec=iprec-1
+            } else {
+                alert("bord atteint")
+            }            
+            let yprec=précédenteposition.split("/")[1]
+            nouvelleposition=iprec+"/"+yprec
+            précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+            document.getElementById(nouvelleposition).style.backgroundColor="green"
+            précédenteposition=nouvelleposition
+        } else {
+            sequence=document.getElementById("id-sequence").value
+            sequence = sequence.split(',')
+            if (sequence=="") {
+                précédenteposition ="12/12"
+                précédentecolor=document.getElementById("12/12").style.backgroundColor
+                document.getElementById("12/12").style.backgroundColor="green"
+            } else {
+                précédenteposition=sequence[sequence.length-1]
+                précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+                document.getElementById(précédenteposition).style.backgroundColor="green"
+            }
+        }
+    })
+
+    //click du joueur sur bas
+    document.getElementById("id-bas").addEventListener('click', function(e) {
+        if (précédenteposition !="") {        
+            document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+            let iprec=parseInt(précédenteposition.split("/")[0])
+            if (iprec <24) {
+                iprec=iprec+1
+            } else {
+                alert("bord atteint")
+            }            
+            let yprec=précédenteposition.split("/")[1]
+            nouvelleposition=iprec+"/"+yprec
+            précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+            document.getElementById(nouvelleposition).style.backgroundColor="green"
+            précédenteposition=nouvelleposition
+        } else {
+            sequence=document.getElementById("id-sequence").value
+            sequence = sequence.split(',')
+            if (sequence=="") {
+                précédenteposition ="12/12"
+                précédentecolor=document.getElementById("12/12".style.backgroundColor)
+                document.getElementById("12/12".style.backgroundColor)="green"
+            } else {
+                précédenteposition=sequence[sequence.length-1]
+                précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+                document.getElementById(précédenteposition).style.backgroundColor="green"
+            }
+        }
+    })
+    //click du joueur sur droite
+    document.getElementById("id-droite").addEventListener('click', function(e) {
+        if (précédenteposition !="") {        
+            document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+            let yprec=parseInt(précédenteposition.split("/")[1])
+            if (yprec <24) {
+                yprec=yprec+1
+            } else {
+                alert("bord atteint")
+            }            
+            let iprec=précédenteposition.split("/")[0]
+            nouvelleposition=iprec+"/"+yprec
+            précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+            document.getElementById(nouvelleposition).style.backgroundColor="green"
+            précédenteposition=nouvelleposition
+        } else {
+            sequence=document.getElementById("id-sequence").value
+            sequence = sequence.split(',')
+            if (sequence=="") {
+                précédenteposition ="12/12"
+                précédentecolor=document.getElementById("12/12".style.backgroundColor)
+                document.getElementById("12/12".style.backgroundColor)="green"
+            } else {
+                précédenteposition=sequence[sequence.length-1]
+                précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+                document.getElementById(précédenteposition).style.backgroundColor="green"
+            }
+        }
+    })
+
+    //click du joueur sur gauche
+    document.getElementById("id-gauche").addEventListener('click', function(e) {
+        if (précédenteposition !="") {        
+            document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+            let yprec=parseInt(précédenteposition.split("/")[1])
+            if (yprec >0) {
+                yprec=yprec-1
+            } else {
+                alert("bord atteint")
+            }            
+            let iprec=précédenteposition.split("/")[0]
+            nouvelleposition=iprec+"/"+yprec
+            précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+            document.getElementById(nouvelleposition).style.backgroundColor="green"
+            précédenteposition=nouvelleposition
+        } else {
+            sequence=document.getElementById("id-sequence").value
+            sequence = sequence.split(',')
+            if (sequence=="") {
+                précédenteposition ="12/12"
+                précédentecolor=document.getElementById("12/12".style.backgroundColor)
+                document.getElementById("12/12".style.backgroundColor)="green"
+            } else {
+                précédenteposition=sequence[sequence.length-1]
+                précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+                document.getElementById(précédenteposition).style.backgroundColor="green"
+            }
+        }
+    })
+
+    //click sur validation
+    document.getElementById("id-validation").addEventListener('click', function(e) {
+        if (document.getElementById("id-begin").textContent=="Oui") {
+            marque="O"
+        } else {
+            marque="X"
+        }
+        if (document.getElementById(précédenteposition).textContent=="") {
+            // case_clicked = précédenteposition.split('/')
+            document.getElementById(précédenteposition).textContent = marque
+            document.getElementById(précédenteposition).style.fontSize=fontsz
+            if (marque=="X") {
+                document.getElementById(précédenteposition).style.color="red"
+                document.getElementById(précédenteposition).style.backgroundColor="bisque"
+            } else {
+                document.getElementById(précédenteposition).style.color="blue"
+                document.getElementById(précédenteposition).style.backgroundColor="lightcyan"
+            }
+            document.getElementById("coup-joueur").value=précédenteposition
+            document.getElementById("id-etape").value="tourjeu"
+            document.getElementById("id-jeton").value="Non"
+            //alert("jeu")
+            socket.send('tourjeu,'.concat(document.getElementById("id-connec").textContent,
+            ",",document.getElementById("id-adversaire").value,",",précédenteposition))
+            document.getElementById("id-etape").value="tourjeu"
+            document.getElementById("id-jeton").value="Non"
+            document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+            if (window.innerWidth > window.innerHeight) {
+                document.getElementById("orientation").value="paysage"
+            } else {
+                document.getElementById("orientation").value="portrait"
+            }
+            document.forms["internet"].submit();
+        } else {
+            alert("Case déjà utilisée!")
+        }
+    })
+
 
     socket.addEventListener('open', (event) => {
         if (document.getElementById("id-etape").value=="connexion") {
@@ -126,12 +316,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id-match").value=1
                 document.getElementById("id-score1").value=0
                 document.getElementById("id-score2").value=0
+                if (ismobile()) {
+                    document.getElementById("joystchecked").value="Oui"                    
+                } else {
+                    document.getElementById("joystchecked").value="Non"
+                }
                 if (window.innerWidth > window.innerHeight) {
                     document.getElementById("orientation").value="paysage"
                 } else {
                     document.getElementById("orientation").value="portrait"
                 }
                 document.forms["internet"].submit();
+            } else {
+                socket.send('refus,'.concat(document.getElementById("id-connec").textContent,',',msg[1]))
             } 
         }
         if (msg[0]=="accept") {
@@ -142,6 +339,11 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("id-match").value=1
             document.getElementById("id-score1").value=0
             document.getElementById("id-score2").value=0
+            if (ismobile()) {
+                document.getElementById("joystchecked").value="Oui"                    
+            } else {
+                document.getElementById("joystchecked").value="Non"
+            }
             if (window.innerWidth > window.innerHeight) {
                 document.getElementById("orientation").value="paysage"
             } else {
@@ -149,6 +351,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             document.forms["internet"].submit();
         } 
+
+        if (msg[0]=="refus") {
+            alert(msg[1]+" n'accepte pas votre proposition de jouer !")
+        }
+
         if (msg[0]=="tourjeu") {
             document.getElementById("coup-joueur").value=msg[3]
             document.getElementById("id-etape").value="tourjeu"
@@ -196,19 +403,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let d1=0
     let d2=0
     displayGameBoard()
-
-    // const myWorker = new Worker("../static/JS/worker.js", { type: `module` });
-    // if (window.Worker) {  
-        // setInterval(() => {
-        //     myWorker.postMessage("Déclenchement du Worker"); // Envoie un message au Worker
-        // }, 10000);
-    
-    //     myWorker.postMessage(["test worker"]);
-        // myWorker.onmessage = (e) => {
-        //     alert(e.data)
-        // }
-
-    // }
 })
 
 //Functions
@@ -218,10 +412,15 @@ function displayGameBoard(){
     if (document.getElementById("id-etape").value=="nouveautour") {
         document.getElementById("x-jouer").style.display="none"
         document.getElementById("x-board").style.display="block"
-        if (ismobile()) {
+        document.getElementById("cadrej").style.display="block"
+        if (document.getElementById("joystchecked").value=="Oui") {
+            document.getElementById("joyst").checked=true
             document.getElementById("joystick").style.display="block"
+        } else {
+            document.getElementById("joyst").checked=false
+            document.getElementById("joystick").style.display="none"
         }
-        // document.getElementById("btn-quitter").style.display="none"
+
     }
     // creation lignes du tableau
     var cell, ligne;
@@ -286,6 +485,7 @@ function displayGameBoard(){
     } else {
         document.getElementById("AVOUS").style.display="none"
     }
+    
     //document.getElementById("nb-tour").textContent="1"
     let scor1=document.getElementById("id-score1").value
     let scor2=document.getElementById("id-score2").value
@@ -407,6 +607,8 @@ function displayGameBoard(){
                 count++;
             }, 1000);  
         }
+    } else {
+        
     }
 }
 //fonction ismobile
