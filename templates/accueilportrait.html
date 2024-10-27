@@ -83,6 +83,7 @@ Ti_Points-Ti_Croix
   window.addEventListener('DOMContentLoaded', () => {
       // Vérifie que l'application n'est pas en plein écran
       const isFullscreen = window.matchMedia('(display-mode: fullscreen)').matches
+      alert(deferredPrompt + " "+isFullscreen)
       if (!isFullscreen && deferredPrompt) {
         alert("pas installé")
         deferredPrompt.prompt();
