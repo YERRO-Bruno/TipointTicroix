@@ -75,16 +75,17 @@ Ti_Points-Ti_Croix
 {%  endblock %}
 {% block script %}
 <script> 
-  let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', (e) => {
+  window.addEventListener('DOMContentLoaded', () => {
+    alert("1")
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-  });
-  window.addEventListener('DOMContentLoaded', () => {
+    });
       // Vérifie que l'application n'est pas en plein écran
       const isFullscreen = window.matchMedia('(display-mode: fullscreen)').matches
       alert(deferredPrompt + " "+isFullscreen)
-      if (!isFullscreen && deferredPrompt) {
+      if (!isFullscreen) {
         alert("pas installé")
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
