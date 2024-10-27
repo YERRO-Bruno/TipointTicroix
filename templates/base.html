@@ -15,7 +15,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
 
     {% block style %}{% endblock %}
 
@@ -33,7 +33,7 @@
             </div>
             <div class="col-8" style="font-size:5vw">
                 <div>
-                    <p align="center" style="font-family: 'Pacifico', cursive;
+                    <p align="center" style="font-family: 'Raleway', cursive;
                     font-weight: 400;margin: 0%;font-style: normal">Ti_Point-Ti_Croix</p>
                     
                 </div>   
@@ -42,19 +42,19 @@
             </div>
             <div class="col-2" align="center" style="margin-top: 6vh;font-size:1.5vw"
                 id="id-deconnexion">
-                <p id="id-connec" style="font-family: 'Pacifico', cursive;font-weight: 400;
+                <p id="id-connec" style="font-family: 'Raleway', cursive;font-weight: 400;
                 font-style: normal;">{{ connec }}</p>
-                <a style="font-family: 'Pacifico', cursive;font-weight: 400;
+                <a style="font-family: 'Raleway', cursive;font-weight: 400;
                 font-style: normal;" href="{% url 'logout_view' %}">DECONNEXION</a>
             </div>
             <div class="col-2" align="center" style="margin: 6.5% 0px 0px 0px;font-size:1.5vw"
                 id="id-connexion">
-                <a style="font-family: 'Pacifico', cursive;font-weight: 400;
+                <a style="font-family: 'Raleway', cursive;font-weight: 400;
                 font-style: normal;" href="{% url 'connect' %}">CONNEXION</a>
             </div>
             
             {% block content %}{% endblock %}
-            <div class="col-2 border border-dark text-center" style="font-family: 'Pacifico', cursive;
+            <div class="col-2 border border-dark text-center" style="font-family: 'Raleway', cursive;
             font-weight: 400;font-style: normal;font-size: 1.5vw">
                 <div>
                     VISITEZ LA MARTINIQUE
@@ -66,11 +66,11 @@
         </div>
     </div>
     <div class="row" style="height: 7vh;width: 100vw;background-color:black">
-        <center class="col-6 mt-3" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        <center class="col-6 mt-3" style="font-family: 'Raleway', cursive;font-weight: 400;
         font-style: normal;font-size:1.8vh">
             <a href="{% url 'mentions' %}">Mentions légales</a>
         </center>
-        <center class="col-6 mt-3" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        <center class="col-6 mt-3" style="font-family: 'Raleway', cursive;font-weight: 400;
         font-style: normal;font-size:1.8vh">
             <a href="{% url 'apropos' %}">A propos</a>
         </center>

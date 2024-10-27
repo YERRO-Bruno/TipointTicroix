@@ -17,7 +17,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
 
     {% block style %}{% endblock %}
 
@@ -32,27 +32,27 @@
                 <div style="display:flex">
                     <img class="logo" id="id_logo" src="{% static 'icons/morpion.png' %}" 
                         style="height: 4vh;width:4vh">
-                    <p align="center" style="font-family: 'Pacifico', cursive;margin-left:2vh;
+                    <p align="center" style="font-family: 'Raleway', cursive;margin-left:2vh;
                     font-weight: 400;margin: 0%;font-style: normal">Ti_Point-Ti_Croixv</p>
                     
                 </div>   
             </div>
             <div class="col-3" align="center" style="font-size:2vw"
                 id="id-deconnexion">
-                <div id="id-connec" style="font-family: 'Pacifico', cursive;font-weight: 400;
+                <div id="id-connec" style="font-family: 'Raleway', cursive;font-weight: 400;
                 font-style: normal;font-size:3vw">{{ connec }}</div>
-                <a style="font-family: 'Pacifico', cursive;font-weight: 400;
+                <a style="font-family: 'Raleway', cursive;font-weight: 400;
                 font-style: normal;" href="{% url 'logout_view' %}">DECONNEXION</a>
             </div>
             <div class="col-2" align="center" style="margin-top: 1vh;font-size:2vw"
                 id="id-connexion">
-                <a style="font-family: 'Pacifico', cursive;font-weight: 400;
+                <a style="font-family: 'Raleway', cursive;font-weight: 400;
                 font-style: normal;" href="{% url 'connect' %}">CONNEXION</a>
             </div>
         </div>
             
         {% block content %}{% endblock %}
-        <div class="col-12 border border-dark text-center" style="font-family: 'Pacifico', cursive;
+        <div class="col-12 border border-dark text-center" style="font-family: 'Raleway', cursive;
         font-weight: 400;font-style: normal;font-size:3vw;margin-left:2vw;width:96%" id="pub">
             <div style="height:3vh;">
                 VISITEZ LA MARTINIQUE
@@ -63,11 +63,11 @@
             
     </div>
     <div class="row" style="height: 4vh;margin-left:2vw;width: 96%;background-color:black">
-        <center class="col-6 mt-3" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        <center class="col-6 mt-3" style="font-family: 'Raleway', cursive;font-weight: 400;
         font-style: normal;font-size:1.8vh" id="pied">
             <a href="{% url 'mentions' %}">Mentions légales</a>
         </center>
-        <center class="col-6 mt-3" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        <center class="col-6 mt-3" style="font-family: 'Raleway', cursive;font-weight: 400;
         font-style: normal;font-size:1.8vh">
             <a href="{% url 'apropos' %}">A propos</a>
         </center>
