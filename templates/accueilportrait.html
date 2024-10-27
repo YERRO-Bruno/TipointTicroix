@@ -74,11 +74,33 @@ Ti_Points-Ti_Croix
   </div>
 {%  endblock %}
 {% block script %}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
+<script> 
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+  });
+  window.addEventListener('DOMContentLoaded', () => {
+      // Vérifie que l'application n'est pas en plein écran
+      const isFullscreen = window.matchMedia('(display-mode: fullscreen)').matches || window.navigator.standalone;
+      if (!isFullscreen && deferredPrompt) {
+        alert("pas installé")
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('L\'utilisateur a accepté l\'installation');
+            } else {
+                console.log('L\'utilisateur a refusé l\'installation');
+            }
+            deferredPrompt = null;
+        });
+    } else {
+      alert("déja installé")
+    }
     window.screen.orientation.addEventListener("change", function() {
       document.location.href='/'
     });
-  }) 
+  });
+
 </script>
 {% endblock %}
