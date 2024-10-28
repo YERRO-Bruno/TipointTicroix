@@ -76,22 +76,21 @@ Ti_Points-Ti_Croix
 {% block script %}
 <script> 
   window.addEventListener('DOMContentLoaded', () => {
-      const isFullscreen = window.matchMedia('(display-mode: fullscreen)').matches
-      if(localStorage.getItem("messageconserve") == null ||
-       localStorage.getItem("messageconserve") == "Oui"){
-        if (ismobile()) {
-          if (!isFullscreen) {
-            if (confirm
-            ("Vous pouvez installer l'application sur votre écran d'accueil et ainsi bénéficier"+ 
-            "de l'affichage plein écran: Cliquer sur '...' à la droite du navigateur puis sur "+
-            "'Ajouter à l'écran d'accueil.' Voulez vous conserver ce message au démarrage?" )) {
-              localStorage.setItem("messageconserve","Oui")
-            } else {
-              localStorage.setItem("messageconserve","Non")
-            }
+    const isFullscreen = window.matchMedia('(display-mode: fullscreen)').matches
+    if(localStorage.getItem("messageconserve") == null){
+      if (ismobile()) {
+        if (!isFullscreen) {
+          if (confirm
+          ("Vous pouvez installer l'application sur votre écran d'accueil et ainsi bénéficier"+ 
+          " de l'affichage plein écran: Cliquer sur '...' à la droite du navigateur puis sur "+
+          "'Ajouter à l'écran d'accueil.' Voulez vous conserver ce message au démarrage?" )) {
+          } else {
+            localStorage.setItem("messageconserve","Non")
           }
         }
+      }
     }
+    localStorage.removeItem("messageconserve")
     window.screen.orientation.addEventListener("change", function() {
       document.location.href='/'
     });
