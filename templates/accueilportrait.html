@@ -77,14 +77,35 @@ Ti_Points-Ti_Croix
 <script> 
   window.addEventListener('DOMContentLoaded', () => {
       const isFullscreen = window.matchMedia('(display-mode: fullscreen)').matches
-      if (!isFullscreen) {
-        alert("Vous pouvez installer l'application et ainsi bénéficier de l'affichage plein écran:"+
-        " Cliquer sur '...' à la droite du navigateur puis sur 'Ajouter à l'écran d'accueil.'" )
+      if(localStorage.getItem("messageconserve") == null ||
+       localStorage.getItem("messageconserve") == "Oui"){
+        if (ismobile()) {
+          if (!isFullscreen) {
+            if (confirm
+            ("Vous pouvez installer l'application sur votre écran d'accueil et ainsi bénéficier"+ 
+            "de l'affichage plein écran: Cliquer sur '...' à la droite du navigateur puis sur "+
+            "'Ajouter à l'écran d'accueil.' Voulez vous conserver ce message au démarrage?" )) {
+              localStorage.setItem("messageconserve","Oui")
+            } else {
+              localStorage.setItem("messageconserve","Non")
+            }
+          }
+        }
     }
     window.screen.orientation.addEventListener("change", function() {
       document.location.href='/'
     });
   });
+  //fonction ismobile
+  function ismobile() {
+      if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+          // true for mobile device
+          return true
+        }else{
+          // false for not mobile device
+          return false
+        }
+  }
 
 </script>
 {% endblock %}
