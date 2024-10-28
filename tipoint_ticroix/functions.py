@@ -2517,20 +2517,22 @@ def calculbornesjouées(seq):
     ibornemax=0
     jbornemin=24
     jbornemax=0
-    for i in range(0,len(seq)):
-        if int(seq[i].split("/")[1])<ibornemin:
-            ibornemin=int(seq[i].split("/")[1])
-        if int(seq[i].split("/")[1])>ibornemax:
-            ibornemax=int(seq[i].split("/")[1])
-        if int(seq[i].split("/")[0])<jbornemin:
-            jbornemin=int(seq[i].split("/")[0])
-        if int(seq[i].split("/")[0])>jbornemax:
-            jbornemax=int(seq[i].split("/")[0])
-    ibornemin=max(0,ibornemin-2)
-    ibornemax=min(24,ibornemax+2)
-    jbornemin=max(0,jbornemin-2)
-    jbornemax=min(24,jbornemax+2)
-    #print("bornes : ",ibornemin,ibornemax,jbornemin,jbornemax)
+    try:
+        for i in range(0,len(seq)):
+            if int(seq[i].split("/")[1])<ibornemin:
+                ibornemin=int(seq[i].split("/")[1])
+            if int(seq[i].split("/")[1])>ibornemax:
+                ibornemax=int(seq[i].split("/")[1])
+            if int(seq[i].split("/")[0])<jbornemin:
+                jbornemin=int(seq[i].split("/")[0])
+            if int(seq[i].split("/")[0])>jbornemax:
+                jbornemax=int(seq[i].split("/")[0])
+        ibornemin=max(0,ibornemin-2)
+        ibornemax=min(24,ibornemax+2)
+        jbornemin=max(0,jbornemin-2)
+        jbornemax=min(24,jbornemax+2)
+    except Exception as error:
+        print('mail error',error)
     return([ibornemin,ibornemax,jbornemin,jbornemax])
 
 #Actions si le joueur est connecté ou pas
