@@ -349,7 +349,6 @@ function displayGameBoard(){
     } else {
         nbc=25
     }
-    alert(nbc)
     if (window.innerWidth > window.innerHeight) {
         h=window.innerHeight/parseInt(nbc)         
         fontsz="0.9vw"

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         let nbc=25
     }
-    
+
     if (window.innerWidth > window.innerHeight) {    
         h=((window.innerHeight-20)/nbc)+"px"
         fontsz="1vw"
@@ -432,6 +432,13 @@ function displayGameBoard(){
 
     // creation lignes du tableau
     var cell, ligne;
+    let nbc=25
+    //taille de la grille
+    if (ismobile()) {
+        nbc=18
+    } else {
+        nbc=25
+    }
     if (window.innerWidth > window.innerHeight) {
         h=window.innerHeight/nbc        
         fontsz="0.9vw"
