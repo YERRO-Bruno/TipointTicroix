@@ -17,6 +17,7 @@ def error_404(request, exception):
 
 #page internet (PvP)
 def internet(request):
+    nbc=int(request.session['nbc'])
     context = {}
     connec=estconnecté(request)
     if connec[0]:
@@ -27,7 +28,7 @@ def internet(request):
                 print("etape début")
                 #Début
                 request.session['SEQUENCE']=[]
-                request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
+                request.session['GRILLE'] = [["-"] * nbc for _ in range(nbc)]
                 print("début",request.POST['jeton'],request.POST['joueur'])
                 if request.POST["jeton"]=="Oui":
                     request.session['PREMIER']=request.POST['joueur']
@@ -84,7 +85,7 @@ def internet(request):
                 print("charger : " + request.POST["charger"])
                 # request.session['SEQUENCE']=request.POST['sequence'].split(",")
                 marque="O"
-                request.session['GRILLE']=[["-"] * 25 for _ in range(25)]
+                request.session['GRILLE']=[["-"] * nbc for _ in range(nbc)]
                 if len(request.session['SEQUENCE'])>0:
                     context['nbtour']=str(request.session['TOUR'])
                     for coup in request.session['SEQUENCE']:
@@ -122,7 +123,6 @@ def internet(request):
                     request.session['orientation']="portrait"
                     return render(request, "internetportrait.html", context)
 
-
             if request.POST['etape'] =="tourjeu":
                 #tour de jeu
                 print("tourjeu")
@@ -144,7 +144,7 @@ def internet(request):
                 request.session['SEQUENCE']=request.session['SEQUENCE']+[request.POST["coupjoueur"]]
                 context['sequence']=','.join(str(i) for i in request.session['SEQUENCE'])    
                 context["nbtour"]=nbtour(request.session['SEQUENCE'])
-                res = trouve_5(request.POST["coupjoueur"],marque,request.session['GRILLE'])
+                res = trouve_5(request.POST["coupjoueur"],marque,request.session['GRILLE'],nbc)
                 if res != "Non":
                     request.session['.MATCH']=request.session['MATCH']+1
                     if request.POST['jeton']=="Oui":
@@ -170,7 +170,7 @@ def internet(request):
                     context['finmanche']="Oui"
                     if request.session['MATCH']==2:
                         context['finpartie']="Oui"
-                if len(request.session['SEQUENCE'])==625:
+                if len(request.session['SEQUENCE'])==nbc*nbc:
                     context['pat']="Oui"
                     context["begin"]=request.session['BEGIN']
                     context['joueur']=request.POST['joueur']
@@ -228,7 +228,7 @@ def internet(request):
             context["etape"]="connexion"
             request.session['MATCH']=0
             request.session['TOUR']=0
-            request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
+            request.session['GRILLE'] = [["-"] * nbc for _ in range(nbc)]
             request.session['SEQUENCE']=[]            
             if request.session['orientation']=="paysage":
                 return render(request, "internetpaysage.html", context)
@@ -255,6 +255,7 @@ def accueil(request):
     else:
         context['debug']= "False"  
     if request.method == 'POST':
+        request.session['nbc']=request.POST['nbc']
         request.session['orientation']=request.POST['orientation']
         context["orientation"]=request.session['orientation']
         if request.session['orientation']=="portrait":
@@ -325,7 +326,7 @@ def preregister(request):
                     else:
                         return render(request,'registerportrait.html',
                             {'email':emailx,'errorVerif':"error Mailing"})
-                request.session['EMAIL']=emailx
+                request.session['EMAIL']=emailxd
                 return redirect('/register')
             if request.session['orientation']=="paysage":
                 return render(request, 'preregisterpaysage.html',
@@ -539,6 +540,7 @@ def connect(request):
 
 #page tipointticroix
 def tipointticroix(request):
+    nbc=int(request.session['nbc'])
     context = {}
     connec=estconnecté(request)
     if connec[0]:
@@ -552,7 +554,7 @@ def tipointticroix(request):
             #Appel initial
             request.session["stat"]="Oui"
             request.session['TOUR']=0
-            request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
+            request.session['GRILLE'] = [["-"] * nbc for _ in range(nbc)]
             request.session['SEQUENCE']=[]
             context["orientation"]=request.POST['orientation']
             context["tour"]="0"
@@ -598,7 +600,7 @@ def tipointticroix(request):
             print("charger : " + request.POST["charger"])
             request.session['SEQUENCE']=request.POST['sequence'].split(",")
             marque="O"
-            request.session['GRILLE']=[["-"] * 25 for _ in range(25)]
+            request.session['GRILLE']=[["-"] * nbc for _ in range(nbc)]
             if len(request.POST['sequence'])>0:
                 for coup in request.session['SEQUENCE']:
                     request.session['GRILLE']=majgrille(coup,marque,request.session['GRILLE'])
@@ -684,7 +686,7 @@ def tipointticroix(request):
                                 if request.session['GRILLE'][24][24]=='X':
                                     return render(request, "easteregg.html")
             #victoire joueur
-            res = trouve_5(request.POST["coupjoueur"],marquejoueur,request.session['GRILLE'])
+            res = trouve_5(request.POST["coupjoueur"],marquejoueur,request.session['GRILLE'],nbc)
             if res != "Non":
                 context['victoire']=res
                 if request.session["stat"]=="Oui":
@@ -698,7 +700,7 @@ def tipointticroix(request):
                     return render(request, "tipointticroixpaysage.html", context)
                 else:
                     return render(request, "tipointticroixportrait.html", context)
-            if len(request.session['SEQUENCE'])==625:
+            if len(request.session['SEQUENCE'])==nbc*nbc:
                 context['pat']="Oui"
                 context['marquevous']=marquejoueur
                 context['marqueordi']=marqueordi
@@ -713,12 +715,12 @@ def tipointticroix(request):
                     return render(request, "tipointticroixportrait.html", context)
             #COUP ORDINATEUR
             coupordinateur=coupordi(marqueordi,request.session['NIVEAU'],
-                request.session['SEQUENCE'],request.session['GRILLE'])
+                request.session['SEQUENCE'],request.session['GRILLE'],nbc)
             request.session['SEQUENCE']=request.session['SEQUENCE']+[coupordinateur]
             
             #GRILLE=COUPORDINATEUR
             request.session['GRILLE']=majgrille(coupordinateur,marqueordi,request.session['GRILLE'])
-            res = trouve_5(coupordinateur,marqueordi,request.session['GRILLE'])
+            res = trouve_5(coupordinateur,marqueordi,request.session['GRILLE'],nbc)
             if res != "Non":
                 context['defaite']=res
                 if connec[0]:
@@ -731,7 +733,7 @@ def tipointticroix(request):
                     return render(request, "tipointticroixpaysage.html", context)
                 else:
                     return render(request, "tipointticroixportrait.html", context)
-            if len(request.session['SEQUENCE'])==625:
+            if len(request.session['SEQUENCE'])==nbc*nbc:
                 context['pat']="Oui"
                 context['marquevous']=marquejoueur
                 context['marqueordi']=marqueordi
@@ -760,7 +762,7 @@ def tipointticroix(request):
             return render(request, "tipointticroixportrait.html", context)
     #Appel initial
     request.session['TOUR']=0
-    request.session['GRILLE'] = [["-"] * 25 for _ in range(25)]
+    request.session['GRILLE'] = [["-"] * nbc for _ in range(nbc)]
     request.session['SEQUENCE']=[]
     
     if request.session['orientation']=="paysage":

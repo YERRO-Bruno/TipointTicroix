@@ -4,20 +4,28 @@ document.addEventListener("DOMContentLoaded", function () {
     let nouvelleposition=""
     let nouvellecolor=""
     précédentecolor=""
+    let nbc=25
+    //taille de la grille
+    if (ismobile()) {
+        nbc=18
+    } else {
+        nbc=25
+    }
+    
     if (window.innerWidth > window.innerHeight) {    
-        h=((window.innerHeight-20)/25)+"px"
+        h=((window.innerHeight-20)/nbc)+"px"
         fontsz="1vw"
     } else {
         h="4vw"
         fontsz="1vh"
     }
-
-// mise en place plateau de jeu HTLM
+    
+    // mise en place plateau de jeu HTLM
     let d1=0
     let d2=0
     displayGameBoard()  
-
-// Click sur le bouton jouer
+    
+    // Click sur le bouton jouer
     document.getElementById("btn-jouer").addEventListener('click', function(e){
         e.preventDefault()
         if (window.innerWidth > window.innerHeight) {
@@ -32,8 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         document.forms["grille"].submit();
     })
-
-//click sur la  checkbox Positionnement et validation du coup
+    
+    //click sur la  checkbox Positionnement et validation du coup
     document.getElementById("joyst").addEventListener('click', () => {
         if (document.getElementById("joystchecked").value=="Oui") {
             document.getElementById("joystchecked").value="Non"
@@ -45,8 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("joystick").style.display="block"
         }
     })
-
-// Click du joueur sur une des cases
+    
+    // Click du joueur sur une des cases
     document.getElementById("table").addEventListener('click', function(e) {
         e.preventDefault()
         if (document.getElementById("begin-id").textContent=="Oui") {
@@ -79,16 +87,16 @@ document.addEventListener("DOMContentLoaded", function () {
                         document.getElementById(e.target.id).style.color="blue"
                         document.getElementById(e.target.id).style.backgroundColor="lightcyan"
                     }
-    
+                    
                     e.target.blur()
                     document.getElementById("coup-joueur").value=e.target.id
                     document.getElementById("amoi").style.display="block"
                     document.getElementById("avous").style.display="none"
                     if (window.innerWidth > window.innerHeight) {
                         document.getElementById("orientation").value="paysage"
-                      } else {
+                    } else {
                         document.getElementById("orientation").value="portrait"
-                      }
+                    }
                     document.forms["grille"].submit();                
                 } else {
                     alert("Case déjà utilisée!")
@@ -103,20 +111,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         
     })
-
-//click du joueur sur haut
-document.getElementById("id-haut").addEventListener('click', function(e) {
-    if (précédenteposition !="") {        
-        document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
-        let iprec=parseInt(précédenteposition.split("/")[0])
-        if (iprec >0) {
-            iprec=iprec-1
-        } else {
-            alert("bord atteint")
-        }            
-        let yprec=précédenteposition.split("/")[1]
-        nouvelleposition=iprec+"/"+yprec
-        précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+    
+    //click du joueur sur haut
+    document.getElementById("id-haut").addEventListener('click', function(e) {
+        if (précédenteposition !="") {        
+            document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+            let iprec=parseInt(précédenteposition.split("/")[0])
+            if (iprec >0) {
+                iprec=iprec-1
+            } else {
+                alert("bord atteint")
+            }            
+            let yprec=précédenteposition.split("/")[1]
+            nouvelleposition=iprec+"/"+yprec
+            précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
         document.getElementById(nouvelleposition).style.backgroundColor="green"
         précédenteposition=nouvelleposition
     } else {
@@ -139,7 +147,7 @@ document.getElementById("id-bas").addEventListener('click', function(e) {
     if (précédenteposition !="") {        
         document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
         let iprec=parseInt(précédenteposition.split("/")[0])
-        if (iprec <24) {
+        if (iprec <nbc - 1) {
             iprec=iprec+1
         } else {
             alert("bord atteint")
@@ -168,7 +176,7 @@ document.getElementById("id-droite").addEventListener('click', function(e) {
     if (précédenteposition !="") {        
         document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
         let yprec=parseInt(précédenteposition.split("/")[1])
-        if (yprec <24) {
+        if (yprec <nbc - 1) {
             yprec=yprec+1
         } else {
             alert("bord atteint")
@@ -246,9 +254,9 @@ document.getElementById("id-validation").addEventListener('click', function(e) {
         document.getElementById("avous").style.display="none"
         if (window.innerWidth > window.innerHeight) {
             document.getElementById("orientation").value="paysage"
-          } else {
+        } else {
             document.getElementById("orientation").value="portrait"
-          }
+        }
         document.forms["grille"].submit();                
     } else {
         alert("Case déjà utilisée!")
@@ -256,17 +264,17 @@ document.getElementById("id-validation").addEventListener('click', function(e) {
 })
 
 // Click du joueur sur le bouton quitter en debut de jeu
-    document.getElementById("btn-quitter").addEventListener('click', function(e) {
-        e.preventDefault()
+document.getElementById("btn-quitter").addEventListener('click', function(e) {
+    e.preventDefault()
         document.location.href="/"
     })
-
-// Click du joueur sur le bouton quitter en cours de jeu
+    
+    // Click du joueur sur le bouton quitter en cours de jeu
     document.getElementById("btn-quitter2").addEventListener('click', function(e) {
         e.preventDefault()
         if (document.getElementById("nb-tour").textContent > "0") {
             if (document.getElementById("id-victoire").value=="Non" &&
-                document.getElementById("id-defaite").value=="Non") {
+            document.getElementById("id-defaite").value=="Non") {
                 if (confirm("Voulez vous revenir à l'accueil?")==true) {
                     document.location.href="/"
                 }
@@ -275,31 +283,31 @@ document.getElementById("id-validation").addEventListener('click', function(e) {
             }
         }
     })
-
-// Click du joueur sur le bouton annuler le tour
+    
+    // Click du joueur sur le bouton annuler le tour
     document.getElementById("btn-annuler").addEventListener('click', function(e) {
         if (confirm("En cas d'annulation cette partie ne comptera pas dans les statistiques?")) {
             e.preventDefault()
             document.getElementById("id-annuler").value="Oui"
             if (window.innerWidth > window.innerHeight) {
                 document.getElementById("orientation").value="paysage"
-              } else {
+            } else {
                 document.getElementById("orientation").value="portrait"
-              }
+            }
             document.forms["grille"].submit();
         }
     })
-
-// Click du joueur sur le bouton rejouer
+    
+    // Click du joueur sur le bouton rejouer
     document.getElementById("btn-rejouer").addEventListener('click', function(e) {
         e.preventDefault()
         document.location.href='/jeu'
     })
-
-//changement de l'orientation de l'ecran
+    
+    //changement de l'orientation de l'ecran
     window.screen.orientation.addEventListener("change", function() {
         if (document.getElementById("nb-tour").textContent > "0") {
-                document.getElementById("id-charger").value="Oui"
+            document.getElementById("id-charger").value="Oui"
         } else {
             document.getElementById("debut").value="Oui"
         }             
@@ -307,9 +315,9 @@ document.getElementById("id-validation").addEventListener('click', function(e) {
             document.getElementById("orientation").value="paysage"
         } else {
         document.getElementById("orientation").value="portrait"
-        }
-        document.forms["grille"].submit();
-    });
+    }
+    document.forms["grille"].submit();
+});
 })
 //Functions
 //Affichage de la grille
@@ -317,6 +325,7 @@ function displayGameBoard(){
     document.getElementById("mp-0").style.Height="100%"
     document.getElementById("x-jouer").style.display="block"
     document.getElementById("x-board").style.display="none"
+    
     if (document.getElementById("id-vous").textContent=="O") {
         document.getElementById("vous").style.color = "blue"
         document.getElementById("id-vous").style.color = "blue"
@@ -333,22 +342,30 @@ function displayGameBoard(){
     document.getElementById("btn-annuler").style.display="none"
     document.getElementById("btn-rejouer").style.display="none"
     var cell, ligne;
+    let nbc=25
+    //taille de la grille
+    if (ismobile()) {
+        nbc=18
+    } else {
+        nbc=25
+    }
+    alert(nbc)
     if (window.innerWidth > window.innerHeight) {
-        h=window.innerHeight/25        
+        h=window.innerHeight/parseInt(nbc)         
         fontsz="0.9vw"
     } else {
-        h=window.innerWidth/25
+        h=window.innerWidth/parseInt(nbc)
         fontsz="0.9vh"
         let h1=document.documentElement.scrollHeight
         let h3=window.innerHeight
         d1=(h1-h3)
     }   
     var tableau = document.getElementById("table");
-    for (let j = 0; j < 25; j++) {
+    for (let j = 0; j < nbc ; j++) {
         ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
         ligne.id="L"+j
         // création et insertion des cellules dans la nouvelle ligne créée
-        for (let i = 0; i < 25; i++) {
+        for (let i = 0; i < nbc ; i++) {
             var idx= j+"/"+i
             var imghtml=`
             <input class="textcenter" id=${idx} type="text"
@@ -375,10 +392,10 @@ function displayGameBoard(){
         d2=(h1-h3)
         let diftaille=d2-d1
         if (diftaille>0) {
-            h=h-(diftaille/25)
+            h=h-(diftaille/nbc )
             document.getElementById("table").width=diftaille
-            for (let j = 0; j < 25; j++) {
-                for (let i = 0; i < 25; i++) {
+            for (let j = 0; j < nbc ; j++) {
+                for (let i = 0; i < nbc ; i++) {
                     var idx= j+"/"+i
                     document.getElementById(idx).style.height=h+"px"
                 }

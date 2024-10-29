@@ -27,6 +27,7 @@
     {% csrf_token %}
     <div hidden>
       <input id="orientation" name="orientation" type="text">
+      <input id="nbc" name="nbc" type="text">
     </div>
   </form>
 </body>
@@ -37,6 +38,23 @@
     } else {
       document.getElementById("orientation").value="portrait"
     }
+    if (ismobile()) {
+      document.getElementById("nbc").value="18"
+    } else {
+      document.getElementById("nbc").value="25"
+    }
     document.forms["accueil"].submit()
+
+
+    //fonction ismobile
+function ismobile() {
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        // true for mobile device
+        return true
+      }else{
+        // false for not mobile device
+        return false
+      }
+}
 </script>
 </html>

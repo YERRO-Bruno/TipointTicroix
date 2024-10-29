@@ -4,8 +4,15 @@ document.addEventListener("DOMContentLoaded", function () {
     let nouvelleposition=""
     let nouvellecolor=""
     précédentecolor=""
+    //taille de la grille
+    if (ismobile()) {
+        let nbc=18
+    } else {
+        let nbc=25
+    }
+    
     if (window.innerWidth > window.innerHeight) {    
-        h=((window.innerHeight-20)/25)+"px"
+        h=((window.innerHeight-20)/nbc)+"px"
         fontsz="1vw"
     } else {
         h="4vw"
@@ -143,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (précédenteposition !="") {        
             document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
             let iprec=parseInt(précédenteposition.split("/")[0])
-            if (iprec <24) {
+            if (iprec <nbc - 1) {
                 iprec=iprec+1
             } else {
                 alert("bord atteint")
@@ -172,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (précédenteposition !="") {        
             document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
             let yprec=parseInt(précédenteposition.split("/")[1])
-            if (yprec <24) {
+            if (yprec <nbc - 1) {
                 yprec=yprec+1
             } else {
                 alert("bord atteint")
@@ -422,13 +429,14 @@ function displayGameBoard(){
         }
 
     }
+
     // creation lignes du tableau
     var cell, ligne;
     if (window.innerWidth > window.innerHeight) {
-        h=window.innerHeight/25        
+        h=window.innerHeight/nbc        
         fontsz="0.9vw"
       } else {
-        h=window.innerWidth/25
+        h=window.innerWidth/nbc
         fontsz="0.9vh"
         let h1=document.documentElement.scrollHeight
         let h3=window.innerHeight
@@ -436,13 +444,13 @@ function displayGameBoard(){
       }   
     h=h
     var tableau = document.getElementById("table");
-    for (let j = 0; j < 25; j++) {
+    for (let j = 0; j < nbc; j++) {
       
         ligne = tableau.insertRow(-1); // création d'une ligne pour ajout en fin de table
                                         // le paramètre est dans ce cas (-1)
 
     // création et insertion des cellules dans la nouvelle ligne créée
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < nbc; i++) {
           var idx= j+"/"+i
           var imghtml=`
               <input class="textcenter" id=${idx} type="text"
@@ -468,10 +476,10 @@ function displayGameBoard(){
         d2=(h1-h3)
         let diftaille=d2-d1
         if (diftaille>0) {
-            h=h-(diftaille/25)
+            h=h-(diftaille/nbc)
             document.getElementById("table").width=diftaille
-            for (let j = 0; j < 25; j++) {
-                for (let i = 0; i < 25; i++) {
+            for (let j = 0; j < nbc; j++) {
+                for (let i = 0; i < nbc; i++) {
                     var idx= j+"/"+i
                     document.getElementById(idx).style.height=h+"px"
                 }
