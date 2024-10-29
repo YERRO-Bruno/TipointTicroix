@@ -2552,7 +2552,6 @@ def nbtour(SEQUENCE):
 
 def finpartie(pseudox,typex,result):
     userx=User.objects.get(pseudo=pseudox)
-    print("mail",userx.email)
     game = Game.objects.create(user=userx, type=typex, victoire=result)
     print("finpartie")
 
