@@ -2154,7 +2154,7 @@ def score1(coup,marque,GRILLE,nbc):
     
     #joueur ù-ùùù ùùù-ù -ù-ùù- -ùù-ù-
     nb=0
-    result=cherche_size(coup,marque,"-ù-ùù-".replace("ù",marque),4,GRILLE),nbc
+    result=cherche_size(coup,marque,"-ù-ùù-".replace("ù",marque),4,GRILLE,nbc)
     res=result[0]
     if res!= "Non":
         nb=nb+result[1]
