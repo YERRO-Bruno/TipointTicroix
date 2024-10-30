@@ -65,6 +65,24 @@ wss.on('connection', (socket) => {
                 socket.send("PB")
             }
         }
+        
+        if (msg[0]=='invitemobile') {           
+            Object.keys(global.connectedUsers).forEach(pseudox => {
+                let socketx = global.connectedUsers[pseudox];
+                if (socketx==socket) {
+                    hote=pseudox
+                }
+            });
+            let socketinvite=global.connectedUsers[msg[2]]
+            try {
+                socketinvite.send("invitemobile,"+msg[1]+","+msg[2])
+            }
+            catch (e) {
+                console.log("error invitemobile",e.message,msg[1],msg[2])
+                socket.send("PB")
+            }
+        }
+
         if (msg[0]=='accept') {
             let sockethote=global.connectedUsers[msg[2]]
             try {
@@ -75,6 +93,18 @@ wss.on('connection', (socket) => {
                 socket.send("PB")
             }
         }
+        
+        if (msg[0]=='acceptmobile') {
+            let sockethote=global.connectedUsers[msg[2]]
+            try {
+                sockethote.send("acceptmobile,"+msg[1]+","+msg[2])
+            }
+            catch (e) {
+                console.log("error acceptmobile",e.message,msg[1],msg[2])
+                socket.send("PB")
+            }
+        }
+
         if (msg[0]=='refus') {
             let sockethote=global.connectedUsers[msg[2]]
             try {

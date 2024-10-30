@@ -65,6 +65,7 @@ def internet(request):
                 context["pat"]="Non"
                 context['joystchecked']=request.POST['joystchecked']
                 context["orientation"]=request.POST['orientation']
+                context["partiemobile"]=request.POST["partiemobile"]
                 request.session['orientation']=request.POST['orientation']
                 if request.POST['orientation']=="paysage":
                     return render(request, "internetpaysage.html", context)
@@ -115,6 +116,7 @@ def internet(request):
                 context['finmanche']=request.POST['finmanche']
                 context['finpartie']=request.POST['finpartie']
                 context['joystchecked']=request.POST['joystchecked']
+                context["partiemobile"]=request.POST["partiemobile"]
                 request.session['orientation']=request.POST['orientation']    
                 if request.POST['orientation']=="paysage":
                     request.session['orientation']="paysage"
@@ -218,6 +220,7 @@ def internet(request):
                     context["score2"]="{:.1f}".format(request.session['SCORE2'])
                 context["etape"]="nouveautour"
                 context['joystchecked']=request.POST['joystchecked']
+                context["partiemobile"]=request.POST["partiemobile"]
                 context["orientation"]=request.POST['orientation']
                 request.session['orientation']=request.POST['orientation']
                 if request.POST['orientation']=="paysage":

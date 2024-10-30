@@ -4,20 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let nouvelleposition=""
     let nouvellecolor=""
     précédentecolor=""
-    //taille de la grille
-    if (ismobile()) {
-        let nbc=18
-    } else {
-        let nbc=25
-    }
-
-    if (window.innerWidth > window.innerHeight) {    
-        h=((window.innerHeight-20)/nbc)+"px"
-        fontsz="1vw"
-    } else {
-        h="4vw"
-        fontsz="1vh"
-    }
+    
     document.getElementById("x-board").style.display="none"
     document.getElementById("id-bandeau").style.display="none"
     //pseudox=document.getElementById("id-connec").textContent
@@ -29,8 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
     userconnecteds.addEventListener("click", function(e) {
         e.preventDefault()
         invite=e.target.id
-        message="invite,"+document.getElementById("id-connec").textContent+","+e.target.id
-        socket.send(message)  
+        if (ismobile()) {
+            message="invitemobile,"+document.getElementById("id-connec").textContent+","+e.target.id
+            socket.send(message)
+        } else {
+            message="invite,"+document.getElementById("id-connec").textContent+","+e.target.id
+            socket.send(message)  
+        }
     })
 
     document.getElementById("btn-quitter").addEventListener('click', function(e) {
@@ -315,6 +307,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (msg[0]=="invite") {
             if (confirm("Acceptez-vous de jouer avec "+msg[1])) {
+                if (ismobile()) {
+                    socket.send('acceptmobile,'.concat(document.getElementById("id-connec").textContent,',',msg[1]))
+                } else {
+                    socket.send('accept,'.concat(document.getElementById("id-connec").textContent,',',msg[1]))
+                }
+                document.getElementById("id-etape").value="début"
+                document.getElementById("id-jeton").value="Non"
+                document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+                document.getElementById("id-adversaire").value=msg[1]
+                document.getElementById("id-match").value=1
+                document.getElementById("id-score1").value=0
+                document.getElementById("id-score2").value=0
+                if (ismobile()) {
+                    document.getElementById("partiemobile").value="Oui"
+                    document.getElementById("joystchecked").value="Oui"                    
+                } else {
+                    document.getElementById("partiemobile").value="Non"
+                    document.getElementById("joystchecked").value="Non"
+                }
+                if (window.innerWidth > window.innerHeight) {
+                    document.getElementById("orientation").value="paysage"
+                } else {
+                    document.getElementById("orientation").value="portrait"
+                }
+                document.forms["internet"].submit();
+            } else {
+                socket.send('refus,'.concat(document.getElementById("id-connec").textContent,',',msg[1]))
+            } 
+        }
+
+        if (msg[0]=="invitemobile") {
+            if (confirm("Acceptez-vous de jouer avec "+msg[1])) {
                 socket.send('accept,'.concat(document.getElementById("id-connec").textContent,',',msg[1]))
                 document.getElementById("id-etape").value="début"
                 document.getElementById("id-jeton").value="Non"
@@ -323,6 +347,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("id-match").value=1
                 document.getElementById("id-score1").value=0
                 document.getElementById("id-score2").value=0
+                document.getElementById("partiemobile").value="Oui"
                 if (ismobile()) {
                     document.getElementById("joystchecked").value="Oui"                    
                 } else {
@@ -338,6 +363,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 socket.send('refus,'.concat(document.getElementById("id-connec").textContent,',',msg[1]))
             } 
         }
+
         if (msg[0]=="accept") {
             document.getElementById("id-etape").value="début"
             document.getElementById("id-jeton").value="Oui"
@@ -346,6 +372,30 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("id-match").value=1
             document.getElementById("id-score1").value=0
             document.getElementById("id-score2").value=0
+            if (ismobile()) {
+                document.getElementById("partiemobile").value="Oui"
+                document.getElementById("joystchecked").value="Oui"                    
+            } else {
+                document.getElementById("partiemobile").value="Non"
+                document.getElementById("joystchecked").value="Non"
+            }
+            if (window.innerWidth > window.innerHeight) {
+                document.getElementById("orientation").value="paysage"
+            } else {
+                document.getElementById("orientation").value="portrait"
+            }
+            document.forms["internet"].submit();
+        } 
+        
+        if (msg[0]=="acceptmobile") {
+            document.getElementById("id-etape").value="début"
+            document.getElementById("id-jeton").value="Oui"
+            document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+            document.getElementById("id-adversaire").value=msg[1]
+            document.getElementById("id-match").value=1
+            document.getElementById("id-score1").value=0
+            document.getElementById("id-score2").value=0
+            document.getElementById("partiemobile").value="Oui"
             if (ismobile()) {
                 document.getElementById("joystchecked").value="Oui"                    
             } else {
@@ -434,11 +484,21 @@ function displayGameBoard(){
     var cell, ligne;
     let nbc=25
     //taille de la grille
-    if (ismobile()) {
-        nbc=18
-    } else {
-        nbc=25
-    }
+    
+    if (document.getElementById("partiemobile").value=="Oui" ||
+     document.getElementById("partiemobile").value=="Non") {
+        if(document.getElementById("partiemobile").value=="Oui") {
+            nbc=18
+        } else {
+            nbc=25
+        }
+     } else {
+         if (ismobile()) {
+             nbc=18
+         } else {
+             nbc=25
+         }
+     }
     if (window.innerWidth > window.innerHeight) {
         h=window.innerHeight/nbc        
         fontsz="0.9vw"
