@@ -333,6 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 document.forms["internet"].submit();
             } else {
+                alert("refus")
                 socket.send('refus,'.concat(document.getElementById("id-connec").textContent,',',msg[1]))
             } 
         }
