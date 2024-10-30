@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
             message="invitemobile,"+document.getElementById("id-connec").textContent+","+e.target.id
             socket.send(message)
         } else {
+            alert("click invite")
             message="invite,"+document.getElementById("id-connec").textContent+","+e.target.id
             socket.send(message)  
         }
@@ -280,7 +281,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (msg[0]=="PB") {
             alert("perte de connection")
         }
-
 
         if (msg[0]=="connected") {
             while (userconnecteds.firstChild) {
