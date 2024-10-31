@@ -62,17 +62,18 @@ Ti_Points-Ti_Croix
                     </div>
             
                 <legend style="font-size: 3vh;margin-top:0">Voulez-vous jouer en premier?</legend>
-                    <div>
-                        <label for="begin-yes" style="font-size: 2.5vh;margin-top:0;margin-bottom:0;
-                            margin-left: 1vh"><input type="radio" id="begin-yes" 
-                            name="check-begin" checked 
-                            style="width: 3vh;height: 3vh" value="Oui" />Oui</label>
-                        <label for="begin-no" style="font-size: 2.5vh;margin-top:0;margin-bottom:0;
-                            margin-left: 1vh"><input type="radio" id="begin-no" 
-                            name="check-begin" style="width: 3vh;height: 3vh" 
-                            value="Non" />Non</label>
-                    </div>
-            
+                <div>
+                    <label for="begin-yes" style="font-size: 2.5vh;margin-top:0;margin-bottom:0;
+                        margin-left: 1vh"><input type="radio" id="begin-yes" 
+                        name="check-begin" checked 
+                        style="width: 3vh;height: 3vh" value="Oui" />Oui</label>
+                    <label for="begin-no" style="font-size: 2.5vh;margin-top:0;margin-bottom:0;
+                        margin-left: 1vh"><input type="radio" id="begin-no" 
+                        name="check-begin" style="width: 3vh;height: 3vh" 
+                        value="Non" />Non</label>
+                </div>
+                <div class="text-center" id="messag0" style="font-size:1.2vw;display:none;
+                    background-color:red;color:white"></div>            
                 <div class="flex" style="justify-content:center;margin-top:1vh">
                     <button  id="btn-quitter" class="btn btn-0" type="button" 
                     style="width: 100%;font-size:1.5vw;;height:7vh;
@@ -104,6 +105,8 @@ Ti_Points-Ti_Croix
                 <div class="text-center" id="amoi" style="font-size:1.2vw">JE REFLECHIT</div>
                 <div class="text-center" id="victoire" style="font-size:1.2vw">VOUS AVEZ GAGNE</div>
                 <div class="text-center" id="defaite" style="font-size:1.2vw">VOUS AVEZ PERDU</div>
+                <div class="text-center" id="message" style="font-size:1.2vw;display:none;
+                    background-color:red;color:white"></div>
                 <div>
                     <button  id="btn-annuler" class="btn btn-0" type="button" style="width:100%;
                         font-size: 1.5vw;background-color: rgb(0, 208, 255);margin-top:1vh">
