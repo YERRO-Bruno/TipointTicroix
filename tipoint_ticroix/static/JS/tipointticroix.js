@@ -108,16 +108,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     audio.play();
                     document.getElementById("message").textContent="Case déjà occupée!!!"
                     document.getElementById("message").style.display="block"
-                    // setTimeout(() => {
-                    //     alert("Case déjà utilisée!")
-                    // }, 500);
                 }
             }
         } else {
             if (document.getElementById("x-board").style.display == "none") {
                 let audio = new Audio("../static/son/lancer.mp3");
                 audio.play();
-                document.getElementById("messag0").textContent="Pensez à lancer le jeu!!!"
+                document.getElementById("messag0").textContent="N'oubliez pas de lancer le jeu!!!"
                 document.getElementById("messag0").style.display="block"
             } else {
                 let audio = new Audio("../static/son/terminé.mp3");
@@ -125,15 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("message").textContent="La partie est terminée!!!"
                 document.getElementById("message").style.display="block"
 
-            }
-            // setTimeout(() => {
-            //     if (document.getElementById("x-board").style.display == "none") {
-            //         alert("Lancez d'abord la partie!");
-            //     } else {
-            //         alert("La partie est terminée!");
-            //     }
-            // }, 500);
-            
+            }            
         }
     })
     
@@ -289,11 +278,8 @@ document.getElementById("id-validation").addEventListener('click', function(e) {
     } else {
         let audio = new Audio("../static/son/occupé.mp3");
         audio.play();
-        document.getElementById("message").textContent="Case déjà occupée!!!"
+        document.getElementById("message").textContent="cette case est déjà occupée!!!"
         document.getElementById("message").style.display="block"
-        // setTimeout(() => {
-        //     alert("Case déjà utilisée!")
-        // }, 500);
     }
 })
 

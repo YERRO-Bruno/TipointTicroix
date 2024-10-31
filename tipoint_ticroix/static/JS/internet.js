@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     // Click du joueur sur une des cases
+    document.getElementById("message").style.display="none"
     document.getElementById("table").addEventListener('click', function(e) {
         if ((document.getElementById("id-victoire").value=="Non" &&
         document.getElementById("id-defaite").value=="Non" &&
@@ -96,19 +97,24 @@ document.addEventListener("DOMContentLoaded", function () {
                         audio.play();
                         document.forms["internet"].submit();
                     } else {
-                        let audio = new Audio("../static/son/pasbon.mp3");
+                        let audio = new Audio("../static/son/occupé.mp3");
                         audio.play();
-                        setTimeout(() => {
-                            alert("Case déjà utilisée!")
-                        }, 100);
+                        document.getElementById("message").textContent="Case déjà occupée!!!"
+                        document.getElementById("message").style.display="block"
                     }
                 }
             }
         } else {
             if (document.getElementById("nb-tour").textContent="0") {
-                alert("Choisissez votre adversaire!")
+                let audio = new Audio("../static/son/adversaire.mp3");
+                audio.play();
+                document.getElementById("messag0").textContent="Choisissez un adversaire!!!"
+                document.getElementById("messag0").style.display="block"
             } else {
-                alert("partie terminée !")
+                let audio = new Audio("../static/son/terminé.mp3");
+                audio.play();
+                document.getElementById("message").textContent="La partie est terminée!!!"
+                document.getElementById("message").style.display="block"
               }
         }
     })
@@ -234,6 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //click sur validation
     document.getElementById("id-validation").addEventListener('click', function(e) {
+        document.getElementById("message").display="none"
         if (document.getElementById("id-begin").textContent=="Oui") {
             marque="O"
         } else {
@@ -268,11 +275,10 @@ document.addEventListener("DOMContentLoaded", function () {
             audio.play();
             document.forms["internet"].submit();
         } else {
-            let audio = new Audio("../static/son/pasbon.mp3");
+            let audio = new Audio("../static/son/occupé.mp3");
             audio.play();
-            setTimeout(() => {
-                alert("Case déjà utilisée!")
-            }, 100);
+            document.getElementById("message").textContent="cette case est déjà occupée!!!"
+            document.getElementById("message").style.display="block"
         }
     })
 
@@ -512,10 +518,10 @@ function displayGameBoard(){
      }
     if (window.innerWidth > window.innerHeight) {
         h=window.innerHeight/nbc        
-        fontsz="0.9vw"
+        fontsz="1.4vw"
       } else {
         h=window.innerWidth/nbc
-        fontsz="0.9vh"
+        fontsz="1.4vh"
         let h1=document.documentElement.scrollHeight
         let h3=window.innerHeight
         d1=(h1-h3)

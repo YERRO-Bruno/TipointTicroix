@@ -53,14 +53,16 @@ Ti_Points-Ti_Croix
                         <legend style="font-size: 3vw;margin-top:1vh">
                             Voulez-vous jouer en premier?
                         </legend>
-                            <label for="begin-yes" style="font-size: 3vw;
-                                margin-left: 3vw"><input type="radio" id="begin-yes" 
-                                name="check-begin" checked 
-                                style="width: 3vw;height: 3vw" value="Oui" />Oui</label>
-                            <label for="begin-no" style="font-size: 3vw;
-                                margin-left: 3vw"><input type="radio" id="begin-no" 
-                                name="check-begin" style="width: 3vw;height: 3vw" 
-                                value="Non" />Non</label>                       
+                        <label for="begin-yes" style="font-size: 3vw;
+                            margin-left: 3vw"><input type="radio" id="begin-yes" 
+                            name="check-begin" checked 
+                            style="width: 3vw;height: 3vw" value="Oui" />Oui</label>
+                        <label for="begin-no" style="font-size: 3vw;
+                            margin-left: 3vw"><input type="radio" id="begin-no" 
+                            name="check-begin" style="width: 3vw;height: 3vw" 
+                            value="Non" />Non</label>
+                        <div class="text-center" id="messag0" style="font-size:1.6vh;display:none;
+                        background-color:red;color:white;height:2vh"></div>                           
                     </tr>
                 </table>
                 <div style="display:flex;justify-content:center;width:100%;margin-bottom:2vh">
@@ -107,6 +109,8 @@ Ti_Points-Ti_Croix
                         <label id="defaite" style="font-size: 3vw">VOUS AVEZ PERDU</label>
                     </div>
                 </div>
+                <div class="text-center" id="message" style="font-size:1.6vh;display:none;
+                    background-color:red;color:white"></div>
                 <div style="display:flex;justify-content:center;width:100%">
                     <div style="display:flex;justify-content:space-around;margin-top:1vw;margin-bottom:1vh">
                         <button  id="btn-annuler" class="btn btn-0 ml-1" type="button" 
