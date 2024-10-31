@@ -286,15 +286,26 @@ document.getElementById("btn-quitter").addEventListener('click', function(e) {
     
     // Click du joueur sur le bouton annuler le tour
     document.getElementById("btn-annuler").addEventListener('click', function(e) {
-        if (confirm("En cas d'annulation cette partie ne comptera pas dans les statistiques?")) {
-            e.preventDefault()
-            document.getElementById("id-annuler").value="Oui"
-            if (window.innerWidth > window.innerHeight) {
-                document.getElementById("orientation").value="paysage"
-            } else {
-                document.getElementById("orientation").value="portrait"
+        if (document.getElementById("id-stat").textContent=="Oui") {
+            if (confirm("En cas d'annulation cette partie ne comptera pas dans les statistiques?")) {
+                e.preventDefault()
+                document.getElementById("id-annuler").value="Oui"
+                if (window.innerWidth > window.innerHeight) {
+                    document.getElementById("orientation").value="paysage"
+                } else {
+                    document.getElementById("orientation").value="portrait"
+                }
+                document.forms["grille"].submit();
             }
-            document.forms["grille"].submit();
+        } else {
+            e.preventDefault()
+                document.getElementById("id-annuler").value="Oui"
+                if (window.innerWidth > window.innerHeight) {
+                    document.getElementById("orientation").value="paysage"
+                } else {
+                    document.getElementById("orientation").value="portrait"
+                }
+                document.forms["grille"].submit();
         }
     })
     

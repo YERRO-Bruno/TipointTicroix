@@ -522,8 +522,10 @@ def connect(request):
         else:
             emailx = request.POST['email']
             passwordx = request.POST['password']
+            print("connect",emailx)
             userConnected = authenticate(email=emailx, password=passwordx)
             if userConnected is not None:
+                print("connected")
                 request.session['email'] = emailx
                 request.session['password'] = passwordx
                 login(request, userConnected )
@@ -534,7 +536,12 @@ def connect(request):
                 else:
                     return redirect("/")
             else:
-                return render(request, 'connect.html', {'errorLogin': "Email et/ou mot de passe erroné"})
+                if request.session['orientation']=="paysage":
+                    return render(request, "connectpaysage.html",
+                        {'errorLogin': "Email et/ou mot de passe erroné"})
+                else:
+                    return render(request, "connectportrait.html",
+                        {'errorLogin': "Email et/ou mot de passe erroné"})
     else:
         if request.session['orientation']=="paysage":
             return render(request, "connectpaysage.html", context)
@@ -571,6 +578,7 @@ def tipointticroix(request):
         print("joueur : " + request.POST["coupjoueur"])
         if request.POST["annuler"]=="Oui":
             request.session["stat"]="Non"
+            context['stat']=request.session["stat"]
             request.session['TOUR']=request.session['TOUR']-1 
             context['tour']=str(request.session['TOUR'])
             seq=request.session['SEQUENCE']
@@ -616,6 +624,7 @@ def tipointticroix(request):
             context['joystchecked']=request.POST['joystchecked']
             context['marquevous']=marquejoueur
             context['marqueordi']=marqueordi
+            context['stat']=request.session["stat"]
             context['nom1']=nomniveau(request.session['NIVEAU'])
             context['niveau']=request.session['NIVEAU']
             context['begin']=request.session['BEGIN']
@@ -636,6 +645,7 @@ def tipointticroix(request):
                 return render(request, "tipointticroixportrait.html", context)
         #MAJ TABLEAU
         if request.session['TOUR']==0:
+            request.session["stat"]="Oui"
             request.session['orientation']=request.POST['orientation']
             request.session['TOUR']=0
             request.session['SEQUENCE']=[]
@@ -726,8 +736,9 @@ def tipointticroix(request):
             res = trouve_5(coupordinateur,marqueordi,request.session['GRILLE'],nbc)
             if res != "Non":
                 context['defaite']=res
-                if connec[0]:
-                    finpartie(connec[1],str(request.session['NIVEAU']),False)
+                if request.session["stat"]=="Oui":
+                    if connec[0]:
+                        finpartie(connec[1],str(request.session['NIVEAU']),False)
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
                 context["orientation"]=request.POST['orientation']
@@ -752,6 +763,7 @@ def tipointticroix(request):
         context['joystchecked']=request.POST['joystchecked']
         context['marquevous']=marquejoueur
         context['marqueordi']=marqueordi
+        context['stat']=request.session["stat"]
         request.session['TOUR']=request.session['TOUR']+1 
         context['tour']=str(request.session['TOUR'])   
         context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
