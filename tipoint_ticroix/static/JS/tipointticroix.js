@@ -24,6 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
     let d1=0
     let d2=0
     displayGameBoard()  
+    let audio = new Audio("../static/son/gong.mp3");
+    audio.play();
+    setTimeout(() => {}, 300);
     
     // Click sur le bouton jouer
     document.getElementById("btn-jouer").addEventListener('click', function(e){
