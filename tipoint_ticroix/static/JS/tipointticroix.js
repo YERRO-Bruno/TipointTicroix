@@ -24,9 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let d1=0
     let d2=0
     displayGameBoard()  
-    let audio = new Audio("../static/son/gong.mp3");
-    audio.play();
-    setTimeout(() => {}, 300);
     
     // Click sur le bouton jouer
     document.getElementById("btn-jouer").addEventListener('click', function(e){
@@ -102,13 +99,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                     let audio = new Audio("../static/son/bon.mp3");
                     audio.play();
+                    setTimeout(() => {}, 500);
                     document.forms["grille"].submit();                
                 } else {
                     let audio = new Audio("../static/son/pasbon.mp3");
                     audio.play();
                     setTimeout(() => {
                         alert("Case déjà utilisée!")
-                    }, 100);
+                    }, 500);
                 }
             }
         } else {
@@ -120,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else {
                     alert("La partie est terminée!");
                 }
-            }, 100);
+            }, 500);
         }
         
     })
@@ -272,13 +270,14 @@ document.getElementById("id-validation").addEventListener('click', function(e) {
         }
         let audio = new Audio("../static/son/bon.mp3");
         audio.play();
+        setTimeout(() => {}, 500);
         document.forms["grille"].submit();                
     } else {
         let audio = new Audio("../static/son/pasbon.mp3");
         audio.play();
         setTimeout(() => {
             alert("Case déjà utilisée!")
-        }, 100);
+        }, 500);
     }
 })
 
