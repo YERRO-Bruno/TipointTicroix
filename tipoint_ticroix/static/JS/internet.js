@@ -92,9 +92,15 @@ document.addEventListener("DOMContentLoaded", function () {
                         } else {
                             document.getElementById("orientation").value="portrait"
                         }
+                        let audio = new Audio("../static/son/bon.mp3");
+                        audio.play();
                         document.forms["internet"].submit();
                     } else {
-                        alert("Case déjà utilisée")
+                        let audio = new Audio("../static/son/pasbon.mp3");
+                        audio.play();
+                        setTimeout(() => {
+                            alert("Case déjà utilisée!")
+                        }, 100);
                     }
                 }
             }
@@ -258,9 +264,15 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 document.getElementById("orientation").value="portrait"
             }
+            let audio = new Audio("../static/son/bon.mp3");
+            audio.play();
             document.forms["internet"].submit();
         } else {
-            alert("Case déjà utilisée!")
+            let audio = new Audio("../static/son/pasbon.mp3");
+            audio.play();
+            setTimeout(() => {
+                alert("Case déjà utilisée!")
+            }, 100);
         }
     })
 

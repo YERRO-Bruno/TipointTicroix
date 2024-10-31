@@ -97,17 +97,27 @@ document.addEventListener("DOMContentLoaded", function () {
                     } else {
                         document.getElementById("orientation").value="portrait"
                     }
+                    let audio = new Audio("../static/son/bon.mp3");
+                    audio.play();
                     document.forms["grille"].submit();                
                 } else {
-                    alert("Case déjà utilisée!")
+                    let audio = new Audio("../static/son/pasbon.mp3");
+                    audio.play();
+                    setTimeout(() => {
+                        alert("Case déjà utilisée!")
+                    }, 100);
                 }
             }
         } else {
-            if (document.getElementById("x-board").style.display=="none") {
-                alert("Lancez d'abord la partie!")
-            } else{
-                alert("La partie est terminée!")
-            }
+            let audio = new Audio("../static/son/pasbon.mp3");
+            audio.play();
+            setTimeout(() => {
+                if (document.getElementById("x-board").style.display == "none") {
+                    alert("Lancez d'abord la partie!");
+                } else {
+                    alert("La partie est terminée!");
+                }
+            }, 100);
         }
         
     })
@@ -257,9 +267,15 @@ document.getElementById("id-validation").addEventListener('click', function(e) {
         } else {
             document.getElementById("orientation").value="portrait"
         }
+        let audio = new Audio("../static/son/bon.mp3");
+        audio.play();
         document.forms["grille"].submit();                
     } else {
-        alert("Case déjà utilisée!")
+        let audio = new Audio("../static/son/pasbon.mp3");
+        audio.play();
+        setTimeout(() => {
+            alert("Case déjà utilisée!")
+        }, 100);
     }
 })
 
