@@ -131,8 +131,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
     //click du joueur sur haut
     document.getElementById("id-haut").addEventListener('click', function(e) {
-        if (précédenteposition =="") {        
-            
+        document.getElementById("message").style.display="none"
+        if (précédenteposition =="") {                    
             sequence=document.getElementById("id-sequence").value
             sequence = sequence.split(',')
             if (sequence=="") {
@@ -148,7 +148,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (iprec >0) {
             iprec=iprec-1
         } else {
-            alert("bord atteint")
+            let audio = new Audio("../static/son/bord.mp3");
+            audio.play();
+            document.getElementById("message").textContent="Vous avez atteint le bord de la grille!!!"
+            document.getElementById("message").style.display="block"
         }            
         let yprec=précédenteposition.split("/")[1]
         nouvelleposition=iprec+"/"+yprec
@@ -159,6 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //click du joueur sur bas
     document.getElementById("id-bas").addEventListener('click', function(e) {
+        document.getElementById("message").style.display="none"
         if (précédenteposition =="") {        
             sequence=document.getElementById("id-sequence").value
             sequence = sequence.split(',')
@@ -175,7 +179,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (iprec <nbc - 1) {
             iprec=iprec+1
         } else {
-            alert("bord atteint")
+            let audio = new Audio("../static/son/bord.mp3");
+            audio.play();
+            document.getElementById("message").textContent="Vous avez atteint le bord de la grille!!!"
+            document.getElementById("message").style.display="block"
         }            
         let yprec=précédenteposition.split("/")[1]
         nouvelleposition=iprec+"/"+yprec
@@ -186,6 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 //click du joueur sur droite
 document.getElementById("id-droite").addEventListener('click', function(e) {
+    document.getElementById("message").style.display="none"
     if (précédenteposition =="") {        
         sequence=document.getElementById("id-sequence").value
         sequence = sequence.split(',')
@@ -202,7 +210,10 @@ document.getElementById("id-droite").addEventListener('click', function(e) {
     if (yprec <nbc - 1) {
         yprec=yprec+1
     } else {
-        alert("bord atteint")
+        let audio = new Audio("../static/son/bord.mp3");
+            audio.play();
+            document.getElementById("message").textContent="Vous avez atteint le bord de la grille!!!"
+            document.getElementById("message").style.display="block"
     }            
     let iprec=précédenteposition.split("/")[0]
     nouvelleposition=iprec+"/"+yprec
@@ -213,6 +224,7 @@ document.getElementById("id-droite").addEventListener('click', function(e) {
 
 //click du joueur sur gauche
 document.getElementById("id-gauche").addEventListener('click', function(e) {
+    document.getElementById("message").style.display="none"
     if (précédenteposition =="") {        
         sequence=document.getElementById("id-sequence").value
         sequence = sequence.split(',')
@@ -229,7 +241,10 @@ document.getElementById("id-gauche").addEventListener('click', function(e) {
     if (yprec >0) {
         yprec=yprec-1
     } else {
-        alert("bord atteint")
+        audio = new Audio("../static/son/bord.mp3");
+        audio.play();
+        document.getElementById("message").textContent="Vous avez atteint le bord de la grille!!!"
+        document.getElementById("message").style.display="block"
     }            
     let iprec=précédenteposition.split("/")[0]
     nouvelleposition=iprec+"/"+yprec
