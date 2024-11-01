@@ -503,7 +503,8 @@ function displayGameBoard(){
             }
         }
         if (document.getElementById("id-pat").value=="Oui") {
-            alert("Plus de case diponible - Match nul")
+            let audio = new Audio("../static/son/pat.mp3");
+            audio.play();
             document.getElementById("victoire").textContent="MATCH NUL"
             document.getElementById("victoire").style.display="block"
             document.getElementById("btn-rejouer").style.display="block"
@@ -513,10 +514,14 @@ function displayGameBoard(){
         }
         win="Non"
         if (document.getElementById("id-victoire").value!="Non") {
+            let audio = new Audio("../static/son/gagné.mp3");
+            audio.play();
             win=document.getElementById("id-victoire").value
             document.getElementById("victoire").style.display="block"
         }
         if (document.getElementById("id-defaite").value!="Non") {
+            let audio = new Audio("../static/son/perdu.mp3");
+            audio.play();
             win=document.getElementById("id-defaite").value
             document.getElementById("defaite").style.display="block"
         }

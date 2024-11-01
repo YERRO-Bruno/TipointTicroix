@@ -617,6 +617,8 @@ function displayGameBoard(){
         let count = 0;
         let msgfin=""
         if (document.getElementById("id-pat").textContent=="Oui") {
+            let audio = new Audio("../static/son/pat.mp3");
+            audio.play();
             document.getElementById("ALUI").style.display="none"
             document.getElementById("victoire").textContent="MATCH NUL"
             document.getElementById("victoire").style.display="block"
@@ -624,6 +626,8 @@ function displayGameBoard(){
         }
         win="Non"
         if (document.getElementById("id-victoire").value!="Non") {
+            let audio = new Audio("../static/son/gagné.mp3");
+            audio.play();
             document.getElementById("ALUI").style.display="none"
             document.getElementById("AVOUS").style.display="none"
             win=document.getElementById("id-victoire").value
@@ -631,6 +635,8 @@ function displayGameBoard(){
             document.getElementById("defaite").style.display="none"
         }
         if (document.getElementById("id-defaite").value!="Non") {
+            let audio = new Audio("../static/son/perdu.mp3");
+            audio.play();
             win=document.getElementById("id-defaite").value
             document.getElementById("defaite").style.display="block"
             document.getElementById("victoire").style.display="none"
@@ -649,24 +655,36 @@ function displayGameBoard(){
         if (document.getElementById("id-finpartie").value=="Oui") {
             if (document.getElementById("id-joueur").value==document.getElementById("id-premier").value) {
                 if (scor1==scor2) {
-                        msgfin="Nul : 1-1. Retour au lobby dans "
+                    let audio = new Audio("../static/son/nul1-1.mp3");
+                    audio.play();
+                    msgfin="Nul : 1-1. Retour au lobby dans "
                 }
                 if (scor1>scor2) {
-                        msgfin="Victoire : ".concat(scor1,"-",scor2,". Retour au lobby dans ")
+                    let audio = new Audio("../static/son/gagné2-0.mp3");
+                    audio.play();
+                    msgfin="Victoire : ".concat(scor1,"-",scor2,". Retour au lobby dans ")
                 }
                 if (scor1<scor2) {
-                        msgfin="Défaite : ".concat(scor1,"-",scor2,". Retour au lobby dans ")
+                    let audio = new Audio("../static/son/pperdu2-0.mp3");
+                    audio.play();
+                    msgfin="Défaite : ".concat(scor1,"-",scor2,". Retour au lobby dans ")
                 }
 
             }
             else {
                 if (scor1==scor2) {
-                        msgfin="Nul : 1-1. Retour au lobby dans "
+                    let audio = new Audio("../static/son/nul1-1.mp3");
+                    audio.play();
+                    msgfin="Nul : 1-1. Retour au lobby dans "
                 }
                 if (scor1>scor2) {
-                        msgfin="Défaite : ".concat(scor1,"-",scor2,". Retour au lobby dans ")
+                    let audio = new Audio("../static/son/pperdu2-0.mp3");
+                    audio.play();
+                    msgfin="Défaite : ".concat(scor1,"-",scor2,". Retour au lobby dans ")
                 }
                 if (scor1<scor2) {
+                    let audio = new Audio("../static/son/gagné2-0.mp3");
+                    audio.play();
                     msgfin="Victoire : ".concat(scor1,"-",scor2,". Retour au lobby dans ")
                 }
             }
