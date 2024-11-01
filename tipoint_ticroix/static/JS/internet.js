@@ -2,8 +2,11 @@ document.addEventListener("DOMContentLoaded", function () {
     let précédenteposition=""
     let précédentecolor=""
     let nouvelleposition=""
+    let initialposition=""
     let nouvellecolor=""
+    let nbc=0
     précédentecolor=""
+    
     
     document.getElementById("x-board").style.display="none"
     document.getElementById("id-bandeau").style.display="none"
@@ -121,165 +124,216 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //click du joueur sur haut
     document.getElementById("id-haut").addEventListener('click', function(e) {
-        if (précédenteposition !="") {        
-            document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
-            let iprec=parseInt(précédenteposition.split("/")[0])
-            if (iprec >0) {
-                iprec=iprec-1
+        document.getElementById("message").style.display="none"
+        if (précédenteposition =="") {                    
+            sequence=document.getElementById("id-sequence").value
+            sequence = sequence.split(',')
+            if (sequence=="") {
+                if(document.getElementById("partiemobile").value=="Oui") {
+                    initialposition="9/9"
+                } else {
+                    initialposition="12/12"
+                }
+                précédenteposition =initialposition
+                précédentecolor=document.getElementById(initialposition).style.backgroundColor
             } else {
-                alert("bord atteint")
-            }            
+                précédenteposition=sequence[sequence.length-1]
+                précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+            }
+        }    
+        document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+        let iprec=parseInt(précédenteposition.split("/")[0])
+        if (iprec >0) {
+            iprec=iprec-1
             let yprec=précédenteposition.split("/")[1]
             nouvelleposition=iprec+"/"+yprec
             précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
             document.getElementById(nouvelleposition).style.backgroundColor="green"
             précédenteposition=nouvelleposition
         } else {
-            sequence=document.getElementById("id-sequence").value
-            sequence = sequence.split(',')
-            if (sequence=="") {
-                précédenteposition ="12/12"
-                précédentecolor=document.getElementById("12/12").style.backgroundColor
-                document.getElementById("12/12").style.backgroundColor="green"
-            } else {
-                précédenteposition=sequence[sequence.length-1]
-                précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
-                document.getElementById(précédenteposition).style.backgroundColor="green"
-            }
-        }
-    })
-
-    //click du joueur sur bas
-    document.getElementById("id-bas").addEventListener('click', function(e) {
-        if (précédenteposition !="") {        
-            document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
-            let iprec=parseInt(précédenteposition.split("/")[0])
-            if (iprec <nbc - 1) {
-                iprec=iprec+1
-            } else {
-                alert("bord atteint")
-            }            
-            let yprec=précédenteposition.split("/")[1]
-            nouvelleposition=iprec+"/"+yprec
-            précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
-            document.getElementById(nouvelleposition).style.backgroundColor="green"
-            précédenteposition=nouvelleposition
-        } else {
-            sequence=document.getElementById("id-sequence").value
-            sequence = sequence.split(',')
-            if (sequence=="") {
-                précédenteposition ="12/12"
-                précédentecolor=document.getElementById("12/12".style.backgroundColor)
-                document.getElementById("12/12".style.backgroundColor)="green"
-            } else {
-                précédenteposition=sequence[sequence.length-1]
-                précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
-                document.getElementById(précédenteposition).style.backgroundColor="green"
-            }
-        }
-    })
-    //click du joueur sur droite
-    document.getElementById("id-droite").addEventListener('click', function(e) {
-        if (précédenteposition !="") {        
-            document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
-            let yprec=parseInt(précédenteposition.split("/")[1])
-            if (yprec <nbc - 1) {
-                yprec=yprec+1
-            } else {
-                alert("bord atteint")
-            }            
-            let iprec=précédenteposition.split("/")[0]
-            nouvelleposition=iprec+"/"+yprec
-            précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
-            document.getElementById(nouvelleposition).style.backgroundColor="green"
-            précédenteposition=nouvelleposition
-        } else {
-            sequence=document.getElementById("id-sequence").value
-            sequence = sequence.split(',')
-            if (sequence=="") {
-                précédenteposition ="12/12"
-                précédentecolor=document.getElementById("12/12".style.backgroundColor)
-                document.getElementById("12/12".style.backgroundColor)="green"
-            } else {
-                précédenteposition=sequence[sequence.length-1]
-                précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
-                document.getElementById(précédenteposition).style.backgroundColor="green"
-            }
-        }
-    })
-
-    //click du joueur sur gauche
-    document.getElementById("id-gauche").addEventListener('click', function(e) {
-        if (précédenteposition !="") {        
-            document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
-            let yprec=parseInt(précédenteposition.split("/")[1])
-            if (yprec >0) {
-                yprec=yprec-1
-            } else {
-                alert("bord atteint")
-            }            
-            let iprec=précédenteposition.split("/")[0]
-            nouvelleposition=iprec+"/"+yprec
-            précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
-            document.getElementById(nouvelleposition).style.backgroundColor="green"
-            précédenteposition=nouvelleposition
-        } else {
-            sequence=document.getElementById("id-sequence").value
-            sequence = sequence.split(',')
-            if (sequence=="") {
-                précédenteposition ="12/12"
-                précédentecolor=document.getElementById("12/12".style.backgroundColor)
-                document.getElementById("12/12".style.backgroundColor)="green"
-            } else {
-                précédenteposition=sequence[sequence.length-1]
-                précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
-                document.getElementById(précédenteposition).style.backgroundColor="green"
-            }
-        }
-    })
-
-    //click sur validation
-    document.getElementById("id-validation").addEventListener('click', function(e) {
-        document.getElementById("message").display="none"
-        if (document.getElementById("id-begin").textContent=="Oui") {
-            marque="O"
-        } else {
-            marque="X"
-        }
-        if (document.getElementById(précédenteposition).textContent=="") {
-            // case_clicked = précédenteposition.split('/')
-            document.getElementById(précédenteposition).textContent = marque
-            document.getElementById(précédenteposition).style.fontSize=fontsz
-            if (marque=="X") {
-                document.getElementById(précédenteposition).style.color="red"
-                document.getElementById(précédenteposition).style.backgroundColor="bisque"
-            } else {
-                document.getElementById(précédenteposition).style.color="blue"
-                document.getElementById(précédenteposition).style.backgroundColor="lightcyan"
-            }
-            document.getElementById("coup-joueur").value=précédenteposition
-            document.getElementById("id-etape").value="tourjeu"
-            document.getElementById("id-jeton").value="Non"
-            //alert("jeu")
-            socket.send('tourjeu,'.concat(document.getElementById("id-connec").textContent,
-            ",",document.getElementById("id-adversaire").value,",",précédenteposition))
-            document.getElementById("id-etape").value="tourjeu"
-            document.getElementById("id-jeton").value="Non"
-            document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
-            if (window.innerWidth > window.innerHeight) {
-                document.getElementById("orientation").value="paysage"
-            } else {
-                document.getElementById("orientation").value="portrait"
-            }
-            let audio = new Audio("../static/son/bon.mp3");
+            précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+            document.getElementById(précédenteposition).style.backgroundColor="green"
+            let audio = new Audio("../static/son/bord.mp3");
             audio.play();
-            document.forms["internet"].submit();
-        } else {
-            let audio = new Audio("../static/son/occupé.mp3");
-            audio.play();
-            document.getElementById("message").textContent="cette case est déjà occupée!!!"
+            document.getElementById("message").textContent="Vous avez atteint le bord de la grille!!!"
             document.getElementById("message").style.display="block"
+        }            
+    })
+
+//click du joueur sur bas
+    document.getElementById("id-bas").addEventListener('click', function(e) {
+        document.getElementById("message").style.display="none"
+        if(document.getElementById("partiemobile").value=="Oui") {
+            nbc=18
+            initialposition="9/9"
+        } else {
+            nbc=25
+            initialposition="12/12"
         }
+        if (précédenteposition =="") {       
+            sequence=document.getElementById("id-sequence").value
+            sequence = sequence.split(',')
+            if (sequence=="") {
+                précédenteposition =initialposition
+                précédentecolor=document.getElementById(initialposition).style.backgroundColor
+            } else {
+                précédenteposition=sequence[sequence.length-1]
+                précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+            }
+        }
+        document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+        let iprec=parseInt(précédenteposition.split("/")[0])
+        if (iprec <nbc - 1) {
+            iprec=iprec+1
+            let yprec=précédenteposition.split("/")[1]
+            nouvelleposition=iprec+"/"+yprec
+            précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+            document.getElementById(nouvelleposition).style.backgroundColor="green"
+            précédenteposition=nouvelleposition        
+        } else {
+            précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+            document.getElementById(précédenteposition).style.backgroundColor="green"
+            let audio = new Audio("../static/son/bord.mp3");
+            audio.play();
+            document.getElementById("message").textContent="Vous avez atteint le bord de la grille!!!"
+            document.getElementById("message").style.display="block"
+        }            
+    })
+//click du joueur sur droite
+document.getElementById("id-droite").addEventListener('click', function(e) {
+    document.getElementById("message").style.display="none"
+    if(document.getElementById("partiemobile").value=="Oui") {
+        nbc=18
+        initialposition="9/9"
+    } else {
+        nbc=25
+        initialposition="12/12"
+    }
+    if (précédenteposition =="") {        
+        sequence=document.getElementById("id-sequence").value
+        sequence = sequence.split(',')
+        if (sequence=="") {
+            précédenteposition =initialposition
+            précédentecolor=document.getElementById(initialposition).style.backgroundColor
+        } else {
+            précédenteposition=sequence[sequence.length-1]
+            précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+        }
+    }
+    document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+    let yprec=parseInt(précédenteposition.split("/")[1])
+    if (yprec <nbc - 1) {
+        yprec=yprec+1
+        let iprec=précédenteposition.split("/")[0]
+        nouvelleposition=iprec+"/"+yprec
+        précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+        document.getElementById(nouvelleposition).style.backgroundColor="green"
+        précédenteposition=nouvelleposition
+    } else {
+        précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+        document.getElementById(précédenteposition).style.backgroundColor="green"
+        let audio = new Audio("../static/son/bord.mp3");
+            audio.play();
+            document.getElementById("message").textContent="Vous avez atteint le bord de la grille!!!"
+            document.getElementById("message").style.display="block"
+    }            
+})
+
+//click du joueur sur gauche
+document.getElementById("id-gauche").addEventListener('click', function(e) {
+    document.getElementById("message").style.display="none"
+    if (précédenteposition =="") {        
+        sequence=document.getElementById("id-sequence").value
+        sequence = sequence.split(',')
+        if (sequence=="") {
+            if(document.getElementById("partiemobile").value=="Oui") {
+                initialposition="9/9"
+            } else {
+                initialposition="12/12"
+            }
+            précédenteposition =initialposition
+            précédentecolor=document.getElementById(initialposition).style.backgroundColor
+        } else {
+            précédenteposition=sequence[sequence.length-1]
+            précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+        }
+    }
+    document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+    let yprec=parseInt(précédenteposition.split("/")[1])
+    if (yprec >0) {
+        yprec=yprec-1
+        let iprec=précédenteposition.split("/")[0]
+        nouvelleposition=iprec+"/"+yprec
+        précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+        document.getElementById(nouvelleposition).style.backgroundColor="green"
+        précédenteposition=nouvelleposition
+    } else {
+        précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+        document.getElementById(précédenteposition).style.backgroundColor="green"
+        let audio = new Audio("../static/son/bord.mp3");
+            audio.play();
+            document.getElementById("message").textContent="Vous avez atteint le bord de la grille!!!"
+            document.getElementById("message").style.display="block"
+    }            
+})
+
+//click sur validation
+document.getElementById("id-validation").addEventListener('click', function(e) {
+    document.getElementById("message").display="none"
+    if (document.getElementById("id-begin").textContent=="Oui") {
+        marque="O"
+    } else {
+        marque="X"
+    }
+    if (précédenteposition =="") {        
+        sequence=document.getElementById("id-sequence").value
+        sequence = sequence.split(',')
+        if (sequence=="") {
+            if(document.getElementById("partiemobile").value=="Oui") {
+                initialposition="9/9"
+            } else {
+                initialposition="12/12"
+            }
+            précédenteposition =initialposition
+            précédentecolor=document.getElementById(initialposition).style.backgroundColor
+        } else {
+            précédenteposition=sequence[sequence.length-1]
+            précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+        }
+        document.getElementById(précédenteposition).style.backgroundColor="green"
+    }
+    if (document.getElementById(précédenteposition).textContent=="") {
+        document.getElementById(précédenteposition).textContent = marque
+        document.getElementById(précédenteposition).style.fontSize=fontsz
+        if (marque=="X") {
+            document.getElementById(précédenteposition).style.color="red"
+            document.getElementById(précédenteposition).style.backgroundColor="bisque"
+        } else {
+            document.getElementById(précédenteposition).style.color="blue"
+            document.getElementById(précédenteposition).style.backgroundColor="lightcyan"
+        }
+        document.getElementById("coup-joueur").value=précédenteposition
+        document.getElementById("id-etape").value="tourjeu"
+        document.getElementById("id-jeton").value="Non"
+        socket.send('tourjeu,'.concat(document.getElementById("id-connec").textContent,
+            ",",document.getElementById("id-adversaire").value,",",précédenteposition))
+        document.getElementById("id-etape").value="tourjeu"
+        document.getElementById("id-jeton").value="Non"
+        document.getElementById("id-joueur").value=document.getElementById("id-connec").textContent
+        if (window.innerWidth > window.innerHeight) {
+            document.getElementById("orientation").value="paysage"
+        } else {
+            document.getElementById("orientation").value="portrait"
+        }
+        let audio = new Audio("../static/son/bon.mp3");
+        audio.play();
+        document.forms["internet"].submit();                
+    } else {
+        let audio = new Audio("../static/son/occupé.mp3");
+        audio.play();
+        document.getElementById("message").textContent="cette case est déjà occupée!!!"
+        document.getElementById("message").style.display="block"
+    }
     })
 
 
@@ -499,21 +553,25 @@ function displayGameBoard(){
 
     // creation lignes du tableau
     var cell, ligne;
-    let nbc=25
+    nbc=25
     //taille de la grille
     
     if (document.getElementById("partiemobile").value=="Oui" ||
      document.getElementById("partiemobile").value=="Non") {
         if(document.getElementById("partiemobile").value=="Oui") {
             nbc=18
+            initialposition="9/9"
         } else {
             nbc=25
+            initialposition="12/12"
         }
      } else {
          if (ismobile()) {
              nbc=18
+             initialposition="9/9"
          } else {
              nbc=25
+             initialposition="12/12"
          }
      }
     if (window.innerWidth > window.innerHeight) {

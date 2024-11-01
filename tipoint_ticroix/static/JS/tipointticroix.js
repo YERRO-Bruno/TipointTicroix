@@ -2,14 +2,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let précédenteposition=""
     let précédentecolor=""
     let nouvelleposition=""
+    let initialposition=""
     let nouvellecolor=""
     précédentecolor=""
     let nbc=25
     //taille de la grille
     if (ismobile()) {
         nbc=18
+        initialposition="9/9"
     } else {
         nbc=25
+        initialposition="12/12"
     }
     
     if (window.innerWidth > window.innerHeight) {    
@@ -128,37 +131,45 @@ document.addEventListener("DOMContentLoaded", function () {
     
     //click du joueur sur haut
     document.getElementById("id-haut").addEventListener('click', function(e) {
-        if (précédenteposition !="") {        
-            document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
-            let iprec=parseInt(précédenteposition.split("/")[0])
-            if (iprec >0) {
-                iprec=iprec-1
+        if (précédenteposition =="") {        
+            
+            sequence=document.getElementById("id-sequence").value
+            sequence = sequence.split(',')
+            if (sequence=="") {
+                précédenteposition =initialposition
+                précédentecolor=document.getElementById(initialposition).style.backgroundColor
             } else {
-                alert("bord atteint")
-            }            
-            let yprec=précédenteposition.split("/")[1]
-            nouvelleposition=iprec+"/"+yprec
-            précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+                précédenteposition=sequence[sequence.length-1]
+                précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+            }
+        }    
+        document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+        let iprec=parseInt(précédenteposition.split("/")[0])
+        if (iprec >0) {
+            iprec=iprec-1
+        } else {
+            alert("bord atteint")
+        }            
+        let yprec=précédenteposition.split("/")[1]
+        nouvelleposition=iprec+"/"+yprec
+        précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
         document.getElementById(nouvelleposition).style.backgroundColor="green"
         précédenteposition=nouvelleposition
-    } else {
-        sequence=document.getElementById("id-sequence").value
-        sequence = sequence.split(',')
-        if (sequence=="") {
-            précédenteposition ="12/12"
-            précédentecolor=document.getElementById("12/12").style.backgroundColor
-            document.getElementById("12/12").style.backgroundColor="green"
-        } else {
-            précédenteposition=sequence[sequence.length-1]
-            précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
-            document.getElementById(précédenteposition).style.backgroundColor="green"
-        }
-    }
-})
+    })
 
 //click du joueur sur bas
-document.getElementById("id-bas").addEventListener('click', function(e) {
-    if (précédenteposition !="") {        
+    document.getElementById("id-bas").addEventListener('click', function(e) {
+        if (précédenteposition =="") {        
+            sequence=document.getElementById("id-sequence").value
+            sequence = sequence.split(',')
+            if (sequence=="") {
+                précédenteposition =initialposition
+                précédentecolor=document.getElementById(initialposition).style.backgroundColor
+            } else {
+                précédenteposition=sequence[sequence.length-1]
+                précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+            }
+        }
         document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
         let iprec=parseInt(précédenteposition.split("/")[0])
         if (iprec <nbc - 1) {
@@ -171,78 +182,60 @@ document.getElementById("id-bas").addEventListener('click', function(e) {
         précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
         document.getElementById(nouvelleposition).style.backgroundColor="green"
         précédenteposition=nouvelleposition
-    } else {
-        sequence=document.getElementById("id-sequence").value
-        sequence = sequence.split(',')
-        if (sequence=="") {
-            précédenteposition ="12/12"
-            précédentecolor=document.getElementById("12/12".style.backgroundColor)
-            document.getElementById("12/12".style.backgroundColor)="green"
-        } else {
-            précédenteposition=sequence[sequence.length-1]
-            précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
-            document.getElementById(précédenteposition).style.backgroundColor="green"
-        }
-    }
-})
+        
+    })
 //click du joueur sur droite
 document.getElementById("id-droite").addEventListener('click', function(e) {
-    if (précédenteposition !="") {        
-        document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
-        let yprec=parseInt(précédenteposition.split("/")[1])
-        if (yprec <nbc - 1) {
-            yprec=yprec+1
-        } else {
-            alert("bord atteint")
-        }            
-        let iprec=précédenteposition.split("/")[0]
-        nouvelleposition=iprec+"/"+yprec
-        précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
-        document.getElementById(nouvelleposition).style.backgroundColor="green"
-        précédenteposition=nouvelleposition
-    } else {
+    if (précédenteposition =="") {        
         sequence=document.getElementById("id-sequence").value
         sequence = sequence.split(',')
         if (sequence=="") {
-            précédenteposition ="12/12"
-            précédentecolor=document.getElementById("12/12".style.backgroundColor)
-            document.getElementById("12/12".style.backgroundColor)="green"
+            précédenteposition =initialposition
+            précédentecolor=document.getElementById(initialposition).style.backgroundColor
         } else {
             précédenteposition=sequence[sequence.length-1]
             précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
-            document.getElementById(précédenteposition).style.backgroundColor="green"
         }
     }
+    document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+    let yprec=parseInt(précédenteposition.split("/")[1])
+    if (yprec <nbc - 1) {
+        yprec=yprec+1
+    } else {
+        alert("bord atteint")
+    }            
+    let iprec=précédenteposition.split("/")[0]
+    nouvelleposition=iprec+"/"+yprec
+    précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+    document.getElementById(nouvelleposition).style.backgroundColor="green"
+    précédenteposition=nouvelleposition
 })
 
 //click du joueur sur gauche
 document.getElementById("id-gauche").addEventListener('click', function(e) {
-    if (précédenteposition !="") {        
-        document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
-        let yprec=parseInt(précédenteposition.split("/")[1])
-        if (yprec >0) {
-            yprec=yprec-1
-        } else {
-            alert("bord atteint")
-        }            
-        let iprec=précédenteposition.split("/")[0]
-        nouvelleposition=iprec+"/"+yprec
-        précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
-        document.getElementById(nouvelleposition).style.backgroundColor="green"
-        précédenteposition=nouvelleposition
-    } else {
+    if (précédenteposition =="") {        
         sequence=document.getElementById("id-sequence").value
         sequence = sequence.split(',')
         if (sequence=="") {
-            précédenteposition ="12/12"
-            précédentecolor=document.getElementById("12/12".style.backgroundColor)
-            document.getElementById("12/12".style.backgroundColor)="green"
+            précédenteposition =initialposition
+            précédentecolor=document.getElementById(initialposition).style.backgroundColor
         } else {
             précédenteposition=sequence[sequence.length-1]
             précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
-            document.getElementById(précédenteposition).style.backgroundColor="green"
         }
     }
+    document.getElementById(précédenteposition).style.backgroundColor=précédentecolor
+    let yprec=parseInt(précédenteposition.split("/")[1])
+    if (yprec >0) {
+        yprec=yprec-1
+    } else {
+        alert("bord atteint")
+    }            
+    let iprec=précédenteposition.split("/")[0]
+    nouvelleposition=iprec+"/"+yprec
+    précédentecolor=document.getElementById(nouvelleposition).style.backgroundColor
+    document.getElementById(nouvelleposition).style.backgroundColor="green"
+    précédenteposition=nouvelleposition
 })
 
 //click sur validation
@@ -253,8 +246,19 @@ document.getElementById("id-validation").addEventListener('click', function(e) {
     } else {
         marque="X"
     }
+    if (précédenteposition =="") {        
+        sequence=document.getElementById("id-sequence").value
+        sequence = sequence.split(',')
+        if (sequence=="") {
+            précédenteposition =initialposition
+            précédentecolor=document.getElementById(initialposition).style.backgroundColor
+        } else {
+            précédenteposition=sequence[sequence.length-1]
+            précédentecolor=document.getElementById(précédenteposition).style.backgroundColor
+        }
+        document.getElementById(précédenteposition).style.backgroundColor="green"
+    }
     if (document.getElementById(précédenteposition).textContent=="") {
-        // case_clicked = précédenteposition.split('/')
         document.getElementById(précédenteposition).textContent = marque
         document.getElementById(précédenteposition).style.fontSize=fontsz
         if (marque=="X") {
