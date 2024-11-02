@@ -654,8 +654,12 @@ def tipointticroix(request):
                 marqueordi="O"
                 marquejoueur="X"
                 #le joueur ne commence pas - 1er COUP ORDINATEUR
-                request.session['GRILLE']=majgrille("12/12",marqueordi,request.session['GRILLE'])
-                request.session['SEQUENCE']=request.session['SEQUENCE']+["12/12"]
+                if request.session['nbc']=="18":
+                    initialposition="9/9"
+                else:
+                    initialposition="12/12"
+                request.session['GRILLE']=majgrille(initialposition,marqueordi,request.session['GRILLE'])
+                request.session['SEQUENCE']=request.session['SEQUENCE']+[initialposition]
                 context['begin']="Non"
                 request.session['BEGIN']="Non"
             else:

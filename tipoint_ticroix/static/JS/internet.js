@@ -65,7 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById(e.target.id).style.backgroundColor="green"
                     document.getElementById(e.target.id).style.fontSize=fontsz
                 } else {
-                    if (document.getElementById("id-begin").textContent==document.getElementById("id-joueur").value) {
+                    if (document.getElementById("id-begin").textContent==
+                        document.getElementById("id-joueur").value) {
                         marque="O"
                     } else {
                         marque="X"
@@ -280,7 +281,8 @@ document.getElementById("id-gauche").addEventListener('click', function(e) {
 //click sur validation
 document.getElementById("id-validation").addEventListener('click', function(e) {
     document.getElementById("message").display="none"
-    if (document.getElementById("id-begin").textContent=="Oui") {
+    if (document.getElementById("id-begin").textContent==
+        document.getElementById("id-joueur").value) {
         marque="O"
     } else {
         marque="X"
