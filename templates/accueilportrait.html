@@ -10,6 +10,11 @@ Ti_Points-Ti_Croix
 {% block style %}   
 {%  endblock %}
 {%  block content %}
+<form id="grille" method="post">
+  {% csrf_token %}
+  <div hidden>
+      <input id="orientation" name="orientation" type="text">
+  </div>
   <div class="col-12" style="height:6vh;">
     <div style="display:flex;justify-content: space-between;font-size:1.6vh">
 
@@ -83,11 +88,17 @@ Ti_Points-Ti_Croix
       <p align="justify"><b>Connexion :</b> le jeu sur internet et l'accès aux statistiques
         nécessitent la connexion à votre compte.</p> 
   </div>
+</form>
 {%  endblock %}
 {% block script %}
 <script> 
   window.addEventListener('DOMContentLoaded', () => {
     window.screen.orientation.addEventListener("change", function() {
+      if (window.innerWidth > window.innerHeight) {
+            document.getElementById("orientation").value="paysage"
+            } else {
+            document.getElementById("orientation").value="portrait"
+            }
       document.location.href='/'
     });
   });
