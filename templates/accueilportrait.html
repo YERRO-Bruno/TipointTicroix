@@ -31,7 +31,7 @@ Ti_Points-Ti_Croix
     </div>
     <div class="col-12 border border-dark" style="font-size:1.6vh;margin-left:2vw;margin-top:1vh;
       height:62vh;width:96%;overflow-y: auto;font-family:'Raleway', cursive;font-weight: 400;
-      font-style: normal;margin-bottom:1vw">
+      font-style: normal;margin-bottom:1vw" id="cadre">
       <br>
       <p align="justify">« Ti-point-Ti_croix » est un jeu qui tire son origine des écoles antillaises 
         où il a passionné des générations de jeunes élèves. Il s’apparente au « Gomoku » chinois 
@@ -88,7 +88,11 @@ Ti_Points-Ti_Croix
 {% block script %}
 <script> 
   window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById("page").style.height="66vh"
+            let pied=document.getElementById("pied")
+            let botom=pied.offsetTop+pied.offsetHeight
+            pied.style.position="absolute"
+            pied.style.bottom="0px"
+            cadre.style.height="70vh"
     window.screen.orientation.addEventListener("change", function() {
       if (window.innerWidth > window.innerHeight) {
             document.getElementById("orientation").value="paysage"

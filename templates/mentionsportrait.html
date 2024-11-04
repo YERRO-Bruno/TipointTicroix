@@ -24,7 +24,7 @@ Ti_Points-Ti_Croix
         </div>
         <div class="col-12 border border-dark" style="font-size:1.6vh;margin-left:2vw;margin-top:1vh;
             height:63vh;width:96%;overflow-y: auto;font-family:'Raleway', cursive;font-weight: 400;
-            font-style: normal;margin-bottom:1vw">
+            font-style: normal;margin-bottom:1vw" id="cadre">
             <h1 style="text-align: center">MENTIONS LEGALES</h1>
             <h2 style="font-size: 1.4vh;text-align: center"><b><u>ĖDITEUR</u></b></h2>
             <p align="justify">Le site ti_points-ti_croix.fr est édité à titre non professionnel au
@@ -64,7 +64,13 @@ Ti_Points-Ti_Croix
 
 {%  block script %}
 <script>
-    document.getElementById("page").style.height="68vh"
+    document.addEventListener("DOMContentLoaded", function () {
+        let pied=document.getElementById("pied")
+        let botom=pied.offsetTop+pied.offsetHeight
+        pied.style.position="absolute"
+        pied.style.bottom="0px"
+        cadre.style.height="70vh"
+    })
     document.getElementById("id_desinscription").addEventListener('click', function(e){
         e.preventDefault()
         if (document.getElementById("id-deconnexion").style.display=="none") {

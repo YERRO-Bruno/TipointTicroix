@@ -23,8 +23,6 @@ Ti_Points-Ti_Croix
             <a  align="center" id="btn-quitter2" class="btn btn-0" type="button" style="width:30vw;
                 font-size:3vw;background-color:rgb(0, 208, 255)" href="{% url 'accueil' %}"
                 >Retour à l'accueil</a>
-            <a  align="center" id="btn-test" class="btn btn-0" type="button" style="width:30vw;
-                font-size:3vw;background-color:rgb(0, 208, 255)">test</a>
         </div>
         <div class="col-12 border border-dark" style="font-size:1.6vh;margin-left:2vw;margin-top:1vh;
             width:96%;overflow-y: auto;font-family:'Raleway', cursive;font-weight: 400;
@@ -69,12 +67,10 @@ Ti_Points-Ti_Croix
 {%  block script %}
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("page").style.height="68vh"
             let pied=document.getElementById("pied")
             let botom=pied.offsetTop+pied.offsetHeight
             pied.style.position="absolute"
             pied.style.bottom="0px"
-            // let cadre=document.getElementById("cadre")
             cadre.style.height="70vh"
         })
         window.screen.orientation.addEventListener("change", function() {
@@ -86,16 +82,6 @@ Ti_Points-Ti_Croix
             document.forms["grille"].submit();
         }); 
         document.getElementById("apropos").addEventListener('click', function(e) {
-            e.preventDefault()
-        })
-        document.getElementById("btn-test").addEventListener('click', function(e) {
-            // document.getElementById("pied").style.position="absolute"
-            // document.getElementById("pied").style.botom="0"
-            let pied=document.getElementById("pied")
-            let botom=pied.offsetTop+pied.offsetHeight
-            pied.style.position="absolute"
-            pied.style.bottom="0px"
-            alert(pied.style.position+":"+botom+"/"+window.innerHeight)
             e.preventDefault()
         })
     </script>
