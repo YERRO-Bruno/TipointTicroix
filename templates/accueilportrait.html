@@ -95,8 +95,7 @@ Ti_Points-Ti_Croix
 {% block script %}
 <script> 
   window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById("page").style.height="66vh"
-    alert(window.innerHeight)
+    document.getElementById("page").style.height="66%"
     window.screen.orientation.addEventListener("change", function() {
       if (window.innerWidth > window.innerHeight) {
             document.getElementById("orientation").value="paysage"
