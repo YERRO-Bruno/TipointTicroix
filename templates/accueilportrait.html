@@ -92,8 +92,7 @@ Ti_Points-Ti_Croix
             let botom=pied.offsetTop+pied.offsetHeight
             pied.style.position="absolute"
             pied.style.bottom="0px"
-            // let cadre=document.getElementById("cadre")
-            // cadre.style.height="70vh"
+            document.getElementById("page").style.height="100%"
     window.screen.orientation.addEventListener("change", function() {
       if (window.innerWidth > window.innerHeight) {
             document.getElementById("orientation").value="paysage"
@@ -102,7 +101,6 @@ Ti_Points-Ti_Croix
             }
       document.location.href='/'
     });
-    document.getElementById("page").style.height="100%"
   });
   //fonction ismobile
   function ismobile() {
