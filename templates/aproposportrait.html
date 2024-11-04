@@ -68,13 +68,15 @@ Ti_Points-Ti_Croix
 {%  endblock %}
 {%  block script %}
     <script>
-        document.getElementById("page").style.height="68vh"
-        let pied=document.getElementById("pied")
-        let botom=pied.offsetTop+pied.offsetHeight
-        pied.style.position="absolute"
-        pied.style.bottom="0px"
-        let cadre=document.getElementById("cadre")
-        cadre.style.height=pied.offsetTop-cadre.offsetTop
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("page").style.height="68vh"
+            let pied=document.getElementById("pied")
+            let botom=pied.offsetTop+pied.offsetHeight
+            pied.style.position="absolute"
+            pied.style.bottom="0px"
+            let cadre=document.getElementById("cadre")
+            cadre.style.height=pied.offsetTop-cadre.offsetTop
+        })
         window.screen.orientation.addEventListener("change", function() {
             if (window.innerWidth > window.innerHeight) {
             document.getElementById("orientation").value="paysage"
