@@ -28,7 +28,7 @@ Ti_Points-Ti_Croix
         </div>
         <div class="col-12 border border-dark" style="font-size:1.6vh;margin-left:2vw;margin-top:1vh;
             width:96%;overflow-y: auto;font-family:'Raleway', cursive;font-weight: 400;
-            font-style: normal;margin-bottom:1vw">
+            font-style: normal;margin-bottom:1vw" id="cadre">
             <h1 style="text-align: center" align="center">A PROPOS</h1> 
             <p align="justify">Je suis développeur de formation. J’ai pratiqué 
                 l’informatique de gestion jusqu’à mon depart à la retraite en avril 2023. Je n’avais
@@ -73,6 +73,8 @@ Ti_Points-Ti_Croix
         let botom=pied.offsetTop+pied.offsetHeight
         pied.style.position="absolute"
         pied.style.bottom="0px"
+        let cadre=document.getElementById("cadre")
+        cadre.style.height=pied.offsetTop-cadre.offsetTop
         window.screen.orientation.addEventListener("change", function() {
             if (window.innerWidth > window.innerHeight) {
             document.getElementById("orientation").value="paysage"
