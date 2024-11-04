@@ -60,6 +60,13 @@ Ti_Points-Ti_Croix
 {%  block script %}
 <script>
     // Click du joueur sur le bouton quitter
+    window.addEventListener('DOMContentLoaded', () => {
+        let pied=document.getElementById("pied")
+        let botom=pied.offsetTop+pied.offsetHeight
+        pied.style.position="absolute"
+        pied.style.bottom="0px"
+        document.getElementById("page").style.height="100%"
+    })
     window.screen.orientation.addEventListener("change", function() {
         if (window.innerWidth > window.innerHeight) {
             document.getElementById("orientation").value="paysage"
