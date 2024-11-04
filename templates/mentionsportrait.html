@@ -65,8 +65,6 @@ Ti_Points-Ti_Croix
 {%  block script %}
 <script>
     document.getElementById("page").style.height="68vh"
-    document.addEventListener("DOMContentLoaded", function () {
-        })
     document.getElementById("id_desinscription").addEventListener('click', function(e){
         e.preventDefault()
         if (document.getElementById("id-deconnexion").style.display=="none") {
@@ -77,12 +75,15 @@ Ti_Points-Ti_Croix
         }
     })
     window.screen.orientation.addEventListener("change", function() {
-            if (window.innerWidth > window.innerHeight) {
-            document.getElementById("orientation").value="paysage"
-            } else {
-            document.getElementById("orientation").value="portrait"
-            }
-            document.forms["grille"].submit();
-        }); 
+        if (window.innerWidth > window.innerHeight) {
+        document.getElementById("orientation").value="paysage"
+        } else {
+        document.getElementById("orientation").value="portrait"
+        }
+        document.forms["grille"].submit();
+    }); 
+    document.getElementById("pied").addEventListener('click', function(e) {
+        e.preventDefault()
+    })
 </script>
 {%  endblock %}
