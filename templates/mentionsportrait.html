@@ -10,58 +10,63 @@ Ti_Points-Ti_Croix
 {% block style %}   
 {%  endblock %}
 {%  block content %}
-<form form id="grille" method="post">
-    {% csrf_token %}
-    <div hidden>
-        <input id="orientation" name="orientation" type="text">
-    </div>
-    <div class="col-12" style="font-family:'Raleway', cursive;font-weight: 400;font-style: normal;
-        height:3vh;width:100%;display:flex;flex-direction:column;align-items:center">
-        <a  align="center" id="btn-quitter2" class="btn btn-0" type="button" style="width:30vw;
-            font-size:3vw;background-color:rgb(0, 208, 255)" href="{% url 'accueil' %}"
-            >Retour à l'accueil</a>
-    </div>
-    <div class="col-12 border border-dark" style="font-size:1.6vh;margin-left:2vw;margin-top:1vh;
-        height:64vh;width:96%;overflow-y: auto;font-family:'Raleway', cursive;font-weight: 400;
-        font-style: normal;margin-bottom:1vw">
-        <h1 style="text-align: center">MENTIONS LEGALES</h1>
-        <h2 style="font-size: 1.4vh;text-align: center"><b><u>ĖDITEUR</u></b></h2>
-        <p align="justify">Le site ti_points-ti_croix.fr est édité à titre non professionnel au
-            sens de l’article 6.III.2 de la loi 2004-575 du 21 juin 2004 par :</p>
-        <p align="justify">Bruno YERRO, Directeur de publication</p>
-        <p align="justify">Adresse : 128 chemin Colombo, Belle-Ėtoile 97212 Saint-Joseph</p>
-        <p align="justify">E-mail : brunoyerro@gmail.com</p>
-        <h2 style="font-size: 1.4vh;text-align: center"><b><u>HĖBERGEUR</u></b></h2>
-        <p align="justify">L’hébergement du site est assuré par : HOSTINGER opérations, UAB</p>
-        <p align="justify">Siège social : Švitrigailos str. 34, Vilnius 03230 Lithuania</p>
-        <p align="justify">Téléphone : +37064503378</p>
-        <p align="justify">E-mail : domains@hostinger.com</p>
-        <h2 style="font-size: 1.4vh;text-align: center"><b><u>PROPRIĖTĖ INTELLECTUELLE</u></b></h2>
-        <p align="justify">L’éditeur est seul titulaire des droits de propriété intellectuelle
-            ou droits d’exploitation sur l’ensemble du site, sa structure et son contenu y
-            compris notamment les textes, images, photographies, illustrations, logos, vidéos,
-            base de données et logiciel. Toute représentation, reproduction, adaptation, modification ou 
-            exploitation non autorisée est interdite et susceptible de constituer une 
-            contrefaçon au sens des articles L.335-2 et suivants du code de la propriété 
-            intellectuelle.</p>
-            <h2 style="font-size: 1.4vh;text-align: center"><b><u>DONNĖES PERSONNELLES</u></b></h2>
-            <p align="justify">L’éditeur du site s’engage à mettre en œuvre un traitement de données
-                personnelles respectueux de la vie privée et conforme à la législation française et
-                européenne en vigueur. Il n’est prévu aucun autre usage des données personnelles de 
-                l’utilisateur que de permettre la connexion identifiée au site afin de compiler des 
-                statistiques de l’utilisateur à son seul usage. <a style="text-align: left;
-                font-size:1.6vh" href="{% url 'desinscription' %}"
-                    id="id_desinscription">
-                Désinscription</a></p>
-            
-            <h2 style="font-size: 1.4vh;text-align: center"><b><u>COOKIES</u></b></h2>
-        <p align="justify">Il n’est pas fait usage de cookies sur ce site.</p>
-    </div>
-</form>    
+<div id="page">
+    <form form id="grille" method="post">
+        {% csrf_token %}
+        <div hidden>
+            <input id="orientation" name="orientation" type="text">
+        </div>
+        <div class="col-12" style="font-family:'Raleway', cursive;font-weight: 400;font-style: normal;
+            height:3vh;width:100%;display:flex;flex-direction:column;align-items:center">
+            <a  align="center" id="btn-quitter2" class="btn btn-0" type="button" style="width:30vw;
+                font-size:3vw;background-color:rgb(0, 208, 255)" href="{% url 'accueil' %}"
+                >Retour à l'accueil</a>
+        </div>
+        <div class="col-12 border border-dark" style="font-size:1.6vh;margin-left:2vw;margin-top:1vh;
+            height:70vh;width:96%;overflow-y: auto;font-family:'Raleway', cursive;font-weight: 400;
+            font-style: normal;margin-bottom:1vw">
+            <h1 style="text-align: center">MENTIONS LEGALES</h1>
+            <h2 style="font-size: 1.4vh;text-align: center"><b><u>ĖDITEUR</u></b></h2>
+            <p align="justify">Le site ti_points-ti_croix.fr est édité à titre non professionnel au
+                sens de l’article 6.III.2 de la loi 2004-575 du 21 juin 2004 par :</p>
+            <p align="justify">Bruno YERRO, Directeur de publication</p>
+            <p align="justify">Adresse : 128 chemin Colombo, Belle-Ėtoile 97212 Saint-Joseph</p>
+            <p align="justify">E-mail : brunoyerro@gmail.com</p>
+            <h2 style="font-size: 1.4vh;text-align: center"><b><u>HĖBERGEUR</u></b></h2>
+            <p align="justify">L’hébergement du site est assuré par : HOSTINGER opérations, UAB</p>
+            <p align="justify">Siège social : Švitrigailos str. 34, Vilnius 03230 Lithuania</p>
+            <p align="justify">Téléphone : +37064503378</p>
+            <p align="justify">E-mail : domains@hostinger.com</p>
+            <h2 style="font-size: 1.4vh;text-align: center"><b><u>PROPRIĖTĖ INTELLECTUELLE</u></b></h2>
+            <p align="justify">L’éditeur est seul titulaire des droits de propriété intellectuelle
+                ou droits d’exploitation sur l’ensemble du site, sa structure et son contenu y
+                compris notamment les textes, images, photographies, illustrations, logos, vidéos,
+                base de données et logiciel. Toute représentation, reproduction, adaptation, modification ou 
+                exploitation non autorisée est interdite et susceptible de constituer une 
+                contrefaçon au sens des articles L.335-2 et suivants du code de la propriété 
+                intellectuelle.</p>
+                <h2 style="font-size: 1.4vh;text-align: center"><b><u>DONNĖES PERSONNELLES</u></b></h2>
+                <p align="justify">L’éditeur du site s’engage à mettre en œuvre un traitement de données
+                    personnelles respectueux de la vie privée et conforme à la législation française et
+                    européenne en vigueur. Il n’est prévu aucun autre usage des données personnelles de 
+                    l’utilisateur que de permettre la connexion identifiée au site afin de compiler des 
+                    statistiques de l’utilisateur à son seul usage. <a style="text-align: left;
+                    font-size:1.6vh" href="{% url 'desinscription' %}"
+                        id="id_desinscription">
+                    Désinscription</a></p>
+                
+                <h2 style="font-size: 1.4vh;text-align: center"><b><u>COOKIES</u></b></h2>
+            <p align="justify">Il n’est pas fait usage de cookies sur ce site.</p>
+        </div>
+    </form>    
+</div>
 {%  endblock %}
 
 {%  block script %}
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("page").style.height="74vh"
+        })
     document.getElementById("id_desinscription").addEventListener('click', function(e){
         e.preventDefault()
         if (document.getElementById("id-deconnexion").style.display=="none") {
