@@ -10,7 +10,7 @@ Ti_Points-Ti_Croix
 {% block style %}   
 {%  endblock %}
 {%  block content %}
-<div height="100%">
+<div id="page" style="height:100vh">
   <form id="grille" method="post">
     {% csrf_token %}
     <div hidden>
@@ -103,6 +103,7 @@ Ti_Points-Ti_Croix
             }
       document.location.href='/'
     });
+    document.getElementById("page").style.height="100%"
   });
   //fonction ismobile
   function ismobile() {
