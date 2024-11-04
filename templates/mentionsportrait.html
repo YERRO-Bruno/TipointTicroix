@@ -64,12 +64,12 @@ Ti_Points-Ti_Croix
 
 {%  block script %}
 <script>
+    let pied=document.getElementById("pied")
+    let botom=pied.offsetTop+pied.offsetHeight
+    pied.style.position="absolute"
+    pied.style.bottom="0px"
+    cadre.style.height="70vh"
     document.addEventListener("DOMContentLoaded", function () {
-        let pied=document.getElementById("pied")
-        let botom=pied.offsetTop+pied.offsetHeight
-        pied.style.position="absolute"
-        pied.style.bottom="0px"
-        cadre.style.height="70vh"
     })
     document.getElementById("id_desinscription").addEventListener('click', function(e){
         e.preventDefault()
