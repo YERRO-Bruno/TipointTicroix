@@ -81,12 +81,10 @@ Ti_Points-Ti_Croix
             e.preventDefault()
         })
         document.getElementById("btn-test").addEventListener('click', function(e) {
-            alert("trs")
-            document.getElementById("pied").style.position="absolute"
-            document.getElementById("pied").style.bottom="0"
+            // document.getElementById("pied").style.position="absolute"
+            // document.getElementById("pied").style.botom="0"
+            alert(document.getElementById("pied").offsetTop)
             e.preventDefault()
-            alert("trs")
-
         })
     </script>
 {%  endblock %}
