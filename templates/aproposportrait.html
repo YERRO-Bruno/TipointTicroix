@@ -83,7 +83,9 @@ Ti_Points-Ti_Croix
         document.getElementById("btn-test").addEventListener('click', function(e) {
             // document.getElementById("pied").style.position="absolute"
             // document.getElementById("pied").style.botom="0"
-            alert(document.getElementById("pied").offsetTop)
+            let pied=document.getElementById("pied")
+            let botom=pied.offsetTop+pird.offsetheight
+            alert(botom+"/"+window.innerHeight)
             e.preventDefault()
         })
     </script>
