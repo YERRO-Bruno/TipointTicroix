@@ -23,6 +23,8 @@ Ti_Points-Ti_Croix
             <a  align="center" id="btn-quitter2" class="btn btn-0" type="button" style="width:30vw;
                 font-size:3vw;background-color:rgb(0, 208, 255)" href="{% url 'accueil' %}"
                 >Retour à l'accueil</a>
+            <a  align="center" id="btn-test" class="btn btn-0" type="button" style="width:30vw;
+                font-size:3vw;background-color:rgb(0, 208, 255)">test</a>
         </div>
         <div class="col-12 border border-dark" style="font-size:1.6vh;margin-left:2vw;margin-top:1vh;
             height:63vh;width:96%;overflow-y: auto;font-family:'Raleway', cursive;font-weight: 400;
@@ -77,6 +79,14 @@ Ti_Points-Ti_Croix
         }); 
         document.getElementById("apropos").addEventListener('click', function(e) {
             e.preventDefault()
+        })
+        document.getElementById("btn-test").addEventListener('click', function(e) {
+            alert("trs")
+            document.getElementById("pied").style.position="absolute"
+            document.getElementById("pied").style.bottom="0"
+            e.preventDefault()
+            alert("trs")
+
         })
     </script>
 {%  endblock %}
