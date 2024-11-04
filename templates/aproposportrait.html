@@ -12,7 +12,7 @@ Ti_Points-Ti_Croix
 {%  endblock %}
 
 {%  block content %}
-<div id="page" height="100vh">
+<div id="page">
     <form id="grille" method="post">
         {% csrf_token %}
         <div hidden>
@@ -66,7 +66,10 @@ Ti_Points-Ti_Croix
 {%  endblock %}
 {%  block script %}
     <script>
-        alert(document.getElementById("page").style.height)
+        document.addEventListener("DOMContentLoaded", function () {
+            alert(document.getElementById("page").style.height)
+            document.getElementById("page").style.height="82vh"
+        })
         window.screen.orientation.addEventListener("change", function() {
             if (window.innerWidth > window.innerHeight) {
             document.getElementById("orientation").value="paysage"
