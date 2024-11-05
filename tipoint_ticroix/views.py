@@ -329,7 +329,7 @@ def preregister(request):
                     else:
                         return render(request,'registerportrait.html',
                             {'email':emailx,'errorVerif':"error Mailing"})
-                request.session['EMAIL']=emailxd
+                request.session['EMAIL']=emailx
                 return redirect('/register')
             if request.session['orientation']=="paysage":
                 return render(request, 'preregisterpaysage.html',
