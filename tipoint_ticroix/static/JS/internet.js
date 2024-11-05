@@ -74,12 +74,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (document.getElementById(e.target.id).textContent=="") {
                         document.getElementById(e.target.id).textContent = marque
                         document.getElementById(e.target.id).style.fontSize=fontsz
+                        document.getElementById(e.target.id).style.color="black"
                         if (marque=="X") {
-                            document.getElementById(e.target.id).style.color="red"
-                            document.getElementById(e.target.id).style.backgroundColor="bisque"
+                            document.getElementById(e.target.id).style.backgroundColor="lightpink"
                         } else {
-                            document.getElementById(e.target.id).style.color="blue"
-                            document.getElementById(e.target.id).style.backgroundColor="lightcyan"
+                            document.getElementById(e.target.id).style.backgroundColor="cyan"
                         }   
                         e.target.blur()
                         document.getElementById("coup-joueur").value=e.target.id
@@ -307,12 +306,11 @@ document.getElementById("id-validation").addEventListener('click', function(e) {
     if (document.getElementById(précédenteposition).textContent=="") {
         document.getElementById(précédenteposition).textContent = marque
         document.getElementById(précédenteposition).style.fontSize=fontsz
+        document.getElementById(précédenteposition).style.color="black"
         if (marque=="X") {
-            document.getElementById(précédenteposition).style.color="red"
-            document.getElementById(précédenteposition).style.backgroundColor="bisque"
+            document.getElementById(précédenteposition).style.backgroundColor="lightpink"
         } else {
-            document.getElementById(précédenteposition).style.color="blue"
-            document.getElementById(précédenteposition).style.backgroundColor="lightcyan"
+            document.getElementById(précédenteposition).style.backgroundColor="cyan"
         }
         document.getElementById("coup-joueur").value=précédenteposition
         document.getElementById("id-etape").value="tourjeu"
