@@ -362,12 +362,20 @@ def register(request):
             #test d'unicité email et pseudo
             userx=User.objects.filter(email=emailx)
             if len(userx)>0:
-                return render(request, 'register.html',
-                            {'errorinscription': "Email déjà existant", 'email': emailx})
+                if request.POST['orientation']=="paysage":
+                    return render(request, "registerpaysage.html", {'errorinscription':
+                        "Email déjà existant", 'email': emailx})
+                else:
+                    return render(request, "registerportrait.html",{'errorinscription':
+                        "Email déjà existant", 'email': emailx})
             userx=User.objects.filter(pseudo=pseudox)
             if len(userx)>0:
-                return render(request, 'register.html',
-                            {'errorinscription': "pseudo déjà existant", 'email': emailx})   
+                if request.POST['orientation']=="paysage":
+                    return render(request, "registerpaysage.html",{'errorinscription': 
+                        "pseudo déjà existant", 'email': emailx})
+                else:
+                    return render(request, "registerportrait.html",{'errorinscription':
+                        "pseudo déjà existant", 'email': emailx})  
             #récupération et test code verification
             verifuser=VerifUser.objects.get(email=emailx)
             if verifuser is not None:
@@ -381,8 +389,12 @@ def register(request):
                             print(error)
                         return redirect('/connect')       
             else:
-                return render(request, 'register.html',
-                            {'errorinscription': "Code inexact", 'email': emailx})
+                if request.POST['orientation']=="paysage":
+                    return render(request, "registerpaysage.html",{'errorinscription': 
+                        "Code inexact", 'email': emailx})
+                else:
+                    return render(request, "registerportrait.html",{'errorinscription': 
+                        "Code inexact", 'email': emailx})
     else:
         if request.session['orientation']=="paysage":
             return render(request, "registerpaysage.html",

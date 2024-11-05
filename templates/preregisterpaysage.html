@@ -30,7 +30,8 @@ Ti_Points-Ti_Croix
     <div style="height: 10vh;"></div>
     <h1 class="text-center" style="font-size:2vw;">PréInscription</h1>
     <div style="height: 5vh;"></div>
-    <h4 class="text-center" style="font-size:2vw;">Il vous faut un code de verification que vous recevrez dans votre boite email</h4>
+    <h4 class="text-center" style="font-size:2vw;">Il vous faut un code de verification que vous 
+        recevrez dans votre boite email</h4>
     <h4 class="texterror text-center" style="color: red">{{ errorVerif }}</h4>
     <form id="grille" class="justify-content-center" method="post">
         {% csrf_token %}
@@ -42,7 +43,7 @@ Ti_Points-Ti_Croix
             <div class="col-2"></div>
             <p class="col-8 row">
                 <label class="col-4" for="id_email" style="font-size:1.8vw">Email:</label>
-                <input class="col-8" type="text" name="email" maxlength="150" id="id_email"
+                <input class="col-8" type="email" name="email" maxlength="150" id="id_email"
                 style="font-size:1.8vw" required value="{{ email }}">
             </p>
             <div class="col-2"></div>
