@@ -362,7 +362,7 @@ def register(request):
             #test d'unicité email et pseudo
             userx=User.objects.filter(email=emailx)
             if len(userx)>0:
-                if request.POST['orientation']=="paysage":
+                if request.session['orientation']=="paysage":
                     return render(request, "registerpaysage.html", {'errorinscription':
                         "Email déjà existant", 'email': emailx})
                 else:
@@ -370,31 +370,39 @@ def register(request):
                         "Email déjà existant", 'email': emailx})
             userx=User.objects.filter(pseudo=pseudox)
             if len(userx)>0:
-                if request.POST['orientation']=="paysage":
+                if request.session['orientation']=="paysage":
                     return render(request, "registerpaysage.html",{'errorinscription': 
                         "pseudo déjà existant", 'email': emailx})
                 else:
                     return render(request, "registerportrait.html",{'errorinscription':
                         "pseudo déjà existant", 'email': emailx})  
             #récupération et test code verification
-            verifuser=VerifUser.objects.get(email=emailx)
-            if verifuser is not None:
-                    if bcrypt.checkpw(verifx.encode('utf-8'),verifuser.codeverif.encode('utf-8')):
-                        try:
-                            userx = User.objects.create_user(email=emailx, password=passwordx)
-                            userx.pseudo=pseudox
-                            userx.save()
-                            verifuser.delete()
-                        except Exception as error:
-                            print(error)
-                        return redirect('/connect')       
+            verifuser=VerifUser.objects.filter(email=emailx)
+            if len(verifuser)>0:
+                if bcrypt.checkpw(verifx.encode('utf-8'),verifuser[0].codeverif.encode('utf-8')):
+                    try:
+                        userx = User.objects.create_user(email=emailx, password=passwordx)
+                        userx.pseudo=pseudox
+                        userx.save()
+                        verifuser.delete()
+                    except Exception as error:
+                        print(error)
+                    return redirect('/connect')
+                else:
+                    print("code inexact")
+                    if request.session['orientation']=="paysage":
+                        return render(request, "registerpaysage.html",{'errorinscription': 
+                            "Code inexact", 'email': emailx})
+                    else:
+                        return render(request, "registerportrait.html",{'errorinscription': 
+                            "Code inexact", 'email': emailx})
             else:
-                if request.POST['orientation']=="paysage":
+                if request.session['orientation']=="paysage":
                     return render(request, "registerpaysage.html",{'errorinscription': 
-                        "Code inexact", 'email': emailx})
+                        "email ne correspond pas", 'email': emailx})
                 else:
                     return render(request, "registerportrait.html",{'errorinscription': 
-                        "Code inexact", 'email': emailx})
+                        "email ne correspond pas", 'email': emailx})
     else:
         if request.session['orientation']=="paysage":
             return render(request, "registerpaysage.html",
