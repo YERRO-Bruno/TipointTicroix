@@ -662,6 +662,10 @@ function displayGameBoard(){
                     document.getElementById(sequence[i]).style.backgroundColor="red"
                 }
             }
+            if (i==nbcoup-1 && document.getElementById("id-jeton").value=="Oui") {
+                let audio = new Audio("../static/son/bon2.mp3");
+                    audio.play();
+            }
             if (marque=="O") {
                 marque="X"
             } else {

@@ -506,6 +506,11 @@ function displayGameBoard(){
                     document.getElementById(sequence[i]).style.backgroundColor="red"
                 }
             }
+            if (i==sequence_size-1) {
+                setTimeout(() => {}, 500);
+                let audio = new Audio("../static/son/bon2.mp3");
+                    audio.play();
+            }
             if (marque=="O") {
                 marque="X"
             } else {
