@@ -188,7 +188,7 @@ def coupordi2(marque,SEQUENCE,GRILLE,nbc):
         marque1="O"
     else:
         marque1="X"
-    bornes=calculbornesjouées(SEQUENCE)
+    bornes=calculbornesjouées(SEQUENCE,nbc)
     ibmin=bornes[0]
     ibmax=bornes[1]
     jbmin=bornes[2]
@@ -389,7 +389,7 @@ def coupordi3(marque,SEQUENCE,GRILLE,nbc):
         marque1="O"
     else:
         marque1="X"
-    bornes=calculbornesjouées(SEQUENCE)
+    bornes=calculbornesjouées(SEQUENCE,nbc)
     ibmin=bornes[0]
     ibmax=bornes[1]
     jbmin=bornes[2]
@@ -764,7 +764,7 @@ def coupordi4(marque,SEQUENCE,GRILLE,nbc):
         marque1="O"
     else:
         marque1="X"
-    bornes=calculbornesjouées(SEQUENCE)
+    bornes=calculbornesjouées(SEQUENCE,nbc)
     ibmin=bornes[0]
     ibmax=bornes[1]
     jbmin=bornes[2]
