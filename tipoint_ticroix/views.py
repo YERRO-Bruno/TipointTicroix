@@ -731,6 +731,8 @@ def tipointticroix(request):
                         finpartie(connec[1],str(request.session['NIVEAU']),True)
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
+                context['marquevous']=marquejoueur
+                context['marqueordi']=marqueordi
                 context["orientation"]=request.POST['orientation']
                 request.session['orientation']=request.POST['orientation']
                 if request.POST['orientation']=="paysage":
@@ -744,6 +746,8 @@ def tipointticroix(request):
                 request.session['TOUR']=request.session['TOUR']+1 
                 context['tour']=str(request.session['TOUR'])   
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
+                context['marquevous']=marquejoueur
+                context['marqueordi']=marqueordi
                 context["orientation"]=request.POST['orientation']
                 request.session['orientation']=request.POST['orientation']
                 if request.POST['orientation']=="paysage":
@@ -765,6 +769,8 @@ def tipointticroix(request):
                         finpartie(connec[1],str(request.session['NIVEAU']),False)
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
+                context['marquevous']=marquejoueur
+                context['marqueordi']=marqueordi
                 context["orientation"]=request.POST['orientation']
                 request.session['orientation']=request.POST['orientation']
                 if request.POST['orientation']=="paysage":
