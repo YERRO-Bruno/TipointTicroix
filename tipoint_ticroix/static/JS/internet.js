@@ -678,6 +678,7 @@ function displayGameBoard(){
         const countdownField = document.getElementById("id-bandeau")
         let count = 0;
         let msgfin=""
+        let colorwin=""
         if (document.getElementById("id-pat").textContent=="Oui") {
             let audio = new Audio("../static/son/pat.mp3");
             audio.play();
@@ -688,6 +689,12 @@ function displayGameBoard(){
         }
         win="Non"
         if (document.getElementById("id-victoire").value!="Non") {
+            if (document.getElementById("id-joueur").value==
+            document.getElementById("id-premier").value) {
+                colorwin="blue"
+            } else {
+                colorwin="red"
+            }
             let audio = new Audio("../static/son/gagné.mp3");
             audio.play();
             document.getElementById("ALUI").style.display="none"
@@ -697,6 +704,12 @@ function displayGameBoard(){
             document.getElementById("defaite").style.display="none"
         }
         if (document.getElementById("id-defaite").value!="Non") {
+            if (document.getElementById("id-joueur").value==
+            document.getElementById("id-premier").value) {
+                colorwin="red"
+            } else {
+                colorwin="blue"
+            }
             let audio = new Audio("../static/son/perdu.mp3");
             audio.play();
             win=document.getElementById("id-defaite").value
@@ -709,6 +722,7 @@ function displayGameBoard(){
             win=win.split(",")
             for (let i = 0;i<5;i++) {
                 document.getElementById(win[i]).style.backgroundColor="yellow"
+                document.getElementById(win[i]).style.color=colorwin
             }
         }
         if (document.getElementById("id-finmanche").value=="Oui") {

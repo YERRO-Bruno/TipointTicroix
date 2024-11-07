@@ -535,13 +535,16 @@ function displayGameBoard(){
             document.getElementById("avous").style.display="none"
         }
         win="Non"
+        let colorwin=""
         if (document.getElementById("id-victoire").value!="Non") {
+            colorwin=document.getElementById("vous").style.color
             let audio = new Audio("../static/son/gagné.mp3");
             audio.play();
             win=document.getElementById("id-victoire").value
             document.getElementById("victoire").style.display="block"
         }
         if (document.getElementById("id-defaite").value!="Non") {
+            colorwin=document.getElementById("ordi").style.color
             let audio = new Audio("../static/son/perdu.mp3");
             audio.play();
             win=document.getElementById("id-defaite").value
@@ -554,6 +557,7 @@ function displayGameBoard(){
             win = win.split(',')  
             for (let i = 0;i<5;i++) {
                 document.getElementById(win[i]).style.backgroundColor="yellow"
+                document.getElementById(win[i]).style.color=colorwin
             }
             localStorage.removeItem("partiencours")
         }
