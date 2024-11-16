@@ -2538,7 +2538,10 @@ def calculbornesjouées(seq,nbc):
 def estconnecté(req):
     emailx=req.session.get('email')
     passwordx=req.session.get('password')
-    userConnected = authenticate(email=emailx, password=passwordx)
+    try:
+        userConnected = authenticate(email=emailx, password=passwordx)
+    except Exception as error:
+        print('connect error',error)
     if userConnected is not None:
         userx=User.objects.get(email=emailx)
         pseudox=userx.pseudo
