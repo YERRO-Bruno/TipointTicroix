@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout images
       uses: actions/checkout@v2
 
     # - name: Set up Node.js (ou toute autre technologie si nécessaire)
@@ -46,4 +46,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Utilisez le token d'accès
       run: |
         git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/YERRO-Bruno/TipointTicroix.git
-        git push origin HEAD:responsive
+        git push origin HEAD:images
