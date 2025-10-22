@@ -267,7 +267,8 @@ def accueil(request):
             return render(request, "accueilportrait.html", context)
         else:
             return render(request, "accueilpaysage.html", context)
-    else:     
+    else: 
+        context["imag"]=nombre = random.randint(1, 14)     
         return render(request, "accueil.html", context)
 
 #desinscription
