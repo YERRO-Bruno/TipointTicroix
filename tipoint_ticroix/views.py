@@ -11,6 +11,7 @@ from django.http import JsonResponse
 from django.db.models import Count, Sum, Case, When, IntegerField, FloatField
 from django.db.models.functions import Cast
 from django.conf import settings
+import random
 
 def error_404(request, exception):
     return render(request, '404.html', status=404)
@@ -256,7 +257,8 @@ def accueil(request):
     if settings.DEBUG==True:
         context['debug']= "True"
     else:
-        context['debug']= "False"  
+        context['debug']= "False" 
+    context["imag"]=nombre = random.randint(1, 14) 
     if request.method == 'POST':
         request.session['nbc']=request.POST['nbc']
         request.session['orientation']=request.POST['orientation']

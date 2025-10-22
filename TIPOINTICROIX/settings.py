@@ -19,7 +19,7 @@ from dotenv import dotenv_values
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 config = dotenv_values(".env")
-#print("conf :",config)
+#print("conf :",config)pip uni
 if config['DEBUG']=='False':
   DEBUG=False
 else:

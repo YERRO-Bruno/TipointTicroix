@@ -56,7 +56,8 @@
                             VISITEZ LA MARTINIQUE
                         </div>
                         <img class="imgagekit" id="id_imagekit" 
-                        src="{% static 'images/logoOX.jpg' %}" style="height: 70vh;width:100%">
+                        src="{% static "" %}images/paysage/image{{imag}}_avif.jpeg" 
+                        style="height: 70vh;width:100%">
                     </div>    
                 </div>
             </div>
@@ -88,12 +89,6 @@
             document.getElementById("id-deconnexion").style.display="none"
             
         }
-    </script>
-    <script>
-        let alea=Math.floor(Math.random()*14)+1
-        let photo="images/Portrait/photo".concat(alea,"_avif.jpeg")
-        let staticUrl = "{% static '' %}";  
-        document.getElementById("id_imagekit").src = staticUrl.concat(photo);
     </script>
     {% block script %}{% endblock %}
 </body>
