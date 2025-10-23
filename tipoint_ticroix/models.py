@@ -42,4 +42,6 @@ class Game(models.Model):
     type = models.CharField(max_length=8)
     bleu = models.BooleanField(default=True)
     victoire = models.BooleanField(default=True)
+class UniqueVisitor(models.Model):
+    ip_address = models.GenericIPAddressField(unique=True)
     

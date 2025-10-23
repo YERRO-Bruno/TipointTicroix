@@ -2558,6 +2558,14 @@ def finpartie(pseudox,typex,bleuex,result):
     game = Game.objects.create(user=userx, type=typex, bleu=bleuex, victoire=result)
     print("finpartie")
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 
 
 

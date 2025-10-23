@@ -1,8 +1,8 @@
-from .models import User, VerifUser, Game
+from .models import User, VerifUser, Game, UniqueVisitor
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from .functions import coupordi,coupmachine,majgrille,trouve_5, estconnecté
-from .functions import nomniveau, nbtour, finpartie
+from .functions import nomniveau, nbtour, finpartie, get_client_ip
 from django.shortcuts import render,redirect
 from django.utils.crypto import get_random_string
 import bcrypt
@@ -253,6 +253,9 @@ def internet(request):
 
 #page accueil
 def accueil(request):
+    ip = get_client_ip(request)
+    UniqueVisitor.objects.get_or_create(ip_address=ip)
+    unique_count = UniqueVisitor.objects.count()
     request.session["precedent"]=""
     context = {}
     connec=estconnecté(request)
