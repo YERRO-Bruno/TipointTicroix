@@ -20,6 +20,7 @@ def error_404(request, exception):
 def internet(request):
     nbc=int(request.session['nbc'])
     context = {}
+    context["imag"]=nombre = random.randint(1, 14)
     connec=estconnecté(request)
     if connec[0]:
         context["connexion"]="Oui"
@@ -286,6 +287,7 @@ def logout_view(request):
 
 def preregister(request):
     context = {}
+    context["imag"]=nombre = random.randint(1, 14)
     if request.method == 'POST':
         if request.POST["rotation"]=="Oui":
             request.session['orientation']=request.POST['orientation']
@@ -349,6 +351,7 @@ def preregister(request):
 #Inscription
 def register(request):
     context = {}
+    context["imag"]=nombre = random.randint(1, 14)
     if request.method == 'POST':
         if request.POST["rotation"]=="Oui":
             request.session['orientation']=request.POST['orientation']
@@ -417,6 +420,7 @@ def register(request):
 #Demande de code pour changement de mot de passe en cas d'oubli
 def prepassword(request):
     context = {}
+    context["imag"]=nombre = random.randint(1, 14)
     if request.method == 'POST':
         if request.POST["rotation"]=="Oui":
             request.session['orientation']=request.POST['orientation']
@@ -479,6 +483,7 @@ def prepassword(request):
 #changement mot de passe
 def modifpassword(request):
     context = {}
+    context["imag"]=nombre = random.randint(1, 14)
     if request.method == 'POST':
         if request.POST["rotation"]=="Oui":
             request.session['orientation']=request.POST['orientation']
@@ -531,6 +536,7 @@ def modifpassword(request):
 #connexion
 def connect(request):
     context = {}
+    context["imag"]=nombre = random.randint(1, 14)
     if request.method == 'POST':
         if request.POST["rotation"]=="Oui":
             request.session['orientation']=request.POST['orientation']
@@ -575,6 +581,7 @@ def connect(request):
 def tipointticroix(request):
     nbc=int(request.session['nbc'])
     context = {}
+    context["imag"]=nombre = random.randint(1, 14)
     connec=estconnecté(request)
     if connec[0]:
         context["connexion"]="Oui"
@@ -821,6 +828,7 @@ def tipointticroix(request):
 #page machines
 def machines(request):
     context = {}
+    context["imag"]=nombre = random.randint(1, 14)
     connec=estconnecté(request)
     if connec[0]:
         context["connexion"]="Oui"
@@ -973,6 +981,7 @@ def machines(request):
 
 def statistics(request):
     context = {}
+    context["imag"]=nombre = random.randint(1, 14)
     connec=estconnecté(request)
     if connec[0]:
         context["connexion"]="Oui"
@@ -1000,6 +1009,7 @@ def statistics(request):
 #page apropos
 def apropos(request):
     context = {}
+    context["imag"]=nombre = random.randint(1, 14)
     connec=estconnecté(request)
     if connec[0]:
         context["connexion"]="Oui"
@@ -1019,6 +1029,7 @@ def apropos(request):
 #page mentions
 def mentions(request):
     context = {}
+    context["imag"]=nombre = random.randint(1, 14)
     connec=estconnecté(request)
     if connec[0]:
         context["connexion"]="Oui"

@@ -22,10 +22,10 @@
     {% block style %}{% endblock %}
 
 </head>
-<body>
+<body style="background:#d8dbdd">
     {%  load static %}
-    <div  id="mp-0" class="mp-0" style="width: 100%;min-height:100%;background:rgb(223, 221, 221);
-            display: flex;flex-direction: column;justify-content: space-between;">
+    <div  id="mp-0" class="mp-0" style="width:100%;min-height:100%;background:rgb(223, 221, 221);
+            ;display:flex;flex-direction: column;justify-content: space-between;">
         <div class="row" style="min-height:6vh;width:100%">
 
             <div class="col-9" style="display:flex;justify-content:center;font-size:5vw">
@@ -43,7 +43,7 @@
                 <div id="id-connec" style="font-family: 'Raleway', cursive;font-weight: 400;
                 font-style: normal;font-size:3vw">{{ connec }}</div>
                 <a style="font-family: 'Raleway', cursive;font-weight: 400;
-                font-style: normal;font-size:2vw" href="{% url 'logout_view' %}">DECONNEXION</a>
+                font-style: normal;" href="{% url 'logout_view' %}">DECONNEXION</a>
             </div>
             <div class="col-2" align="center" style="margin-top: 1vh;font-size:2vw"
                 id="id-connexion">
@@ -52,7 +52,9 @@
             </div>
         </div>
             
-        {% block content %}{% endblock %}
+        {% block content %}{% endblock %}        
+    </div>
+    <div id="pied" style="width:100%;background:#d8dbdd">
         <div class="col-12 border border-dark text-center" style="font-family: 'Raleway', cursive;
             font-weight: 400;font-style: normal;font-size:3vw;margin-left:2vw;width:96%;
             min-height:8vh" id="pub">
@@ -60,22 +62,21 @@
                 VISITEZ LA MARTINIQUE
             </div>
             <img class="imgagekit" id="id_imagekit" 
-                src="static/images/Portrait/photo{{imag}}_avif.jpeg"
+                src="static/images/Paysage/photo{{imag}}_avif.jpeg"
                 style="height: 13vh;width:100%;margin:0">
         </div>    
-            
+        <div class="row" style="height: 4vh;margin-left:2vw;width: 96%;background-color:black;
+            margin-top:auto">
+            <center class="col-6 mt-3" style="font-family: 'Raleway', cursive;font-weight: 400;
+            font-style: normal;font-size:1.8vh" id="portrait">
+                <a href="{% url 'mentions' %}">Mentions légales</a>
+            </center>
+            <center class="col-6 mt-3" style="font-family: 'Raleway', cursive;font-weight: 400;
+            font-style: normal;font-size:1.8vh" id="apropos">
+                <a href="{% url 'apropos' %}">A propos</a>
+            </center>
+        </div>
     </div>
-    <footer class="row" style="height: 4vh;margin-left:2vw;width: 96%;background-color:black;
-        margin-top:auto" id="pied">
-        <center class="col-6 mt-3" style="font-family: 'Raleway', cursive;font-weight: 400;
-        font-style: normal;font-size:1.8vh">
-            <a href="{% url 'mentions' %}">Mentions légales</a>
-        </center>
-        <center class="col-6 mt-3" style="font-family: 'Raleway', cursive;font-weight: 400;
-        font-style: normal;font-size:1.8vh">
-            <a href="{% url 'apropos' %}">A propos</a>
-        </center>
-    </footer>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -93,6 +94,13 @@
             
         }
     </script>
+    <!--
+    <script>
+        let alea=Math.floor(Math.random()*14)+1
+        let photo="https://ik.imagekit.io/kpvotazbj/Paysage/image".concat(alea,".avif")
+        document.getElementById("id_imagekit").src=photo
+    </script>
+    -->
     
     {% block script %}{% endblock %}
 </body>
