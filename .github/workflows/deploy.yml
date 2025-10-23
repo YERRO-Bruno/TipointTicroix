@@ -3,14 +3,14 @@ name: Deploy Application
 on:
   push:
     branches:
-      - images
+      - stat
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout images
+    - name: Checkout stat
       uses: actions/checkout@v2
 
     # - name: Set up Node.js (ou toute autre technologie si nécessaire)
@@ -46,4 +46,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Utilisez le token d'accès
       run: |
         git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/YERRO-Bruno/TipointTicroix.git
-        git push origin HEAD:images
+        git push origin HEAD:stat
