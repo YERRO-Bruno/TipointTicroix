@@ -9,94 +9,70 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <meta name="csrf_token" content="{{ csrf_token }}">
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    {% block meta %}{% endblock %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
 
     {% block style %}{% endblock %}
 
 </head>
 <body>
-
-    {% if messages %}
-        {% for message in messages %}
-            <div class="modal" tabindex="-1" role="dialog" id="myModal">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Message</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            {{ message }}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-        <script>
-            $(document).ready(function () {
-                $('#myModal').modal('show');
-            });
-        </script>
-    {% endif %}
     {%  load static %}
-    <div  class="mp-0" style="height: 96.5vh;width: 99vw;background-repeat: no-repeat;
+    <div  class="mp-0" style="width: 99vw;background-repeat: no-repeat;
         background-image: url('/static/images/quadrillage.png');
         background-repeat: no-repeat;background-size: cover">
-        <div class="row" style="height: 19%;width:100%">
+        <div class="row" style="height: 19%;width:99%">
             <div class="col-2">
-                <img style="height: 18vh;width: 18vw" src="/static/images/logo.jpg">
+                
+                <img style="height: 18vh;width: 16vw" src="{% static 'images/logoOX.jpg' %}">
+                
             </div>
-            <div class="col-8" style="font-size:6vw">   
-                <p align="center" style="font-family: 'Pacifico', cursive;
-                font-weight: 400;margin: 1%;font-style: normal">Ti_Point-Ti_Croix</p>
+            <div class="col-8" style="font-size:5vw">
+                <div>
+                    <p align="center" style="font-family: 'Raleway', cursive;
+                    font-weight: 400;margin: 0%;font-style: normal">Ti_Point-Ti_Croix</p>
+                    
+                </div>   
+                <div>
+                </div>
             </div>
             <div class="col-2" align="center" style="margin-top: 6vh;font-size:1.5vw"
                 id="id-deconnexion">
-                <p id="id-connec" style="font-family: 'Pacifico', cursive;font-weight: 400;
+                <p id="id-connec" style="font-family: 'Raleway', cursive;font-weight: 400;
                 font-style: normal;">{{ connec }}</p>
-                <a style="font-family: 'Pacifico', cursive;font-weight: 400;
-                font-style: normal;" href="http://localhost:8000/tipointticroix/logout">DECONNEXION</a>
+                <a style="font-family: 'Raleway', cursive;font-weight: 400;
+                font-style: normal;" href="{% url 'logout_view' %}">DECONNEXION</a>
             </div>
             <div class="col-2" align="center" style="margin: 6.5% 0px 0px 0px;font-size:1.5vw"
                 id="id-connexion">
-                <a style="font-family: 'Pacifico', cursive;font-weight: 400;
-                font-style: normal;" href="http://localhost:8000/tipointticroix/connect">CONNEXION</a>
+                <a style="font-family: 'Raleway', cursive;font-weight: 400;
+                font-style: normal;" href="{% url 'connect' %}">CONNEXION</a>
             </div>
             
             {% block content %}{% endblock %}
-            <div class="col-2 border border-dark text-center" style="font-family: 'Pacifico', cursive;
+            <div class="col-2 border border-dark text-center" style="font-family: 'Raleway', cursive;
             font-weight: 400;font-style: normal;font-size: 1.5vw">
                 <div>
                     VISITEZ LA MARTINIQUE
                 </div>
                 <img class="imgagekit" id="id_imagekit" 
-                src="" style="height: 65vh;max-width:15vw">
+                src="{% static 'images/logoOX.jpg' %}" style="height: 65vh;max-width:15vw">
             </div>    
             
         </div>
     </div>
-    <div class="row" style="height: 3.5vh;width: 100vw;background-color:black">
-        <center class="col-4" style="font-family: 'Pacifico', cursive;font-weight: 400;
+    <div class="row" style="height: 7vh;width: 100vw;background-color:black">
+        <center class="col-6 mt-3" style="font-family: 'Raleway', cursive;font-weight: 400;
         font-style: normal;font-size:1.8vh">
-            <a href="http://localhost:8000/">Nous contacter</a>
+            <a href="{% url 'mentions' %}">Mentions légales</a>
         </center>
-        <center class="col-4" style="font-family: 'Pacifico', cursive;font-weight: 400;
+        <center class="col-6 mt-3" style="font-family: 'Raleway', cursive;font-weight: 400;
         font-style: normal;font-size:1.8vh">
-            <a href="http://localhost:8000/">Politique de confidentialité</a>
-        </center>
-        <center class="col-4" style="font-family: 'Pacifico', cursive;font-weight: 400;
-        font-style: normal;font-size:1.8vh">
-            <a href="http://localhost:8000/">A propos</a>
+            <a href="{% url 'apropos' %}">A propos</a>
         </center>
     </div>
     
@@ -104,7 +80,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     {%  load static %}
-    {% block script %}{% endblock %}
+        
     <script>
         //suppression lien Déconnexion si utilisateur pas connecté
         var login="{{ connexion }}";
@@ -117,10 +93,10 @@
         }
     </script>
     <script>
-        let alea=Math.floor(Math.random()*3)+1
+        let alea=Math.floor(Math.random()*14)+1
         let photo="https://ik.imagekit.io/kpvotazbj/photo".concat(alea,".avif")
-        //alert(photo)
         document.getElementById("id_imagekit").src=photo
     </script>
+    {% block script %}{% endblock %}
 </body>
 </html>

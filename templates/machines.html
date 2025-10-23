@@ -1,19 +1,22 @@
-{%  extends "base.html" %}
-
+<!DOCTYPE html>
+{%  extends "basepaysage.html" %}
 {% block title %}
-Ti_Point-Ti_Croix
+Ti_Points-Ti_Croix
+{%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Faires jouer l'une contre l'autre des algorithmes du jeu
+ Ti-point_Ti-croix de différents niveaux.">
 {%  endblock %}
 {%  load static %}
-{% block style %}
-    
+{% block style %}   
 {%  endblock %}
-
-{%  block content %}
-    
-    <div class="col-2 border border-dark ml-3" style="font-family: 'Pacifico', cursive;
-        font-weight: 400;font-style: normal">
-        <p class="text-center" style="font-size: 2vw">PARTIE</p>
-        <form id="grille" method="post" action="http://localhost:8000/tipointticroix/machines/">
+{%  block lateralgauche %}
+    <div class="border border-dark ml-3" style="font-family: 'Raleway', cursive;
+        font-weight:400;font-style:normal;width:100%;height:100%"> 
+        <div align="center" style="font-family: 'Pacifico', cursive;font-size:4vh;
+            font-weight:800;font-style: normal;margin-top:0">Ti_Point-Ti_Croix</div>
+        <div class="text-center mt-0" style="font-size:1vw">MACHINE VS MACHINE</div>
+        <form id="grille" method="post" action="{% url 'machines' %}">
             {% csrf_token %}
             <div id="x-jouer">
                 <table>
@@ -24,7 +27,7 @@ Ti_Point-Ti_Croix
                                     <label for="niveau1-1" style="font-size: 1vw;
                                         margin-left: 1vw"><input type="radio" id="niveau1-1" 
                                         name="niveau1"  checked
-                                        style="width: 1vw;height: 1vw" value="1" />Novice</label>
+                                        style="width: 1vw;height: 1vw" value="1" />novice</label>
                                 </div>
                                 <div>
                                     <label for="niveau1-2" style="font-size: 1vw;
@@ -44,6 +47,12 @@ Ti_Point-Ti_Croix
                                         name="niveau1" style="width: 1vw;height: 1vw" 
                                         value="4" />expert</label>
                                 </div>
+                                <div>
+                                    <label for="niveau1-5" style="font-size: 1vw;
+                                        margin-left: 1vw"><input type="radio" id="niveau1-5" 
+                                        name="niveau1" style="width: 1vw;height: 1vw" 
+                                        value="5" />champion</label>
+                                </div>
                         </fieldset>
                         <fieldset>
                             <legend style="font-size: 1vw">Choisissez le niveau de la machine2</legend>
@@ -51,7 +60,7 @@ Ti_Point-Ti_Croix
                                     <label for="niveau2-1" style="font-size: 1vw;
                                         margin-left: 1vw"><input type="radio" id="niveau2-1" 
                                         name="niveau2" 
-                                        style="width: 1vw;height: 1vw" value="1" />Novice</label>
+                                        style="width: 1vw;height: 1vw" value="1" />novice</label>
                                 </div>
                                 <div>
                                     <label for="niveau2-2" style="font-size: 1vw;
@@ -71,6 +80,12 @@ Ti_Point-Ti_Croix
                                         name="niveau2" checked style="width: 1vw;height: 1vw" 
                                         value="4" />expert</label>
                                 </div>
+                                <div>
+                                    <label for="niveau2-5" style="font-size: 1vw;
+                                        margin-left: 1vw"><input type="radio" id="niveau2-5" 
+                                        name="niveau2" checked style="width: 1vw;height: 1vw" 
+                                        value="5" />champion</label>
+                                </div>
                         </fieldset>
                         <fieldset>
                             <legend style="font-size: 1vw">Choisissez le mode de jeu</legend>
@@ -89,24 +104,23 @@ Ti_Point-Ti_Croix
                         </fieldset>
                     </tr>
                 </table>
-                <div>
-                    <button  id="btn-quitter" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
-                            margin-left: 2vw;background-color: rgb(0, 208, 255);
-                            margin-top: 1vh">Retour à l'accueil</button>
+                <div style="display:flex;justify-content:center">
+                    <button  id="btn-quitter" class="btn btn-0 m-1" type="button" style="width: 20vh;
+                        font-size: 1vw;background-color: rgb(0, 208, 255);">Retour à l'accueil</button>
+                    <button  id="btn-jouer" class="btn btn-0 m-1" type="button" style="width: 20vh;
+                        font-size: 1vw;background-color: rgb(0, 208, 255)">Jouer</button>
                 </div>
                 <br>
                 <div>
-                    <button  id="btn-jouer" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
-                        margin-left: 2vw;background-color: rgb(0, 208, 255)">Jouer</button>
                 </div>
             </div>
             <div id="x-board">
                 <div>
-                    <label  style="font-size: 1.5vw;">Machine1 : </label>
-                    <label  style="font-size: 1.5vw;color: blue;font-weight: bolder">O</label>
+                    <label  id="machine1" style="font-size: 1.5vw;color: blue;">{{ nom1 }} </label>
+                    <label  id="mchine2" style="font-size: 1.5vw;color: blue;font-weight: bolder">O</label>
                 </div>
                 <div>
-                    <label style="font-size: 1.5vw">Machine2 :</label>
+                    <label style="font-size: 1.5vw;color: red;">{{ nom2 }} </label>
                     <label style="font-size: 1.5vw;color: red;font-weight: bolder">X</label>
                 </div>
                 <div>
@@ -137,17 +151,28 @@ Ti_Point-Ti_Croix
                     <p id="coupsuivant" style="font-size: 0.9vw">Espace pour le coup suivant</p>
                 </div>
                 <div>
-                    <button  id="btn-annuler" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                    <button  id="btn-annuler" class="btn btn-0" type="button" style="width: 22vh;font-size: 1.2vw;
                             margin-left: 2vw;background-color: rgb(0, 208, 255);
                             margin-top: 1vh">Annuler tour</button>
                 </div>
                 <div>
-                    <button  id="btn-rejouer" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                    <button  id="btn-save" class="btn btn-0" type="button" style="width: 22vh;font-size: 1.2vw;
+                            margin-left: 2vw;background-color: rgb(0, 208, 255);
+                            margin-top: 1vh">Enregistrer position</button>
+                </div>
+                <div>
+                    <button  id="btn-load" class="btn btn-0" type="button" style="width: 22vh;font-size: 1.2vw;
+                            margin-left: 2vw;background-color: rgb(0, 208, 255);
+                            margin-top: 1vh">Charger position</button>
+                </div>
+                <br>
+                <div>
+                    <button  id="btn-rejouer" class="btn btn-0" type="button" style="width: 22vh;font-size: 1.2vw;
                             margin-left: 2vw;background-color: rgb(0, 208, 255);
                             margin-top: 1vh">Rejouer</button>
                 </div>
                 <div>
-                    <button  id="btn-quitter2" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
+                    <button  id="btn-quitter2" class="btn btn-0" type="button" style="width: 22vh;font-size: 1.2vw;
                             margin-left: 2vw;background-color: rgb(0, 208, 255);
                             margin-top: 1vh">Retour à l'accueil</button>
                 </div>
@@ -161,34 +186,35 @@ Ti_Point-Ti_Croix
                     <br>
                     <label>Niveau machine2 : </label>
                     <label id="niveau2-id" type="text">{{ niveau2 }}</label>
-                    <br>
-                    
+                    <br>                    
                     <input name="coup1" id="id-coup1" type="text" hidden>
                     <input name="coup2" id="id-coup2" type="text" hidden>
                     <input name="annuler" id="id-annuler" type="text" hidden>
+                    <input name="charger" id="id-charger" type="text" hidden>
                     <label for="id-sequence">Coups joués</label>
-                    <input id="id-sequence" type="text" value="{{ sequence }}">
+                    <input name="sequence" id="id-sequence" type="text" value="{{ sequence }}">
+                    <label id="id-pat">{{ pat }}</label>
                     <label for="id-victoire1">victoire machine1</label>
                     <input id="id-victoire1" type="text" value="{{ victoire1 }}">
                     <label for="id-victoire2">victoire machine2</label>
                     <input id="id-victoire2" type="text" value="{{ victoire2 }}">
-                </div>
-                
+                </div>            
             </div>
         </form>
     </div>
-    <div class="col-8 row justify-content-center" id="id_table">
-        <div class="col-1">
-        </div>
-        <div class="cadre align-self-midle col-10">
+{%  endblock %}
+
+{%  block content %}
+    
+    <div id="id_table">
+        <div class="cadre" style="display:flex;justify-content:center;width:100%">
             <table class="m-auto" id="table" style="font-size: 1.8vh">
             </table>
         </div>
-        <div class="col-1">
-        </div>
     </div>    
 {%  endblock %}
-
+{%  load static %}
 {%  block script %}
         <script src="{% static 'JS/machines.js'%}"></script>
+
 {%  endblock %}

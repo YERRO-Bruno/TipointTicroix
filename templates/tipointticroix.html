@@ -1,161 +1,45 @@
-{%  extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {%  load static %}
+    <title>Ti_Points-Ti_Croix</title>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <meta name="Ti-point_Ti-croix" content="Découvrez le jeu Ti-point_Ti-croix version antillaise du 
+    Gomoku Chinois.">
+    <!-- Lien vers le manifest.json -->
+    {# <link rel="manifest" href="{% static 'manifest/manifest.json' %}"> #}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
 
-{% block title %}
-Ti_Point-Ti_Croix
-{%  endblock %}
-{%  load static %}
-{% block style %}
-    
-{%  endblock %}
-
-{%  block content %}
-    <div class="col-2 border border-dark ml-3" style="font-family: 'Pacifico', cursive;
-        font-weight: 400;font-style: normal">
-        <p class="text-center" style="font-size: 2vw">PARTIE</p>
-        <form id="grille" method="post" action="http://localhost:8000/tipointticroix/">
-            {% csrf_token %}
-            <div id="x-jouer">
-                <table>
-                    <tr>
-                        <fieldset>
-                            <legend style="font-size: 1.4vw">Choisissez le niveau de la machine</legend>
-                                <div>
-                                    <label for="niveau1" style="font-size: 1vw;
-                                        margin-left: 1vw"><input type="radio" id="niveau1" 
-                                        name="niveau" 
-                                        style="width: 1vw;height: 1vw" value="1" />Novice</label>
-                                </div>
-                                <div>
-                                    <label for="niveau2" style="font-size: 1vw;
-                                        margin-left: 1vw"><input type="radio" id="niveau2" 
-                                        name="niveau" style="width: 1vw;height: 1vw" 
-                                        value="2" />amateur</label>
-                                </div>
-                                <div>
-                                    <label for="niveau3" style="font-size: 1vw;
-                                        margin-left: 1vw"><input type="radio" id="niveau3" 
-                                        name="niveau" checked style="width: 1vw;height: 1vw" 
-                                        value="3" />pro</label>
-                                </div>
-                                <div>
-                                    <label for="niveau4" style="font-size: 1vw;
-                                        margin-left: 1vw"><input type="radio" id="niveau4" 
-                                        name="niveau" checked style="width: 1vw;height: 1vw" 
-                                        value="4" />expert</label>
-                                </div>
-                        </fieldset>
-                        <fieldset>
-                            <legend style="font-size: 1.4vw">Voulez-vous commencer?</legend>
-                                <div>
-                                    <label for="begin-yes" style="font-size: 1vw;
-                                        margin-left: 1vw"><input type="radio" id="begin-yes" 
-                                        name="check-begin" checked 
-                                        style="width: 1vw;height: 1vw" value="Oui" />Oui</label>
-                                </div>
-                                <div>
-                                    <label for="begin-no" style="font-size: 1vw;
-                                        margin-left: 1vw"><input type="radio" id="begin-no" 
-                                        name="check-begin" style="width: 1vw;height: 1vw" 
-                                        value="Non" />Non</label>
-                                </div>
-                        </fieldset>
-                    </tr>
-                </table>
-                <div>
-                    <button  id="btn-quitter" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
-                            margin-left: 2vw;background-color: rgb(0, 208, 255);
-                            margin-top: 1vh">Retour à l'accueil</button>
-                </div>
-                <br>
-                <div>
-                    <button  id="btn-jouer" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
-                        margin-left: 2vw;background-color: rgb(0, 208, 255)">Jouer</button>
-                </div>
-            </div>
-            <div id="x-board">
-                <div>
-                    <label id="id-beginer" style="font-size: 1vw"></label>
-                </div>
-                <div>
-                    <label  style="font-size: 1vw;font-weight: bolder">{{ connec }} : </label>
-                    <label  id="id-vous" style="font-size: 1vw;
-                        font-weight: bolder">{{ marquevous }}</label>
-                </div>
-                <div>
-                    <label style="font-size: 1vw;font-weight: bolder">Ordinateur :</label>
-                    <label id="id-ordi" style="font-size: 1vw;
-                        font-weight: bolder">{{ marqueordi }}</label>
-                </div>
-                <div>
-                    <label style="font-size: 1.5vw" for="nb-tour">Tour :</label>
-                    <label style="font-size: 1.5vw;width: 3vw" id="nb-tour" 
-                    type="number">{{ tour }}</label>
-                </div>
-                <div style="margin-top: 1.5vh">
-                    <label id="avous" style="font-size: 1.4vw">A VOUS DE JOUER</label>
-                </div>
-                <div>
-                    <label id="amoi" style="font-size: 1.4vw">JE REFLECHIT</label>
-                </div>
-                <div>
-                    <label id="victoire" style="font-size: 1.4vw">VOUS AVEZ GAGNE</label>
-                </div>
-                <div>
-                    <label id="defaite" style="font-size: 1.4vw">VOUS AVEZ PERDU</label>
-                </div>
-                <div>
-                    <button  id="btn-annuler" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
-                            margin-left: 2vw;background-color: rgb(0, 208, 255);
-                            margin-top: 1vh">Annuler tour</button>
-                </div>
-                <div>
-                    <button  id="btn-rejouer" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
-                            margin-left: 2vw;background-color: rgb(0, 208, 255);
-                            margin-top: 1vh">Rejouer</button>
-                </div>
-                <div>
-                    <button  id="btn-quitter2" class="btn btn-0" type="button" style="width: 20vh;font-size: 1.2vw;
-                            margin-left: 2vw;background-color: rgb(0, 208, 255);
-                            margin-top: 1vh">Retour à l'accueil</button>
-                </div>
-                
-            </div>
-            <div>
-                <div hidden>
-                    <br>
-                    <label>Niveau : </label>
-                    <label id="niveau-id" type="text">{{ niveau }}</label>
-                    <br>
-                    <label>Joueur commence : </label>
-                    <label id="begin-id" type="text">{{ begin }}</label>
-                    <br>
-                    <input name="coupjoueur" id="coup-joueur" type="text" hidden>
-                    <input name="annuler" id="id-annuler" type="text" hidden>
-                    <label for="id-sequence">Coups joués</label>
-                    <input id="id-sequence" type="text" value="{{ sequence }}">
-                    <label for="id-victoire">victoire joueur</label>
-                    <input id="id-victoire" type="text" value="{{ victoire }}">
-                    <label for="id-defaite">défaite joueur</label>
-                    <input id="id-defaite" type="array" value="{{ defaite }}">
-                </div>
-                
-            </div>
-        </form>
+</head>
+<body>
+    {%  load static %}
+  <form id="tipointticroix" method="post">
+    {% csrf_token %}
+    <div hidden>
+      <input id="orientation" name="orientation" type="text">
+      <input id="debut" name="debut" type="text">
     </div>
-    <div class="col-8 row justify-content-center" id="id_table">
-        <div class="col-1">
-        </div>
-        <div class="cadre align-self-midle col-10">
-            <table class="m-auto" id="table" style="font-size: 1.8vh;margin-top:0vh">
-            </table>
-        </div>
-        <div class="col-1">
-        </div>
-    </div>
-    
-{%  endblock %}
+  </form>
+</body>
 
-{%  block script %}
-        <script src="{% static 'JS/tipointticroix.js'%}"></script>
-        <script src="/static/JS/registerform.js"></script>
-{%  endblock %}
+<script>
+  document.getElementById("debut").value="Oui"
+  if (window.innerWidth > window.innerHeight) {
+    document.getElementById("orientation").value="paysage"
+  } else {
+    document.getElementById("orientation").value="portrait"
+  }
+  document.forms["tipointticroix"].submit()
+</script>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{%  extends "baseportrait.html" %}
+{% block title %}
+Ti_Points-Ti_Croix
+{%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Jouez sur internet à Ti-point_Ti-croix version antillaise du 
+    Gomoku Chinois.">
+{%  endblock %}
+{% block style %}
+{%  endblock %}
+{%  load static %}
+{%  block content %}
+<div style="width: 100%;background:rgb(223, 221, 221);min-height:78vh;
+    display:flex;flex-direction: column;justify-content: space-between;">
+    <p class="text-center" style="margin-top:1vh;font-family: 'Raleway', cursive;
+        font-weight: 400;font-style: normal;font-size: 1.8vh">JOUER SUR INTERNET</p>
+    <div class="border border-dark ml-3" style="font-family:'Raleway',cursive;font-weight:400;width:96%;
+        font-style: normal">
+        <div id="x-jouer" style="margin-top: 1vh;">
+            <h6 class="texterror text-center" style="color: red">{{ errorLogin }}</h6>
+            <div style="display:flex-block;justify-content:center;width:100%;font-size:3vw">
+                <p class="text-center m-0" align="center">JOUEURS</p>
+                <div style="font-size:1vw;border:solid;width:50%;height:12vh;overflow-y: auto;margin:auto">
+                    <ul class="userconnecteds" id="id_userconnecteds" >
+                        
+                    </ul>
+                </div>            
+                <div style="font-size:1.6vh">
+                    <p class="text-center" align="justify">
+                        Cliquez sur le nom d'un joueur pour lui demander de jouer avec vous.
+                        Une partie se déroule en 2 manches. les 2 joueurs debutant chacun une manche.
+                    </p>
+                </div>
+                <div class="text-center" id="messag0" style="font-size:1.2vh;display:none;
+                            background-color:red;color:white;height:2vh"></div>
+            </div>
+        </div>
+        <div id="x-board">
+            <div class="row" style="margin-top:0">
+                <div class="col-4" style="align-items:left">
+                    <div style="align-items:left;width:100%">
+                        <p  style="font-size:1.5vh;color:blue;margin:0;margin-left:1vw">
+                            {{ premier }} O :<span style="font-size:2vh;">{{ score1 }}</span></p>
+                    </div>                
+                </div>
+                <div class="col-4">
+                    <p class="text-center" style="font-size: 1.5vh;">Match : {{ match }}/2</p>
+                </div>
+                <div class="col-4" style="align-items:right">
+                    <div style="align-items:right;width:100%">
+                        <p align="right" style="font-size:1.5vh;color:red;margin:0;margin-right:1vh">
+                            {{ second }} X: <span style="font-size: 2vh">{{ score2 }} </span></p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <label style="font-size:1.5vh">Tour :</label>
+                    <label style="font-size:2vh;width:3vh" id="nb-tour" type="number">{{ nbtour }}</label>
+                </div>
+                <div class="col-6" style="align-items:right;width:100%">
+                    <label align="center" id="AVOUS" style="font-size:1.5vh;color:blue;width:100%">
+                        A VOUS DE JOUER</label>
+                    <label align="center" id="ALUI" style="font-size:1.5vh;color:red;width:100%">
+                        A LUI DE JOUER</label>
+                    <label align="center" id="victoire" style="font-size:1.5vh;color:blue;width:100%">
+                        VOUS AVEZ GAGNE</label>
+                    <label align="center" id="defaite" style="font-size:1.5vh;color:red;width:100%">
+                        VOUS AVEZ PERDU</label>
+                    </div>
+                    <div class="col-3"></div>
+                    <div class="text-center col-12" id="message" style="font-size:1.2vh;display:none;
+                    background-color:red;color:white;height:2vh;margin-top:1vh"></div>
+            </div>            
+        </div>
+        <form id="internet" method="post">
+            {% csrf_token %}
+            <div hidden>
+                <input id="orientation" name="orientation" type="text" value="{{ orientation }}">
+                <input id="partiemobile" name="partiemobile" type="text" value="{{ partiemobile }}">
+                <input id="debut" name="debut" type="text" value="Non">
+                <input type="text" name="etape" id="id-etape" value="{{ etape }}">
+                <input type="text" name="jeton" id="id-jeton" value="{{ jeton }}">            
+                <input type="text" name="joueur" id="id-joueur" value="{{ joueur }}">            
+                <input type="text" name="premier" id="id-premier" value="{{ premier }}">            
+                <input type="text" name="second" id="id-second" value="{{ second }}">            
+                <input type="text" name="adversaire" id="id-adversaire" value="{{ adversaire }}">                            
+                <input id="id-match" type="text" name="match" value="{{ match }}">                            
+                <input id="id-score1" type="number" name="score1" value="{{ score1 }}">                            
+                <input id="id-score2" type="number" name="score2" value="{{ score2 }}">                            
+                <label id="id-begin" type="text">{{ begin }}</label>                            
+                <input name="coupjoueur" id="coup-joueur" type="text">
+                <input name="charger" id="id-charger" type="text">
+                <label for="id-sequence">Coups joués</label>
+                <input id="id-sequence" name="sequence" type="text" value="{{ sequence }}">        
+                <input id="id-pat" name="pat" value="{{ pat }}">                        
+                <input id="id-finpartie" name="finpartie" type="text" value="{{ finpartie }}">                        
+                <input id="id-finmanche" name="finmanche" type="text" value="{{ finmanche }}">                        
+                <input id="id-victoire" name="victoire" type="text" value="{{ victoire }}">                        
+                <input id="id-defaite" name="defaite" type="text" value="{{ defaite }}">
+            </div>
+            <div style="margin:0;text-align: center;width:100%">
+                <button class="btn btn-0" id="btn-quitter" type="button" style="width:20vh;font-size:1.6vh;
+                margin:0;background-color:rgb(0, 208, 255)">Retour à l'accueil
+            </button>
+            </div>
+            <div style="width:100%;text-align: center">
+                <p><span id="id-bandeau"
+                    style="font-size:4vw;color:red;text-align: center;font-weight:bolder;margin:0%;background-color:blue;"
+                    ></span></p>
+                <div class="cadre" style="display:flex;justify-content:center;width:100%">
+                    <table class="mt-1" id="table" style="width:100%">
+                    </table>
+                </div>
+            </div>
+            <div id="cadrej" style="display:none">
+                <div style="display:flex;justify-content:center">
+                    <p style="text-align: center;font-size:2vh;margin-right:2vw;margin-top:1vw">
+                        Position et validation du coup</p>
+                        <input type="radio" id="joyst" style="height:2vh;width:2vh;margin-top:2vw">
+                        <input id="joystchecked" value="{{ joystchecked }}" name="joystchecked"
+                        hidden>
+                    </div>
+                    <div id="joystick"  style="width:100%;margin-top:0;display:block">
+                        <div style="height:8vw;width:100%;display:flex;justify-content:center;
+                        margin:1vh;margin-top:0;;margin-bottom:0">
+                        <img id="id-haut" src="{% static 'images/haut.png' %}"
+                        style="height:8vw;width:8vw;margin: 1vh;margin-top:0">
+                    </div>
+                    <div style="height:8vw;width:100%;display:flex;justify-content:center;
+                        margin:1vh;;margin-top:0">                    
+                        <img id="id-gauche" src="{% static 'images/gauche.png' %}"
+                        style="height:8vw;width:8vw;margin:0.5vh">
+                        <img id="id-validation" src="{% static 'images/validation.png' %}"
+                        style="height:8vw;width:8vw;margin:0.5vh">
+                        <img id="id-droite" src="{% static 'images/droite.png' %}"
+                        style="height:8vw;width:8vw;margin:0.5vh">
+                        
+                    </div>
+                    <div style="height:8vw;width:100%;display:flex;justify-content:center;margin: 1vh;">
+                        <img id="id-bas" src="{% static 'images/bas.png' %}"
+                        style="height:8vw;width:8vw">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{%  endblock %}
+{%  block script %}    
+    <script src="{% static 'JS/internet.js'%}"></script>    
+{%  endblock %}

@@ -36,4 +36,9 @@ class VerifUser(AbstractBaseUser):
     objects = UserManager()
 
     def __str__(self):
-        return self.email
+        return self.email    
+class Game(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games')
+    type = models.CharField(max_length=1)
+    victoire = models.BooleanField(default=True)
+    

@@ -1,0 +1,167 @@
+{%  extends "base.html" %}
+
+{% block title %}
+Ti_Points-Ti_Croix
+{%  endblock %}
+{% block meta %}
+<meta name="Ti-point_Ti-croix" content="Connectez-vous sur le site du jeu Ti-point_Ti-croix.">
+{%  endblock %}
+{% block style %}
+{%  endblock %}
+{%  load static %}
+{%  block content %}
+<div class="col-2 border border-dark" style="font-family: 'Raleway', cursive;min-width:5vw;
+font-weight: 400;font-style: normal">
+    <div id="x-jouer" style="margin-top: 1vh;">
+        <p class="text-center" style="font-size: 1vw">JOUER SUR INTERNET</p>
+        <h6 class="texterror text-center" style="color: red">{{ errorLogin }}</h6>
+        <div style="height: 1vh;"></div>
+        <div class="col-2">
+                <div allign="center" style="font-size:1.2vw;border:0px;width:14vw">
+                    <p align="center">JOUEURS</p>
+                </div>
+                <div style="font-size:1vw;border:solid;width:14vw;height:25vh;overflow-y: auto;">
+                    <ul class="userconnecteds" id="id_userconnecteds" >
+                        
+                    </ul>
+                </div>            
+            <div style="width:14vw;font-size:1vw">
+                <p align="justify">
+                    Cliquez sur le nom d'un joueur pour lui demander de jouer avec vous.
+                </p>
+                <p align="justify">
+                    Une partie se déroule en 2 manches. les 2 joueurs debutant chacun une manche.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="x-board">
+        <div>
+            <label style="font-size: 1.5vw;">Match : {{ match }}/2</label>
+          </div>
+          <div class="row">
+            <div class="col-9">
+                <label  style="font-size: 1vw;color: blue;">{{ premier }} O </label>
+            </div>
+            <div class="col-3">
+                <label id="lscore1" style="font-size: 1vw;font-weight: bolder">: {{ score1 }}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <label style="font-size: 1vw;color: red;">{{ second }} X </label>
+            </div>
+            <div class="col-3">
+                <label id="lscore2" style="font-size: 1vw;font-weight: bolder"> : {{ score2 }}</label>
+            </div>
+          </div>
+          <div>
+            <label style="font-size: 1.5vw">Tour :</label>
+            <label style="font-size:1.5vw;width:3vw" id="nb-tour" type="number">{{ nbtour }}</label>
+          </div>
+          <div style="margin-top: 1.5vh">
+            <label id="AVOUS" style=" font-size: 1vw;color: blue">A VOUS DE JOUER</label>
+          </div>
+          <div>
+            <label id="ALUI" style="font-size: 1vw;color: red">A LUI DE JOUER</label>
+          </div>
+          <div>
+            <label id="victoire" style="font-size: 1.4vw;color: blue">VOUS AVEZ GAGNE</label>
+          </div>
+          <div>
+            <label id="defaite" style="font-size: 1.4vw;color: red">VOUS AVEZ PERDU</label>
+          </div>            
+    </div>
+    <div hidden>
+        <form id="internet" method="post">
+            {% csrf_token %}
+            <input type="text" name="etape" id="id-etape" value="{{ etape }}">
+            <div>
+                <label>Jeton : </label>
+                <input type="text" name="jeton" id="id-jeton" value="{{ jeton }}">
+            </div>
+            <div>
+                <label>Joueur : </label>
+                <input type="text" name="joueur" id="id-joueur" value="{{ joueur }}">
+            </div>
+            <div>
+                <label>Premier : </label>
+                <input type="text" name="premier" id="id-premier" value="{{ premier }}">
+            </div>
+            <div>
+                <label>Second : </label>
+                <input type="text" name="second" id="id-second" value="{{ second }}">
+            </div>
+            <div>
+                <label>Adversaire : </label>
+                <input type="text" name="adversaire" id="id-adversaire" value="{{ adversaire }}">
+            </div>
+            <div>                
+                <label>Match : </label>
+                <input id="id-match" type="text" name="match" value="{{ match }}">
+            </div>
+            <div>                
+                <label>Score1 : </label>
+                <input id="id-score1" type="number" name="score1" value="{{ score1 }}">
+            </div>
+            <div>                
+                <label>Score2 : </label>
+                <input id="id-score2" type="number" name="score2" value="{{ score2 }}">
+            </div>
+            <div>                
+                <label>Joueur commence : </label>
+                <label id="id-begin" type="text">{{ begin }}</label>
+            </div>
+            <div>                
+                <label>Coup joueur : </label>
+                <input name="coupjoueur" id="coup-joueur" type="text">
+            </div>
+            <div>
+                <label for="id-sequence">Coups joués</label>
+                <input id="id-sequence" type="text" value="{{ sequence }}">
+            </div>
+            <div>
+                <label id="id-pat">{{ pat }}</label>
+            </div>
+            <div>                
+                <label>Fin de partie : </label>
+                <label id="id-finpartie" type="text">{{ finpartie }}</label>
+            </div>
+            <div>                
+                <label>Fin de manche : </label>
+                <label id="id-finmanche" type="text">{{ finmanche }}</label>
+            </div>
+            <div>                
+                <label for="id-victoire">victoire joueur</label>
+                <input id="id-victoire" type="text" value="{{ victoire }}">
+            </div>
+            <div>                
+                <label for="id-defaite">défaite joueur</label>
+                <input id="id-defaite" type="array" value="{{ defaite }}">
+            </div>
+        </form>
+    </div>
+    <button class="btn btn-0" id="btn-quitter" type="button" style="width:20vh;font-size:1.2vw;
+                margin-left: 2vw;background-color: rgb(0, 208, 255);margin-top: 2vh">
+            Retour à l'accueil
+    </button>
+</div>
+<div class="col-8 row justify-content-center" id="id_table">
+    <div class="col-1">
+    </div>
+    <div class="cadre align-self-midle col-10">
+        <p align="center" style="margin:0"><span id="id-bandeau" align="center"
+            style="font-size:1vw;color:red;font-weight:bolder;margin:0%;background-color:blue;"
+            ></span></p>     
+        <table class="m-auto" id="table" style="font-size: 1.8vh;margin-top:0vh">
+        </table>
+    </div>
+    <div class="col-1">
+    </div>
+  </div>
+{%  endblock %}
+{%  block script %}
+    
+    <script src="{% static 'JS/internet.js'%}"></script>
+    
+{%  endblock %}

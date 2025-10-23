@@ -12,24 +12,27 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
+from dotenv import dotenv_values
 
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+config = dotenv_values(".env")
+#print("conf :",config)pip uni
+if config['DEBUG']=='False':
+  DEBUG=False
+else:
+    DEBUG=True
+print(DEBUG)
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-e7c4q*0=zm(1rqz60blbz^8xc-66d-f5zz)tqh52x$yjxr-abz'
+SECRET_KEY = config['SECRET_KEY']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.188', 'localhost', '127.0.0.1',"*","tipointticroix-tipointticroix.*",
+                 '77.37.125.25',"ti-points-ti-croix.fr","172.18.0.4","172.18.0.7"]
+CSRF_TRUSTED_ORIGINS = ["https://77.37.125.25","https://ti-points-ti-croix.fr"]
 
 
 # Application definition
@@ -41,11 +44,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tipoint_ticroix.apps.TipointTicroixConfig',
+    'channels',
+    'tipoint_ticroix',
+    #'tipoint_ticroix.apps.TipointTicroixConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -74,24 +80,34 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'TIPOINTICROIX.wsgi.application'
+ASGI_APPLICATION = 'TIPOINTICROIX.asgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 import mysql.connector
-DATABASES = {  
-    'default': {  
-        'ENGINE': 'django.db.backends.mysql',  
-        "NAME": os.getenv('NAME'),
-        "USER": os.getenv('USER'),
-        "PASSWORD": os.getenv('PASSWORD'),
-        "HOST": os.getenv('HOST'),
-        'PORT': '3306',  
-        'OPTIONS': {  
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
+if DEBUG:
+    # Base de développement (SQLite)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {  
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            "NAME": config['NAME'],
+            "USER": config['USER'],
+            "PASSWORD": config['PASSWORD'],
+            "HOST": config['HOST'],
+            'PORT': 3306,  
+            'OPTIONS': {  
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
+            }  
         }  
     }  
-}  
 AUTH_USER_MODEL = 'tipoint_ticroix.User'
 
 # Password validation
@@ -133,32 +149,16 @@ STATICFILES_DIRS = [
 os.path.join(BASE_DIR, "tipoint_ticroix/static")
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-# Django Emails
-DEBUG_EMAIL = os.getenv('DEBUG_EMAIL')
-EMAIL_HOST = os.getenv('EMAIL_HOST')
+# Django Emails Parameters
+DEBUG_EMAIL = config['DEBUG_EMAIL']
+EMAIL_HOST = config['EMAIL_HOST']
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = config['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = config['EMAIL_HOST_PASSWORD']
 EMAIL_USE_TLS = True
 
-#GOODIES - Pjotos
-
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-TOUR=0
-BEGIN=""
-NIVEAU=0
-NIVEAU1=0
-NIVEAU2=0
-MODEJEU=""
-MARQUEORDI=""
-MARQUEJOUEUR=""
-COUPJOUEUR=""
-COUPORDINATEUR=""
-EMAIL=""
-GRILLE = [["-"] * 25 for _ in range(25)]
-SEQUENCE = []
