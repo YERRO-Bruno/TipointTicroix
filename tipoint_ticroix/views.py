@@ -153,7 +153,7 @@ def internet(request):
                     request.session['.MATCH']=request.session['MATCH']+1
                     if request.POST['jeton']=="Oui":
                         context['defaite']=res
-                        if marque=="O":
+                        if request.session['PREMIER'] == connec[1]:
                             finpartie(connec[1],"internet",True,False)
                         else:
                             finpartie(connec[1],"internet",False,False)
@@ -167,7 +167,7 @@ def internet(request):
                     else:
                         context['defaite']="Non"
                         context['victoire']=res
-                        if marque=="O":
+                        if request.session['PREMIER'] == connec[1]:
                             finpartie(connec[1],"internet",True,True)
                         else:
                             finpartie(connec[1],"internet",False,True)
