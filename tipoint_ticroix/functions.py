@@ -2553,9 +2553,9 @@ def nbtour(SEQUENCE):
     res=len(SEQUENCE)
     return((res//2)+1)
 
-def finpartie(pseudox,typex,result):
+def finpartie(pseudox,typex,bleuex,result):
     userx=User.objects.get(pseudo=pseudox)
-    game = Game.objects.create(user=userx, type=typex, victoire=result)
+    game = Game.objects.create(user=userx, type=typex, bleu=bleuex, victoire=result)
     print("finpartie")
 
 

@@ -39,6 +39,7 @@ class VerifUser(AbstractBaseUser):
         return self.email    
 class Game(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games')
-    type = models.CharField(max_length=1)
+    type = models.CharField(max_length=8)
+    bleu = models.BooleanField(default=True)
     victoire = models.BooleanField(default=True)
     

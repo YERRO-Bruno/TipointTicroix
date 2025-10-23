@@ -8,7 +8,7 @@ from django.utils.crypto import get_random_string
 import bcrypt
 from django.core.mail import send_mail
 from django.http import JsonResponse
-from django.db.models import Count, Sum, Case, When, IntegerField, FloatField
+from django.db.models import Q, Count, Sum, Case, When, IntegerField, FloatField
 from django.db.models.functions import Cast
 from django.conf import settings
 import random
@@ -153,7 +153,10 @@ def internet(request):
                     request.session['.MATCH']=request.session['MATCH']+1
                     if request.POST['jeton']=="Oui":
                         context['defaite']=res
-                        finpartie(connec[1],"H",False)
+                        if marque=="O":
+                            finpartie(connec[1],"internet",True,False)
+                        else:
+                            finpartie(connec[1],"internet",False,False)
                         context['victoire']="Non"
                         if request.session['PREMIER']==request.POST['joueur']:
                             request.session['SCORE2']=request.session['SCORE2']+1
@@ -164,7 +167,11 @@ def internet(request):
                     else:
                         context['defaite']="Non"
                         context['victoire']=res
-                        finpartie(connec[1],"H",True)
+                        if marque=="O":
+                            finpartie(connec[1],"internet",True,True)
+                        else:
+                            finpartie(connec[1],"internet",False,True)
+                        context['victoire']="Non"
                         if request.session['PREMIER']==request.POST['joueur']:
                             request.session['SCORE1']=request.session['SCORE1']+1
                             context['score1']=request.session['SCORE1']
@@ -543,10 +550,8 @@ def connect(request):
             context["email"]=request.POST["email"]
             context["password"]=request.POST["password"]
             if request.POST['orientation']=="paysage":
-                print("connect paysage")
                 return render(request, "connectpaysage.html", context)
             else:
-                print("connect portrait")
                 return render(request, "connectportrait.html", context)
         else:
             emailx = request.POST['email']
@@ -738,7 +743,10 @@ def tipointticroix(request):
                 context['victoire']=res
                 if request.session["stat"]=="Oui":
                     if connec[0]:
-                        finpartie(connec[1],str(request.session['NIVEAU']),True)
+                        if marquejoueur=="O":
+                            finpartie(connec[1],str(request.session['NIVEAU']),True,True)
+                        else:
+                            finpartie(connec[1],str(request.session['NIVEAU']),False,True)
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
                 context['marquevous']=marquejoueur
@@ -776,7 +784,10 @@ def tipointticroix(request):
                 context['defaite']=res
                 if request.session["stat"]=="Oui":
                     if connec[0]:
-                        finpartie(connec[1],str(request.session['NIVEAU']),False)
+                        if marquejoueur=="O":
+                            finpartie(connec[1],str(request.session['NIVEAU']),True,False)
+                        else:
+                            finpartie(connec[1],str(request.session['NIVEAU']),False,False)
                 context['sequence']=','.join([str(i) for i in request.session['SEQUENCE']])
                 context['tour']=str(request.session['TOUR'])
                 context['marquevous']=marquejoueur
@@ -990,12 +1001,12 @@ def statistics(request):
         results = Game.objects.filter(user_id=userx.id).values('type').annotate(
             total=Count('id'),
             victories=Sum(Case(When(victoire=True, then=1), default=0, output_field=IntegerField())),
-            victoire_percentage=Cast(Sum(Case(When(victoire=True, then=1), default=0, output_field=IntegerField())) * 100.0 / Count('id'), FloatField())
+            victoire_percentage_bleu=Cast(Sum(Case(When(Q(victoire=True) & Q(bleu=True), then=1), default=0, output_field=IntegerField())) * 100.0 / Count('id'), FloatField()),
+            victoire_percentage_rouge=Cast(Sum(Case(When(Q(victoire=True) & Q(bleu=False), then=1), default=0, output_field=IntegerField())) * 100.0 / Count('id'), FloatField())
         ).order_by('type')
 
         context['results'] = results
         if request.method == 'POST':
-            print(request.POST['orientation'])
             request.session['orientation']=request.POST['orientation']
         if request.session['orientation']=="portrait":
             return render(request, "statisticsportrait.html", context)
