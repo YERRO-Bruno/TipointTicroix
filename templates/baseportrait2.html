@@ -62,7 +62,8 @@
                 VISITEZ LA MARTINIQUE
             </div>
             <img class="imgagekit" id="id_imagekit" 
-            src="{% static 'images/logoOX.jpg' %}" style="height: 13vh;width:100%;margin:0">
+                src="static/images/Portrait/photo{{imag}}_avif.jpeg"
+                style="height: 13vh;width:100%;margin:0">
         </div>    
         <div class="row" style="height: 4vh;margin-left:2vw;width: 96%;background-color:black;
             margin-top:auto">
@@ -93,11 +94,14 @@
             
         }
     </script>
+    <!--
     <script>
         let alea=Math.floor(Math.random()*14)+1
         let photo="https://ik.imagekit.io/kpvotazbj/Paysage/image".concat(alea,".avif")
         document.getElementById("id_imagekit").src=photo
     </script>
+    -->
+    
     {% block script %}{% endblock %}
 </body>
 </html>
