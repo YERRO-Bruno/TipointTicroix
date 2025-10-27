@@ -56,8 +56,8 @@ Ti_Points-Ti_Croix
                         {% for result in results %}
                             <tr style="border: 2px black;">
                                 <td style="border: 2px solid black;text-align:center;width:15%">{{ result.type }}</td>
-                                <td style="border: 2px solid black;text-align:center;width:33%">{{ result.victoire_percentage_bleu|floatformat:2 }}% ({{result.totalblue}})</td>
-                                <td style="border: 2px solid black;text-align:center;width:33%">{{ result.victoire_percentage_rouge|floatformat:2 }}% ({{result.totalred}})</td>
+                                <td style="border: 2px solid black;text-align:center;width:33%">{{ result.victoire_percentage_bleu|floatformat:2 }}% ({{result.totalblue}} parties)</td>
+                                <td style="border: 2px solid black;text-align:center;width:33%">{{ result.victoire_percentage_rouge|floatformat:2 }}% ({{result.totalred}} parties)</td>
                                 <td style="border: 2px solid black;text-align:center;width:15%">{{ result.total }}</td>
                             </tr>
                         {% endfor %}
