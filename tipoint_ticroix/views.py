@@ -1006,8 +1006,8 @@ def statistics(request):
             totalblue=Sum(Case(When(bleu=True, then=1))),
             totalred=Sum(Case(When(bleu=False, then=1))),
             victories=Sum(Case(When(victoire=True, then=1), default=0, output_field=IntegerField())),
-            victoire_percentage_bleu=Cast(Sum(Case(When(Q(victoire=True) & Q(bleu=True), then=1), default=0, output_field=IntegerField())) * 100.0 / Count('id'), FloatField()),
-            victoire_percentage_rouge=Cast(Sum(Case(When(Q(victoire=True) & Q(bleu=False), then=1), default=0, output_field=IntegerField())) * 100.0 / Count('id'), FloatField())
+            victoire_bleu=Sum(Case(When(Q(victoire=True) & Q(bleu=True), then=1), default=0, output_field=IntegerField())),
+            victoire_rouge=Sum(Case(When(Q(victoire=True) & Q(bleu=False), then=1), default=0, output_field=IntegerField()))
             ).order_by('type')
 
         context['results'] = results
