@@ -49,8 +49,8 @@ Ti_Points-Ti_Croix
                         {% for result in results %}
                             <tr style="border: 2px black;">
                                 <td style="border: 2px solid black;text-align:center;width:15%">{{ result.type }}</td>
-                                <td style="border: 2px solid black;text-align:center;width:33%">{{ result.victoire_bleu }} / ({{result.totalblue}} parties)</td>
-                                <td style="border: 2px solid black;text-align:center;width:33%">{{ result.victoire_rouge }} / ({{result.totalred}} parties)</td>
+                                <td style="border: 2px solid black;text-align:center;width:33%">{{ result.victoire_bleu }} / {{result.totalblue}}</td>
+                                <td style="border: 2px solid black;text-align:center;width:33%">{{ result.victoire_rouge }} / {{result.totalred}}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
